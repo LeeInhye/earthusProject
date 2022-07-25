@@ -37,7 +37,7 @@
                 
                 <div class="col-lg-5">
                     <div class="single_footer_part" style="margin-left:20%; width:900px;">
-                        <img src="resources/images/img/logo.png" alt="logo" style="width:250px;">
+                        <img src="<%= contextPath %>/resources/images/img/logo.png" alt="logo" style="width:250px;">
                         <p>
                             대표전화 &nbsp;02-1234-5678 <br><br>
                             운영시간 &nbsp;월-금 10시 - 18시 / 점심시간 12시 - 13시 <br>
