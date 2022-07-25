@@ -138,7 +138,7 @@
         </div>
         <!-- 검색창 내려옴 -->
         <div class="search_input" id="search_input_box">
-            <div class="container ">
+            <div class="container">
                 <form class="d-flex justify-content-between search-inner">
                     <input type="text" class="form-control" id="search_input" placeholder="Search Here">
                     <button type="submit" class="btn"></button>
@@ -152,31 +152,31 @@
     <!-- 메뉴바 끝 -->
 
     <!-- jquery plugins here-->
-    <script src="resources/js/u_js/jquery-1.12.1.min.js"></script>
+    <script src="resources/js/jquery-1.12.1.min.js"></script>
     <!-- popper js -->
-    <script src="resources/js/u_js/popper.min.js"></script>
+    <script src="resources/js/popper.min.js"></script>
     <!-- bootstrap js -->
-    <script src="resources/js/u_js/bootstrap.min.js"></script>
+    <script src="resources/js/bootstrap.min.js"></script>
     <!-- easing js -->
-    <script src="resources/js/u_js/jquery.magnific-popup.js"></script>
+    <script src="resources/js/jquery.magnific-popup.js"></script>
     <!-- swiper js -->
-    <script src="resources/js/u_js/swiper.min.js"></script>
+    <script src="resources/js/swiper.min.js"></script>
     <!-- swiper js -->
-    <script src="resources/js/u_js/masonry.pkgd.js"></script>
+    <script src="resources/js/masonry.pkgd.js"></script>
     <!-- particles js -->
-    <script src="resources/js/u_js/owl.carousel.min.js"></script>
-    <script src="resources/js/u_js/jquery.nice-select.min.js"></script>
+    <script src="resources/js/owl.carousel.min.js"></script>
+    <script src="resources/js/jquery.nice-select.min.js"></script>
     <!-- slick js -->
-    <script src="resources/js/u_js/slick.min.js"></script>
-    <script src="resources/js/u_js/jquery.counterup.min.js"></script>
-    <script src="resources/js/u_js/waypoints.min.js"></script>
-    <script src="resources/js/u_js/contact.js"></script>
-    <script src="resources/js/u_js/jquery.ajaxchimp.min.js"></script>
-    <script src="resources/js/u_js/jquery.form.js"></script>
-    <script src="resources/js/u_js/jquery.validate.min.js"></script>
-    <script src="resources/js/u_js/mail-script.js"></script>
+    <script src="resources/js/slick.min.js"></script>
+    <script src="resources/js/jquery.counterup.min.js"></script>
+    <script src="resources/js/waypoints.min.js"></script>
+    <script src="resources/js/contact.js"></script>
+    <script src="resources/js/jquery.ajaxchimp.min.js"></script>
+    <script src="resources/js/jquery.form.js"></script>
+    <script src="resources/js/jquery.validate.min.js"></script>
+    <script src="resources/js/mail-script.js"></script>
     <!-- custom js -->
-    <script src="resources/js/u_js/custom.js"></script>
+    <script src="resources/js/custom.js"></script>
 	
 </body>
 </html>

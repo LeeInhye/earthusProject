@@ -9,27 +9,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Earth.Us</title>
     <link rel="icon" href="resources/images/img/sub_logo.png">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="resources/css/u_css_sumin/bootstrap_sumin.min.css">
-    <!-- animate CSS -->
-    <link rel="stylesheet" href="resources/css/u_css_sumin/animate.css">
-    <!-- owl carousel CSS -->
-    <link rel="stylesheet" href="resources/css/u_css_sumin/owl.carousel.min.css">
-    <!-- font awesome CSS -->
-    <link rel="stylesheet" href="resources/css/u_css_sumin/all.css">
-    <!-- flaticon CSS -->
-    <link rel="stylesheet" href="resources/css/u_css_sumin/flaticon.css">
-    <link rel="stylesheet" href="resources/css/u_css_sumin/themify-icons.css">
-    <!-- font awesome CSS -->
-    <link rel="stylesheet" href="resources/css/u_css_sumin/magnific-popup.css">
-    <!-- swiper CSS -->
-    <link rel="stylesheet" href="resources/css/u_css_sumin/slick.css">
-    <!-- style CSS -->
-    <link rel="stylesheet" href="resources/css/u_css_sumin/style_sumin.css">
+    
 </head>
 <body>
+
+	<%@ include file="../views/common/menubar.jsp" %>
 	
-	<%@ include file = "../views/common/menubar.jsp" %>
+	<!-- 메뉴바에 검색부분이  -->
+	<!-- 코드 긁어오면 되는데 왜 include하면 안될까요...하... -->
+	
 	
 	
 	 <section class="banner_part">
@@ -250,7 +238,7 @@
 
                         <div class="col col col">
                             <p style="text-align:right;">
-                                <span style="color:white; margin-right:40px; font-size:16px;">
+                                <span style="color:#778C79; margin-right:40px; font-size:16px;">
                                     * 2022년 6월 기준
                                 </span>
                             </p>
@@ -265,6 +253,7 @@
 	
 	
 	<%@ include file = "../views/common/footerbar.jsp" %>
+	
 	
 </body>
 </html>
