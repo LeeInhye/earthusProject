@@ -1,32 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
 <head>
 
-<!-- 파일 경로 contextPath 앞에 넣기 -->
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Earth.Us</title>
-    <link rel="icon" href="/resources/images/img/sub_logo.png">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="resources/css/u_css_sumin/bootstrap_sumin.min.css">
-    <!-- animate CSS -->
-    <link rel="stylesheet" href="resources/css/u_css_sumin/animate.css">
-    <!-- owl carousel CSS -->
-    <link rel="stylesheet" href="resources/css/u_css_sumin/owl.carousel.min.css">
-    <!-- font awesome CSS -->
-    <link rel="stylesheet" href="resources/css/u_css_sumin/all.css">
-    <!-- flaticon CSS -->
-    <link rel="stylesheet" href="resources/css/u_css_sumin/flaticon.css">
-    <link rel="stylesheet" href="resources/css/u_css_sumin/themify-icons.css">
-    <!-- font awesome CSS -->
-    <link rel="stylesheet" href="resources/css/u_css_sumin/magnific-popup.css">
-    <!-- swiper CSS -->
-    <link rel="stylesheet" href="resources/css/u_css_sumin/slick.css">
-    <!-- style CSS -->
-    <link rel="stylesheet" href="resources/css/u_css_sumin/style_sumin.css">
 </head>
 <body>
 
@@ -76,32 +53,6 @@
         
     </footer>
     
-	<!-- jquery plugins here-->
-    <script src="resources/js/jquery-1.12.1.min.js"></script>
-    <!-- popper js -->
-    <script src="resources/js/popper.min.js"></script>
-    <!-- bootstrap js -->
-    <script src="resources/js/bootstrap.min.js"></script>
-    <!-- easing js -->
-    <script src="resources/js/jquery.magnific-popup.js"></script>
-    <!-- swiper js -->
-    <script src="resources/js/swiper.min.js"></script>
-    <!-- swiper js -->
-    <script src="resources/js/masonry.pkgd.js"></script>
-    <!-- particles js -->
-    <script src="resources/js/owl.carousel.min.js"></script>
-    <script src="resources/js/jquery.nice-select.min.js"></script>
-    <!-- slick js -->
-    <script src="resources/js/slick.min.js"></script>
-    <script src="resources/js/jquery.counterup.min.js"></script>
-    <script src="resources/js/waypoints.min.js"></script>
-    <script src="resources/js/contact.js"></script>
-    <script src="resources/js/jquery.ajaxchimp.min.js"></script>
-    <script src="resources/js/jquery.form.js"></script>
-    <script src="resources/js/jquery.validate.min.js"></script>
-    <script src="resources/js/mail-script.js"></script>
-    <!-- custom js -->
-    <script src="resources/js/custom.js"></script>
 
 </body>
 </html>

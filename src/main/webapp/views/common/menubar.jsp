@@ -11,24 +11,24 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Earth.Us</title>
-    <link rel="icon" href="/resources/images/img/sub_logo.png">
+    <link rel="icon" href="<%= contextPath %>/resources/images/img/sub_logo.png">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="resources/css/u_css_sumin/bootstrap_sumin.min.css">
+    <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/bootstrap_sumin.min.css">
     <!-- animate CSS -->
-    <link rel="stylesheet" href="resources/css/u_css_sumin/animate.css">
+    <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/animate.css">
     <!-- owl carousel CSS -->
-    <link rel="stylesheet" href="resources/css/u_css_sumin/owl.carousel.min.css">
+    <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/owl.carousel.min.css">
     <!-- font awesome CSS -->
-    <link rel="stylesheet" href="resources/css/u_css_sumin/all.css">
+    <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/all.css">
     <!-- flaticon CSS -->
-    <link rel="stylesheet" href="resources/css/u_css_sumin/flaticon.css">
-    <link rel="stylesheet" href="resources/css/u_css_sumin/themify-icons.css">
+    <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/flaticon.css">
+    <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/themify-icons.css">
     <!-- font awesome CSS -->
-    <link rel="stylesheet" href="resources/css/u_css_sumin/magnific-popup.css">
+    <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/magnific-popup.css">
     <!-- swiper CSS -->
-    <link rel="stylesheet" href="resources/css/u_css_sumin/slick.css">
+    <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/slick.css">
     <!-- style CSS -->
-    <link rel="stylesheet" href="resources/css/u_css_sumin/style_sumin.css">
+    <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/style_sumin.css">
 </head>
 
 <body>
@@ -89,7 +89,7 @@
                          <!-- 메뉴바 로고-->
                          <!-- 메뉴바 로고 들어가는 데 class menubar-logo 부여하기 -->
                             <a class="navbar-brand container menubar-logo" href="<%= contextPath %>"> 
-                            <img src="resources/images/img/logo.png" alt="logo" style="width:250px;"> </a>
+                            <img src="../../resources/images/img/logo.png" alt="logo" style="width:250px;"> </a>
                          <button class="navbar-toggler" type="button" data-toggle="collapse"
                              data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                              aria-expanded="false" aria-label="Toggle navigation">
@@ -104,7 +104,8 @@
                                 <ul class="navbar-nav main-menu main-menu-item">
         
                                     <li class="nav-item">
-                                        <a class="nav-link" href="<%= contextPath %>/login.me">
+                                       <!--  경로 숨기기 -->
+                                        <a class="nav-link" href='views/member/memberJoin_1.jsp'>
                                             Login
                                         </a>
                                         <!-- 로그인 후 로그아웃으로 변함 -->
@@ -155,31 +156,31 @@
     <!-- 메뉴바 끝 -->
 
     <!-- jquery plugins here-->
-    <script src="resources/js/jquery-1.12.1.min.js"></script>
+    <script src="<%= contextPath %>/resources/js/jquery-1.12.1.min.js"></script>
     <!-- popper js -->
-    <script src="resources/js/popper.min.js"></script>
+    <script src="<%= contextPath %>/resources/js/popper.min.js"></script>
     <!-- bootstrap js -->
-    <script src="resources/js/bootstrap.min.js"></script>
+    <script src="<%= contextPath %>/resources/js/bootstrap.min.js"></script>
     <!-- easing js -->
-    <script src="resources/js/jquery.magnific-popup.js"></script>
+    <script src="<%= contextPath %>/resources/js/jquery.magnific-popup.js"></script>
     <!-- swiper js -->
-    <script src="resources/js/swiper.min.js"></script>
+    <script src="<%= contextPath %>/resources/js/swiper.min.js"></script>
     <!-- swiper js -->
-    <script src="resources/js/masonry.pkgd.js"></script>
+    <script src="<%= contextPath %>/resources/js/masonry.pkgd.js"></script>
     <!-- particles js -->
-    <script src="resources/js/owl.carousel.min.js"></script>
-    <script src="resources/js/jquery.nice-select.min.js"></script>
+    <script src="<%= contextPath %>/resources/js/owl.carousel.min.js"></script>
+    <script src="<%= contextPath %>/resources/js/jquery.nice-select.min.js"></script>
     <!-- slick js -->
-    <script src="resources/js/slick.min.js"></script>
-    <script src="resources/js/jquery.counterup.min.js"></script>
-    <script src="resources/js/waypoints.min.js"></script>
-    <script src="resources/js/contact.js"></script>
-    <script src="resources/js/jquery.ajaxchimp.min.js"></script>
-    <script src="resources/js/jquery.form.js"></script>
-    <script src="resources/js/jquery.validate.min.js"></script>
-    <script src="resources/js/mail-script.js"></script>
+    <script src="<%= contextPath %>/resources/js/slick.min.js"></script>
+    <script src="<%= contextPath %>/resources/js/jquery.counterup.min.js"></script>
+    <script src="<%= contextPath %>/resources/js/waypoints.min.js"></script>
+    <script src="<%= contextPath %>/resources/js/contact.js"></script>
+    <script src="<%= contextPath %>/resources/js/jquery.ajaxchimp.min.js"></script>
+    <script src="<%= contextPath %>/resources/js/jquery.form.js"></script>
+    <script src="<%= contextPath %>/resources/js/jquery.validate.min.js"></script>
+    <script src="<%= contextPath %>/resources/js/mail-script.js"></script>
     <!-- custom js -->
-    <script src="resources/js/custom.js"></script>
+    <script src="<%= contextPath %>/resources/js/custom.js"></script>
 	
 </body>
 </html>
