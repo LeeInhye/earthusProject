@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String contextPath = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +11,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Earth.Us</title>
-    <link rel="icon" href="resources/images/img/sub_logo.png">
+    <link rel="icon" href="/resources/images/img/sub_logo.png">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="resources/css/u_css_sumin/bootstrap_sumin.min.css">
     <!-- animate CSS -->
@@ -85,7 +88,7 @@
 
                          <!-- 메뉴바 로고-->
                          <!-- 메뉴바 로고 들어가는 데 class menubar-logo 부여하기 -->
-                            <a class="navbar-brand container menubar-logo" href="index.html"> 
+                            <a class="navbar-brand container menubar-logo" href="<%= contextPath %>"> 
                             <img src="resources/images/img/logo.png" alt="logo" style="width:250px;"> </a>
                          <button class="navbar-toggler" type="button" data-toggle="collapse"
                              data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -101,7 +104,7 @@
                                 <ul class="navbar-nav main-menu main-menu-item">
         
                                     <li class="nav-item">
-                                        <a class="nav-link" href="">
+                                        <a class="nav-link" href="<%= contextPath %>/login.me">
                                             Login
                                         </a>
                                         <!-- 로그인 후 로그아웃으로 변함 -->
@@ -110,7 +113,7 @@
                                         </a>  -->
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="">
+                                        <a class="nav-link" href="<%= contextPath %>/enrollForm.me">
                                             Join
                                         </a>
                                     </li>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +9,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Earth.Us</title>
-    <link rel="icon" href="resources/images/img/sub_logo.png">
+    <link rel="icon" href="/resources/images/img/sub_logo.png">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="resources/css/u_css_sumin/bootstrap_sumin.min.css">
     <!-- animate CSS -->
@@ -75,7 +76,8 @@
         
     </footer>
     
-	    <script src="resources/js/jquery-1.12.1.min.js"></script>
+	<!-- jquery plugins here-->
+    <script src="resources/js/jquery-1.12.1.min.js"></script>
     <!-- popper js -->
     <script src="resources/js/popper.min.js"></script>
     <!-- bootstrap js -->
