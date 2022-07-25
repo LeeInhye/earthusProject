@@ -105,7 +105,7 @@
         
                                     <li class="nav-item">
                                        <!--  경로 숨기기 -->
-                                        <a class="nav-link" href='views/member/memberJoin_1.jsp'>
+                                        <a class="nav-link" href='<%= contextPath %>/enrollForm.me'>
                                             Login
                                         </a>
                                         <!-- 로그인 후 로그아웃으로 변함 -->
