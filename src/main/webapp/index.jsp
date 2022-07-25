@@ -4,9 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Earth.Us</title>
+    <link rel="icon" href="resources/images/img/sub_logo.png">
 </head>
 <body>
-	성공인가요
+	
+	<%@ include file = "../views/common/menubar.jsp" %>
+	
 </body>
 </html>
