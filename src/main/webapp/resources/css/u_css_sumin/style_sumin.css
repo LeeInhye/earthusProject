@@ -670,7 +670,8 @@ input[type=checkbox]{
 
 .no_cur_sub_menu {
   color: rgb(158, 158, 158);
-}.cs_rule_box {
+}
+.cs_rule_box {
   height: 200px;
   border: 1px solid gray;
 }
@@ -678,6 +679,10 @@ input[type=checkbox]{
 .cs_rule {
   padding: 10px;
   text-align: left;
+}
+
+.cs_rule p{
+	white-space: pre;
 }
 
 .first_tr{
@@ -726,6 +731,11 @@ input[type=checkbox]{
 }
 #checkPwd td input{
   width: 100%;
+}
+
+.sub_p{
+	color: gray;
+	font-size:14px;
 }
 
 /* ========================= 정보수정 ==================== */
@@ -864,6 +874,7 @@ input[type=checkbox]{
   display:table-cell;
   vertical-align: middle;
 }
+
 
 /* =============================================================*/
 

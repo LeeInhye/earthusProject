@@ -129,7 +129,7 @@
 
                             <div class="hearer_icon d-flex">
                             <!-- 검색 -->
-                            <a id="search_1" href="javascript:void(0)"><i class="ti-search"></i></a>
+                            <a id="search_1" href="javascript:void(0)"><i class="ti-search" font-family="themify"></i></a>
                             <!-- 위시리스트-->
                             <a href=""><i class="ti-heart"></i></a>
                             <!-- 장바구니 -->
