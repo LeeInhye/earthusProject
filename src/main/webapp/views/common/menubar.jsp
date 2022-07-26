@@ -29,6 +29,11 @@
     <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/slick.css">
     <!-- style CSS -->
     <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/style_sumin.css">
+    <!-- pretendard font -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+    <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/font-pretendard.css">
+    <!--  jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -89,7 +94,7 @@
                          <!-- 메뉴바 로고-->
                          <!-- 메뉴바 로고 들어가는 데 class menubar-logo 부여하기 -->
                             <a class="navbar-brand container menubar-logo" href="<%= contextPath %>"> 
-                            <img src="../../resources/images/img/logo.png" alt="logo" style="width:250px;"> </a>
+                            <img src="<%= contextPath %>/resources/images/img/logo.png" alt="logo" style="width:250px;"> </a>
                          <button class="navbar-toggler" type="button" data-toggle="collapse"
                              data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                              aria-expanded="false" aria-label="Toggle navigation">
@@ -105,7 +110,7 @@
         
                                     <li class="nav-item">
                                        <!--  경로 숨기기 -->
-                                        <a class="nav-link" href='<%= contextPath %>/enrollForm.me'>
+                                        <a class="nav-link" href='<%= contextPath %>/login.me'>
                                             Login
                                         </a>
                                         <!-- 로그인 후 로그아웃으로 변함 -->
@@ -114,7 +119,7 @@
                                         </a>  -->
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="<%= contextPath %>/enrollForm.me">
+                                        <a class="nav-link" href="<%= contextPath %>/enrollForm_1.me">
                                             Join
                                         </a>
                                     </li>
