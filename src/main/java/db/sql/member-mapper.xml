@@ -73,6 +73,15 @@
 		   AND USER_PWD = ?
 	</entry>
 	
+	<entry key="findId">
+		SELECT
+		       USER_ID
+		  FROM MEMBER
+		 WHERE USER_STATUS = 'Y'
+		   AND USER_NAME = ?
+		   AND EMAIL = ?
+	</entry>
+	
 	
 	
 	

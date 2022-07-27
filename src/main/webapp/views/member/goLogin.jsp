@@ -23,12 +23,13 @@
 	            <input type="password" placeholder="비밀번호" id="userPwd" name="userPwd">
 	            <br>
 	            <div class="ver_middle">
+	            	<!-- 아이디 저장 보류 -->
 	                <span id="saveId">
 	                    <input type="checkbox" id="saveId"> &nbsp; 아이디 저장
 	                </span>
 	                
 	               
-	                    <script>
+	                    <!-- <script>
 						        $(document).ready(function(){
 								    var userId = getCookie("userId");//저장된 쿠기값 가져오기
 								    $("#userId").val(userId); 
@@ -82,14 +83,14 @@
 								    }
 								    return unescape(cookieValue);
 								}
-						     </script>
+						     </script> -->
 	                
 	                
 	                
 	                
 	                <span id="findIdPwd">
-	                    <a href="">아이디 찾기</a> &ensp;
-	                    <a href="">비밀번호 찾기</a>
+	                    <a href="<%= contextPath %>/goFindId.me">아이디 찾기</a> &ensp;
+	                    <a href="<%= contextPath %>/giFindPwd.me">비밀번호 찾기</a>
 	                </span>
 	
 	            </div>

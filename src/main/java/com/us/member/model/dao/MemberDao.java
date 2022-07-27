@@ -177,7 +177,31 @@ public class MemberDao {
 		return m;
 	}
 	
-	
+	// 아이디 찾기
+	public String findId(Connection conn, String inputName, String inputEmail) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String findId = "";
+		
+		String sql = prop.getProperty("findId");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, inputName);
+			pstmt.setString(2, inputEmail);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				findId = rset.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return findId;
+	}
 	
 	
 	

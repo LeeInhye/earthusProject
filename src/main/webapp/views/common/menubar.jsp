@@ -188,7 +188,7 @@
     <script src="<%= contextPath %>/resources/js/slick.min.js"></script>
     <script src="<%= contextPath %>/resources/js/jquery.counterup.min.js"></script>
     <script src="<%= contextPath %>/resources/js/waypoints.min.js"></script>
-    <script src="<%= contextPath %>/resources/js/contact.js"></script>
+    <!--  <script src="/resources/js/contact.js"></script> -->
     <script src="<%= contextPath %>/resources/js/jquery.ajaxchimp.min.js"></script>
     <script src="<%= contextPath %>/resources/js/jquery.form.js"></script>
     <script src="<%= contextPath %>/resources/js/jquery.validate.min.js"></script>
