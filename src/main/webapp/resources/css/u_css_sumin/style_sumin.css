@@ -824,6 +824,116 @@ input[type=checkbox]{
 }
 
 
+/*================= 주윤 챌린지, 콘텐츠 시작 =================*/
+.chall_outer{
+  width: 1100px;
+}
+
+.chall_item{
+  margin-bottom: 50px;
+  margin: 20px;
+  display: inline-block;
+  width: 500px;
+}
+
+.chall-table th{
+  background-color: #F2F2F2;
+  display: inline-block;
+}
+
+.btn_chall_point {
+  border: 1px solid #F2F2F2;
+  background-color: #F2F2F2;
+  color: #A8BFAA;
+  font-weight: bold;
+}
+
+.btn_cmnt {
+  display: inline-block;
+  padding: 9px 42px;
+  border-radius: 50px;
+  background-color: #A8BFAA;
+  border: 1px solid #ecfdff;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff !important;
+  text-transform: uppercase;
+  font-weight: 400;
+  border: 1px solid #A8BFAA;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  display: inline-block;
+}
+
+.btn_list {
+  display: inline-block;
+  padding: 9px 42px;
+  border-radius: 5px;
+  background-color: #778C79;
+  border: 1px solid #ecfdff;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff !important;
+  text-transform: uppercase;
+  font-weight: 400;
+  border: 1px solid #778C79;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  display: inline-block;
+}
+
+/*제목 배너*/
+.contents_bg {
+  background: #F2F2F2;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/*================= 챌린지 끝 =================*/
+
+
+/*================= 주윤 포인트 시작 =================*/
+
+.point-table {
+  width: 90%;
+}
+
+.point-table th{
+  background-color: #F2F2F2;
+}
+
+.point_inner .table {
+  margin-bottom: 30px;
+  border-bottom: 1px solid #dddddd;
+}
+
+.point_inner a {
+  color: #000;
+  font-weight: bold;
+}
+
+.point_inner .table thead tr th {
+  border-top: 0px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+  color: #797979;
+  border-bottom: 0px !important;
+}
+
+.point_inner .table tbody tr td {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  vertical-align: middle;
+  align-self: center;
+}
+
+.point_inner .table tbody tr td p {
+  font-size: 13px;
+}
+
+/*================= 포인트 끝 =================*/
 
 
 /* ============================== 아무데나 자주 ===============================*/
@@ -1073,7 +1183,7 @@ input[type=checkbox]{
 
 /* line 10, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_blog.scss */
 .blog_area a {
-  color: #666666 !important;
+  color: #666666;
   text-decoration: none;
   -webkit-transition: 0.5s;
   transition: 0.5s;
@@ -1081,7 +1191,7 @@ input[type=checkbox]{
 
 /* line 14, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_blog.scss */
 .blog_area a:hover, .blog_area a :hover {
-  color: #ff3368;
+  color: #778C79;
 }
 
 /* line 20, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_blog.scss */
@@ -1655,7 +1765,7 @@ input[type=checkbox]{
   left: 10px;
   display: block;
   color: #fff;
-  background-color: #ff3368;
+  background-color: #A8BFAA;
   padding: 8px 15px;
   border-radius: 5px;
 }
@@ -2412,6 +2522,7 @@ input[type=checkbox]{
   padding-top: 18px;
   border-radius: 12px;
   height: 100% !important;
+  width: 90%;
 }
 
 /* line 1467, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_blog.scss */

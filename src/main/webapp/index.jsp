@@ -73,7 +73,7 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
                                         <a class="dropdown-item" href="login.html"> 챌린지</a>
-                                        <a class="dropdown-item" href="tracking.html">콘텐츠</a>
+                                        <a class="dropdown-item" href="<%=contextPath%>/list.co">콘텐츠</a>
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
