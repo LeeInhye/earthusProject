@@ -61,7 +61,7 @@
                                         Shop
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                        <a class="dropdown-item" href="<%= contextPath %>/views/product/ProductHair.jsp"> Hair</a>
+                                        <a class="dropdown-item" href="<%= contextPath %>/list.ha?cpage=1"> Hair</a>
                                         <a class="dropdown-item" href="single-product.html">Body</a>
                                         <a class="dropdown-item" href="">Kitchen</a>
                                         <a class="dropdown-item" href="">Bathroom</a>
