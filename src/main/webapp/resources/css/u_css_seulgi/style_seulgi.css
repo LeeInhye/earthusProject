@@ -11,17 +11,17 @@
   background-image: linear-gradient(to left, #fff 0%, #fff 51%, #fff 100%);
 }
 
-/***************** 내가 추가한 style *****************/
-/* 상품 문의 테이블 style */
+/*=========================== 슬기 ============================*/
+
+/* ================= 상품 문의 ================== */
 #pro-qna-tb {
   text-align:center;
   border-bottom:1px solid lightgray;
 }
-#pro-qna-tb td {
-  /* border-bottom:1px solid lightgray; */
+#pro-qna-tb td, th {
+  border-bottom:1px solid lightgray;
 }
 #pro-qna-tb th {
-  border-bottom:1px solid lightgray;
   border-top:1px solid lightgray;
 }
 #pro-qna-tb tr {
@@ -30,22 +30,6 @@
 #pro-qna-tb tr:hover {
   cursor:pointer;
 }
-
-/* 제출 버튼 style */
-.btn-submit {
-  padding: 0px;
-  line-height: 38px;
-  background: #A8BFAA;
-  border: 1px solid #A8BFAA;
-  border-radius: 0px;
-  padding: 0px 30px;
-  font-size: 13px;
-  font-weight: normal;
-  border-radius: 50px;
-  color: #fff;
-}
-
-/* 상품 문의 관련 style */
 #pro-qna-page {
   /* border:1px solid green; */
   position:absolute;
@@ -59,7 +43,6 @@
   color:black;
 
 }
-
 
 .pro-qna-detail p {
   display:block;
@@ -80,9 +63,7 @@
   width: 100%;
 }
 
-textarea {
-  resize:none;
-}
+textarea {resize:none;}
 
 .required-error {
   font-size:small;
@@ -97,9 +78,7 @@ textarea {
   font-size:small;
 }
 
-#pro-qna-btn {
-  text-align:center;
-}
+#pro-qna-btn {text-align:center;}
 
 .pro-qna-btn {
   width:200px;
@@ -135,7 +114,7 @@ textarea {
   margin:30px;
 }
 
-/* 상품 리뷰 관련 style */
+/* ================== 상품 리뷰 ==================== */
 #rev-img {
   display:inline-block;
   vertical-align:top;
@@ -157,6 +136,26 @@ textarea {
   color: #fff;
   text-decoration: none;
 }
+
+/* ================ 버튼 ================= */
+.btn-submit {
+  padding: 0px;
+  line-height: 38px;
+  background: #A8BFAA;
+  border: 1px solid #A8BFAA;
+  border-radius: 0px;
+  padding: 0px 30px;
+  font-size: 13px;
+  font-weight: normal;
+  border-radius: 50px;
+  color: #fff;
+}
+
+/*=========================== 슬기 끝 ============================*/
+
+
+
+
 
 /* file type input요소 style */
 
@@ -3052,16 +3051,19 @@ ul {
   color: #000;
 }
 
-.single_product_item .single_product_text i {
+.single_product_item .single_product_text i { 
+  /* 슬기 추가 */
   font-size:20px;
   display:inline-block;
 }
 
 .best_seller .single_product_item i {
+  /* 슬기 추가 */
   font-size:18px;
 }
 
 .single_product_item .single_product_text a i:hover{
+  /* 슬기 추가 */
   cursor:pointer;
   text-shadow: #f2f2f2;
 }
