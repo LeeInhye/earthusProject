@@ -706,6 +706,10 @@ input[type=checkbox]{
 .tb_enroll_star{
   color: red;
 }
+.font_green{
+	color: #778C79;
+}
+
 .tb_enroll_member td input[type=text],
 .tb_enroll_member td input[type=password],
 .tb_enroll_member td input[type=number]
@@ -714,6 +718,11 @@ input[type=checkbox]{
   border: 1px solid gray;
 }
 .tb_enroll_member td input[type=email],
+#inputId, #inputPhone
+{
+	border: 1px solid gray;
+	width: 55%;
+}
 .tb_enroll_member td input[type=date]{
   border: 1px solid gray;
 }
@@ -838,9 +847,8 @@ input[type=checkbox]{
 }
 
 .menu_sub_title {
-  font-weight: 900;
+  font-weight: 800;
   text-align: left;
-  /* font-size: 24px; */
 }
 .menu_sub_margin{
   margin-left: 3%;

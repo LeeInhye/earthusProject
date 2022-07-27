@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<!-- 아이디 중복 확인 -->
+	<entry key="checkId">
+		SELECT
+		       COUNT(*) AS "COUNT"
+		  FROM MEMBER
+		 WHERE USER_ID = ?
+	</entry>
+	
+	<!-- 이메일 중복 확인 -->
+	<entry key="checkEmail">
+		SELECT
+		       COUNT(*) AS "COUNT"
+		  FROM MEMBER
+		 WHERE EMAIL = ?
+	</entry>
+	
+	<!-- 전화번호 중복 확인 -->
+	<entry key="checkPhone">
+		SELECT
+		       COUNT(*) AS "COUNT"
+		  FROM MEMBER
+		 WHERE PHONE = ?
+	</entry>
+	
+</properties>
