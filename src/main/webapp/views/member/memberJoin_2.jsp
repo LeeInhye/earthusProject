@@ -305,7 +305,7 @@
                     <td class="enroll_addr">
                         <input type="text" id="zonecode" name="zonecode" style="width:40%;" placeholder="우편번호"> 
                         &nbsp;
-                        <button class="btn btn-sm btn_gray" id="addrBtn">우편번호 찾기</button>
+                        <button type="button" class="btn btn-sm btn_gray" id="addrBtn">우편번호 찾기</button>
                         <br>
                         <input type="text" id="address" name="address" placeholder="주소"><br>
                         <input type="text" id="addr_extra" name="addr_extra" placeholder="참고항목"><br>
@@ -397,7 +397,7 @@
                         <span>&emsp; 성별</span>
                     </th>
                     <td>
-                        <input type="radio" name="gender" value="N"> 선택안함 &emsp;
+                        <input type="radio" name="gender" value="N" checked> 선택안함 &emsp;
                         <input type="radio" name="gender" value="M"> 남자   &emsp;
                         <input type="radio" name="gender" value="F"> 여자
                     </td>

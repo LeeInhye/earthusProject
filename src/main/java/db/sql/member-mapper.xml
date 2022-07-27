@@ -26,4 +26,29 @@
 		 WHERE PHONE = ?
 	</entry>
 	
+	<!-- 회원가입 insert -->
+	<entry key="insertMember">
+		INSERT 
+		  INTO MEMBER
+		  VALUES 
+		  (
+		    SEQ_UNO.NEXTVAL
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , DEFAULT
+		  , DEFAULT
+		  , DEFAULT
+		  )
+		  
+	</entry>
+	
 </properties>

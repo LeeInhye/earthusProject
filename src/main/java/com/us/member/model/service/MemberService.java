@@ -1,11 +1,12 @@
 package com.us.member.model.service;
 
-import static com.us.common.JDBCTemplate.close;
+import static com.us.common.JDBCTemplate.*;
 import static com.us.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
 
 import com.us.member.model.dao.MemberDao;
+import com.us.member.model.vo.Member;
 
 public class MemberService {
 	
@@ -32,5 +33,34 @@ public class MemberService {
 			close(conn);
 			return count;
 		}
+		
+		// 회원가입시 insert
+		public int insertMember(Member m) {
+			Connection conn = getConnection();
+			int result = new MemberDao().insertMember(conn, m);
+			if(result > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+			close(conn);
+			return result;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 }

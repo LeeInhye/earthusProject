@@ -1,14 +1,17 @@
 package com.us.member.model.dao;
 
-import static com.us.common.JDBCTemplate.*;
+import static com.us.common.JDBCTemplate.close;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
+
+import com.us.member.model.vo.Member;
 
 public class MemberDao {
 	
@@ -101,7 +104,36 @@ public class MemberDao {
 		return count;
 	}
 	
-	
+	// 회원가입시 insert
+	public int insertMember(Connection conn, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("insertMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m.getUserId());
+			pstmt.setString(2, m.getUserPwd());
+			pstmt.setString(3, m.getUserName());
+			pstmt.setString(4, m.getEmail());
+			pstmt.setString(5, m.getPhone());
+			pstmt.setString(6, m.getZonecode());
+			pstmt.setString(7, m.getAddress());
+			pstmt.setString(8, m.getAddrExtra());
+			pstmt.setString(9, m.getAddrDetail());
+			pstmt.setString(10, m.getUserBirth());
+			pstmt.setString(11, m.getGender());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	
 	

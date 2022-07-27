@@ -1,6 +1,6 @@
 package com.us.member.model.vo;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Member {
 	
@@ -14,7 +14,7 @@ public class Member {
 	private String address;
 	private String addrExtra;
 	private String addrDetail;
-	private Date userBirth;
+	private String userBirth;
 	private String gender;
 	private Date userEnrollDate;
 	private Date userModifyDate;
@@ -23,7 +23,7 @@ public class Member {
 	public Member() {}
 
 	public Member(int userNo, String userId, String userPwd, String userName, String email, String phone,
-			String zonecode, String address, String addrExtra, String addrDetail, Date userBirth, String gender,
+			String zonecode, String address, String addrExtra, String addrDetail, String userBirth, String gender,
 			Date userEnrollDate, Date userModifyDate, String userStatus) {
 		super();
 		this.userNo = userNo;
@@ -41,6 +41,22 @@ public class Member {
 		this.userEnrollDate = userEnrollDate;
 		this.userModifyDate = userModifyDate;
 		this.userStatus = userStatus;
+	}
+
+	public Member(String userId, String userPwd, String userName, String email, String phone, String zonecode,
+			String address, String addrExtra, String addrDetail, String userBirth, String gender) {
+		super();
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.email = email;
+		this.phone = phone;
+		this.zonecode = zonecode;
+		this.address = address;
+		this.addrExtra = addrExtra;
+		this.addrDetail = addrDetail;
+		this.userBirth = userBirth;
+		this.gender = gender;
 	}
 
 	public int getUserNo() {
@@ -123,11 +139,11 @@ public class Member {
 		this.addrDetail = addrDetail;
 	}
 
-	public Date getUserBirth() {
+	public String getUserBirth() {
 		return userBirth;
 	}
 
-	public void setUserBirth(Date userBirth) {
+	public void setUserBirth(String userBirth) {
 		this.userBirth = userBirth;
 	}
 
