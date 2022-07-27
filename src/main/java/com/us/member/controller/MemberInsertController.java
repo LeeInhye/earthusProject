@@ -1,15 +1,13 @@
-package com.us.member;
+package com.us.member.controller;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.us.member.model.service.MemberService;
 import com.us.member.model.vo.Member;
@@ -60,6 +58,8 @@ public class MemberInsertController extends HttpServlet {
 		
 		// 처리결과를 갖고 보게 될 응답화면
 		if(result > 0) {	// 성공 => 회원가입 완료 페이지로 이동
+			HttpSession session = request.getSession();
+			session.setAttribute("m", m);
 			request.getRequestDispatcher("views/member/memberJoin_3.jsp").forward(request, response);
 			
 		} else {	// 실패 => 에러 페이지로 이동
