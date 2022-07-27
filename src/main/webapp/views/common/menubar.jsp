@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.us.member.model.vo.Member"%>
 <%
 	String contextPath = request.getContextPath();
+	Member loginUser = (Member)session.getAttribute("loginUser");
+	String modalMsg = (String)session.getAttribute("modalMsg");
+	String modalId = (String)session.getAttribute("modalId");
 %>
 <!DOCTYPE html>
 <html>
@@ -108,16 +111,23 @@
                             <div class="collapse navbar-collapse main-menu-item">
                                 <ul class="navbar-nav main-menu main-menu-item">
         
-                                    <li class="nav-item">
-                                       <!--  경로 숨기기 -->
-                                        <a class="nav-link" href='<%= contextPath %>/login.me'>
-                                            Login
-                                        </a>
-                                        <!-- 로그인 후 로그아웃으로 변함 -->
-                                        <!-- <a class="nav-link" href="">
-                                            Logout
-                                        </a>  -->
-                                    </li>
+        							<!-- 로그인 됐을 때와 안됐을 때의 메뉴바 차이 -->
+                                       <% if(loginUser == null){	// 로그인되지 않은 상태 %>
+                                    		<li class="nav-item">
+	                                        	<a class="nav-link" href='<%= contextPath %>/goLogin.me'>
+	                                            	Login
+	                                        	</a>
+	                                        </li>
+                                       <% } else { // 로그인 된 상태 %>
+	                                        <!-- 로그인 후 로그아웃으로 변함 -->
+	                                        <li class="nav-item">
+	                                        	<a class="nav-link" href="">
+	                                            	Logout
+	                                        	</a>
+	                                        </li>
+                                       <% } %>
+                                        	
+                                        	
                                     <li class="nav-item">
                                         <a class="nav-link" href="<%= contextPath %>/enrollForm_1.me">
                                             Join
@@ -129,7 +139,7 @@
 
                             <div class="hearer_icon d-flex">
                             <!-- 검색 -->
-                            <a id="search_1" href="javascript:void(0)"><i class="ti-search" font-family="themify"></i></a>
+                            <a id="search_1" href="javascript:void(0)"><i class="ti-search"></i></a>
                             <!-- 위시리스트-->
                             <a href=""><i class="ti-heart"></i></a>
                             <!-- 장바구니 -->

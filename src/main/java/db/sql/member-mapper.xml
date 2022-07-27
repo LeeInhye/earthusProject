@@ -48,7 +48,34 @@
 		  , DEFAULT
 		  , DEFAULT
 		  )
-		  
 	</entry>
+	
+	<entry key="loginMember">
+		SELECT
+		        USER_NO
+		      , USER_ID
+		      , USER_PWD
+		      , USER_NAME
+		      , EMAIL
+		      , PHONE
+		      , ZONECODE
+		      , ADDRESS
+		      , ADDR_EXTRA
+		      , ADDR_DETAIL
+		      , USER_BIRTH
+		      , GENDER
+		      , USER_ENROLL_DATE
+		      , USER_MODIFY_DATE
+		      , USER_STATUS
+		  FROM MEMBER
+		 WHERE USER_STATUS = 'Y'
+		   AND USER_ID = ?
+		   AND USER_PWD = ?
+	</entry>
+	
+	
+	
+	
+	
 	
 </properties>

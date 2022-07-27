@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.us.member.model.vo.Member"%>
 <%
 	String contextPath = request.getContextPath();
+	Member loginUser = (Member)session.getAttribute("loginUser");
 %>
 <!DOCTYPE html>
 <html>
@@ -29,6 +30,11 @@
     <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/slick.css">
     <!-- style CSS -->
     <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/style_sumin.css">
+    <!-- pretendard font -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+    <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/font-pretendard.css">
+    <!--  jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -103,19 +109,24 @@
                             <div class="collapse navbar-collapse main-menu-item">
                                 <ul class="navbar-nav main-menu main-menu-item">
         
+                                    <!-- 로그인 됐을 때와 안됐을 때의 메뉴바 차이 -->
+                                       <% if(loginUser == null){	// 로그인되지 않은 상태 %>
+                                    		<li class="nav-item">
+	                                        	<a class="nav-link" href='<%= contextPath %>/goLogin.me'>
+	                                            	Login
+	                                        	</a>
+	                                        </li>
+                                       <% } else { // 로그인 된 상태 %>
+	                                        <!-- 로그인 후 로그아웃으로 변함 -->
+	                                        <li class="nav-item">
+	                                        	<a class="nav-link" href="">
+	                                            	Logout
+	                                        	</a>
+	                                        </li>
+                                       <% } %>
+                                    
                                     <li class="nav-item">
-                                    <!--  경로 숨기기 -->
-                                        <a class="nav-link" href='<%= contextPath %>/enrollForm.me'>
-                                            Login
-                                        </a>
-                                        
-                                        <!-- 로그인 후 로그아웃으로 변함 -->
-                                        <!-- <a class="nav-link" href="">
-                                            Logout
-                                        </a>  -->
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="">
+                                        <a class="nav-link" href="<%= contextPath %>/enrollForm_1.me">
                                             Join
                                         </a>
                                     </li>

@@ -1,7 +1,9 @@
 package com.us.member.model.service;
 
-import static com.us.common.JDBCTemplate.*;
+import static com.us.common.JDBCTemplate.close;
+import static com.us.common.JDBCTemplate.commit;
 import static com.us.common.JDBCTemplate.getConnection;
+import static com.us.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 
@@ -47,6 +49,13 @@ public class MemberService {
 			return result;
 		}
 		
+		// 로그인
+		public Member loginMember(String userId, String userPwd) {
+			Connection conn = getConnection();
+			Member m = new MemberDao().loginMember(conn, userId, userPwd);
+			close(conn);
+			return m;
+		}
 		
 		
 		
