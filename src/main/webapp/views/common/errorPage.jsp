@@ -7,6 +7,15 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<%@ include file="menubar.jsp" %>
+	
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	
+	<h1 align="center" style="color: red;"><%= request.getAttribute("errorMsg") %></h1>
+	
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	
+	<%@ include file="footerbar.jsp" %>
 
 </body>
 </html>
