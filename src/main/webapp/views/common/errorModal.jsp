@@ -28,10 +28,10 @@
 			
 			                        <br>
 			                        <div class="text-center mt-4"> 
+			                        	<!--  확인버튼 클릭시 이전 페이지로 이동 -->
 			                            <button class="btn btn_green btn_medium" id="modalBtn" onclick="history.back();">확인</button>
 			                        </div>
 			                        
-			                        <!--  확인버튼 클릭시 이전 페이지로 이동 -->
 			                        
 			                        
 			                    </div>

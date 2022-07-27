@@ -3,6 +3,8 @@
 <%
 	String contextPath = request.getContextPath();
 	Member loginUser = (Member)session.getAttribute("loginUser");
+	String modalMsg = (String)session.getAttribute("modalMsg");
+	String modalId = (String)session.getAttribute("modalId");
 %>
 <!DOCTYPE html>
 <html>
@@ -119,7 +121,7 @@
                                        <% } else { // 로그인 된 상태 %>
 	                                        <!-- 로그인 후 로그아웃으로 변함 -->
 	                                        <li class="nav-item">
-	                                        	<a class="nav-link" href="">
+	                                        	<a class="nav-link" href="<%= contextPath %>/logout.me">
 	                                            	Logout
 	                                        	</a>
 	                                        </li>
@@ -431,7 +433,5 @@
     <script src="<%= contextPath %>/resources/js/mail-script.js"></script>
     <!-- custom js -->
     <script src="<%= contextPath %>/resources/js/custom.js"></script>
-	
-	
 </body>
 </html>

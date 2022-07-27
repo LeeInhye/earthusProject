@@ -1,7 +1,6 @@
 package com.us.member.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,20 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.us.member.model.service.MemberService;
-import com.us.member.model.vo.Member;
-
 /**
- * Servlet implementation class LoginController
+ * Servlet implementation class LogoutController
  */
-@WebServlet("/login.me")
-public class LoginController extends HttpServlet {
+@WebServlet("/logout.me")
+public class LogoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginController() {
+    public LogoutController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,28 +27,11 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.setCharacterEncoding("UTF-8");
-		
-		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("userPwd");
-		
-		Member loginUser = new MemberService().loginMember(userId, userPwd);
-		
+		// 로그아웃 요청 => session 만료시키기 == session 무효화
 		HttpSession session = request.getSession();
+		session.invalidate();
 		
-		if(loginUser == null) {		// 조회결과 없음 => 로그인 실패 => 모달창
-			session.setAttribute("modalMsg", "회원정보를 찾을 수 없습니다.");
-			session.setAttribute("modalId", "login_fal");
-			
-			request.getRequestDispatcher("/views/common/errorModal.jsp").forward(request, response);
-		} else {	// 로그인 성공 => 메인 페이지 이동
-			// 로그인한 회원정보 저장
-			session.setAttribute("loginUser", loginUser);
-			// url 재요청 => /us
-			response.sendRedirect(request.getContextPath());
-		}
-		
+		response.sendRedirect(request.getContextPath());
 	}
 
 	/**

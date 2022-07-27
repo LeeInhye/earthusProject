@@ -35,8 +35,7 @@
     <!-- pretendard font -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
     <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/font-pretendard.css">
-    <!--  jquery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
 </head>
 
 <body>
@@ -121,7 +120,7 @@
                                        <% } else { // 로그인 된 상태 %>
 	                                        <!-- 로그인 후 로그아웃으로 변함 -->
 	                                        <li class="nav-item">
-	                                        	<a class="nav-link" href="">
+	                                        	<a class="nav-link" href="<%= contextPath %>/logout.me">
 	                                            	Logout
 	                                        	</a>
 	                                        </li>
@@ -196,6 +195,8 @@
     <script src="<%= contextPath %>/resources/js/mail-script.js"></script>
     <!-- custom js -->
     <script src="<%= contextPath %>/resources/js/custom.js"></script>
+    <!--  jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	
 </body>
 </html>
