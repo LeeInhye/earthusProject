@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.us.member.model.vo.Member"%>
+    pageEncoding="UTF-8" import="com.us.member.model.vo.Member" %>
 <%
 	String contextPath = request.getContextPath();
 	Member loginUser = (Member)session.getAttribute("loginUser");
@@ -61,7 +61,7 @@
                                         Shop
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                        <a class="dropdown-item" href="category.html"> Hair</a>
+                                        <a class="dropdown-item" href="<%= contextPath %>/views/product/ProductHair.jsp"> Hair</a>
                                         <a class="dropdown-item" href="single-product.html">Body</a>
                                         <a class="dropdown-item" href="">Kitchen</a>
                                         <a class="dropdown-item" href="">Bathroom</a>
