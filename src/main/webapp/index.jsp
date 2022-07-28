@@ -14,7 +14,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Earth.Us</title>
-    <link rel="icon" href="<%= contextPath %>/resources/images/img/sub_logo.png">
+    <link rel="icon" href="<%= contextPath %>/resources/img/sub_logo.png">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/bootstrap_sumin.min.css">
     <!-- animate CSS -->
@@ -97,7 +97,7 @@
                          <!-- 메뉴바 로고-->
                          <!-- 메뉴바 로고 들어가는 데 class menubar-logo 부여하기 -->
                             <a class="navbar-brand container menubar-logo" href="<%= contextPath %>"> 
-                            <img src="resources/images/img/logo.png" alt="logo" style="width:250px;"> </a>
+                            <img src="<%= contextPath %>/resources/img/logo.png" alt="logo" style="width:250px;"> </a>
                          <button class="navbar-toggler" type="button" data-toggle="collapse"
                              data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                              aria-expanded="false" aria-label="Toggle navigation">
