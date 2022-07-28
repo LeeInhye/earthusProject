@@ -62,9 +62,9 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
                                         <a class="dropdown-item" href="<%= contextPath %>/list.hair?categoryNo=1&cpage=1"> Hair</a>
-                                        <a class="dropdown-item" href="single-product.html">Body</a>
-                                        <a class="dropdown-item" href="">Kitchen</a>
-                                        <a class="dropdown-item" href="">Bathroom</a>
+                                        <a class="dropdown-item" href="<%= contextPath %>/list.hair?categoryNo=2&cpage=1">Body</a>
+                                        <a class="dropdown-item" href="<%= contextPath %>/list.hair?categoryNo=3&cpage=1">Kitchen</a>
+                                        <a class="dropdown-item" href="<%= contextPath %>/list.hair?categoryNo=4&cpage=1">Bathroom</a>
                                         
                                     </div>
                                 </li>

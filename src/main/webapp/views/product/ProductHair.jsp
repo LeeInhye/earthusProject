@@ -9,6 +9,7 @@
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage();
+	int listCount = pi.getListCount();
 
 	Category c = (Category)request.getAttribute("c");
 	ArrayList<Product> list = (ArrayList<Product>)request.getAttribute("list");
@@ -23,8 +24,7 @@
 
 	<!-- jQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<!-- font awesome icon -->
-	<script src="https://use.fontawesome.com/e3cb36acfb.js"></script>
+	
 
 <style>
 
@@ -70,10 +70,10 @@
                                     </li>
                                     <li>
                                         <a href="<%=contextPath%>/list.hair?categoryNo=1&cpage=1" style="font-weight:bold">Hair</a>
-                                        <span style="font-weight:bold">(헤어상품개수)</span>
+                                        <span style="font-weight:bold">(<%= listCount %>)</span>
                                     </li>
                                     <li>
-                                        <a href="category_body.html">Body</a>
+                                        <a href="<%=contextPath%>/list.hair?categoryNo=2&cpage=1">Body</a>
                                         <span>(바디상품개수)</span>
                                     </li>
                                     <li>
