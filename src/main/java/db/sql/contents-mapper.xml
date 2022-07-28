@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="insertContents">
+		INSERT
+		  INTO CONTENTS
+		     (
+		       CNT_NO
+		     , CNT_TITLE
+		     , CNT_CONTENT
+		     , CNT_THUMBNAIL
+		     )
+		VALUES
+		     (
+		       SEQ_CNTNO.NEXTVAL
+		     , ?
+		     , ?
+		     , ?
+		     )	
+	</entry>
+	
+	<entry key="insertAttachment">
+		INSERT
+		  INTO ATTACHMENT
+		     (
+		       FILE_NO
+		     , REF_TYPE
+		     , REF_BNO
+		     , ORIGIN_NAME
+		     , CHANGE_NAME
+		     , FILE_PATH
+		     )
+		VALUES
+		     (
+		       SEQ_FILENO.NEXTVAL
+		     , 3
+		     , SEQ_CNTNO.CURRVAL
+		     , ?
+		     , ?
+		     , ?
+		     )	
+	</entry>
+
+</properties>

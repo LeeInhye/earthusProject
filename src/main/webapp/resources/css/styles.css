@@ -11751,3 +11751,98 @@ body {
     color:black;
 }
 /*======================================================*/
+
+
+/*======================== 주윤 ========================*/
+
+.btn_admin {
+  display: inline-block;
+  padding: 9px 20px;
+  border-radius: 5px;
+  background-color: #404040;
+  border: 1px solid #ecfdff;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff !important;
+  text-transform: uppercase;
+  font-weight: 400;
+  border: 1px solid #404040;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  display: inline-block;
+  margin-top: 2%;
+}
+
+.btn_admin_intable {
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: 5px;
+  background-color: #778C79;
+  border: 1px solid #ecfdff;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 400;
+  border: 1px solid #778C79;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  display: inline-block;
+}
+
+/*지급완료 버튼. 구현할 때 그냥 위클래스 속성에서 배경,폰트색상 바꾸자 이거는 보는용!*/
+.btn_admin_intable_d {
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: 5px;
+  background-color: #F2F2F2;
+  border: 1px solid #ecfdff;
+  font-size: 11px;
+  font-weight: 700;
+  color: #404040 !important;
+  text-transform: uppercase;
+  font-weight: 400;
+  border: 1px solid #F2F2F2;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  display: inline-block;
+}
+
+.btn_admin_enroll {
+  display: inline-block;
+  padding: 9px 140px;
+  border-radius: 5px;
+  background-color: #404040;
+  border: 1px solid #ecfdff;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff !important;
+  text-transform: uppercase;
+  font-weight: 400;
+  border: 1px solid #404040;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  display: inline-block;
+  margin-top: 2%;
+  margin-left: 1%;
+}
+
+.btn_admin_cancel {
+  display: inline-block;
+  padding: 9px 140px;
+  border-radius: 5px;
+  background-color: #F2F2F2;
+  border: 1px solid #ecfdff;
+  font-size: 15px;
+  font-weight: 700;
+  color: #404040 !important;
+  text-transform: uppercase;
+  font-weight: 400;
+  border: 1px solid #F2F2F2;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  display: inline-block;
+  margin-top: 2%;
+}
+
+/*======================================================*/

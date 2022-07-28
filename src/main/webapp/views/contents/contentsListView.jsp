@@ -3,8 +3,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 </head>
 <body>
 
@@ -35,7 +33,7 @@
                 <div class="blog_left_sidebar" style="width: 100%;">
                     <article class="blog_item">
                         <div class="blog_item_img">
-                            <img class="card-img rounded-0" src="<%=contextPath%>/resources/images/img/blog/single_blog_1.png" alt="" width="1370" height="520">
+                            <img class="card-img rounded-0" src="<%=contextPath%>/resources/img/blog/single_blog_1.png" alt="" width="1370" height="520">
                             <a href="#" class="blog_item_date">
                                 <h3>15</h3>
                                 <p>Jan</p>
@@ -56,7 +54,7 @@
 
                     <article class="blog_item">
                         <div class="blog_item_img">
-                            <img class="card-img rounded-0" src="<%=contextPath%>/resources/images/img/blog/single_blog_2.png" alt="">
+                            <img class="card-img rounded-0" src="<%=contextPath%>/resources/img/blog/single_blog_2.png" alt="">
                             <a href="#" class="blog_item_date">
                                 <h3>15</h3>
                                 <p>Jan</p>
@@ -77,7 +75,7 @@
 
                     <article class="blog_item">
                         <div class="blog_item_img">
-                            <img class="card-img rounded-0" src="<%=contextPath%>/resources/images/img/blog/single_blog_3.png" alt="">
+                            <img class="card-img rounded-0" src="<%=contextPath%>/resources/img/blog/single_blog_3.png" alt="">
                             <a href="#" class="blog_item_date">
                                 <h3>15</h3>
                                 <p>Jan</p>
@@ -98,7 +96,7 @@
 
                     <article class="blog_item">
                         <div class="blog_item_img">
-                            <img class="card-img rounded-0" src="<%=contextPath%>/resources/images/img/blog/single_blog_4.png" alt="">
+                            <img class="card-img rounded-0" src="<%=contextPath%>/resources/img/blog/single_blog_4.png" alt="">
                             <a href="#" class="blog_item_date">
                                 <h3>15</h3>
                                 <p>Jan</p>
@@ -119,7 +117,7 @@
 
                     <article class="blog_item">
                         <div class="blog_item_img">
-                            <img class="card-img rounded-0" src="<%=contextPath%>/resources/images/img/blog/single_blog_5.png" alt="">
+                            <img class="card-img rounded-0" src="<%=contextPath%>/resources/img/blog/single_blog_5.png" alt="">
                             <a href="#" class="blog_item_date">
                                 <h3>15</h3>
                                 <p>Jan</p>
