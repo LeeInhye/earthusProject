@@ -34,7 +34,7 @@
 	
             <div class="mpBlock" onclick="location.href='<%= contextPath %>';">
                 <div class="mp_top">
-                    <h3>CANCLE|EXCHANGE|RETURN</h3>
+                    <h3>CANCLE | EXCHANGE | RETURN</h3>
                     <br>
                     <h4>취소|교환|반품</h4>
                 </div>
@@ -45,7 +45,7 @@
                 </div>
             </div>
 
-            <div class="mpBlock" onclick="location.href='<%= contextPath %>';">
+            <div class="mpBlock" onclick="location.href='<%= contextPath %>/goUpdate.me';">
                 <div class="mp_top">
                     <h3>PROFILE</h3>
                     <br>

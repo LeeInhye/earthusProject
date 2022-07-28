@@ -857,6 +857,7 @@ input[type=checkbox]{
 }
 .mpBlock:hover{
   background-color: #f2f2f2;
+  cursor: pointer;
 }
 
 .mpBlock h3{
@@ -993,11 +994,11 @@ input[type=checkbox]{
 }
 
 .font_bold_gray{
-  font-weight:900;
+  font-weight:700;
   color:gray;
 }
 .font_lighter_gray{
-  font-weight:100;
+  font-weight:300;
   color: gray;
   font-size:13px;
 }
