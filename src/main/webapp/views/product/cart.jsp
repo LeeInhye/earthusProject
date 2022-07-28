@@ -113,7 +113,8 @@
                   <td>
                     <div class="product_count">
                       <span class="input-number-decrement"> <i class="ti-angle-down"></i></span>
-                      <input class="input-number" type="text" value="1" min="0" max="10">
+                      <!-- 문자 입력 시 넘어 -->
+                      <input class="input-number" type="text" value="1">
                     <span class="input-number-increment"> <i class="ti-angle-up"></i></span>
                   </div>
                 </td>
@@ -121,33 +122,7 @@
                   <h5>xxxx원</h5>
                 </td>
               </tr>
-              
-              <tr class="product" id="product-2" class="check-item">
-                <td><input type="checkbox" name="check"></td>
-                <td>
-                  <div class="media">
-                    <div class="d-flex">
-                      <img src="img/product/single-product/cart-1.jpg">
-                    </div>
-                    <div class="media-body">
-                      <p>짜지 않은 저칼로리 대나무 칫솔</p>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <h5>xxxx원</h5>
-                </td>
-                <td>
-                  <div class="product_count">
-                    <span class="input-number-decrement"> <i class="ti-angle-down"></i></span>
-                    <input class="input-number" type="text" value="1" min="0" max="10">
-                    <span class="input-number-increment"> <i class="ti-angle-up"></i></span>
-                  </div>
-                </td>
-                <td>
-                  <h5>xxxx원</h5>
-                </td>
-              </tr>
+             
               <tr class="bottom_button">
                 <td colspan="2">
                   <button class="btn" id="delete-checked" onclick="deleteChecked();">삭제</button>
@@ -183,6 +158,32 @@
   <!-- ============ Start Script Area ==============-->
 
   <script>
+
+    $(function(){
+      // 수량 증가 버튼 클릭 시 함수
+      $(".input-number-increment").click(function(){
+        if( Number($(".input-number").val()) < 10 ){
+          $(".input-number").val( Number($(".input-number").val()) + 1 )
+        }
+      })
+
+      // 수량 감소 버튼 클릭 시 함수
+      $(".input-number-decrement").click(function(){
+        if( Number($(".input-number").val()) > 1 ){
+          $(".input-number").val( Number($(".input-number").val()) - 1 )
+        }
+      })
+
+      // 1~10 이외의 값 입력 시 val()을 1로 바꾸는 함수
+      $(".input-number").change(function(){
+        if( !/[0-9]/.test($(".input-number").val()) || !/10/.test($(".input-number").val()) ){
+          $(".input-number").val("1");
+        }
+      })
+      
+      
+    })
+
     function checkAll(){
       if( $("#check-all").is(':checked') ){
         $("input[name='check']").prop('checked', true);
@@ -195,7 +196,6 @@
       $("input[name='check']:checked").each(function(){
         $(this).parent().parent().remove();
       })
-
     }
 
     $(function(){
