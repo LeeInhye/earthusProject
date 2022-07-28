@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.us.member.model.vo.Member" %>
 <%
 	String contextPath = request.getContextPath();
+	Member loginUser = (Member)session.getAttribute("loginUser");
+	String modalMsg = (String)session.getAttribute("modalMsg");
+	String modalId = (String)session.getAttribute("modalId");
 %>
 <!DOCTYPE html>
 <html>
@@ -29,6 +32,11 @@
     <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/slick.css">
     <!-- style CSS -->
     <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/style_sumin.css">
+    <!-- pretendard font -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+    <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/font-pretendard.css">
+    <!--  jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -53,7 +61,7 @@
                                         Shop
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                        <a class="dropdown-item" href="category.html"> Hair</a>
+                                        <a class="dropdown-item" href="<%= contextPath %>/list.ha?cpage=1"> Hair</a>
                                         <a class="dropdown-item" href="single-product.html">Body</a>
                                         <a class="dropdown-item" href="">Kitchen</a>
                                         <a class="dropdown-item" href="">Bathroom</a>
@@ -67,7 +75,7 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
                                         <a class="dropdown-item" href="login.html"> 챌린지</a>
-                                        <a class="dropdown-item" href="tracking.html">콘텐츠</a>
+                                        <a class="dropdown-item" href="<%=contextPath%>/list.co">콘텐츠</a>
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
@@ -103,19 +111,24 @@
                             <div class="collapse navbar-collapse main-menu-item">
                                 <ul class="navbar-nav main-menu main-menu-item">
         
+                                    <!-- 로그인 됐을 때와 안됐을 때의 메뉴바 차이 -->
+                                       <% if(loginUser == null){	// 로그인되지 않은 상태 %>
+                                    		<li class="nav-item">
+	                                        	<a class="nav-link" href='<%= contextPath %>/goLogin.me'>
+	                                            	Login
+	                                        	</a>
+	                                        </li>
+                                       <% } else { // 로그인 된 상태 %>
+	                                        <!-- 로그인 후 로그아웃으로 변함 -->
+	                                        <li class="nav-item">
+	                                        	<a class="nav-link" href="<%= contextPath %>/logout.me">
+	                                            	Logout
+	                                        	</a>
+	                                        </li>
+                                       <% } %>
+                                    
                                     <li class="nav-item">
-                                    <!--  경로 숨기기 -->
-                                        <a class="nav-link" href='<%= contextPath %>/enrollForm.me'>
-                                            Login
-                                        </a>
-                                        
-                                        <!-- 로그인 후 로그아웃으로 변함 -->
-                                        <!-- <a class="nav-link" href="">
-                                            Logout
-                                        </a>  -->
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="">
+                                        <a class="nav-link" href="<%= contextPath %>/enrollForm_1.me">
                                             Join
                                         </a>
                                     </li>
@@ -420,7 +433,5 @@
     <script src="<%= contextPath %>/resources/js/mail-script.js"></script>
     <!-- custom js -->
     <script src="<%= contextPath %>/resources/js/custom.js"></script>
-	
-	
 </body>
 </html>
