@@ -57,7 +57,7 @@
 
   <!--================Home Banner Area =================-->
   <!-- breadcrumb start-->
-  <section class="breadcrumb breadcrumb_bg">
+  <section class="breadcrumb contents_bg">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-8">
