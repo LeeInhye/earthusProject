@@ -17,52 +17,7 @@
     <link rel="stylesheet" type="text/css" href="<%= contextPath %>/resources/css/u_css_sumin/font-pretendard.css" />
 
     <style>
-        .count1{
-            background-color:rgba(64,64,64,0.1);
-            width:23%;
-            height:120px;
-            margin:auto;
-            padding-top:30px;
-        }
-        .main-list1{
-            width:23%;
-            margin:1%;
-        }
-        .main-list2{
-            width:23%;
-            margin:1%;
-        }
-        .st{
-            height:200px;
-        }
-        .main-list1 h5, .main-list1 h6,.main-list2 h5, .main-list2 h6{ font-weight:bold;}
-        
         .nav a{font-weight:bold;}
-        #table1, #table2, #table3{
-            width:29%;
-            display:inline-table;
-            margin-left:3%;
-        }
-        table{
-            border:1px solid lightgray;
-            background-color:rgba(64,64,64,0.1);
-            width:100%;
-            height:40px;
-            font-size:small;
-        }
-        th{
-            border:1px solid lightgray;
-            width:20%;
-            text-align:center;
-        }
-        td{
-            padding-left:10px;
-        }
-        
-        .row a{
-            text-decoration:none;
-            color:black;
-        }
     </style>
 </head>
 <body class="sb-nav-fixed">
