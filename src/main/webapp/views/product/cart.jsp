@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<%@ include file="../common/menubar.jsp" %>
     
 <!doctype html>
 <html lang="zxx">
@@ -59,10 +57,26 @@
   </style>
 </head>
 
-
 <body>
 
-	<h1>장바구니</h1>
+	<%@ include file="../common/menubar.jsp" %>
+	
+	<!--================ START BANNER AREA =================-->
+    <section class="breadcrumb contents_bg">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="breadcrumb_iner">
+                        <div class="breadcrumb_iner_item">
+                            <h2>장바구니</h2>
+                            <p>장바구니에 담은 상품을 확인하고 구매해보세요!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+   	<!--================ END BANNER AREA =================-->
 
   <!--================Cart Area =================-->
   <section class="cart_area padding_top">
