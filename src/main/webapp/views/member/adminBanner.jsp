@@ -32,7 +32,7 @@
             #datatablesSimple{
                 color:#404040;
             }
-            #add-banner{
+            #add-btn{
                 width:100px;
                 height:40px;
                 border:0px;
@@ -106,7 +106,7 @@
                             </table>
 
                             <div align="right">
-                                <button type="button" id="add-banner" data-toggle="modal" data-target="#add-banner">배너 등록</button>
+                                <button type="button" id="add-btn" data-toggle="modal" data-target="#add-banner">배너 등록</button>
                             </div>
 
                             <br><br><br><br><br>
@@ -119,59 +119,61 @@
 
                 <!-- ========== START MODAL AREA ========== -->
                 <!-- Modal - Edit Banner -->
-                <div class="modal fade" id="edit-banner" role="dialog">
+                <div class="modal" id="edit-banner">
                     <div class="modal-dialog">
 
-                <!-- Modal Content - Edit Banner -->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title">배너 수정</h3>
+                        <!-- Modal Content - Edit Banner -->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title">배너 수정</h3>
+                            </div>
+                            <form action="" method="get">
+                                <div class="modal-body">
+                                    <p>배너 이미지 수정</p>
+                                    <div id="thumbnail" onclick="uploadImg();">
+                                        <input type="file" name="banner-img" id="input-img" style="visibility:hidden;">
+                                        <!-- 파일 업로드하면 업로드된 사진이 썸네일에 변경되어 보여야 함 -->
+                                    </div>
+
+                                    <div id="banner-status">
+                                        <p style="padding-right:10px;">배너 상태 수정</p>
+                                        <select name="bn-status" id="bn-status">
+                                            <option value="Y">공개</option>
+                                            <option value="N">삭제</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="submit" class="btn btn-default" data-dismiss="modal">수정완료</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <form action="" method="get">
-                        <div class="modal-body">
-                            <p>배너 이미지 수정</p>
-                            <div id="thumbnail" onclick="uploadImg();">
-                                <input type="file" name="banner-img" id="input-img" style="visibility:hidden;">
-                                <!-- 파일 업로드하면 업로드된 사진이 썸네일에 변경되어 보여야 함 -->
-                            </div>
-
-                            <div id="banner-status">
-                                <p style="padding-right:10px;">배너 상태 수정</p>
-                                <select name="bn-status" id="bn-status">
-                                    <option value="Y">공개</option>
-                                    <option value="N">삭제</option>
-                                </select>
-                            </div>
-
-                        </div>
-                        <div class="modal-footer">
-                        <button type="submit" class="btn btn-default" data-dismiss="modal">수정완료</button>
-                        </div>
-                    </form>
                 </div>
 
+
                 <!-- Modal - Add Banner -->
-                <div class="modal fade" id="add-banner" role="dialog">
+                <div class="modal" id="add-banner">
                     <div class="modal-dialog">
 
-                <!-- Modal Content - Add Banner -->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title">배너 등록</h3>
-                    </div>
-                    <form action="" method="get">
-                        <div class="modal-body">
-                            <p>배너 이미지 등록</p>
-                            <div id="thumbnail" onclick="uploadImg();">
-                                <input type="file" name="banner-img" id="input-img" style="visibility:hidden;">
-                                <!-- 파일 업로드하면 업로드된 사진이 썸네일에 변경되어 보여야 함 -->
+                        <!-- Modal Content - Add Banner -->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title">배너 등록</h3>
                             </div>
-
-                            <button type="submit" class="btn btn-default" data-dismiss="modal">등록완료</button>
+                            <form action="" method="get">
+                                <div class="modal-body">
+                                    <p>배너 이미지 등록</p>
+                                    <div id="thumbnail" onclick="uploadImg();">
+                                        <input type="file" name="banner-img" id="input-img" style="visibility:hidden;">
+                                        <!-- 파일 업로드하면 업로드된 사진이 썸네일에 변경되어 보여야 함 -->
+                                    </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-default" data-dismiss="modal">수정완료</button>
+                                    </div>
+                            </form>
                         </div>
-                        <div class="modal-footer">
-                        </div>
-                    </form>
+                    </div>
                 </div>
                 <!-- ========== END MODAL CONTENT AREA ========== -->
 
@@ -185,6 +187,7 @@
                 
             </div>
         </div>
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
