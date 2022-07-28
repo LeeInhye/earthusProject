@@ -808,9 +808,17 @@ input[type=checkbox]{
   color:black;
 }
 
+#findPwdBtn{
+    display: flex;
+    justify-content: space-between;
+}
+#findPwdBtn button{
+    width:45%;
+}
+
 .find_pwd_h{
   color:gray;
-  font-weight:900;
+  font-weight:700;
 }
 #molaId{
   text-align:right;
@@ -821,6 +829,10 @@ input[type=checkbox]{
 }
 #molaId a:hover{
   color:#778C79;
+}
+
+.h_font_weight{
+	font-weight: 700;
 }
 
 

@@ -82,8 +82,29 @@
 		   AND EMAIL = ?
 	</entry>
 	
+	<entry key="findPwd">
+		SELECT
+		       COUNT(*) AS "COUNT"
+		  FROM MEMBER
+		 WHERE USER_STATUS = 'Y'
+		   AND USER_ID = ?
+		   AND USER_NAME = ?
+	</entry>
 	
+	<entry key="enterEmail">
+		SELECT
+		        EMAIL
+		  FROM MEMBER
+		 WHERE USER_STATUS = 'Y'
+		   AND USER_ID = ?
+	</entry>
 	
+	<entry key="updatePwd">
+		UPDATE MEMBER
+		   SET USER_PWD = ?
+		 WHERE USER_STATUS = 'Y'
+		   AND USER_ID = ?
+	</entry>
 	
 	
 	

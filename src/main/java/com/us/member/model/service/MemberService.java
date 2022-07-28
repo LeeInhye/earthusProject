@@ -57,9 +57,33 @@ public class MemberService {
 			return m;
 		}
 		
+		// 비밀번호 찾기
+		public int findPwd(String inputId, String inputName) {
+			Connection conn = getConnection();
+			int count = new MemberDao().findPwd(conn, inputId, inputName);
+			close(conn);
+			return count;
+		}
 		
+		// 회원 인증의 이메일 조회
+		public String enterEmail(String inputId) {
+			Connection conn = getConnection();
+			String memEmail = new MemberDao().enterEmail(conn, inputId);
+			close(conn);
+			return memEmail;
+		}
 		
-		
+		// 비밀번호 변경
+		public int updatePwd(String inputId, String newPwd) {
+			Connection conn = getConnection();
+			int result = new MemberDao().updatePwd(conn, inputId, newPwd);
+			if(result > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+			return result;
+		}
 		
 		
 		

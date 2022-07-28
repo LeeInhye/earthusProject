@@ -204,10 +204,77 @@ public class MemberDao {
 	}
 	
 	
+	// 비밀번호 찾기
+	public int findPwd(Connection conn, String inputId, String inputName) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		
+		String sql = prop.getProperty("findPwd");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, inputId);
+			pstmt.setString(2, inputName);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
 	
+	// 인증 메일을 보낼 이메일 조회
+	public String enterEmail(Connection conn, String inputId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String enterEmail = "";
+		
+		String sql = prop.getProperty("enterEmail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, inputId);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				enterEmail = rset.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return enterEmail;
+	}
 	
-	
-	
+	// 비밀번호 변경
+	public int updatePwd(Connection conn, String inputId, String newPwd) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("updatePwd");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, newPwd);
+			pstmt.setString(2, inputId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	
 	

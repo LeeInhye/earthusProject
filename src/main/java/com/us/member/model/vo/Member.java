@@ -65,6 +65,13 @@ public class Member {
 		this.userName = userName;
 	}
 
+	public Member(String userId, String userName, String email) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.email = email;
+	}
+
 	public int getUserNo() {
 		return userNo;
 	}

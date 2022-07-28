@@ -13,7 +13,7 @@
         <div class="login_section">
             <br><br><br><br><br><br><br><br><br>
             
-            <h3><b>회원 로그인</b></h3>
+            <h2 class="h_font_weight">회원 로그인</h2>
             <br><br><br>
             
             <form action="<%= contextPath %>/login.me" method="post">
@@ -90,7 +90,7 @@
 	                
 	                <span id="findIdPwd">
 	                    <a href="<%= contextPath %>/goFindId.me">아이디 찾기</a> &ensp;
-	                    <a href="<%= contextPath %>/giFindPwd.me">비밀번호 찾기</a>
+	                    <a href="<%= contextPath %>/goFindPwd.me">비밀번호 찾기</a>
 	                </span>
 	
 	            </div>
