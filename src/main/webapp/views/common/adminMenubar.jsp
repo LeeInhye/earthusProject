@@ -5,12 +5,11 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>Earth.Us-Admin</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>admin</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="<%= contextPath %>/resources/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
@@ -25,7 +24,7 @@
     <!-- 상단+사이드 메뉴바 시작 -->
     <nav class="sb-topnav navbar navbar-expand navbar-dark " style="background:#778C79;">
         <!-- 로고 들어가는 자리 -->
-        <a class="navbar-brand ps-3" href=""><img src="assets/img/logo(admin).jpg" style="box-sizing:border-box; width:100px;"></a>
+        <a class="navbar-brand ps-3" href=""><img src="<%= contextPath %>/resources/assets/img/logo(admin).jpg" style="box-sizing:border-box; width:100px;"></a>
         <!-- 사이드 메뉴바 접고 펼치는 버튼 -->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         <!-- 공간배치때문에 남겨둔 요소 신경xx -->
