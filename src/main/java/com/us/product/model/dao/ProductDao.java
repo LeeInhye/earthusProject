@@ -114,5 +114,35 @@ public class ProductDao {
 		return list;
 		
 	}
+	
+	public ArrayList<Product> selectBestProductList(Connection conn, int categoryNo){
+		ArrayList<Product> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectBestProductList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, categoryNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Product(rset.getString("pro_code"),
+									 rset.getString("pro_category_name"),
+									 rset.getString("pro_name"),
+									 rset.getString("price"),
+									 rset.getDate("pro_enroll_date"),
+									 rset.getString("pro_img_path"),
+									 rset.getInt("pro_count")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 
 }

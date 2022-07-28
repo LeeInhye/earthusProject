@@ -13,6 +13,7 @@
 
 	Category c = (Category)request.getAttribute("c");
 	ArrayList<Product> list = (ArrayList<Product>)request.getAttribute("list");
+	ArrayList<Product> bList = (ArrayList<Product>)request.getAttribute("bList");
 %>
 <!DOCTYPE html>
 <html>
@@ -22,19 +23,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Earth.Us</title>
 
-	<!-- jQuery -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	
 
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<!-- font awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    
 <style>
 
 	.best_seller{margin:5% 0%;}
 	.price_rangs_aside{margin:5% 0%;}
-	
+	.fa-heart {color:red;}
 </style>
 
 </head>
 <body>
+	
 	
 	<%@ include file = "../common/menubar.jsp" %>
 
@@ -114,13 +120,16 @@
                         <div class="col-lg-12"> <!-- 조회바영역-->
                             <div class="product_top_bar d-flex justify-content-between align-items-center">
                                 <div class="single_product_menu d-flex"><!-- 정렬기준-->
-                                    <h5>정렬기준 : </h5>
-                                    <select class="nice-select">
-                                        <option data-display="조회순" value="1">조회순</option>
-                                        <option value="2">판매량높은순</option>
-                                        <option value="3">가격높은순</option>
-                                        <option value="4">가격낮은순</option>
-                                    </select>
+                                    <h4>정렬기준 : </h4>
+                                        <select name="productSort" id="productSort">
+                                            <option value="1">조회순</option>
+                                            <option value="2">판매량높은순</option>
+                                            <option value="3">가격높은순</option>
+                                            <option value="4">가격낮은순</option>
+                                        </select>
+                                        <div>
+                                            <button>조회순 <i class="fa-solid fa-angle-down"></i></button>
+                                        </div>
                                 </div>
                                 <div class="single_product_menu d-flex"><!--상품검색창-->
                                     <div class="input-group">
@@ -151,41 +160,20 @@
                             <div class="row align-items-center justify-content-between">
                                 <div class="col-lg-12">
                                     <div class="best_product_slider owl-carousel">
+                                    <% if(bList != null) { %>
+                                    	console.log(bList);
+                                    	<% for(Product p : bList) { %>
                                         <div class="single_product_item">
-                                            <img src="img/product/product_1.png" alt="">
+                                            <img src="<%= contextPath %>/<%= p.getProImgPath() %>" alt="">
                                             <div class="single_product_text">
-                                                <h4>상품명1</h4>
-                                                <p>9,900원</p><i class="fa fa-heart-o""></i>
+                                                <h4><%= p.getProName() %></h4>
+                                                <p><%= p.getPrice() %>원</p>&nbsp;&nbsp;&nbsp;<i class="fa fa-heart-o""></i>
                                             </div>
                                         </div>
-                                        <div class="single_product_item">
-                                            <img src="img/product/product_2.png" alt="">
-                                            <div class="single_product_text">
-                                                <h4>상품명2</h4>
-                                                <p>9,900원</p><i class="fa fa-heart-o"></i>
-                                            </div>
-                                        </div>
-                                        <div class="single_product_item">
-                                            <img src="img/product/product_3.png" alt="">
-                                            <div class="single_product_text">
-                                                <h4>상품명3</h4>
-                                                <p>10,000원</p><i class="fa fa-heart-o"></i>
-                                            </div>
-                                        </div>
-                                        <div class="single_product_item">
-                                            <img src="img/product/product_4.png" alt="">
-                                            <div class="single_product_text">
-                                                <h4>상품명4</h4>
-                                                <p>10,000원</p><i class="fa fa-heart-o"></i>
-                                            </div>
-                                        </div>
-                                        <div class="single_product_item">
-                                            <img src="img/product/product_5.png" alt="">
-                                            <div class="single_product_text">
-                                                <h4>상품명5</h4>
-                                                <p>9,000원</p><i class="fa fa-heart-o"></i>
-                                            </div>
-                                        </div>
+                                        <% } %>
+                                    <% } else {%>
+                                    	<p>베스트 상품 조회 실패</p>
+                                    <% } %>
                                     </div>
                                 </div>
                             </div>
@@ -201,7 +189,7 @@
                                 <img src="<%= contextPath %>/<%= p.getProImgPath() %>" alt="">
                                 <div class="single_product_text">
                                     <h4><%= p.getProName() %></h4>
-                                    <p><%= p.getPrice() %>원</p><i class="fa fa-heart-o"></i>
+                                    <p><%= p.getPrice() %>원</p>&nbsp;&nbsp;&nbsp;<i class="fa fa-heart-o"></i>
                                     <a href="#" class="add_cart">+ 장바구니 추가</a>
                                 </div>
                             </div>
@@ -257,23 +245,19 @@
 
         $(function(){
 
+        	// ----------------찜 버튼-----------------
             $('.single_product_text>i').click(function(){ 
 
                 if( $(this).hasClass("fa fa-heart-o") ){
-
-                 $(this).removeClass('fa fa-heart-o').addclass("fa fa-heart");
-                }
-
-                if( $(this).hassClass("fa fa-heart") ){
-
-                    $(this).removeClass("fa fa-heart").addClass("fa fa-heart-o");
+                 	$(this).removeClass("fa fa-heart-o").addClass("fa fa-heart");
+                }else{
+                	$(this).removeClass("fa fa-heart").addClass("fa fa-heart-o");
                 }
                 
             })
 
         	// 돋보기 아이콘 클릭 시 상품 검색 결과창 반환
             $(".ti-search").click(function(){
-            	
                 location.href="category_search.html";
             })
 

@@ -35,6 +35,7 @@
     <!-- pretendard font -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
     <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/font-pretendard.css">
+    <link rel="stylesheet" href="<%=contextPath%>/resources/css/u_css_sumin/font-awesome.min.css">
     
 </head>
 

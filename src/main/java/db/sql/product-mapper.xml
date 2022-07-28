@@ -38,4 +38,27 @@
 		WHERE RNUM BETWEEN ? AND ?
 </entry>
 
+<entry key="selectBestProductList">
+	SELECT *
+	  FROM (
+	    SELECT ROWNUM "RNUM", A.*
+	      FROM (
+	        SELECT 
+	               PRO_CODE
+	             , PRO_CATEGORY_NAME
+	             , PRO_NAME
+	             , TO_CHAR(PRICE, '99,999') "PRICE"
+	             , PRO_ENROLL_DATE
+	             , PRO_IMG_PATH
+	             , PRO_COUNT
+	          FROM PRODUCT
+	          JOIN PRO_CATEGORY ON (CATEGORY_NO = PRO_CATEGORY_NO)
+	         WHERE CATEGORY_NO = ?
+	         ORDER
+	            BY PRO_COUNT DESC, PRO_NAME ASC
+	           ) A
+	       )
+	 WHERE ROWNUM BETWEEN 1 AND 5
+</entry>
+
 </properties>

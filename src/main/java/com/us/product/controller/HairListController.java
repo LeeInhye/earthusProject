@@ -65,16 +65,22 @@ public class HairListController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		// 헤어 카테고리 조회 (배너 이미지 있음)
+		// 헤어 카테고리 조회 (배너 이미지 있음) ==> 전체 카테고리를 조회해버려도 될 것 같기도
 		Category c = new ProductService().selectCategory(categoryNo);
+		
+		// !!카테고리 별 상품 개수 조회 필요!!
 		
 		// 헤어 상품 목록 조회
 		ArrayList<Product> list = new ProductService().selectProductList(pi, categoryNo);
+		
+		// 헤어 카테고리의 베스트 상품 5개 조회
+		ArrayList<Product> bList = new ProductService().selectBestProductList(categoryNo);
 		
 		// 포워딩
 		request.setAttribute("pi", pi);
 		request.setAttribute("c", c);
 		request.setAttribute("list", list);
+		request.setAttribute("bList", bList);
 		
 		request.getRequestDispatcher("/views/product/ProductHair.jsp").forward(request,response);
 		

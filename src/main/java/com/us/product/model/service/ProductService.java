@@ -34,5 +34,12 @@ public class ProductService {
 		close(conn);
 		return list;
 	}
+	
+	public ArrayList<Product> selectBestProductList(int categoryNo){
+		Connection conn = getConnection();
+		ArrayList<Product> list = new ProductDao().selectBestProductList(conn, categoryNo);
+		close(conn);
+		return list;
+	}
 
 }
