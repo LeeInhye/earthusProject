@@ -8,7 +8,7 @@ public class Product {
 	private String category;
 	private String proName;
 	private String proInfo;
-	private int price;
+	private String price;
 	private int stock;
 	private Date proEnrollDate;
 	private String proImgPath;
@@ -18,7 +18,7 @@ public class Product {
 	
 	public Product() {}
 
-	public Product(String proCode, String category, String proName, String proInfo, int price, int stock,
+	public Product(String proCode, String category, String proName, String proInfo, String price, int stock,
 			Date proEnrollDate, String proImgPath, String detailImgPath, String seqInfoImgPath, int proCount) {
 		super();
 		this.proCode = proCode;
@@ -31,6 +31,18 @@ public class Product {
 		this.proImgPath = proImgPath;
 		this.detailImgPath = detailImgPath;
 		this.seqInfoImgPath = seqInfoImgPath;
+		this.proCount = proCount;
+	}
+
+	public Product(String proCode, String category, String proName, String price, Date proEnrollDate, String proImgPath,
+			int proCount) {
+		super();
+		this.proCode = proCode;
+		this.category = category;
+		this.proName = proName;
+		this.price = price;
+		this.proEnrollDate = proEnrollDate;
+		this.proImgPath = proImgPath;
 		this.proCount = proCount;
 	}
 
@@ -66,11 +78,11 @@ public class Product {
 		this.proInfo = proInfo;
 	}
 
-	public int getPrice() {
+	public String getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 

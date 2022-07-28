@@ -16,17 +16,26 @@
 </entry>
 
 <entry key="selectProductList">
-	SELECT 
-	       PRO_CODE
-	     , PRO_CATEGORY_NAME
-	     , PRO_NAME
-	     , PRICE
-	     , PRO_ENROLL_DATE
-	     , PRO_IMG_PATH
-	     , PRO_COUNT
-	  FROM PRODUCT
-	  JOIN PRO_CATEGORY ON (CATEGORY_NO = PRO_CATEGORY_NO)
-	 WHERE CATEGORY_NO = ?
+	SELECT *
+		 FROM (
+		   SELECT ROWNUM RNUM, A.*
+		     FROM (
+		       SELECT 
+		              PRO_CODE
+		            , PRO_CATEGORY_NAME
+		            , PRO_NAME
+		            , TO_CHAR(PRICE, '99,999') AS "PRICE"
+		            , PRO_ENROLL_DATE
+		            , PRO_IMG_PATH
+		            , PRO_COUNT
+		         FROM PRODUCT
+		         JOIN PRO_CATEGORY ON (CATEGORY_NO = PRO_CATEGORY_NO)
+		        WHERE CATEGORY_NO = ?
+		        ORDER
+		           BY PRO_CODE DESC
+		          ) A
+		      )
+		WHERE RNUM BETWEEN ? AND ?
 </entry>
 
 </properties>
