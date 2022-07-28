@@ -41,7 +41,7 @@ public class FindIdSuccessController extends HttpServlet {
 		Member m = new Member(findId, inputName);
 		
 		HttpSession session = request.getSession();
-		session.setAttribute("m", m);
+		request.setAttribute("m", m);
 		request.getRequestDispatcher("/views/member/findIdSuccess.jsp").forward(request, response);
 	}
 

@@ -6,14 +6,13 @@
 </head>
 <body>
 	
-	console.log(findId);
 	<%@ include file="/views/common/menubar.jsp" %>
 
 	<div class="container">
         <div class="login_section">
             <br><br><br><br><br><br><br><br><br>
             
-            <h3><b>아이디 찾기</b></h3>
+            <h2 class="h_font_weight">아이디 찾기</h2>
             <br><br><br>
 
 			<form action="<%= contextPath %>/findIdSuccess.me" method="post">
