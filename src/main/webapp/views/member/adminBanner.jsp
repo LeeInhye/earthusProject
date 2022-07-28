@@ -72,10 +72,10 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 style="padding-top:100px;">배너 관리</h1>
-                        <hr>
 
                         <div class="banner-manage-body" style="width:800px;">
+	                        <h1 class="mt-4" style="padding-top:50px;">배너 관리</h1>
+	                        <hr>
                             <table id="datatablesSimple" class="banner-manage ">
                                 <thead>
                                     <tr>
