@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+<entry key="selectListCount">
+	SELECT 
+       	   COUNT(PRO_CODE) AS "listCount"
+	  FROM PRODUCT
+	 WHERE CATEGORY_NO = ?
+</entry>
+
+<entry key="selectCategory">
+	SELECT *
+	  FROM PRO_CATEGORY
+	 WHERE PRO_CATEGORY_NO = ?
+</entry>
+
+<entry key="selectProductList">
+	SELECT 
+	       PRO_CODE
+	     , PRO_CATEGORY_NAME
+	     , PRO_NAME
+	     , PRICE
+	     , PRO_ENROLL_DATE
+	     , PRO_IMG_PATH
+	     , PRO_COUNT
+	  FROM PRODUCT
+	  JOIN PRO_CATEGORY ON (CATEGORY_NO = PRO_CATEGORY_NO)
+	 WHERE CATEGORY_NO = ?
+</entry>
+
+</properties>
