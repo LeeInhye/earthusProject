@@ -15,7 +15,7 @@
             <h2 class="h_font_weight">아이디 찾기</h2>
             <br><br><br>
 
-			<form action="<%= contextPath %>/findIdSuccess.me" method="post">
+			<form action="<%= contextPath %>/findIdSuccess.me" method="post" id="findIdForm">
 	            <table class="table">
 	                <tr>
 	                    <input type="text" placeholder="이름" id="findName" name="findName">
@@ -50,8 +50,7 @@
 	                        			} else{	// 아이디를 찾았을 경우
 	                        				$("input[name=findId]").val(result);
 	                        				$("#outputFindId").empty();
-	                        				$("#findIdBtn").attr("type", "submit");
-	                        				$("#findIdBtn").click();
+	                        				$("#findIdForm").submit();
 	                        			}
 	                        		}, error:function(){
 	                        			console.log("ajax 통신 실패");
@@ -68,6 +67,19 @@
 	                <tr>
 	                    <button type="button" id="goLoginBtn" class="btn btn_light_green btn-block btn-lg">로그인 하기</button>
 	                </tr>
+	                
+	                <script>
+	                	$(document).ready(function(){
+	                		$("#goFindPwdBtn").click(function(){
+	                			location.href = "<%= contextPath %>/goFindPwd.me";
+	                		});
+	                		
+	                		$("#goLoginBtn").click(function(){
+	                			location.href = "<%= contextPath %>/goLogin.me";
+	                		});
+	                	})
+	                </script>
+	                
 	            </table>
 			</form>
 
