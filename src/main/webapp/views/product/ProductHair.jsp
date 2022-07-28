@@ -1,5 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@
+	page import="java.util.ArrayList, com.us.common.model.vo.PageInfo, com.us.product.model.vo.*"
+ %>
+<%
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+
+	Category c = (Category)request.getAttribute("c");
+	ArrayList<Product> list = (ArrayList<Product>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,17 +21,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Earth.Us</title>
 
-<!-- jQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<!-- font awesome icon -->
 	<script src="https://use.fontawesome.com/e3cb36acfb.js"></script>
-
 
 <style>
 
 	.best_seller{margin:5% 0%;}
 	.price_rangs_aside{margin:5% 0%;}
-	.
 	
 </style>
 
@@ -28,43 +39,19 @@
 	<%@ include file = "../common/menubar.jsp" %>
 
 <!-- banner part start-->
-<section class="banner_part">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-12">
-                <div class="banner_slider owl-carousel">
-
-                    <div class="single_banner_slider">
-                        <div class="row">
-                            <div class="banner_img d-none d-lg-block banner_text">
-                                <img src="resources/images/img/banner/hair.png" alt="">
-                            </div>
+<section class="breadcrumb contents_bg">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="breadcrumb_iner">
+                        <div class="breadcrumb_iner_item">
+                            <img src="<%=contextPath%>/<%=c.getCategoryImgPath()%>">
                         </div>
                     </div>
-                    
-                    <div class="single_banner_slider">
-                        <div class="row">
-                            <div class="banner_img d-none d-lg-block banner_text">
-                                <img src="resources/images/img/banner/hair.png" alt="">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="single_banner_slider">
-                        <div class="row">
-                            <div class="banner_img d-none d-lg-block banner_text" style="top:0;">
-                                <img src="resources/images/img/banner/hair.png" alt="" id="banner_3">
-                            </div>
-                            <div class="banner_text"></div>
-                        </div>
-                    </div>
-                    
-
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 <!-- banner part end -->
     
     
@@ -79,13 +66,10 @@
                                 <h3>상품 카테고리</h3>
                             </div>
                             <div class="widgets_inner"> <!--카테고리 분류-->
-                                <ul class="list">
-                                    <li>
-                                        <a href="category_main.html">All</a>
-                                        <span>(전체상품개수)</span>
+                                <ul class="list"></span>
                                     </li>
                                     <li>
-                                        <a href="category_hair.html" style="font-weight:bold">Hair</a>
+                                        <a href="<%=contextPath%>/list.hair?categoryNo=1&cpage=1" style="font-weight:bold">Hair</a>
                                         <span style="font-weight:bold">(헤어상품개수)</span>
                                     </li>
                                     <li>
@@ -131,7 +115,7 @@
                             <div class="product_top_bar d-flex justify-content-between align-items-center">
                                 <div class="single_product_menu d-flex"><!-- 정렬기준-->
                                     <h5>정렬기준 : </h5>
-                                    <select>
+                                    <select class="nice-select">
                                         <option data-display="조회순" value="1">조회순</option>
                                         <option value="2">판매량높은순</option>
                                         <option value="3">가격높은순</option>
@@ -146,13 +130,7 @@
                                             <!--상품검색 돋보기아이콘-->
                                             <span class="input-group-text" id="inputGroupPrepend"><i
                                                     class="ti-search"></i></span>
-                                            <script> // 돋보기 아이콘 클릭 시 상품 검색 결과창 반환
-                                                $(function(){
-                                                    $(".ti-search").click(function(){
-                                                        location.href="category_search.html";
-                                                    })
-                                                })
-                                            </script>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -214,117 +192,56 @@
                         </div>
                     </section>
 
-                    <div class="row align-items-center latest_product_inner"> <!--상품영역-->
+ 					 <!-- 전체 상품 영역 시작 -->
+                    <div class="row align-items-center latest_product_inner">
+                      <% if(list != null) { %>
+                      	<% for(Product p : list) { %>
                         <div class="col-lg-4 col-sm-6">
                             <div class="single_product_item">
-                                <img src="img/product/product_1.png" alt="">
+                                <img src="<%= contextPath %>/<%= p.getProImgPath() %>" alt="">
                                 <div class="single_product_text">
-                                    <h4>상품명1</h4>
-                                    <p>9,900원</p><i class="fa fa-heart-o"></i>
+                                    <h4><%= p.getProName() %></h4>
+                                    <p><%= p.getPrice() %>원</p><i class="fa fa-heart-o"></i>
                                     <a href="#" class="add_cart">+ 장바구니 추가</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="single_product_item">
-                                <img src="img/product/product_2.png" alt="">
-                                <div class="single_product_text">
-                                    <h4>상품명2</h4>
-                                    <p>19,900원</p><i class="fa fa-heart-o"></i>
-                                    <a href="#" class="add_cart">+ 장바구니 추가</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="single_product_item">
-                                <img src="img/product/product_3.png" alt="">
-                                <div class="single_product_text">
-                                    <h4>상품명3</h4>
-                                    <p>9,900원</p><i class="fa fa-heart-o"></i>
-                                    <a href="#" class="add_cart">+ 장바구니 추가</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="single_product_item">
-                                <img src="img/product/product_4.png" alt="">
-                                <div class="single_product_text">
-                                    <h4>상품명4</h4>
-                                    <p>9,900원</p><i class="fa fa-heart-o"></i>
-                                    <a href="#" class="add_cart">+ 장바구니 추가</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="single_product_item">
-                                <img src="img/product/product_5.png" alt="">
-                                <div class="single_product_text">
-                                    <h4>상품명5</h4>
-                                    <p>9,900원</p><i class="fa fa-heart-o"></i>
-                                    <a href="#" class="add_cart">+ 장바구니 추가</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="single_product_item">
-                                <img src="img/product/product_6.png" alt="">
-                                <div class="single_product_text">
-                                    <h4>상품명6</h4>
-                                    <p>9,990원</p><i class="fa fa-heart-o"></i>
-                                    <a href="#" class="add_cart">+ 장바구니 추가</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="single_product_item">
-                                <img src="img/product/product_7.png" alt="">
-                                <div class="single_product_text">
-                                    <h4>상품명7</h4>
-                                    <p>9,900원</p><i class="fa fa-heart-o"></i>
-                                    <a href="#" class="add_cart">+ 장바구니 추가</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="single_product_item">
-                                <img src="img/product/product_8.png" alt="">
-                                <div class="single_product_text">
-                                    <h4>상품명8</h4>
-                                    <p>9,900원</p><i class="fa fa-heart-o"></i>
-                                    <a href="#" class="add_cart">+ 장바구니 추가</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="single_product_item">
-                                <img src="img/product/product_2.png" alt="">
-                                <div class="single_product_text">
-                                    <h4>상품명9</h4>
-                                    <p>9,900원</p><i class="fa fa-heart-o"></i>
-                                    <a href="#" class="add_cart">+ 장바구니 추가</a>
-                                </div>
-                            </div>
-                        </div>
+                        <% } %>
+                      <% } else {%>
+                      	<div><p>list 값 없음<%= list%><%= c %></p></div>
+                      <% } %>
+                      
+                        <!------------ 페이징바 영역 ------------>
                         <div class="col-lg-12">
                             <div class="pageination">
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination justify-content-center">
+                                        
+                                        <% if(currentPage != 1) { %>
                                         <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Previous">
+                                            <a class="page-link" href="<%=contextPath%>/list.hair?categoryNo=1&cpage=<%=currentPage-1%>" aria-label="Previous">
                                                 <i class="ti-angle-double-left"></i>
                                             </a>
                                         </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">6</a></li>
+                                        <% } %>
+                                        
+                                       	<% for(int p=startPage; p<=endPage; p++){ %>
+                                       	
+                                       		<% if(p == currentPage){ %>
+	                                       	<li class="page-item"><a disabled class="page-link" href="<%=contextPath%>/list.hair?categoryNo=1&cpage=<%= p %>"><%= p %></a></li>
+	                                       	<% }else { %>
+                                       		<li class="page-item"><a class="page-link" href="<%=contextPath%>/list.hair?categoryNo=1&cpage=<%= p %>"><%= p %></a></li>
+	                                       	<% } %>
+	                                       	
+	                                    <% } %>
+	                                    
+	                                    <% if(currentPage != maxPage){ %>
                                         <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Next">
+                                            <a class="page-link" href="<%= contextPath %>/list.hair?categoryNo=1&cpage=<%= currentPage+1 %>" aria-label="Next">
                                                 <i class="ti-angle-double-right"></i>
                                             </a>
                                         </li>
+                                        <% } %>
                                     </ul>
                                 </nav>
                             </div>
@@ -351,10 +268,17 @@
 
                     $(this).removeClass("fa fa-heart").addClass("fa fa-heart-o");
                 }
+                
+            })
 
+        	// 돋보기 아이콘 클릭 시 상품 검색 결과창 반환
+            $(".ti-search").click(function(){
+            	
+                location.href="category_search.html";
             })
 
         })
+                                            
 
     </script>
     <!--상품 목록 영역 끝-->
