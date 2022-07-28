@@ -183,7 +183,7 @@
                         <div class="single_banner_slider">
                             <div class="row">
                                 <div class="banner_img d-none d-lg-block banner_text">
-                                    <img src="resources/images/img/banner_img.png" alt="">
+                                    <img src="<%= contextPath %>/resources/img/banner_img.png" alt="">
                                 </div>
                             </div>
                         </div>
@@ -191,7 +191,7 @@
                         <div class="single_banner_slider">
                             <div class="row">
                                 <div class="banner_img d-none d-lg-block banner_text">
-                                    <img src="resources/images/img/banner_img.png" alt="">
+                                    <img src="<%= contextPath %>/resources/img/banner_img.png" alt="">
                                 </div>
                             </div>
                         </div>
@@ -199,7 +199,7 @@
                         <div class="single_banner_slider">
                             <div class="row">
                                 <div class="banner_img d-none d-lg-block banner_text" style="top:0;">
-                                    <img src="resources/images/img/banner_img.png" alt="" id="banner_3">
+                                    <img src="<%= contextPath %>/resources/img/banner_img.png" alt="" id="banner_3">
                                 </div>
                                 <div class="banner_text"></div>
                             </div>
@@ -232,7 +232,7 @@
                     <div class="single_feature_post_text">
                         <h3 style="margin-top: 230px;">HAIR</h3>
                         <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
-                        <img src="resources/images/img/feature/feature_1.png" alt="">
+                        <img src="<%= contextPath %>/resources/img/feature/feature_1.png" alt="">
                     </div>
                 </div>
                 <div class="col-lg-5 col-sm-6">
@@ -246,7 +246,7 @@
                     <div class="single_feature_post_text">
                         <h3 style="margin-top:230px;">KITCHEN</h3>
                         <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
-                        <img src="resources/images/img/feature/feature_3.png" alt="">
+                        <img src="<%= contextPath %>/resources/img/feature/feature_3.png" alt="">
                     </div>
                 </div>
                 <div class="col-lg-7 col-sm-6">
@@ -288,7 +288,7 @@
 
                     <div class="col-lg-5 col-sm-6">
                         <div class="single_product_item">
-                            <img src="resources/images/img/product/product_1.png" alt="">
+                            <img src="<%= contextPath %>/resources/img/product/product_1.png" alt="">
                             <div class="single_product_text">
                                 <br>
                                 <h4>챌린지 1</h4>
@@ -313,7 +313,7 @@
 
                             <div class="row single_product_item" style="margin-top:50px;">
                                     <div class="col-lg-4">
-                                        <img src="resources/images/img/product/product_2.png" alt="">
+                                        <img src="<%= contextPath %>/resources/img/product/product_2.png" alt="">
                                     </div>
 
                                     <div class="col-lg-8 single_product_text" style="margin-top:20px;">
@@ -326,7 +326,7 @@
 
                     <div class="col-lg-3 col-sm-6">
                         <div class="single_product_item">
-                            <img src="resources/images/img/product/product_3.png" alt="">
+                            <img src="<%= contextPath %>/resources/img/product/product_3.png" alt="">
                             <div class="single_product_text">
                                 <h4>챌린지 3</h4>
                                 <h5>것은 청춘의 끓는 피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이
