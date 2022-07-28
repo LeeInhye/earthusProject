@@ -15,6 +15,7 @@
     <link href="<%= contextPath %>/resources/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="<%= contextPath %>/resources/css/u_css_sumin/font-pretendard.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <style>
         .nav a{font-weight:bold;}
