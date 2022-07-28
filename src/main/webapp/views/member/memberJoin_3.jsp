@@ -50,7 +50,7 @@
 						
 						// 로그인 페이지로 가는 버튼
 						$("#goLoginBtn").click(function(){
-							location.href = "<%= contextPath %>/login.me"
+							location.href = "<%= contextPath %>/goLogin.me"
 						})
 						
 					});
