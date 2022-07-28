@@ -11699,3 +11699,55 @@ body {
   font-size: 0.75rem;
   border-radius: 0.25rem !important;
 }
+
+/*======================= inhye ========================*/
+.count1-ih{
+    background-color:rgba(64,64,64,0.1);
+    width:23%;
+    height:120px;
+    margin:auto;
+    padding-top:30px;
+}
+.main-list1-ih{
+    width:23%;
+    margin-left:2%;
+    margin-top:4%;
+}
+.main-list2-ih{
+    width:23%;
+    margin-left:2%;
+    margin-top:2%;
+}
+.st{
+    height:200px;
+}
+.main-list1-ih h5, .main-list1-ih h6,.main-list2-ih h5, .main-list2-ih h6{ font-weight:bold;}
+
+#table1-ih, #table2-ih, #table3-ih{
+    width:29%;
+    display:inline-table;
+    margin-left:1%;
+}
+#table1-ih>table, #table2-ih>table, #table3-ih>table{
+    border:1px solid lightgray;
+    background-color:rgba(64,64,64,0.1);
+    width:100%;
+    height:40px;
+    font-size:small;
+    margin-top:18%;
+    margin-left:15%;
+}
+#table1-ih th, #table2-ih th, #table3-ih th{
+    border:1px solid lightgray;
+    width:20%;
+    text-align:center;
+}
+#table1-ih td, #table2-ih td, #table3-ih td{
+    padding-left:10px;
+}
+
+.row a{
+    text-decoration:none;
+    color:black;
+}
+/*======================================================*/
