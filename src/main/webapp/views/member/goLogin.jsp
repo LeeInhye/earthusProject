@@ -112,6 +112,7 @@
 	            		$("#joinBtn").click(function(){
 	            			location.href = "<%= contextPath %>/enrollForm_1.me";
 	            		});
+
 	            		
 	            	})
 	            </script>

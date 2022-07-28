@@ -147,8 +147,17 @@
                                 </a>
                                 
 
-                            <!-- 마이페이지 -->
-                            <a id="myPageIcon" href=""><i class="ti-user"></i></a> <!-- 아이콘 쓸 수 있는 게 별로 없음ㅜ-->
+                             <!-- 마이페이지 -->
+                            <% if(loginUser == null) { 	// 로그인 하지 않은 상태일 때 %>
+                            	<a id="myPageIcon" href="<%= contextPath %>/goLogin.me">
+	                            	<i class="ti-user"></i>
+	                            </a>
+	                        <% } else {	// 로그인 된 상태일 때 %>
+	                            <a id="myPageIcon" href="<%= contextPath %>/myPage.mp">
+	                            	<i class="ti-user"></i>
+	                            </a> 
+	                        <% } %>
+	                        
                         </div>
                     </nav>
                 </div>

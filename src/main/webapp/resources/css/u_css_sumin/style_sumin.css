@@ -491,6 +491,7 @@ input{
   background: #ccc;
   margin-top: 20px;
 }
+
 /* .main_menu .cart i:after {
   position: absolute;
   border-radius: 50%;
@@ -835,6 +836,39 @@ input[type=checkbox]{
 	font-weight: 700;
 }
 
+
+/* ====================== 마이페이지 ======================== */
+.myPage_main{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-content: center;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.mpBlock{
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  width: 40%;
+  margin: 15px;
+  text-align: left; 
+  
+}
+.mpBlock:hover{
+  background-color: #f2f2f2;
+}
+
+.mpBlock h3{
+  color: #778C79;
+  font-weight: 700;
+}
+.mp_top{
+  margin: 30px;
+}
+.mp_bottom{
+  margin: 20px 30px;
+}
 
 /*================= 주윤 챌린지, 콘텐츠 시작 =================*/
 .chall_outer{
