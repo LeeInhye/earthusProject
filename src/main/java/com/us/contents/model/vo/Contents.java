@@ -47,6 +47,17 @@ public class Contents {
 		this.cntEnrollDate = cntEnrollDate;
 		this.cntLike = cntLike;
 	}
+	
+	public Contents(int cntNo, String cntTitle, String cntContent, String cntThumbnail, Date cntEnrollDate,
+			int cntLike) {
+		super();
+		this.cntNo = cntNo;
+		this.cntTitle = cntTitle;
+		this.cntContent = cntContent;
+		this.cntThumbnail = cntThumbnail;
+		this.cntEnrollDate = cntEnrollDate;
+		this.cntLike = cntLike;
+	}
 
 	public int getCntNo() {
 		return cntNo;

@@ -91,5 +91,13 @@ public class ContentsService {
 		return result1 * result2;
 	}
 	
+	public ArrayList<Contents> selectContentsList(){
+		Connection conn = getConnection();
+		ArrayList<Contents> list = new ContentsDao().selectContentsList(conn);
+		close(conn);
+		
+		return list;
+	}
+	
 
 }

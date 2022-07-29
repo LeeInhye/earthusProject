@@ -107,5 +107,21 @@
 		     , FILE_PATH = ?
 		 WHERE FILE_NO = ?
 	</entry>
+	
+	<entry key="selectContentsList">
+		SELECT
+		       CNT_NO
+		     , CNT_TITLE
+		     , CNT_CONTENT
+		     , CNT_THUMBNAIL
+		     , CNT_ENROLL_DATE
+		     , (SELECT COUNT(*)
+		          FROM CONTENTS_LIKE CL 
+		         WHERE CL.CNT_NO = C.CNT_NO) AS CNT_LIKE
+		  FROM CONTENTS C
+		 WHERE CNT_STATUS = 'Y'
+		 ORDER 
+		    BY CNT_NO DESC
+	</entry>
 
 </properties>

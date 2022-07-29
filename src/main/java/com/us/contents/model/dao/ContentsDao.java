@@ -236,5 +236,35 @@ public class ContentsDao {
 		return result;
 	}
 	
+	public ArrayList<Contents> selectContentsList(Connection conn) {
+		// select => ResultSet(여러 행) => ArrayList<Contents>
+		ArrayList<Contents> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectContentsList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Contents(rset.getInt("cnt_no"),
+									  rset.getString("cnt_title"),
+									  rset.getString("cnt_content"),
+									  rset.getString("cnt_thumbnail"),
+									  rset.getDate("cnt_enroll_date"),
+									  rset.getInt("cnt_like")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 	
 }

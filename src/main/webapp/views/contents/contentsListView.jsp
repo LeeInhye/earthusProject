@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.us.contents.model.vo.Contents" %>
+<%
+	ArrayList<Contents> list = (ArrayList<Contents>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,113 +31,32 @@
     <section class="blog_area padding_top">
         <div class="container">
             <div class="row">
-                <!-- 콘텐츠 글 리스트 -->
                 <br><br><br>
                 <div class="blog_left_sidebar" style="width: 100%;">
-                    <article class="blog_item">
-                        <div class="blog_item_img">
-                            <img class="card-img rounded-0" src="<%=contextPath%>/resources/img/blog/single_blog_1.png" alt="" width="1370" height="520">
-                            <a href="#" class="blog_item_date">
-                                <h3>15</h3>
-                                <p>Jan</p>
-                            </a>
-                        </div>
-
-                        <div class="blog_details">
-                            <a class="d-inline-block" href="single-blog.html">
-                                <h2>콘텐츠 제목이 들어가는 자리입니다.</h2>
-                            </a>
-                            <p>콘텐츠 간단한 설명이 들어가는 자리입니다.</p>
-                            <ul class="blog-info-link">
-                                <li><a href="#"><i class="ti-calendar"></i> 2022-07-25</a></li>
-                                <li><a href="#"><i class="ti-heart"></i> 03 Likes</a></li>
-                            </ul>
-                        </div>
-                    </article>
-
-                    <article class="blog_item">
-                        <div class="blog_item_img">
-                            <img class="card-img rounded-0" src="<%=contextPath%>/resources/img/blog/single_blog_2.png" alt="">
-                            <a href="#" class="blog_item_date">
-                                <h3>15</h3>
-                                <p>Jan</p>
-                            </a>
-                        </div>
-
-                        <div class="blog_details">
-                            <a class="d-inline-block" href="single-blog.html">
-                                <h2>콘텐츠 제목이 들어가는 자리입니다.</h2>
-                            </a>
-                            <p>콘텐츠 간단한 설명이 들어가는 자리입니다.</p>
-                            <ul class="blog-info-link">
-                                <li><a href="#"><i class="ti-calendar"></i> 2022-07-20</a></li>
-                                <li><a href="#"><i class="ti-heart"></i> 03 Likes</a></li>
-                            </ul>
-                        </div>
-                    </article>
-
-                    <article class="blog_item">
-                        <div class="blog_item_img">
-                            <img class="card-img rounded-0" src="<%=contextPath%>/resources/img/blog/single_blog_3.png" alt="">
-                            <a href="#" class="blog_item_date">
-                                <h3>15</h3>
-                                <p>Jan</p>
-                            </a>
-                        </div>
-
-                        <div class="blog_details">
-                            <a class="d-inline-block" href="single-blog.html">
-                                <h2>콘텐츠 제목이 들어가는 자리입니다.</h2>
-                            </a>
-                            <p>콘텐츠 간단한 설명이 들어가는 자리입니다.</p>
-                            <ul class="blog-info-link">
-                                <li><a href="#"><i class="ti-calendar"></i> Travel, Lifestyle</a></li>
-                                <li><a href="#"><i class="ti-heart"></i> 03 Likes</a></li>
-                            </ul>
-                        </div>
-                    </article>
-
-                    <article class="blog_item">
-                        <div class="blog_item_img">
-                            <img class="card-img rounded-0" src="<%=contextPath%>/resources/img/blog/single_blog_4.png" alt="">
-                            <a href="#" class="blog_item_date">
-                                <h3>15</h3>
-                                <p>Jan</p>
-                            </a>
-                        </div>
-
-                        <div class="blog_details">
-                            <a class="d-inline-block" href="single-blog.html">
-                                <h2>콘텐츠 제목이 들어가는 자리입니다.</h2>
-                            </a>
-                            <p>콘텐츠 간단한 설명이 들어가는 자리입니다.</p>
-                            <ul class="blog-info-link">
-                                <li><a href="#"><i class="ti-calendar"></i> Travel, Lifestyle</a></li>
-                                <li><a href="#"><i class="ti-heart"></i> 03 Likes</a></li>
-                            </ul>
-                        </div>
-                    </article>
-
-                    <article class="blog_item">
-                        <div class="blog_item_img">
-                            <img class="card-img rounded-0" src="<%=contextPath%>/resources/img/blog/single_blog_5.png" alt="">
-                            <a href="#" class="blog_item_date">
-                                <h3>15</h3>
-                                <p>Jan</p>
-                            </a>
-                        </div>
-
-                        <div class="blog_details">
-                            <a class="d-inline-block" href="single-blog.html">
-                                <h2>콘텐츠 제목이 들어가는 자리입니다.</h2>
-                            </a>
-                            <p>콘텐츠 간단한 설명이 들어가는 자리입니다.</p>
-                            <ul class="blog-info-link">
-                                <li><a href="#"><i class="far fa-user"></i> Travel, Lifestyle</a></li>
-                                <li><a href="#"><i class="ti-heart"></i> 03 Likes</a></li>
-                            </ul>
-                        </div>
-                    </article>
+                    
+                    <!-- 콘텐츠 게시글 리스트 -->
+                    <% for(Contents c : list) { %>
+	                    <article class="blog_item">
+	                        <div class="blog_item_img">
+	                            <img class="card-img rounded-0" src="<%= contextPath %>/<%= c.getCntThumbnail() %>" alt="" width="1370" height="520">
+	                            <a href="#" class="blog_item_date">
+	                                <p>No.</p>
+	                                <h3><%= c.getCntNo() %></h3>
+	                            </a>
+	                        </div>
+	
+	                        <div class="blog_details">
+	                            <a class="d-inline-block" href="single-blog.html">
+	                                <h2><%= c.getCntTitle() %></h2>
+	                            </a>
+	                            <p><%= c.getCntContent() %></p>
+	                            <ul class="blog-info-link">
+	                                <li><a href="#"><i class="ti-calendar"></i><%= c.getCntEnrollDate() %></a></li>
+	                                <li><a href="#"><i class="ti-heart"></i> <%= c.getCntLike() %> Likes</a></li>
+	                            </ul>
+	                        </div>
+	                    </article>
+                    <% } %>
 
                     <nav class="blog-pagination justify-content-center d-flex">
                         <ul class="pagination">
