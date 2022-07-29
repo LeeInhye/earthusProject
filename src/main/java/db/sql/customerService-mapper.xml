@@ -35,8 +35,39 @@
 		    BY NOTICE_NO DESC
 	</entry>
 
-
-
+	<entry key="selectFaqList">
+		SELECT
+		        FAQ_NO
+		      , USER_NAME
+		      , CS_CATEGORY_NAME
+		      , FAQ_TITLE
+		      , FAQ_CONTENT
+		      , FAQ_ENROLL_DATE
+		  FROM FAQ
+		  JOIN MEMBER ON (USER_NO = FAQ_WRITER)
+		  JOIN CS_CATEGORY USING(CS_CATEGORY_NO)
+		 WHERE FAQ_STATUS = 'Y'
+		  ORDER
+		    BY FAQ_NO DESC
+	</entry>
+	
+	<entry key="selectCateFaqList">
+		SELECT
+		        FAQ_NO
+		      , USER_NAME
+		      , CS_CATEGORY_NAME
+		      , FAQ_TITLE
+		      , FAQ_CONTENT
+		      , FAQ_ENROLL_DATE
+		  FROM FAQ
+		  JOIN MEMBER ON (USER_NO = FAQ_WRITER)
+		  JOIN CS_CATEGORY USING(CS_CATEGORY_NO)
+		 WHERE FAQ_STATUS = 'Y'
+		   AND CS_CATEGORY_NO = ?
+		  ORDER
+		    BY FAQ_NO DESC
+	</entry>
+	
 
 
 

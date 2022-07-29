@@ -607,6 +607,7 @@ input[type=checkbox]{
 
 .moveToQna span{
     margin-right:15px;
+    font-size: 17px;
 }
 .moveToQna a{
     margin:10px;
@@ -615,6 +616,7 @@ input[type=checkbox]{
     border-radius:40px;
     color:white;
     text-decoration: none;
+    font-size: 17px;
 }
 
 
