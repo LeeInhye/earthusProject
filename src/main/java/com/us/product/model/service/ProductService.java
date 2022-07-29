@@ -10,6 +10,7 @@ import com.us.common.model.vo.PageInfo;
 import com.us.product.model.dao.ProductDao;
 import com.us.product.model.vo.Category;
 import com.us.product.model.vo.Product;
+import com.us.product.model.vo.WishList;
 
 public class ProductService {
 	
@@ -45,6 +46,13 @@ public class ProductService {
 	public ArrayList<Product> selectBestProductList(int categoryNo){
 		Connection conn = getConnection();
 		ArrayList<Product> list = new ProductDao().selectBestProductList(conn, categoryNo);
+		close(conn);
+		return list;
+	}
+	
+	public ArrayList<WishList> selectWishList(String userId){
+		Connection conn = getConnection();
+		ArrayList<WishList> list = new ProductDao().selectWishList(conn, userId);
 		close(conn);
 		return list;
 	}

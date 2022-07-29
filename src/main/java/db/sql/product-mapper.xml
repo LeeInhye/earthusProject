@@ -98,4 +98,17 @@
 	      )
 	WHERE RNUM BETWEEN ? AND ?
 </entry>
+
+<entry key="selectWishList">
+	SELECT
+		   PRO_IMG_PATH
+	     , PRO_NAME
+	     , PRICE
+	     , WISH_DATE
+ 	  FROM WISHLIST
+	  JOIN PRODUCT USING (PRO_CODE)
+	  JOIN MEMBER USING (USER_NO)
+	 WHERE USER_ID = ?
+</entry>
+
 </properties>

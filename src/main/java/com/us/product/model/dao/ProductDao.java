@@ -4,7 +4,6 @@ import static com.us.common.JDBCTemplate.close;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,8 +14,7 @@ import java.util.Properties;
 import com.us.common.model.vo.PageInfo;
 import com.us.product.model.vo.Category;
 import com.us.product.model.vo.Product;
-
-import oracle.jdbc.driver.T2CConnection;
+import com.us.product.model.vo.WishList;
 
 public class ProductDao {
 	
@@ -177,5 +175,39 @@ public class ProductDao {
 	
 	// 상품명 키워드로 상품들 조회 핑요!!!
 	
-
+	
+	
+	// 위시리스트
+	public ArrayList<WishList> selectWishList(Connection conn, String userId){
+		ArrayList<WishList> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectWishList");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				WishList wi = new WishList();
+				wi.setProImgPath(rset.getString("pro_img_path"));
+				wi.setProName(rset.getString("pro_name"));
+				wi.setPrice(rset.getInt("price"));
+				wi.setWishDate(rset.getDate("wish_date"));
+				list.add(wi);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
+		
+	}
 }
