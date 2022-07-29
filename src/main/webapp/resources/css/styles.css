@@ -11750,6 +11750,64 @@ body {
     text-decoration:none;
     color:black;
 }
+
+#list1-ih>button{
+    border:1px solid lightgray;
+    font-size:small;
+    width:60px;
+    height:25px;
+    border-radius:3px;
+    background-color:white;
+}
+.date-ih{
+    border:1px solid lightgray; 
+    height:25px;
+    font-size:small;
+    border-radius:3px;
+}
+#sel-ih{
+    border:1px solid lightgray;
+    width:80px; 
+    height:30px;
+    font-size:small;
+    border-radius:3px;
+}
+#text-ih{border:1px solid lightgray; height:27px; border-radius:3px;}
+#s-icon-ih{
+    border:1px solid lightgray;
+    border-radius:3px;
+    box-sizing:border-box;
+}
+.list3-ih>table{
+    border:2px solid lightgray;
+    font-size:small;
+    text-align:center;
+    width:90%;
+    height:350px;
+    margin:auto;
+}
+.list3-ih th, .list3-ih td{border:1px solid lightgray;}
+.list3-ih th{background-color:rgba(211, 211, 211,0.5)}
+#list1-ih, #list2-ih{padding-left:5%;}
+.list3-ih{padding-top:50px;}
+#btn-list-ih>button{
+    border:0;
+    background-color:white;
+    width:80px;
+    margin-top:20px;
+}
+#yn-ih{ width:100%;}
+#l-btn-ih{
+    border:0;
+    background-color:rgb(13,13,13);
+    color:white;
+    border-radius:3px;
+    float:right;
+    margin-right:5%;
+    width:110px;
+    height:30px;
+    font-size:small;
+}
 /*======================================================*/
 
 
