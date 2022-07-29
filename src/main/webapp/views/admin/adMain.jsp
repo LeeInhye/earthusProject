@@ -62,7 +62,7 @@
                             <div>
                                 <h5>주문 관리</h5>
                                 <hr>
-                                <a href="">구매 내역 조회</a> <br>
+                                <a href="<%=contextPath%>/adHistory.or">구매 내역 조회</a> <br>
                                 <a href="<%=contextPath%>/adCncltExrtr.or">취소/교환/반품 관리</a>
                             </div>
                         </div>

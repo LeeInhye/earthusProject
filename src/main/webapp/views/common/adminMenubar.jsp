@@ -107,7 +107,7 @@
                         </a>
                         <div class="collapse" id="orderCollapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="">구매 내역 조회</a>
+                                <a class="nav-link" href="<%=contextPath%>/adHistory.or">구매 내역 조회</a>
                                 <a class="nav-link" href="<%=contextPath%>/adCncltExrtr.or">취소/교환/반품 관리</a>
                             </nav>
                         </div>
