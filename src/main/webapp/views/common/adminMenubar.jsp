@@ -130,7 +130,7 @@
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="">회사 소개 관리</a>
                                 <a class="nav-link" href="">이용 약관 관리</a>
-                                <a class="nav-link" href="">배너 관리</a>
+                                <a class="nav-link" href="<%= contextPath %>/list.bn">배너 관리</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#cmCollapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
