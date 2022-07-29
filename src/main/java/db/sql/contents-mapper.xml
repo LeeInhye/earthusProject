@@ -56,5 +56,56 @@
 		 ORDER 
 		    BY CNT_NO DESC
 	</entry>
+	
+	<entry key="increaseCount">
+		UPDATE CONTENTS
+		   SET CNT_COUNT = CNT_COUNT+1
+		 WHERE CNT_NO = ?
+		   AND CNT_STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectContents">
+		 SELECT
+		       CNT_NO
+		     , CNT_TITLE
+		     , CNT_CONTENT
+		     , CNT_THUMBNAIL
+		     , CNT_COUNT
+		     , CNT_ENROLL_DATE
+		     , (SELECT COUNT(*)
+		          FROM CONTENTS_LIKE CL 
+		         WHERE CL.CNT_NO = C.CNT_NO) AS CNT_LIKE
+		  FROM CONTENTS C
+		 WHERE CNT_NO = ?
+	</entry>
+	
+	<entry key="selectAttachment">
+		SELECT 
+		       FILE_NO
+		     , ORIGIN_NAME
+		     , CHANGE_NAME
+		     , FILE_PATH
+		  FROM ATTACHMENT
+		 WHERE REF_TYPE = 3
+		   AND REF_BNO = ?
+	</entry>
+	
+	<entry key="updateContents">
+		UPDATE
+		       CONTENTS
+		   SET CNT_TITLE = ?
+		     , CNT_CONTENT = ?
+		     , CNT_THUMBNAIL = ?
+		 WHERE CNT_NO = ?
+	</entry>
+
+	<entry key="updateAttachment">
+		UPDATE
+		       ATTACHMENT
+		   SET ORIGIN_NAME = ?
+		     , CHANGE_NAME = ?
+		     , FILE_PATH = ?
+		 WHERE FILE_NO = ?
+	</entry>
 
 </properties>

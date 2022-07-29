@@ -40,5 +40,56 @@ public class ContentsService {
 
 		return list;
 	}
+	
+	public int increaseCount(int cntNo) {
+		Connection conn = getConnection();
+		int result = new ContentsDao().increaseCount(conn, cntNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
+	public Contents selectContents(int cntNo) {
+		Connection conn = getConnection();
+		Contents c = new ContentsDao().selectContents(conn, cntNo);
+		close(conn);
+		
+		return c;
+	}
+	
+	public Attachment selectAttachment(int cntNo) {
+		Connection conn = getConnection();
+		Attachment at = new ContentsDao().selectAttachment(conn, cntNo);
+		close(conn);
+		
+		return at;
+	}
+	
+	public int updateContents(Contents c, Attachment at) {
+		Connection conn = getConnection();
+		
+		int result1 = new ContentsDao().updateContents(conn, c);
+		
+		int result2 = 1;
+		if(at != null) { // 새로운 상세이미지 첨부파일 있는 경우 => Attachment update
+			result2 = new ContentsDao().updateAttachment(conn, at);
+		}
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+	
+		return result1 * result2;
+	}
+	
 
 }

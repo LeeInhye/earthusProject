@@ -23,6 +23,10 @@
     	border:1px solid lightgray;
     	height: 50px;
     }
+    .list-area:hover {
+    	background: #F2F2F2;
+    	cursor:pointer;
+    }
 </style>
 </head>
 <body>
@@ -54,7 +58,7 @@
 	                       </tr>  	
                        <% } else { %>
                        	   <% for(Contents c : list) { %>
-		                       <tr>
+		                       <tr class="list-area">
  		                           <td>
 		                               <input type="checkbox" name="checkCon" id="checkCon">
 		                           </td>
@@ -76,7 +80,15 @@
 							$("#btn_enroll").click(function(){
 								location.href = '<%=contextPath%>/enrollForm.co';
 							})
+							
+							$(".list-area").click(function(){
+								const cntNo = $(this).children().eq(1).text(); // 클릭한 글 번호
+								
+								location.href = '<%=contextPath%>/updateForm.co?no='+ cntNo;
+							})
+							
 						})
+						
 					</script>
 
                </div>
