@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../../common/adminMenubar.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -11,6 +12,14 @@
         <title>이용 약관 관리</title>
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        
+        <!-- Script for Summernote -->
+	    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+	    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+        
+
+        
         <style>
             button{
                 background-color:#404040;
@@ -21,28 +30,50 @@
     </head>
     <body>
 
-        <%@ include file="../../common/adminMenubar.jsp" %>
         
         <div id="layoutSidenav">
             <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4" style="width:800px;">
-                        <h1 class="mt-4">이용 약관 관리</h1>
-                        <hr>
-                       	<form action="" method="post">
-	                        <div class="card mb-4" style="margin-top:50px; height:800px;">
-	                            <div class="editor-body">
-	                                <div class="mb-0">
-	                                    에디터 추가할 예정
-	                                </div>
-	                            </div>
-	                        </div>
-	                        <div id="button area" align="right">
-		                        <button type="submit" style="border-radius:5px;">변경사항 반영</button>
-	                        </div>
-                       	</form>  
+	            <div class="container-fluid px-4" style="width:800px;">
+	                <h1 class="mt-4" style="padding-top:50px;">이용 약관 관리</h1>
+	                <hr>
+	                <div  style="margin-top:30px;">
+                        <div class="editor-body">
+                            <form action="#" method="post">
+                                <textarea id="summernote" name="terms">
+                                    왜 안돼?
+                                </textarea>
+                                <br>
+								<div id="button area" align="right">
+									<button type="submit" style="border-radius: 5px;">변경사항 반영</button>
+								</div>
+                            </form>
+                        </div>
                     </div>
-                </main>
+	            </div>
+	            
+	            <!-- Start Summernote Editor Script -->	            
+                   <script>
+                    $('#summernote').summernote({
+                    	spellCheck: true,
+                    	disableDragAndDrop: true,
+						codeviewFilter: false,
+						codeviewIframeFilter: true,
+						placeholder: '회사 소개를 입력해 주세요.',
+						tabsize: 2,
+						height: 800,
+						toolbar: [
+						   ['style', ['fontname', 'fontsize', 'bold', 'italic', 'underline', 'clear']],
+						   ['color', ['color']],
+						   ['para', ['ul', 'ol', 'paragraph']],
+						   ['insert', ['link', 'picture', 'hr']],
+						   ['view', ['fullscreen']]
+                      	]
+                    });
+                  </script>
+    	          <!-- End Summernote Editor Script -->	            
+                  
+	            
+	            
                 <br><br><br><br><br><br><br><br>
 
             </div>
