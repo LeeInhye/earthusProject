@@ -11,11 +11,13 @@
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 	<!-- session에서 정한 모달창과 모달 메세지가 출력된다. -->	
-	<script>
-		$(document).ready(function(){
-			$("#<%= modalId %>").modal("show");
-		});
-	</script>
+
+		<script>
+			$(document).ready(function(){
+				window.$("#<%=modalId%>").modal('show');
+			});
+		</script>
+	
 	            <div class="modal fade" id="<%= modalId %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			        <div class="modal-dialog modal-dialog-centered cascading-modal modal-avatar" role="document">
 			            <!--Content-->

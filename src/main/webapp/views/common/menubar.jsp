@@ -36,7 +36,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
     <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/font-pretendard.css">
     <link rel="stylesheet" href="<%=contextPath%>/resources/css/u_css_sumin/font-awesome.min.css">
-    
+    <%-- <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/nice-select.css"> --%>
 </head>
 
 <body>
@@ -181,6 +181,8 @@
 
     <!-- jquery plugins here-->
     <script src="<%= contextPath %>/resources/js/jquery-1.12.1.min.js"></script>
+     <!--  jquery -->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>]
     <!-- popper js -->
     <script src="<%= contextPath %>/resources/js/popper.min.js"></script>
     <!-- bootstrap js -->
@@ -193,7 +195,7 @@
     <script src="<%= contextPath %>/resources/js/masonry.pkgd.js"></script>
     <!-- particles js -->
     <script src="<%= contextPath %>/resources/js/owl.carousel.min.js"></script>
-    <script src="<%= contextPath %>/resources/js/jquery.nice-select.min.js"></script>
+    <%-- <script src="<%= contextPath %>/resources/js/jquery.nice-select.min.js"></script> --%>
     <!-- slick js -->
     <script src="<%= contextPath %>/resources/js/slick.min.js"></script>
     <script src="<%= contextPath %>/resources/js/jquery.counterup.min.js"></script>
@@ -205,8 +207,5 @@
     <script src="<%= contextPath %>/resources/js/mail-script.js"></script>
     <!-- custom js -->
     <script src="<%= contextPath %>/resources/js/custom.js"></script>
-    <!--  jquery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	
 </body>
 </html>

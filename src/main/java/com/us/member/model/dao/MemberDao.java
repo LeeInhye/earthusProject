@@ -276,7 +276,36 @@ public class MemberDao {
 		return result;
 	}
 	
-	
+	// 회원정보 수정
+	public int updateMember(Connection conn, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("updateMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, m.getUserPwd());
+			pstmt.setString(2, m.getUserName());
+			pstmt.setString(3, m.getEmail());
+			pstmt.setString(4, m.getPhone());
+			pstmt.setString(5, m.getZonecode());
+			pstmt.setString(6, m.getAddress());
+			pstmt.setString(7, m.getAddrExtra());
+			pstmt.setString(8, m.getAddrDetail());
+			pstmt.setString(9, m.getUserBirth());
+			pstmt.setString(10, m.getGender());
+			pstmt.setString(11, m.getUserId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	
 	

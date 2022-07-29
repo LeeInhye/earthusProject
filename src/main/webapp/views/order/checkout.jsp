@@ -7,34 +7,37 @@
 
 <head>
 
-<!-- jQuery CDN -->
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-
-<!-- ********** 내가 만든 스타일!!! 지우면 안돼!!! ********** -->
-<style>
-#product-info {
-	width: 100%;
-	border: 1px solid gainsboro;
-	border-collapse: separate;
-	border-radius: 15px;
-}
-
-.btn {
-	border-radius: 30px;
-	font-weight: bold;
-	background-color: #A8BFAA;
-	color: #F2F2F2;
-}
-
-.order_box {
-	background-color: #F2F2F2;
-	border-radius: 15px;
-}
-
-.shipping-memo, .shipping-memo * {
-	width: 100%;
-}
-</style>
+	<!-- jQuery CDN -->
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	
+	<!-- ********** 내가 만든 스타일!!! 지우면 안돼!!! ********** -->
+	<style>
+	#product-info {
+		width: 100%;
+		border: 1px solid gainsboro;
+		border-collapse: separate;
+		border-radius: 15px;
+	}
+	.btn {
+		border-radius: 30px;
+		font-weight: bold;
+		background-color: #A8BFAA;
+		color: #F2F2F2;
+	}
+	.order_box {
+		background-color: #F2F2F2;
+		border-radius: 15px;
+	}
+	.shipping-memo, .shipping-memo * {
+		width: 100%;
+	}
+	.custom-select{
+		border: 1px solid #eeeeee;
+		color:#6c757d;
+		font-size:14px;
+		height:40px;
+	}
+	</style>
 <!-- ********** 내가 만든 스타일!!! 지우면 안돼!!! ********** -->
 
 </head>
@@ -131,13 +134,20 @@
 								name="detailAddr" placeholder="상세 주소 *" required>
 						</div>
 						<div class="col-md-12 form-group">
-							<select class="form-control shipping-memo" name="shippinMemo">
+							<select class="custom-select" name="shippinMemo">
 								<option selected>배송 메모를 선택해주세요.</option>
 								<option value="1">경비실에 맡겨주세요.</option>
 								<option value="2">현관문 앞에 놓아주세요.</option>
 								<option value="3">배송 전에 미리 연락 바랍니다.</option>
 							</select>
 						</div>
+						
+						<%-- <script src="<%=contextPath%>/resources/js/jquery.nice-select.min.js"></script>
+						<script>
+							$(function(){
+								$("select").niceSelect();
+							})
+						</script> --%>
 					</div>
 
 					<div class="col-lg-4">
@@ -192,10 +202,6 @@
 		</div>
 	</section>
 
-	<br>
-	<br>
-	<br>
-	<br>
 	<br>
 	<br>
 	<br>
@@ -256,7 +262,7 @@
 
 	<!-- jquery plugins here-->
 	<!-- jquery -->
-	<script src="<%=contextPath%>/resources/js/jquery-1.12.1.min.js"></script>
+	<%-- <script src="<%=contextPath%>/resources/js/jquery-1.12.1.min.js"></script> --%>
 	<!-- popper js -->
 	<script src="<%=contextPath%>/resources/js/popper.min.js"></script>
 	<!-- bootstrap js -->
@@ -269,7 +275,7 @@
 	<script src="<%=contextPath%>/resources/js/masonry.pkgd.js"></script>
 	<!-- particles js -->
 	<script src="<%=contextPath%>/resources/js/owl.carousel.min.js"></script>
-	<script src="<%=contextPath%>/resources/js/jquery.nice-select.min.js"></script>
+	<%-- <script src="<%=contextPath%>/resources/js/jquery.nice-select.min.js"></script> --%>
 	<!-- slick js -->
 	<script src="<%=contextPath%>/resources/js/slick.min.js"></script>
 	<script src="<%=contextPath%>/resources/js/jquery.counterup.min.js"></script>
