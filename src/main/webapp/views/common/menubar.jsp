@@ -36,7 +36,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
     <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/font-pretendard.css">
     <link rel="stylesheet" href="<%=contextPath%>/resources/css/u_css_sumin/font-awesome.min.css">
-    
+    <%-- <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/nice-select.css"> --%>
 </head>
 
 <body>
@@ -193,7 +193,7 @@
     <script src="<%= contextPath %>/resources/js/masonry.pkgd.js"></script>
     <!-- particles js -->
     <script src="<%= contextPath %>/resources/js/owl.carousel.min.js"></script>
-    <script src="<%= contextPath %>/resources/js/jquery.nice-select.min.js"></script>
+    <%-- <script src="<%= contextPath %>/resources/js/jquery.nice-select.min.js"></script> --%>
     <!-- slick js -->
     <script src="<%= contextPath %>/resources/js/slick.min.js"></script>
     <script src="<%= contextPath %>/resources/js/jquery.counterup.min.js"></script>
