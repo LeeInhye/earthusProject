@@ -164,14 +164,17 @@
 
                     <script>
                         $(document).ready(function(){
-                            // 이름 value에 따른 html 변경
+                            
+                            // 이름 유효성 검사
                             $("#inputName").focusout(function(){
-                                
-                                if( $("#inputName").val().length != 0 ){
+                                regExpName = /^[가-힣]{2,8}$/;
+                                if( !regExpName.test($("#inputName").val()) ){
+                                    $("#outputName").html("<span class='tb_enroll_star'>부적합한 이름입니다.</span>");
+                                } else{
                                     $("#outputName").empty();
                                 }
-                                
                             });
+
                         });
                     </script>
 
