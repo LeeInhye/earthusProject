@@ -44,7 +44,7 @@
                    <table>
                        <tr>
                            <th width="5%" height="50px">
-                               <input type="checkbox" name="checkAllCon" id="checkAllCon">
+                               <input type="checkbox" id="checkAll">
                            </th>
                            <th width="5%">No.</th>
                            <th width="55%">제목</th>
@@ -59,8 +59,8 @@
                        <% } else { %>
                        	   <% for(Contents c : list) { %>
 		                       <tr class="list-area">
- 		                           <td>
-		                               <input type="checkbox" name="checkCon" id="checkCon">
+ 		                           <td onclick="event.stopPropagation();"> <!-- 해당 td 클릭 시에는 수정 페이지로 이동하지 않게 함-->
+		                               <input type="checkbox" name="check">
 		                           </td>
 		                           <td><%= c.getCntNo() %></td>
 		                           <td><%= c.getCntTitle() %></td>
@@ -77,16 +77,42 @@
 
 					<script>
 						$(function(){
+                            // 새 글 작성
 							$("#btn_enroll").click(function(){
 								location.href = '<%=contextPath%>/enrollForm.co';
 							})
 							
+                            // 게시글 클릭시 해당 게시글 수정 페이지로 이동
 							$(".list-area").click(function(){
 								const cntNo = $(this).children().eq(1).text(); // 클릭한 글 번호
 								
 								location.href = '<%=contextPath%>/updateForm.co?no='+ cntNo;
 							})
 							
+                            // 체크박스 전체선택, 전체해제 기능
+                            $("#checkAll").click(function(){
+
+                                if($("#checkAll").prop("checked")){
+                                    $("input[name=check]").prop("checked", true);
+                                }else {
+                                    $("input[name=check]").prop("checked", false);
+                                }
+
+                            })
+                            
+                            // 전체선택 상태에서 체크박스 하나 해제시 헤더에 있는 체크박스도 해제되고,
+                            // 목록의 체크박스들을 전부 선택시 헤더에 있는 체크박스가 선택되는 기능
+                            $("input[name=check]").click(function(){
+                                var total = $("input[name=check]").length;
+                                var checked = $("input[name=check]:checked").length;
+
+                                if(total != checked){
+                                    $("#checkAll").prop("checked", false);
+                                }else {
+                                    $("#checkAll").prop("checked", true);
+                                }
+                            })
+
 						})
 						
 					</script>
