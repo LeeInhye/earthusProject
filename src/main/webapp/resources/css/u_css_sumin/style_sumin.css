@@ -1829,7 +1829,7 @@ input[type=checkbox]{
   color: #fff;
   background-color: #A8BFAA;
   padding: 8px 15px;
-  border-radius: 5px;
+  border-radius: 20px;
 }
 
 @media (min-width: 768px) {
@@ -1837,7 +1837,7 @@ input[type=checkbox]{
   .blog_item_img .blog_item_date {
     bottom: -20px;
     left: 40px;
-    padding: 13px 30px;
+    padding: 10px 25px;
   }
 }
 
@@ -1848,12 +1848,13 @@ input[type=checkbox]{
   color: #fff;
   margin-bottom: 0;
   line-height: 1.2;
+  text-align: center;
 }
 
 @media (min-width: 768px) {
   /* line 611, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_blog.scss */
   .blog_item_img .blog_item_date h3 {
-    font-size: 30px;
+    font-size: 22px;
   }
 }
 
