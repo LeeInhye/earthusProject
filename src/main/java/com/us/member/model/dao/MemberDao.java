@@ -308,7 +308,30 @@ public class MemberDao {
 	}
 	
 	
+	// 회원 포인트 조회
 	
+	
+	
+	// 회원 탈퇴
+	public int deleteMember(Connection conn, String userId, String userPwd) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("deleteMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userPwd);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	
 	
