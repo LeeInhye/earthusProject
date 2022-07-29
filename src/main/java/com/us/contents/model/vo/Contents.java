@@ -11,6 +11,7 @@ public class Contents {
 	private int cntCount;
 	private Date cntEnrollDate;
 	private String cntStatus;
+	private int cntLike;
 	
 	public Contents() {}
 
@@ -24,6 +25,15 @@ public class Contents {
 		this.cntCount = cntCount;
 		this.cntEnrollDate = cntEnrollDate;
 		this.cntStatus = cntStatus;
+	}
+
+	public Contents(int cntNo, String cntTitle, int cntCount, Date cntEnrollDate, int cntLike) {
+		super();
+		this.cntNo = cntNo;
+		this.cntTitle = cntTitle;
+		this.cntCount = cntCount;
+		this.cntEnrollDate = cntEnrollDate;
+		this.cntLike = cntLike;
 	}
 
 	public int getCntNo() {
@@ -82,11 +92,19 @@ public class Contents {
 		this.cntStatus = cntStatus;
 	}
 
+	public int getCntLike() {
+		return cntLike;
+	}
+
+	public void setCntLike(int cntLike) {
+		this.cntLike = cntLike;
+	}
+
 	@Override
 	public String toString() {
 		return "Contents [cntNo=" + cntNo + ", cntTitle=" + cntTitle + ", cntContent=" + cntContent + ", cntThumbnail="
 				+ cntThumbnail + ", cntCount=" + cntCount + ", cntEnrollDate=" + cntEnrollDate + ", cntStatus="
-				+ cntStatus + "]";
-	};
+				+ cntStatus + ", cntLike=" + cntLike + "]";
+	}
 	
 }

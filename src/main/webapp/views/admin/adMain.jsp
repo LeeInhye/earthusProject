@@ -99,7 +99,7 @@
                             <div>
                                 <h5>커뮤니티 관리</h5>
                                 <hr>
-                                <a href="">콘텐츠 관리</a> <br>
+                                <a href="<%=contextPath%>/adList.co">콘텐츠 관리</a> <br>
                                 <a href="">챌린지 관리</a> <br>
                                 <a href="">챌린지 댓글 관리</a>
                             </div>
