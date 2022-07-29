@@ -92,7 +92,7 @@
                                 <hr>
                                 <a href="">회사 소개 관리</a> <br>
                                 <a href="">이용 약관 관리</a> <br>
-                                <a href="">배너 관리</a>
+                                <a href="<%= contextPath %>/list.bn">배너 관리</a>
                             </div>
                         </div>
                         <div class="main-list2-ih">
