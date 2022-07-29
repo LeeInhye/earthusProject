@@ -98,8 +98,21 @@ public class MemberService {
 			return result;
 		}
 		
+		// 회원 포인트 조회
 		
 		
+		// 회원 탈퇴
+		public int deleteMember(String userId, String userPwd) {
+			Connection conn = getConnection();
+			int result = new MemberDao().deleteMember(conn, userId, userPwd);
+			if(result > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+			close(conn);
+			return result;
+		}
 		
 		
 		

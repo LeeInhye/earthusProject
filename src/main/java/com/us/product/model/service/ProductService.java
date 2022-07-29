@@ -21,11 +21,18 @@ public class ProductService {
 		return listCount;
 	}
 	
-	public Category selectCategory(int categoryNo) {
+	public ArrayList<Category> selectCategoryList() {
 		Connection conn = getConnection();
-		Category c = new ProductDao().selectCategory(conn, categoryNo);
+		ArrayList<Category> cList = new ProductDao().selectCategoryList(conn);
 		close(conn);
-		return c;
+		return cList;
+	}
+	
+	public ArrayList<Product> selectProductCountList(){
+		Connection conn = getConnection();
+		ArrayList<Product> pcList = new ProductDao().selectProductCountList(conn);
+		close(conn);
+		return pcList;
 	}
 	
 	public ArrayList<Product> selectProductList(PageInfo pi, int categoryNo){

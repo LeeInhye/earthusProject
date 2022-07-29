@@ -1,28 +1,27 @@
-package com.us.contents.controller;
+package com.us.member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.us.contents.model.service.ContentsService;
-import com.us.contents.model.vo.Contents;
+import com.us.member.model.vo.Member;
 
 /**
- * Servlet implementation class adContentsListController
+ * Servlet implementation class GoDeleteMemberController
  */
-@WebServlet("/adList.co")
-public class adContentsListController extends HttpServlet {
+@WebServlet("/goDelete.me")
+public class GoDeleteMemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adContentsListController() {
+    public GoDeleteMemberController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,12 +30,17 @@ public class adContentsListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
 		
-		ArrayList<Contents> list = new ContentsService().selectAdList();
+		// 단순 페이지 요청
+		if(loginUser == null) {
+			response.sendRedirect(request.getContextPath() + "/goLogin.me");
+		} else {
+			request.getRequestDispatcher("/views/member/deleteMember.jsp").forward(request, response);
+		}
 		
-		request.setAttribute("adList", list);
-		request.getRequestDispatcher("views/contents/adContentsListView.jsp").forward(request, response);
-	
 	}
 
 	/**

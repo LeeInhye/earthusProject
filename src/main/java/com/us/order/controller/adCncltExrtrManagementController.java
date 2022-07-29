@@ -1,28 +1,23 @@
-package com.us.contents.controller;
+package com.us.order.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.us.contents.model.service.ContentsService;
-import com.us.contents.model.vo.Contents;
-
 /**
- * Servlet implementation class adContentsListController
+ * Servlet implementation class adCncltExrtrManagementController
  */
-@WebServlet("/adList.co")
-public class adContentsListController extends HttpServlet {
+@WebServlet("/adCncltExrtr.or")
+public class adCncltExrtrManagementController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adContentsListController() {
+    public adCncltExrtrManagementController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,12 +26,8 @@ public class adContentsListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		ArrayList<Contents> list = new ContentsService().selectAdList();
-		
-		request.setAttribute("adList", list);
-		request.getRequestDispatcher("views/contents/adContentsListView.jsp").forward(request, response);
-	
+		// 기능 아직 안함
+		request.getRequestDispatcher("views/order/adCncltExrtrManagementView.jsp").forward(request,response);
 	}
 
 	/**

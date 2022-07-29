@@ -128,7 +128,12 @@
 		 WHERE USER_ID = ?
 	</entry>
 	
-	
+	<entry key="deleteMember">
+		UPDATE MEMBER
+		   SET USER_STATUS = 'N'
+		 WHERE USER_ID = ?
+		   AND USER_PWD = ?
+	</entry>
 	
 	
 	

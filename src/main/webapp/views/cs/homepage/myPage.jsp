@@ -58,7 +58,7 @@
                 </div>
             </div>
 
-            <div class="mpBlock" onclick="location.href='<%= contextPath %>';">
+            <div class="mpBlock" onclick="location.href='<%= contextPath %>/goDelete.me';">
                 <div class="mp_top">
                     <h3>DELETE MY ACCOUNT</h3>
                     <br>

@@ -17,14 +17,14 @@ import com.us.product.model.vo.Product;
 /**
  * Servlet implementation class HairListController
  */
-@WebServlet("/list.hair")
-public class HairListController extends HttpServlet {
+@WebServlet("/list.pro")
+public class productListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HairListController() {
+    public productListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -65,24 +65,26 @@ public class HairListController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		// 헤어 카테고리 조회 (배너 이미지 있음) ==> 전체 카테고리를 조회해버려도 될 것 같기도
-		Category c = new ProductService().selectCategory(categoryNo);
+		// 전체 카테고리 조회 (배너 이미지용)
+		ArrayList<Category> cList = new ProductService().selectCategoryList();
 		
-		// !!카테고리 별 상품 개수 조회 필요!!
+		// 카테고리 별 상품 개수 조회
+		ArrayList<Product> pcList = new ProductService().selectProductCountList();
 		
-		// 헤어 상품 목록 조회
-		ArrayList<Product> list = new ProductService().selectProductList(pi, categoryNo);
+		// 카테고리별 상품 목록 조회
+		ArrayList<Product> pList = new ProductService().selectProductList(pi, categoryNo);
 		
-		// 헤어 카테고리의 베스트 상품 5개 조회
+		// 카테고리별 베스트 상품 5개 조회
 		ArrayList<Product> bList = new ProductService().selectBestProductList(categoryNo);
 		
 		// 포워딩
 		request.setAttribute("pi", pi);
-		request.setAttribute("c", c);
-		request.setAttribute("list", list);
+		request.setAttribute("cList", cList);
+		request.setAttribute("pcList", pcList);
+		request.setAttribute("pList", pList);
 		request.setAttribute("bList", bList);
 		
-		request.getRequestDispatcher("/views/product/ProductHair.jsp").forward(request,response);
+		request.getRequestDispatcher("/views/product/productListView.jsp").forward(request,response);
 		
 	}
 

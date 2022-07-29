@@ -491,6 +491,12 @@ input{
   background: #ccc;
   margin-top: 20px;
 }
+.my-hr3 {
+  border: 0;
+  height: 2px;
+  background: #ccc;
+  margin-top: 30px;
+}
 
 /* .main_menu .cart i:after {
   position: absolute;
@@ -643,7 +649,16 @@ input[type=checkbox]{
   border-radius: 20px;
   margin-left: 10px;
 }
-
+.qna_insert_success{
+    width: 40%;
+    margin:auto;
+}
+.qna_insert_img{
+    margin:auto;
+    margin-top:100px;
+    width:100%;
+    height:400px;   
+}
 
 
 

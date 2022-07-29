@@ -61,10 +61,10 @@
                                         Shop
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                        <a class="dropdown-item" href="category.html"> Hair</a>
-                                        <a class="dropdown-item" href="single-product.html">Body</a>
-                                        <a class="dropdown-item" href="">Kitchen</a>
-                                        <a class="dropdown-item" href="">Bathroom</a>
+                                        <a class="dropdown-item" href="<%= contextPath %>/list.pro?categoryNo=1&cpage=1"> Hair</a>
+                                        <a class="dropdown-item" href="<%= contextPath %>/list.pro?categoryNo=2&cpage=1">Body</a>
+                                        <a class="dropdown-item" href="<%= contextPath %>/list.pro?categoryNo=3&cpage=1">Kitchen</a>
+                                        <a class="dropdown-item" href="<%= contextPath %>/list.pro?categoryNo=4&cpage=1">Bathroom</a>
                                         
                                     </div>
                                 </li>
@@ -84,9 +84,9 @@
                                         Contact
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
-                                        <a class="dropdown-item" href="blog.html"> 공지사항</a>
-                                        <a class="dropdown-item" href="single-blog.html">자주묻는질문</a>
-                                        <a class="dropdown-item" href="">Q&A</a>
+                                        <a class="dropdown-item" href="<%= contextPath %>/list.no"> 공지사항</a>
+                                        <a class="dropdown-item" href="<%= contextPath %>/list.fq">자주묻는질문</a>
+                                        <a class="dropdown-item" href="<%= contextPath %>/list.qa">Q&A</a>
                                     </div>
                                 </li>
 

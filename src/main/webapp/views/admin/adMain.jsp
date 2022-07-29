@@ -63,14 +63,14 @@
                                 <h5>주문 관리</h5>
                                 <hr>
                                 <a href="">구매 내역 조회</a> <br>
-                                <a href="">취소/교환/반품 관리</a>
+                                <a href="<%=contextPath%>/adCncltExrtr.or">취소/교환/반품 관리</a>
                             </div>
                         </div>
                         <div class="main-list1-ih st">
                             <div>
                                 <h5>배송 관리</h5>
                                 <hr>
-                                <a href="">배송/운송장 관리</a>
+                                <a href="<%=contextPath%>/adDel.or">배송/운송장 관리</a>
                             </div>
                         </div>
                         <div class="main-list1-ih">
@@ -99,7 +99,7 @@
                             <div>
                                 <h5>커뮤니티 관리</h5>
                                 <hr>
-                                <a href="">콘텐츠 관리</a> <br>
+                                <a href="<%=contextPath%>/adList.co">콘텐츠 관리</a> <br>
                                 <a href="">챌린지 관리</a> <br>
                                 <a href="">챌린지 댓글 관리</a>
                             </div>

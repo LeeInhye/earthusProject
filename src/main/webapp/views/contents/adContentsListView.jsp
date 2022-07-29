@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.us.contents.model.vo.Contents"%>
+<%
+	ArrayList<Contents> list = (ArrayList<Contents>)request.getAttribute("adList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,11 +12,17 @@
            font-size:small;
            text-align:center;
            width:80%;
-           height:350px;
            margin:auto;
        }
-    table th, table td{border:1px solid lightgray;}
-    th{background-color:rgba(211, 211, 211,0.5)}
+    table td{
+    	border:1px solid lightgray;
+    	height: 40px;
+    }
+    table th{
+    	background-color:rgba(211, 211, 211,0.5);
+    	border:1px solid lightgray;
+    	height: 50px;
+    }
 </style>
 </head>
 <body>
@@ -26,82 +35,37 @@
                <div class="container-fluid px-4">
                    <br>
                    <h3 class="mt-4" style="font-weight:bold;">콘텐츠 관리</h3>
-                   <hr>
-                   <br><br>
-
+                   <hr><br><br>
+                   
                    <table>
                        <tr>
-                           <th width="5%">
+                           <th width="5%" height="50px">
                                <input type="checkbox" name="checkAllCon" id="checkAllCon">
                            </th>
                            <th width="5%">No.</th>
-                           <th width="60%">제목</th>
-                           <th width="20%">작성일</th>
+                           <th width="55%">제목</th>
+                           <th width="15%">작성일</th>
+                           <th width="10%">조회수</th>
                            <th width="10%">좋아요 수</th>
                        </tr>
-                       <tr>
-                           <td>
-                               <input type="checkbox" name="checkCon" id="checkCon">
-                           </td>
-                           <td>7</td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                       </tr>
-                       <tr>
-                           <td>
-                               <input type="checkbox" name="checkCon" id="checkCon">
-                           </td>
-                           <td>6</td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                       </tr>
-                       <tr>
-                           <td>
-                               <input type="checkbox" name="checkCon" id="checkCon">
-                           </td>
-                           <td>5</td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                       </tr>
-                       <tr>
-                           <td>
-                               <input type="checkbox" name="checkCon" id="checkCon">
-                           </td>
-                           <td>4</td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                       </tr>
-                       <tr>
-                           <td>
-                               <input type="checkbox" name="checkCon" id="checkCon">
-                           </td>
-                           <td>3</td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                       </tr>
-                       <tr>
-                           <td>
-                               <input type="checkbox" name="checkCon" id="checkCon">
-                           </td>
-                           <td>2</td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                       </tr>
-                       <tr>
-                           <td>
-                               <input type="checkbox" name="checkCon" id="checkCon">
-                           </td>
-                           <td>1</td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                       </tr>
+                       <% if(list.isEmpty()) { %>
+	                       <tr>
+	                           <td colspan="6">존재하는 콘텐츠가 없습니다.</td>
+	                       </tr>  	
+                       <% } else { %>
+                       	   <% for(Contents c : list) { %>
+		                       <tr>
+ 		                           <td>
+		                               <input type="checkbox" name="checkCon" id="checkCon">
+		                           </td>
+		                           <td><%= c.getCntNo() %></td>
+		                           <td><%= c.getCntTitle() %></td>
+		                           <td><%= c.getCntEnrollDate() %></td>
+		                           <td><%= c.getCntCount() %></td>
+		                           <td><%= c.getCntLike() %></td>
+		                       </tr>
+	                       <% } %>
+                       <% } %>
                    </table>
 
                        <button class="btn_admin" style="float: left; margin-left: 10%;">선택 삭제</button>

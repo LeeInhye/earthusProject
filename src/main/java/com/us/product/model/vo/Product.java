@@ -14,7 +14,9 @@ public class Product {
 	private String proImgPath;
 	private String detailImgPath;
 	private String seqInfoImgPath;
-	private int proCount;
+	private int proCount; // 조회수
+	
+	private int productCount; // 카테고리별 상품 개수 조회용 변수
 	
 	public Product() {}
 
@@ -44,6 +46,11 @@ public class Product {
 		this.proEnrollDate = proEnrollDate;
 		this.proImgPath = proImgPath;
 		this.proCount = proCount;
+	}
+
+	public Product(int productCount) {
+		super();
+		this.productCount = productCount;
 	}
 
 	public String getProCode() {
@@ -132,6 +139,14 @@ public class Product {
 
 	public void setProCount(int proCount) {
 		this.proCount = proCount;
+	}
+
+	public int getProductCount() {
+		return productCount;
+	}
+
+	public void setProductCount(int productCount) {
+		this.productCount = productCount;
 	}
 
 	@Override
