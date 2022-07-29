@@ -43,7 +43,6 @@
                         <div class="editor-body">
                             <form action="#" method="post">
                                 <textarea id="summernote" name="comInf">
-                                    왜 안돼?
                                 </textarea>
                                 <br>
 								<div id="button area" align="right">
@@ -69,8 +68,41 @@
 						   ['para', ['ul', 'ol', 'paragraph']],
 						   ['insert', ['link', 'picture', 'hr']],
 						   ['view', ['fullscreen']]
-                      	]
+                      	],
+                        callbacks: { // 이미지 업로드를 위한 콜백 함수
+                            // 이미지 업로드하면 이벤트 발생시킴
+                            onImageUpload: function(files, editor, webEitable){
+                                // 이미지 개수대로 sendFile
+                                for(const i=0; i<files.length; i++){
+                                    sendFile(files[i], editor, welEditable);
+                                }
+                            }
+                        }
                     });
+
+                    function sendFile(file, editor, welEditable){
+                        var imgUrl = 'img/uploads/notice'
+                        form_data = new FormData();
+                        form_data.append("image", file);
+                        $.ajax({
+                            data: form_data,
+                            type: "post",
+                            url: "summernote_imageUpload.do",
+                            dataType: "text",
+                            cache: "false",
+                            enctype: "multipart/form-data",
+                            processData:"false",
+                            processData: "false",
+                            success: function(savename){
+                                umgUrl = umgUrl + savename;
+                                editor.insertImage(welEditable, imgUrl);
+                            },
+                            error: function(){
+                                alert("error");
+                            }
+
+                        })
+                    }
                   </script>
                 
                 <br><br><br><br><br><br><br><br>
