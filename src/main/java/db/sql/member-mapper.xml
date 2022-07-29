@@ -50,6 +50,7 @@
 		  )
 	</entry>
 	
+	<!-- 로그인 -->
 	<entry key="loginMember">
 		SELECT
 		        USER_NO
@@ -73,6 +74,7 @@
 		   AND USER_PWD = ?
 	</entry>
 	
+	<!-- 아이디 찾기 -->
 	<entry key="findId">
 		SELECT
 		       USER_ID
@@ -82,6 +84,7 @@
 		   AND EMAIL = ?
 	</entry>
 	
+	<!--  비밀번호 찾기 -->
 	<entry key="findPwd">
 		SELECT
 		       COUNT(*) AS "COUNT"
@@ -91,6 +94,7 @@
 		   AND USER_NAME = ?
 	</entry>
 	
+	<!-- 인증번호 보낼 이메일 조회 -->
 	<entry key="enterEmail">
 		SELECT
 		        EMAIL
@@ -99,12 +103,52 @@
 		   AND USER_ID = ?
 	</entry>
 	
+	<!-- 비밀번호 변경 -->
 	<entry key="updatePwd">
 		UPDATE MEMBER
 		   SET USER_PWD = ?
 		 WHERE USER_STATUS = 'Y'
 		   AND USER_ID = ?
 	</entry>
+	
+	<!-- 회원 정보 수정 -->
+	<entry key="updateMember">
+		UPDATE MEMBER
+		   SET USER_PWD = ?
+		     , USER_NAME = ?
+		     , EMAIL = ?
+		     , PHONE = ?
+		     , ZONECODE = ?
+		     , ADDRESS = ?
+		     , ADDR_EXTRA = ?
+		     , ADDR_DETAIL = ?
+		     , USER_BIRTH = ?
+		     , GENDER = ?
+		     , USER_MODIFY_DATE = SYSDATE
+		 WHERE USER_ID = ?
+	</entry>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

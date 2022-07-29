@@ -181,6 +181,8 @@
 
     <!-- jquery plugins here-->
     <script src="<%= contextPath %>/resources/js/jquery-1.12.1.min.js"></script>
+     <!--  jquery -->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>]
     <!-- popper js -->
     <script src="<%= contextPath %>/resources/js/popper.min.js"></script>
     <!-- bootstrap js -->
@@ -205,8 +207,5 @@
     <script src="<%= contextPath %>/resources/js/mail-script.js"></script>
     <!-- custom js -->
     <script src="<%= contextPath %>/resources/js/custom.js"></script>
-    <!--  jquery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	
 </body>
 </html>

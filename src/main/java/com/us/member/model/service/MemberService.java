@@ -49,7 +49,7 @@ public class MemberService {
 			return result;
 		}
 		
-		// 로그인
+		// 로그인, 수정한 회원 정보 조회
 		public Member loginMember(String userId, String userPwd) {
 			Connection conn = getConnection();
 			Member m = new MemberDao().loginMember(conn, userId, userPwd);
@@ -85,7 +85,18 @@ public class MemberService {
 			return result;
 		}
 		
-		
+		// 회원 정보 수정
+		public int updateMember(Member m) {
+			Connection conn = getConnection();
+			int result = new MemberDao().updateMember(conn, m);
+			if(result > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+			close(conn);
+			return result;
+		}
 		
 		
 		
