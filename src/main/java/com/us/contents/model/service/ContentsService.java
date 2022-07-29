@@ -1,8 +1,12 @@
 package com.us.contents.model.service;
 
-import static com.us.common.JDBCTemplate.*;
+import static com.us.common.JDBCTemplate.close;
+import static com.us.common.JDBCTemplate.commit;
+import static com.us.common.JDBCTemplate.getConnection;
+import static com.us.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.us.common.model.vo.Attachment;
 import com.us.contents.model.dao.ContentsDao;
@@ -27,6 +31,14 @@ public class ContentsService {
 		close(conn);
 		
 		return result1 * result2;
+	}
+	
+	public ArrayList<Contents> selectAdList() {
+		Connection conn = getConnection();		
+		ArrayList<Contents> list = new ContentsDao().selectAdList(conn);
+		close(conn);
+
+		return list;
 	}
 
 }

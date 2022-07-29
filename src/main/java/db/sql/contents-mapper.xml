@@ -41,5 +41,20 @@
 		     , ?
 		     )	
 	</entry>
+	
+	<entry key="selectAdList">
+		SELECT
+		       CNT_NO
+		     , CNT_TITLE
+		     , CNT_ENROLL_DATE
+		     , CNT_COUNT
+		     , (SELECT COUNT(*)
+		          FROM CONTENTS_LIKE CL 
+		         WHERE CL.CNT_NO = C.CNT_NO) AS CNT_LIKE
+		  FROM CONTENTS C
+		 WHERE CNT_STATUS = 'Y'
+		 ORDER 
+		    BY CNT_NO DESC
+	</entry>
 
 </properties>

@@ -69,7 +69,7 @@ public class adContentsInsertController extends HttpServlet {
 			int result = new ContentsService().insertContents(c, at);
 
 			if(result > 0) { // 성공 => 관리자 콘텐츠 리스트 페이지
-				response.sendRedirect(request.getContextPath() + "/cntList.ad");
+				response.sendRedirect(request.getContextPath() + "/adList.co");
 			}else { // 실패 => 업로드된 첨부파일 찾아서 삭제, 에러페이지
 				new File(savePath + at.getChangeName()).delete();
 				

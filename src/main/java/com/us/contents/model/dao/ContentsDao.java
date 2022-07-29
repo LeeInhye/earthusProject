@@ -6,7 +6,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import com.us.common.model.vo.Attachment;
@@ -68,6 +70,36 @@ public class ContentsDao {
 		}
 		
 		return result;
+	}
+	
+	public ArrayList<Contents> selectAdList(Connection conn) {
+		// select => ResultSet(여러 행) => ArrayList<Contents>
+		ArrayList<Contents> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectAdList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Contents(rset.getInt("cnt_no"),
+									  rset.getString("cnt_title"),
+									  rset.getInt("cnt_count"),
+									  rset.getDate("cnt_enroll_date"),
+									  rset.getInt("cnt_like")				
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 	
 	
