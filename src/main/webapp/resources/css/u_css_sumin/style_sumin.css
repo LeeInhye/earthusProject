@@ -560,6 +560,9 @@ input[type=checkbox]{
   background:rgb(231, 237, 232);
   display:none;
 }
+.CS_content p{
+  white-space: pre;
+}
 .CS_hide{
   display:none;
 }
@@ -572,6 +575,9 @@ input[type=checkbox]{
   align-items: center;
   width: 85%;
   margin:auto;
+}
+.CS_table *{
+  font-size: 17px;
 }
 .CS_table thead{
   background-color: #F2F2F2;
@@ -588,10 +594,27 @@ input[type=checkbox]{
 }
 .board_category a{
   color:#0D0D0D;
+  font-size: 18px;
 }
 .board_category a:hover{
   color:#778C79;
-  font-weight:600;
+  font-weight:800;
+}
+.board_category_click{
+  color:#778C79 !important;
+  font-weight:800;
+}
+
+.moveToQna span{
+    margin-right:15px;
+}
+.moveToQna a{
+    margin:10px;
+    padding: 10px 20px;
+    background:rgb(168, 191, 170);
+    border-radius:40px;
+    color:white;
+    text-decoration: none;
 }
 
 

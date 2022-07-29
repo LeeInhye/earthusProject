@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="selectNoticeList">
+		SELECT
+		        NOTICE_NO
+		      , USER_NAME
+		      , CS_CATEGORY_NAME
+		      , NOTICE_TITLE
+		      , NOTICE_CONTENT
+		      , NOTICE_ENROLL_DATE
+		  FROM NOTICE
+		  JOIN MEMBER ON (USER_NO = NOTICE_WRITER)
+		  JOIN CS_CATEGORY USING(CS_CATEGORY_NO)
+		 WHERE NOTICE_STATUS = 'Y'
+		  ORDER
+		    BY NOTICE_NO DESC
+	</entry>
+
+	<entry key="selectCateNoticeList">
+		SELECT
+		        NOTICE_NO
+		      , USER_NAME
+		      , CS_CATEGORY_NAME
+		      , NOTICE_TITLE
+		      , NOTICE_CONTENT
+		      , NOTICE_ENROLL_DATE
+		  FROM NOTICE
+		  JOIN MEMBER ON (USER_NO = NOTICE_WRITER)
+		  JOIN CS_CATEGORY USING(CS_CATEGORY_NO)
+		 WHERE NOTICE_STATUS = 'Y'
+		   AND CS_CATEGORY_NO = ?
+		  ORDER
+		    BY NOTICE_NO DESC
+	</entry>
+
+
+
+
+
+
+
+
+
+</properties>
