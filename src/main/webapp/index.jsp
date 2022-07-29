@@ -61,10 +61,10 @@
                                         Shop
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                        <a class="dropdown-item" href="<%= contextPath %>/list.hair?categoryNo=1&cpage=1"> Hair</a>
-                                        <a class="dropdown-item" href="<%= contextPath %>/list.hair?categoryNo=2&cpage=1">Body</a>
-                                        <a class="dropdown-item" href="<%= contextPath %>/list.hair?categoryNo=3&cpage=1">Kitchen</a>
-                                        <a class="dropdown-item" href="<%= contextPath %>/list.hair?categoryNo=4&cpage=1">Bathroom</a>
+                                        <a class="dropdown-item" href="<%= contextPath %>/list.pro?categoryNo=1&cpage=1"> Hair</a>
+                                        <a class="dropdown-item" href="<%= contextPath %>/list.pro?categoryNo=2&cpage=1">Body</a>
+                                        <a class="dropdown-item" href="<%= contextPath %>/list.pro?categoryNo=3&cpage=1">Kitchen</a>
+                                        <a class="dropdown-item" href="<%= contextPath %>/list.pro?categoryNo=4&cpage=1">Bathroom</a>
                                         
                                     </div>
                                 </li>
@@ -240,28 +240,28 @@
                 <div class="col-lg-7 col-sm-6">
                     <div class="single_feature_post_text">
                         <h3 style="margin-top: 230px;">HAIR</h3>
-                        <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
+                        <a href="<%= contextPath %>/list.pro?categoryNo=1&cpage=1" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
                         <img src="<%= contextPath %>/resources/img/feature/feature_1.png" alt="">
                     </div>
                 </div>
                 <div class="col-lg-5 col-sm-6">
                     <div class="single_feature_post_text">
                         <h3 style="margin-top: 277px; margin-left: 80%; color:#778C79;">BODY</h3>
-                        <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
+                        <a href="<%= contextPath %>/list.pro?categoryNo=2&cpage=1" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
                         <img src="" alt="">
                     </div>
                 </div>
                 <div class="col-lg-5 col-sm-6">
                     <div class="single_feature_post_text">
                         <h3 style="margin-top:230px;">KITCHEN</h3>
-                        <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
+                        <a href="<%= contextPath %>/list.pro?categoryNo=3&cpage=1" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
                         <img src="<%= contextPath %>/resources/img/feature/feature_3.png" alt="">
                     </div>
                 </div>
                 <div class="col-lg-7 col-sm-6">
                     <div class="single_feature_post_text">
                         <h3 style="margin-top: 277px; margin-left:75%;">BATHROOM</h3>
-                        <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
+                        <a href="<%= contextPath %>/list.pro?categoryNo=4&cpage=1" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
                         <img src="" alt="">
                     </div>
                 </div>

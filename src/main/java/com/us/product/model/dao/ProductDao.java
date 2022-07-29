@@ -4,6 +4,7 @@ import static com.us.common.JDBCTemplate.close;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +15,8 @@ import java.util.Properties;
 import com.us.common.model.vo.PageInfo;
 import com.us.product.model.vo.Category;
 import com.us.product.model.vo.Product;
+
+import oracle.jdbc.driver.T2CConnection;
 
 public class ProductDao {
 	
@@ -52,21 +55,21 @@ public class ProductDao {
 		
 	}
 	
-	public Category selectCategory(Connection conn, int categoryNo) {
-		Category c = null;
+	public ArrayList<Category> selectCategoryList(Connection conn){
+		ArrayList<Category> cList = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectCategory");
+		String sql = prop.getProperty("selectCategoryList");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, categoryNo);
 			rset = pstmt.executeQuery();
 			
-			if(rset.next()) {
-				c = new Category(rset.getInt("PRO_CATEGORY_NO"),
-								 rset.getString("PRO_CATEGORY_NAME"),
-								 rset.getString("PRO_CATEGORY_IMG_PATH"));
+			while(rset.next()){
+				cList.add(new Category(rset.getInt("pro_category_no"),
+									   rset.getString("pro_category_name"),
+									   rset.getString("pro_category_img_path")
+									   ));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -74,7 +77,29 @@ public class ProductDao {
 			close(rset);
 			close(pstmt);
 		}
-		return c;
+		return cList;
+	}
+	
+	public ArrayList<Product> selectProductCountList(Connection conn) {
+		ArrayList<Product> pcList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectProductCountList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				pcList.add(new Product(rset.getInt("productCount")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return pcList;
 	}
 	
 	public ArrayList<Product> selectProductList(Connection conn, PageInfo pi, int categoryNo){
