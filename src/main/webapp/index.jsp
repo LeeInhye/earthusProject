@@ -84,9 +84,9 @@
                                         Contact
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
-                                        <a class="dropdown-item" href="blog.html"> 공지사항</a>
-                                        <a class="dropdown-item" href="single-blog.html">자주묻는질문</a>
-                                        <a class="dropdown-item" href="">Q&A</a>
+                                        <a class="dropdown-item" href="<%= contextPath %>/list.no"> 공지사항</a>
+                                        <a class="dropdown-item" href="<%= contextPath %>/list.fq">자주묻는질문</a>
+                                        <a class="dropdown-item" href="<%= contextPath %>/list.qa">Q&A</a>
                                     </div>
                                 </li>
 
