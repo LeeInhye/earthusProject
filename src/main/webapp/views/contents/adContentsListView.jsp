@@ -110,7 +110,7 @@
 					<script>
 						$(function(){
 							$("#btn_enroll").click(function(){
-								location.href = '<%=contextPath%>/cntEnrollForm.ad';
+								location.href = '<%=contextPath%>/enrollForm.co';
 							})
 						})
 					</script>

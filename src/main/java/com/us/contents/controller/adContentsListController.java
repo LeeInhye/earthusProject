@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class adContentsListController
  */
-@WebServlet("/cntList.ad")
+@WebServlet("/adList.co")
 public class adContentsListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
