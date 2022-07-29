@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ page import="com.us.cs.homepage.model.vo.Banner, java.util.ArrayList" %>
+<%
+	ArrayList<Banner> list = (ArrayList<Banner>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -99,26 +102,17 @@
 							</tr>
 						</thead>
 						<tbody>
+							<% for(Banner b : list){ %>
 							<tr>
-								<td>3</td>
-								<td>진행</td>
-								<td height="150px;"><a href="" id="activate-edit-modal"
-									data-toggle="modal" data-target="#edit-banner"><img
-										src="assets/img/error-404-monochrome.svg" style="height: 100%"></a>
+								<td><%= b.getBnNo() %></td>
+								<td><%= b.getBnStatus() %></td>
+								<td height="150px;">
+									<a href="" id="activate-edit-modal" data-toggle="modal" data-target="#edit-banner">
+										<img src="<%= b.getBnImgSrc() %>" style="height: 100%">
+									</a>
 								</td>
 							</tr>
-							<tr>
-								<td>2</td>
-								<td>종료</td>
-								<td height="150px;"><img
-									src="assets/img/error-404-monochrome.svg" style="height: 100%"></td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>종료</td>
-								<td height="150px;"><img
-									src="assets/img/error-404-monochrome.svg" style="height: 100%"></td>
-							</tr>
+							<% } %>
 						</tbody>
 					</table>
 	
