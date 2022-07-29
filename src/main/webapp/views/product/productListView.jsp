@@ -219,6 +219,7 @@
                                             <div class="single_product_text">
                                                 <h4><%= p.getProName() %></h4>
                                                 <p><%= p.getPrice() %>원</p>&nbsp;&nbsp;&nbsp;<i class="fa fa-heart color-gray""></i>
+                                                <input type="hidden" name="proCode" value="<%= p.getProCode() %>">
                                             </div>
                                         </div>
                                         <% } %>
@@ -227,7 +228,7 @@
                             </div>
                         </div>
                     </section>
-                    <!----- 베스트 상품 영역 끝 ----->
+                    <!----- 베스트 상품 영역 끝 -----> 
 					<hr><br><br>
  					 <!-- 전체 상품 영역 시작 -->
                     <div class="row align-items-center latest_product_inner">
@@ -290,7 +291,7 @@
 
         $(function(){
 
-        	// ----------------찜 버튼-----------------
+        	// ---------------- 찜 버튼 -----------------
             $('.single_product_text>i').click(function(){ 
 
                 if( $(this).hasClass("color-gray") ){
@@ -300,8 +301,10 @@
                 }
                 
             })
+            // ----------------------------------------
+            
 
-        	// 상품명 키워드로 상품 검색
+        	// ----------- 상품명 키워드로 상품 검색 ----------
             $(".ti-search").click(function(){
                 
 	            $.AJAX({
@@ -319,6 +322,21 @@
 	            })
 	            
             })
+            // ---------------------------------------
+            
+            // 상품 이미지나 상품명, 가격 클릭 시 상품 상세 페이지로 이동
+            $(".single_product_item img, h4, p").click(function(){
+            	
+            	const proCode = $(this).siblings(input[name=proCode]).val(); // 해당 상품의 상품코드
+            	
+            	
+            	<% for(Product p : pList){ %>
+            	<%	if(p.getProCode().isEqual(proCode)) {%>
+            		location.href = "<%=contextPath%>/detail.pro?proCode=" + proCode;
+            	<% } %>
+            	
+            })
+            
             
 			
         })
