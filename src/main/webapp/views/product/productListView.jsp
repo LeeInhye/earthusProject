@@ -37,8 +37,11 @@
 <style>
 
 	.best_seller{margin:5% 0%;}
+	
 	.price_rangs_aside{margin:5% 0%;}
+	
 	.fa-heart {color:#A8BFAA ;}
+	
 	.custom-select{
 		border: 1px solid #eeeeee;
 		color:#6c757d;
@@ -46,23 +49,31 @@
 		height:40px;
         width:300px;
 	}
+	
 	#selectArea {width:30%;}
+	
     #selectTitle {width:50%; line-height:40px;}
+    
     .single_product_item .single_product_text {
     	background: white !important;
     }
+    
     .single_product_item * {
    		background: white !important;
     }
+    
     .single_product_item {
         background: white !important;
     }
+    
     .single_product_text {
     	background: white !important;
     }
+    
     .color-lightgreen {
     	color:#a8bfaa;
     }
+    
     .color-gray {
     	color:#f2f2f2;
     }
@@ -173,7 +184,7 @@
                                 <!--상품 검색바 시작-->
                                 <div class="single_product_menu d-flex">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="상품 검색"
+                                        <input type="text" id="pNameKeyword" class="form-control" placeholder="상품명 검색"
                                             aria-describedby="inputGroupPrepend">
                                         <div class="input-group-prepend">
                                             <!--상품검색 돋보기아이콘-->
@@ -290,10 +301,25 @@
                 
             })
 
-        	// 돋보기 아이콘 클릭 시 상품 검색 결과창 반환
+        	// 상품명 키워드로 상품 검색
             $(".ti-search").click(function(){
-                location.href="category_search.html";
+                
+	            $.AJAX({
+	          		url:"<%= contextPath %>/search.pro",
+	          		data: {
+	          				categoryNo : <%= categoryNo %>,
+			          		proNameKeyword : $('#pNameKeyword').val()
+	          			  },
+	          		type:"POST",
+	          		success:function(){
+	          		
+	          		},fail:function(){
+	          		
+	          		}
+	            })
+	            
             })
+            
 			
         })
                                             
@@ -313,10 +339,6 @@
 					600:{item:3}
 				}
 			})
-			
-			$("span[aria-label=Previous]").innerText("이전");
-			$("span[aria-label=Next]").innerText("다음");
-			//$(".best_product .single_product_item >img").css({width:80%; height:80%;});
 		})
 	</script>
 	<%@ include file = "../common/footerbar.jsp" %>

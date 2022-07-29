@@ -30,6 +30,7 @@ public class ProductDao {
 		}
 	}
 	
+	// 해당하는 카테고리의 상품 개수 조회
 	public int selectListCount(Connection conn, int categoryNo) {
 		int listCount = 0;
 		PreparedStatement pstmt = null;
@@ -55,6 +56,7 @@ public class ProductDao {
 		
 	}
 	
+	// 카테고리 전체 조회
 	public ArrayList<Category> selectCategoryList(Connection conn){
 		ArrayList<Category> cList = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -80,6 +82,7 @@ public class ProductDao {
 		return cList;
 	}
 	
+	// 카테고리 별 상품 개수 조회
 	public ArrayList<Product> selectProductCountList(Connection conn) {
 		ArrayList<Product> pcList = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -102,6 +105,7 @@ public class ProductDao {
 		return pcList;
 	}
 	
+	// 한 페이지에 나타날 상품들 조회
 	public ArrayList<Product> selectProductList(Connection conn, PageInfo pi, int categoryNo){
 		ArrayList<Product> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -140,6 +144,7 @@ public class ProductDao {
 		
 	}
 	
+	// 베스트 상품 5 조회 (조회수 기준)
 	public ArrayList<Product> selectBestProductList(Connection conn, int categoryNo){
 		ArrayList<Product> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -169,5 +174,8 @@ public class ProductDao {
 		}
 		return list;
 	}
+	
+	// 상품명 키워드로 상품들 조회 핑요!!!
+	
 
 }
