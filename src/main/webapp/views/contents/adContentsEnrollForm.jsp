@@ -11,7 +11,7 @@
         font-size: 17px;
         font-weight: bold;
     }
-</style>    
+</style>
 </head>
 <body>
 
@@ -25,7 +25,7 @@
                     <h3 class="mt-4" style="font-weight:bold;">콘텐츠 관리 > 수정/등록</h3>
                     <hr><br>
                     <div class="enrollForm">
-                        <form action="<%=contextPath%>/cntInsert.ad" method="post" enctype="multipart/form-data">
+                        <form action="<%=contextPath%>/insert.co" method="post" enctype="multipart/form-data">
                             <p>제목</p>
                             <input type="text" name="title" style="width:700px" required>
                             <br><br>

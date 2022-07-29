@@ -21,7 +21,7 @@ import com.us.contents.model.vo.Contents;
 /**
  * Servlet implementation class adContentsInsertController
  */
-@WebServlet("/cntInsert.ad")
+@WebServlet("/insert.co")
 public class adContentsInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
