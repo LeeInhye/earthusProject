@@ -1019,8 +1019,194 @@ input[type=checkbox]{
 .point_inner .table tbody tr td p {
   font-size: 13px;
 }
-
 /*================= 포인트 끝 =================*/
+
+
+/*================= 슬기 상품 목록 시작 =================*/
+.best_seller{margin:5% 0%;}
+	
+.price_rangs_aside{margin:5% 0%;}
+	
+.fa-heart {color:#A8BFAA ;}
+	
+.custom-select{
+	border: 1px solid #eeeeee;
+	color:#6c757d;
+	font-size:14px;
+	height:40px;
+    width:300px;
+}
+	
+#selectArea {width:30%;}
+
+#selectTitle {width:50%; line-height:40px;}
+   
+.single_product_item .single_product_text {
+  background: white !important;
+}
+   
+.single_product_item * {
+  background: white !important;
+}
+   
+.single_product_item {
+  background: white !important;
+}
+   
+.single_product_text {
+  background: white !important;
+}
+/*================= 슬기 상품 목록 끝 =================*/
+
+/*================= 슬기 상품 문의  시작 =================*/
+#pro-qna-tb {
+  text-align:center;
+  border-bottom:1px solid lightgray;
+}
+
+#pro-qna-tb td {
+  /* border-bottom:1px solid lightgray; */
+}
+
+#pro-qna-tb th {
+  border-bottom:1px solid lightgray;
+  border-top:1px solid lightgray;
+}
+
+#pro-qna-tb tr {
+  height:40px;
+}
+
+#pro-qna-tb tr:hover {
+  cursor:pointer;
+}
+
+#pro-qna-page {
+  /* border:1px solid green; */
+  position:absolute;
+  width:1200px;
+}
+
+#z2 {
+  float:right;
+}
+
+#z2:hover {
+  text-decoration: none;
+  color:black;
+}
+
+.pro-qna-detail p {
+  display:block;
+  padding: 20px 0px;
+}
+
+.pro-qna-a {
+  background-color:rgb(231, 237, 232);
+  margin: 10px 0px;
+  padding: 10px 0px;
+}
+
+.pro-qna-detail {
+  /* display:none; */
+}
+
+.product_qna_area input[type=text] {
+  width: 100%;
+}
+
+textarea {
+  resize:none;
+}
+
+.required-error {
+  font-size:small;
+  color:red;
+}
+
+.product_qna_area input[type=password] {
+  height:30px;
+  background:#F2F2F2;
+  border-radius:5px;
+  border:1px solid lightgray;
+  font-size:small;
+}
+
+#pro-qna-btn {
+  text-align:center;
+}
+
+.pro-qna-btn {
+  width:200px;
+  height:40px;
+  border:none;
+  border-radius:5px;
+  margin:5px;
+  /* color:#f2f2f2; */
+}
+
+.form-group h5 {
+  font-weight:bold;
+}
+
+#pro-qna-form-success-img {
+  text-align:center;
+}
+
+#pro-qna-form-success-img img {
+  width:500px;
+  height:500px;
+  margin:30px;
+}
+
+#pro-qna-form-success-img i {
+  color:#778C79;
+}
+
+#pro-qna-form-success-img button {
+  background:#778C79;
+  color:#F2F2F2;
+  font-weight:bold;
+  margin:30px;
+}
+/*================= 슬기 상품 문의 끝 =================*/
+
+/*================= 슬기 제출버튼 =================*/
+.btn-submit {
+  padding: 0px;
+  line-height: 38px;
+  background: #A8BFAA;
+  border: 1px solid #A8BFAA;
+  border-radius: 0px;
+  padding: 0px 30px;
+  font-size: 13px;
+  font-weight: normal;
+  border-radius: 50px;
+  color: #fff;
+}
+/*================= 슬기 상품 리뷰 시작 =================*/
+#rev-img {
+  display:inline-block;
+  vertical-align:top;
+  margin:2px;
+}
+#rev-img img {
+  width:90px;
+  height:90px;
+  margin:5px;
+  object-fit:cover;
+}
+#rev-img p {
+  text-align:right;
+}
+
+.btn_3:hover {
+  background-color: #A8BFAA;
+  border : 1px solid #A8BFAA;
+  color: #fff;
+  text-decoration: none;
+}
+/*================= 슬기 상품 리뷰 끝 =================*/
 
 
 /* ============================== 아무데나 자주 ===============================*/
@@ -1080,6 +1266,13 @@ input[type=checkbox]{
   vertical-align: middle;
 }
 
+.color-lightgreen {
+	color:#a8bfaa;
+}
+    
+.color-gray {
+	color:#f2f2f2;
+}
 
 /* =============================================================*/
 
@@ -1115,23 +1308,23 @@ input[type=checkbox]{
   display: inline-block;
   padding: 9px 42px;
   border-radius: 50px;
-  background-color: #ff3368;
-  border: 1px solid #ecfdff;
+  background-color: #778C79;
+  border: none;
   font-size: 15px;
   font-weight: 700;
-  color: #fff;
+  color: #f2f2f2;
   text-transform: uppercase;
   font-weight: 400;
-  box-shadow: -1.717px 8.835px 29.76px 2.24px rgba(255, 51, 104, 0.18);
-  border: 1px solid #ff3368;
+  /*box-shadow: -1.717px 8.835px 29.76px 2.24px #a8bfaa;*/
+  border: none;
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
 
 /* line 52, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_button.scss */
 .btn_3:hover {
-  background-color: red;
-  color: #fff;
+  background-color: #778C79;
+  color: #f2f2f2;
 }
 
 /* line 57, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_button.scss */
@@ -1139,21 +1332,21 @@ input[type=checkbox]{
   display: inline-block;
   width: 180px;
   height: 60px;
-  line-height: 60px;
+  /*line-height: 60px;*/
   text-align: center;
   border-radius: 5px;
-  background-color: #ff3368;
+  background-color: #778c79;
   font-size: 15px;
   font-family: "Poppins", sans-serif;
   font-weight: 500;
-  color: #fff;
+  color: #f2f2f2;
   -o-transition: all .4s ease-in-out;
   -webkit-transition: all .4s ease-in-out;
   transition: all .4s ease-in-out;
   text-transform: capitalize;
   background-size: 200% auto;
   text-transform: uppercase;
-  box-shadow: -1.717px 8.835px 29.76px 2.24px rgba(255, 51, 104, 0.18);
+  /*box-shadow: -1.717px 8.835px 29.76px 2.24px rgba(255, 51, 104, 0.18)*/;
 }
 
 /* line 77, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_button.scss */
@@ -6148,8 +6341,8 @@ input[type=checkbox]{
 /* line 2042, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_product.scss */
 .s_product_text .btn_3 {
   padding: 13px 36px;
-  box-shadow: -1.717px 8.835px 29.76px 2.24px rgba(255, 51, 104, 0.18);
-  border: 1px solid #ff3368;
+  /*box-shadow: -1.717px 8.835px 29.76px 2.24px #a8bfaa;*/
+  border: none;
 }
 
 @media (max-width: 576px) {
