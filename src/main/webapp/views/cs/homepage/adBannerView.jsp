@@ -205,28 +205,11 @@
                 reader.readAsDataURL(inputFile.files[0]);
 				
                 reader.onload = function(e){
-                    // 매개변수 e : 이벤트가 발생한 요소의 정보를 담고 있는 요소객체(element)
-                    // e.target.result = 읽어들인 파일의 고유한 url값
-                    // console.log(e.target.result); -- FileReader가 읽어온 요소(이미지)의 고유한 url 출력
-
-                    // num의 값에 따라 대표이미지/상세이미지에 첨부파일 이미지 담기도록
-                    // jQuery의 attr(속성명, 속성값) : 해당 속성명의 속성값을 변경
-                    switch(num){
-                        case 1 : $("#thumbnail").attr("src", e.target.result); break;
-                        case 2 : $("#contentImg1").attr("src", e.target.result); break;
-                        case 3 : $("#contentImg2").attr("src", e.target.result); break;
-                        case 4 : $("#contentImg3").attr("src", e.target.result); break;
-                    }
+                	$(".thumbnail-img").attr("src", e.target.result);
                 }
 
             }else{
-                // 파일 선택 취소된 경우 : 미리보기로 보여졌던 이미지도 사라지게 만들기
-                switch(num){
-                        case 1 : $("#titleImg").attr("src", null); break;
-                        case 2 : $("#contentImg1").attr("src", null); break;
-                        case 3 : $("#contentImg2").attr("src", null); break;
-                        case 4 : $("#contentImg3").attr("src", null); break;
-                    }
+           		$(".thumbnail-img").attr("src", null);     
             }
         };
 		
