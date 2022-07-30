@@ -5,7 +5,7 @@ import java.sql.Date;
 public class WishList {
 	
 	private int userNo;
-	private int proCode;
+	private String proCode;
 	private Date wishDate;
 	private String proImgPath;
 	private String proName;
@@ -37,7 +37,7 @@ public class WishList {
 
 	public WishList() {}
 
-	public WishList(int userNo, int proCode, Date wishDate) {
+	public WishList(int userNo, String proCode, Date wishDate) {
 		super();
 		this.userNo = userNo;
 		this.proCode = proCode;
@@ -52,11 +52,11 @@ public class WishList {
 		this.userNo = userNo;
 	}
 
-	public int getProCode() {
+	public String getProCode() {
 		return proCode;
 	}
 
-	public void setProCode(int proCode) {
+	public void setProCode(String proCode) {
 		this.proCode = proCode;
 	}
 

@@ -192,6 +192,7 @@ public class ProductDao {
 				WishList wi = new WishList();
 				wi.setProImgPath(rset.getString("pro_img_path"));
 				wi.setProName(rset.getString("pro_name"));
+				wi.setProCode(rset.getString("pro_code"));
 				wi.setPrice(rset.getInt("price"));
 				wi.setWishDate(rset.getDate("wish_date"));
 				list.add(wi);
@@ -258,5 +259,28 @@ public class ProductDao {
 			close(pstmt);
 		}
 		return p;
+	}
+	
+	// 위시 삭제
+	public int deleteWish(Connection conn, int userNo, String pCode) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteWish");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setString(2, pCode);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 }

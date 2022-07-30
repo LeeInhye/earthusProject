@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.us.product.model.vo.WishList"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.us.product.model.vo.*"%>
 <%
 ArrayList<WishList> list = (ArrayList<WishList>)request.getAttribute("list");
 %>
@@ -79,33 +79,35 @@ ArrayList<WishList> list = (ArrayList<WishList>)request.getAttribute("list");
 	                	</tr>
 	                <% }else { %>
 		                <%for(WishList wi : list) { %>
-		                  <tr>
-		                    <td align="center">
-		                      <input type="checkbox" class="product" >
-		                    </td>
-		                    <td>
-		                      <div class="media">
+		                	<tr>
+		                    	<td align="center">
+		                      		<input type="checkbox" class="product" >
+		                    	</td>
+		                    	<td>
+		                      	<div class="media">
 		                        <div class="d-flex">
 		                          <%= wi.getProImgPath() %>
 		                        </div>
 		                        <div class="media-body">
-		                          <p><%= wi.getProName() %></p>
+		                        	<input type="hidden" name="pCode" value="<%= wi.getProCode() %>">
+		                          	<p><%= wi.getProName() %></p>
 		                        </div>
-		                      </div>
-		                    </td>
-		                    <td colspan="2" align="center">
-		                      <h5><%= wi.getPrice() %></h5>
-		                    </td>
-		                    <td align="center">
-		                      <h5><%= wi.getWishDate() %></h5>
-		                    </td>
+			                      </div>
+			                    </td>
+			                    <td colspan="2" align="center">
+			                      	<h5><%= wi.getPrice() %></h5>
+			                    </td>
+			                    <td align="center">
+			                      	<h5><%= wi.getWishDate() %></h5>
+			                    </td>
+		                    </tr>
 		                  <%} %>
 	                  <%} %>
 	                  
 	                  <!-- 삭제기능 아직 -->
 	                  <tr class="bottom_button">
 	                    <td>
-	                      <button class="del-btn">선택삭제</button>
+	                      <button class="del-btn" onclick="deleteProduct();">선택삭제</button>
 	                    </td>
 	                    <td></td>
 	                    <td></td>
@@ -124,6 +126,8 @@ ArrayList<WishList> list = (ArrayList<WishList>)request.getAttribute("list");
       </section>
     
       <script>
+      	
+      	// 전체선택 시 모든 체크박스 check
         $(function(){
           $("#checkAll").click(function(){
             if($("#checkAll").prop("checked")){
@@ -132,20 +136,32 @@ ArrayList<WishList> list = (ArrayList<WishList>)request.getAttribute("list");
               $(".product").prop("checked", false);
             }
           })
-    
-          for(let i=0; i<".product".length; i++){
-            if($(".product")[i].prop("checked", false)){
-              $("#checkAll").prop("checked", false);
-            }
-          }
-    
-          $(".del-btn").click(function(){
-            $(".product:checked").parent().parent().remove();
+          
+          $(".product").click(function(){
+        	  $("#checkAll").prop("checked", false);
           })
+		
+          // 체크한 상품 삭제
+	    	$(".del-btn").click(function(){
+	        	$(".product:checked").parent().parent().remove();
+	        })
           
         })
         
-        
+        // ajax로 상품 삭제용 function
+        function deleteProduct(){
+        	$.ajax({
+        		url:"<%=contextPath%>/delWish.pr",
+        		success:function(result){
+        			if(result>0){
+        				document.location.reload(true);
+        			}
+        			
+        		}, error:function(){
+    				console.log("위시리스트 삭제용 ajax 통신 실패");
+    			}
+        	})
+        }
       </script>
 	
 </body>

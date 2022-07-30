@@ -1,7 +1,6 @@
 package com.us.product.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,19 +11,18 @@ import javax.servlet.http.HttpSession;
 
 import com.us.member.model.vo.Member;
 import com.us.product.model.service.ProductService;
-import com.us.product.model.vo.WishList;
 
 /**
- * Servlet implementation class wishlistController
+ * Servlet implementation class DeleteWishController
  */
-@WebServlet("/wish.pr")
-public class WishListController extends HttpServlet {
+@WebServlet("/delWish.pr")
+public class AjaxDeleteWishController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WishListController() {
+    public AjaxDeleteWishController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,13 +31,12 @@ public class WishListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		String pCode= request.getParameter("pCode");
 		
-		ArrayList<WishList> list = new ProductService().selectWishList(userNo);
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/product/wishListView.jsp").forward(request, response);
+		int result = new ProductService().deleteWish(userNo, pCode);
 		
+		response.getWriter().print(result);
 	}
 
 	/**

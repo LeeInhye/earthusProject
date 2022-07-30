@@ -103,6 +103,7 @@
 	SELECT
 		   PRO_IMG_PATH
 	     , PRO_NAME
+	     , PRO_CODE
 	     , PRICE
 	     , WISH_DATE
  	  FROM WISHLIST
@@ -134,5 +135,11 @@ UPDATE PRODUCT
 	 WHERE PRO_CODE = ?
 </entry>
 
+<entry key="deleteWish">
+	DELETE 
+	  FROM WISHLIST
+	 WHERE USER_NO = ?
+	   AND PRO_CODE = ?
+</entry>
 
 </properties>

@@ -1,6 +1,7 @@
 package com.us.product.model.service;
 
 import static com.us.common.JDBCTemplate.*;
+import static com.us.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -56,22 +57,17 @@ public class ProductService {
 		return list;
 	}
 	
-	public int increaseProCount(String proCode) {
+	public int deleteWish(int userNo, String pCode) {
 		Connection conn = getConnection();
-		int result = new ProductDao().increaseProCount(conn, proCode);
+		int result = new ProductDao().deleteWish(conn, userNo, pCode);
 		if(result > 0) {
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
+		
 		close(conn);
 		return result;
 	}
 	
-	public Product selectProduct(String proCode) {
-		Connection conn = getConnection();
-		Product p = new ProductDao().selectProduct(conn, proCode);
-		close(conn);
-		return p;
-	}
 }
