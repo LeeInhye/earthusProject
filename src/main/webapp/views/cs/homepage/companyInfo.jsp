@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String html = (String)request.getAttribute("html");
+	String successMsg = (String)request.getAttribute("successMsg");
+
+%>
     <!doctype html>
 <html lang="zxx">
 
@@ -37,12 +42,10 @@
 	<!-- ================ contact section start ================= -->
 	<section class="contact-section padding_top">
 	  <div class="container" align="center" style="width:800px; word-break: break-all;">
-	    <p>
+	    <p white-place="pre">
 	
-	      에디터로 저장한 값을 불러들일 자리
-	      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-	      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-	      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+	      <%= html %>
+	      
 	    </p>
 	
 	  </div>
