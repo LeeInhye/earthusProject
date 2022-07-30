@@ -151,7 +151,33 @@
 		  , ?
 		  )
 	</entry>
-
+	
+	<!-- 글 조회 -->
+	<entry key="selectQna">
+		SELECT
+		       QNA_NO
+		     , USER_ID
+		     , QNA_TITLE
+		     , QNA_CONTENT
+		     , QNA_FILE
+		     , QNA_ANSWER
+		     , QNA_ENROLL_DATE
+		  FROM QNA
+		  JOIN MEMBER ON (USER_NO = QNA_WRITER)
+		 WHERE QNA_NO = ?
+	</entry>
+	
+	<entry key="selectAttachment">
+		SELECT
+		       FILE_NO
+		     , ORIGIN_NAME
+		     , CHANGE_NAME
+		     , FILE_PATH
+		  FROM ATTACHMENT
+		 WHERE REF_TYPE = 1
+		   AND REF_BNO = ?
+		   AND STATUS = 'Y'
+	</entry>
 
 
 

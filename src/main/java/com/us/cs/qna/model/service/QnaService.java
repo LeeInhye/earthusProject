@@ -50,7 +50,20 @@ public class QnaService {
 		return result1 * result2;
 	}
 	
+	// 글 조회
+	public Qna selectQna(int a) {
+		Connection conn = getConnection();
+		Qna q = new QnaDao().selectQna(conn, a);
+		close(conn);
+		return q;
+	}
 	
+	public Attachment selectAttachment(int a) {
+		Connection conn = getConnection();
+		Attachment at = new QnaDao().selectAttachment(conn, a);
+		close(conn);
+		return at;
+	}
 	
 	
 	

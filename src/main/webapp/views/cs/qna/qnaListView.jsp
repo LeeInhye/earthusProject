@@ -84,18 +84,70 @@
 							<%= q.getQnaEnrollDate() %>
                         </td>
                     </tr>
+                    
                 <% } %>
               
               </tbody>
             </table>
             
-            <script>
+         	<script>
             	$(function(){
             		$(".list-area>tbody>tr").click(function(){
-            			location.href = "<%= contextPath %>/detail.qa?no=" + $(this).children().eq(0).text();
+            			// 비밀글일 경우
+            			console.log($(this).children().eq(2).text());
+            			
+            			if( $(this).children().eq(2).text().search("비밀글입니다.") != -1 ){
+            				$(this).attr("data-toggle", "modal");
+                               $(this).attr("data-target", "#insert_qnaPwd");
+            			} else{
+            				$(this).removeAttr("data-toggle");
+                           	$(this).removeAttr("data-target");
+	            			location.href = "<%= contextPath %>/detail.qa?qno=" + $(this).children().eq(0).text();
+            			}
+            			
             		});
             	})
-            </script>
+         	</script>
+            
+            
+            <!-- 비밀번호 네자리 입력 모달창 -->
+            <div class="modal fade" id="insert_qnaPwd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		       <div class="modal-dialog modal-dialog-centered cascading-modal modal-avatar" role="document">
+		           <!--Content-->
+		           <div class="modal-content modal_alert">
+		
+		               <!--Body-->
+		               <div class="modal-body text-center modal_alert_child">
+		
+		                   <h4 class="mt-1 mb-2">비밀번호 네자리를 입력하세요.</h4>
+		
+		                   <div class="md-form ml-0 mr-0">
+		                       <input type="password" id="inputpwd"
+		                           class="form-control form-control-sm validate ml-0">
+		                   </div>
+		
+		                   <div class="text-center mt-4">
+		                       <button type="button" id="checkQnaPwd" class="btn btn_green btn_medium">확인</button>
+		                       <button type="button" class="btn btn_gray btn_medium" data-dismiss="modal">취소</button>
+		                   </div>
+		                   
+		                   <!-- 비밀글 비밀번호 체크 -->
+		                   <script>
+		                   		$(document).ready(function(){
+		                   			$("#checkQnaPwd").click(function(){
+		                   				if( $("#inputpwd").val() == () )
+		                   			});
+		                   		})
+		                   </script>
+		                   
+		                   
+		               </div>
+		
+		           </div>
+		           <!--/.Content-->
+		       </div>
+		   </div>
+            
             
             <br>
 
@@ -110,19 +162,19 @@
             <!-- 페이징바 영역 -->
             <div class="paging-area" align="center">
             	<% if(currentPage != 1) { %>
-            		<button class="btn btn_green" onclick="location.href='<%= contextPath %>/list.qa?cpage=<%= pi.getCurrentPage() -1 %>';">&lt;</button>
+            		<button class="btn btn_green" onclick="location.href='<%= contextPath %>/list.qa?qpage=<%= pi.getCurrentPage() -1 %>';">&lt;</button>
             	<% } %>
             	
             	<% for(int p = startPage; p <= endPage; p++) { %>
             		<% if(p == currentPage) { %>
             			<button class="btn btn_gray" disabled><%= p %></button>
             		<% } else { %>
-            		 	<button class="btn btn_green" onclick="location.href = '<%= contextPath %>/list.qa?cpage=<%= p %>';"><%= p %></button>
+            		 	<button class="btn btn_green" onclick="location.href = '<%= contextPath %>/list.qa?qpage=<%= p %>';"><%= p %></button>
             		<% } %>
             	<% } %>
             
             	<% if(currentPage != maxPage) { %>
-            		<button class="btn btn_green" onclick="location.href='<%= contextPath %>/list.qa?cpage=<%= pi.getCurrentPage() + 1 %>';">&gt;</button>
+            		<button class="btn btn_green" onclick="location.href='<%= contextPath %>/list.qa?qpage=<%= pi.getCurrentPage() + 1 %>';">&gt;</button>
             	<% } %>
             
             </div>

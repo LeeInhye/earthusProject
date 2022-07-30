@@ -147,8 +147,65 @@ public class QnaDao {
 	}
 	
 	
+	// 글 조회
+	public Qna selectQna(Connection conn, int a) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Qna q = null;
+		
+		String sql = prop.getProperty("selectQna");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, a);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				q = new Qna(rset.getInt("QNA_NO")
+						  , rset.getString("USER_ID")
+						  , rset.getString("QNA_TITLE")
+						  , rset.getString("QNA_CONTENT")
+						  , rset.getString("QNA_FILE")
+						  , rset.getString("QNA_ANSWER")
+						  , rset.getDate("QNA_ENROLL_DATE")
+						);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return q;
+	}
 	
-	
+	public Attachment selectAttachment(Connection conn, int a) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Attachment at = null;
+		
+		String sql = prop.getProperty("selectAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, a);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				at = new Attachment(rset.getInt("FILE_NO")
+								  , rset.getString("ORIGIN_NAME")
+								  , rset.getString("CHANGE_NAME")
+								  , rset.getString("FILE_PATH")
+						);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return at;
+	}
 	
 	
 	

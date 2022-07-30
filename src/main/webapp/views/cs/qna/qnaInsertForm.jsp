@@ -25,17 +25,38 @@
 	            <input type="text" class="qna_insert_content" id="qnaTitle" name="qnaTitle" placeholder="제목을 입력해주세요." required>
 	            <br><br>
 	            <textarea id="qnaContent" name="qnaContent" class="qna_insert_content"
-	             style="resize:none; border-radius: 5px; height: 300px; white-space: pre;"
+	             style="resize:none; border-radius: 5px; height: 300px; white-space: pre-line;"
 	            placeholder="문의 내용을 입력해주세요. (20자 이상 150자 이하)" required></textarea>
 	            
 	            <br>
 	            <hr class="my-hr2">
 				
 				
-	            <input type="checkbox" style="vertical-align:bottom;">&nbsp; 
+	            <input type="checkbox" id="pwdCheck" style="vertical-align:bottom;">&nbsp; 
 	            <b> &nbsp; 비밀글 &nbsp; </b> 
-	            <input type="password" id="qnaPwd" name="qnaPwd" placeholder="비밀번호 네자리 입력">
+	            <input type="password" id="qnaPwd" name="qnaPwd" placeholder="비밀번호 숫자 네자리 입력">
+	            <div id="outputPwd"></div>
 	            <br><br>
+	            
+	            <script>
+	            	$(document).ready(function(){
+	            		// 비밀글을 체크하고 비밀번호 네자리 입력해야함
+	            		if( $("#pwdCheck").is(":checked") ){
+	            			$("#qnaPwd").focusout(function(){
+	            				
+	            				regExpQna = /^[0-9]{4}$/;
+	            				
+	            				if( !regExpQna.test( $("#qnaPwd").val() )){
+	            					$("#outputPwd").html("<span class='tb_enroll_star'>비밀번호 숫자 네자리를 입력해주세요.</span>");
+	            				} else{
+	            					$("#outputPwd").empty();
+	            				}
+	            			});
+	            		}
+	            	})
+	            
+	            </script>
+	            
 	            
 	            <p>답변 소식을 받을 연락처를 기재해주세요. (택1 필수)</p>
 	            <br>
@@ -81,7 +102,8 @@
 							// 연락처를 남기지 않았을 경우
 							if( ($("#qnaEmail").val() == "") && ($("#qnaPhone").val() == "") ){
 								$("#outputqna").html("<span class='tb_enroll_star'>연락처를 하나 남겨주세요.</span>");
-							} else if(length >= 20 && length <= 150){
+							} else if(length >= 20 && length <= 150 && ($("#outputPwd").text() == "") &&
+                                       ($("#qnaTitle").val() != "") && ($("#qnaContent").val() != "")  ){ // 문의 내용 글자수 제한과 비밀글 조건 지키기
 								$("#outputqna").empty();
 								$("#qnaInsertForm").submit();
 							}

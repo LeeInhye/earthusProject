@@ -86,16 +86,17 @@ public class QnaInsertController extends HttpServlet {
 			}
 			
 			int result = new QnaService().insertQna(q, at);
+
 			if(result > 0) {
-				response.sendRedirect(request.getContextPath() + "/list.qa?cpage=1");
+				request.getRequestDispatcher("/views/cs/qna/qnaInsertSuccess.jsp").forward(request, response);
 			} else {
 				// 첨부파일이 있었을 경우 파일 삭제
 				if( at != null) {
 					new File(savePath + at.getChangeName()).delete();
 				}
 				
-				request.setAttribute("modalId", "insertQnaFail");
-				request.setAttribute("modalMsg", "Q&A 작성에 실패하였습니다.");
+				session.setAttribute("modalId", "insertQnaFail");
+				session.setAttribute("modalMsg", "Q&A 작성에 실패하였습니다.");
 				request.getRequestDispatcher("/views/common/errorModal.jsp").forward(request, response);
 			}
 			

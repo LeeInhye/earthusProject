@@ -44,7 +44,7 @@ public class QnaListController extends HttpServlet {
 		int endPage;
 		
 		listCount = new QnaService().selectListCount();
-		currentPage = Integer.parseInt(request.getParameter("cpage"));
+		currentPage = Integer.parseInt(request.getParameter("qpage"));
 		pageLimit = 5;
 		boardLimit = 5;
 		
