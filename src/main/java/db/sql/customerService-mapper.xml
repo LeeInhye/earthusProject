@@ -2,6 +2,11 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
+	<entry key="selectCategoryList">
+		SELECT *
+  		  FROM CS_CATEGORY
+	</entry>
+	
 	<entry key="selectNoticeList">
 		SELECT
 		        NOTICE_NO
@@ -68,7 +73,84 @@
 		    BY FAQ_NO DESC
 	</entry>
 	
+	<entry key="selectListCount">
+		SELECT COUNT(*) AS "COUNT"
+		  FROM QNA
+		 WHERE QNA_STATUS = 'Y';
+	</entry>
+	
+	<entry key="selectQnaList">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM(
+		                SELECT
+		                        QNA_NO
+		                      , USER_ID
+		                      , QNA_TITLE
+		                      , QNA_CONTENT
+		                      , FILE_NO
+		                      , QNA_EMAIL
+		                      , QNA_PHONE
+		                      , QNA_PWD
+		                      , USER_NAME
+		                      , QNA_ANSWER
+		                      , QNA_ENROLL_DATE
+		                  FROM QNA
+		                  JOIN MEMBER ON (USER_NO = QNA_WRITER)
+		                 WHERE QNA_STATUS = 'Y'
+		                  ORDER
+		                    BY QNA_NO DESC
+		                ) A
+		        )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
 
+	<entry key="insertQna">
+		INSERT
+		  INTO QNA
+		  (
+		    QNA_NO
+		  , QNA_WRITER
+		  , QNA_TITLE
+		  , QNA_CONTENT
+		  , QNA_EMAIL
+		  , QNA_PHONE
+		  , QNA_PWD
+		  )
+		  VALUES
+		  (
+		    SEQ_QNO.NEXTVAL
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  )
+	</entry>
+	
+	<entry key="insertAttach">
+		INSERT 
+		  INTO ATTACHMENT
+		  (
+		    FILE_NO
+		  , REF_TYPE
+		  , REF_BNO
+		  , ORIGIN_NAME
+		  , CHANGE_NAME
+		  , FILE_PATH
+		  )
+		  VALUES
+		  (
+		    SEQ_FILENO.NEXTVAL
+		  , 1
+		  , SEQ_QNO.CURRVAL
+		  , ?
+		  , ?
+		  , ?
+		  )
+	</entry>
 
 
 

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import com.us.cs.faq.model.dao.FaqDao;
 import com.us.cs.faq.model.vo.Faq;
+import com.us.cs.model.vo.CsCategory;
 
 public class FaqService {
 	
@@ -15,6 +16,14 @@ public class FaqService {
 	public ArrayList<Faq> selectFaqList(){
 		Connection conn = getConnection();
 		ArrayList<Faq> list = new FaqDao().selectFaqList(conn);
+		close(conn);
+		return list;
+	}
+	
+	// 카테고리 조회
+	public ArrayList<CsCategory> selectCategoryList(){
+		Connection conn = getConnection();
+		ArrayList<CsCategory> list = new FaqDao().selectCategoryList(conn);
 		close(conn);
 		return list;
 	}

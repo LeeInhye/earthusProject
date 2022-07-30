@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.us.cs.notice.model.vo.Notice"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.us.cs.notice.model.vo.Notice, com.us.cs.model.vo.CsCategory"%>
 <%
 	ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
+	ArrayList<CsCategory> cateList = (ArrayList<CsCategory>)request.getAttribute("cateList");
 	ArrayList<Notice> noList = (ArrayList<Notice>)request.getAttribute("noList");
 	ArrayList<Notice> deList = (ArrayList<Notice>)request.getAttribute("deList");
 	ArrayList<Notice> evList = (ArrayList<Notice>)request.getAttribute("evList");
@@ -21,7 +22,6 @@
         <h2 class="menu_title">공지사항</h2> <br>
         <h4 class="menu_title_detail">배송 및 운영 관련 공지사항 게시판입니다.</h4> <br> 
         <hr class="my-hr2"> <br>
-
         <!-- 카테고리 이름도 번호로 연결해서 채우기 -->
         <ul class="nav justify-content-center board_category">
           <li class="nav-item">
@@ -29,19 +29,18 @@
           </li>
           
           <li class="nav-item">
-            <a class="nav-link" id="notice" href="javascript:void(0)">공지사항</a>
+            <a class="nav-link" id="notice" href="javascript:void(0)"><%= cateList.get(0).getCsName() %></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="noDeliver" href="javascript:void(0)"><%= cateList.get(1).getCsName() %></a>
           </li>
           
           <li class="nav-item">
-            <a class="nav-link" id="noDeliver" href="javascript:void(0)">배송안내</a>
+            <a class="nav-link" id="noEvent" href="javascript:void(0)"><%= cateList.get(2).getCsName() %></a>
           </li>
           
           <li class="nav-item">
-            <a class="nav-link" id="noEvent" href="javascript:void(0)">이벤트</a>
-          </li>
-          
-          <li class="nav-item">
-            <a class="nav-link" id="noHire" href="javascript:void(0)">채용공고</a>
+            <a class="nav-link" id="noHire" href="javascript:void(0)"><%= cateList.get(3).getCsName() %></a>
           </li>
           
         </ul>

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.us.cs.faq.model.service.FaqService;
 import com.us.cs.faq.model.vo.Faq;
+import com.us.cs.model.vo.CsCategory;
 
 /**
  * Servlet implementation class FaqListController
@@ -43,6 +44,9 @@ public class FaqListController extends HttpServlet {
 		// 전체 목록
 		ArrayList<Faq> list = new FaqService().selectFaqList();
 		
+		// 카테고리 조회
+		ArrayList<CsCategory> cateList = new FaqService().selectCategoryList();
+		
 		// 카테고리별 목록
 		ArrayList<Faq> orList = new FaqService().selectCateFaqList(order);
 		ArrayList<Faq> deList = new FaqService().selectCateFaqList(deliver);
@@ -53,6 +57,7 @@ public class FaqListController extends HttpServlet {
 		
 		// 응답 뷰
 		request.setAttribute("list", list);
+		request.setAttribute("cateList", cateList);
 		request.setAttribute("orList", orList);
 		request.setAttribute("deList", deList);
 		request.setAttribute("canList", canList);

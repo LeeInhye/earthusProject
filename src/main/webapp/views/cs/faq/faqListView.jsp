@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.us.cs.faq.model.vo.Faq"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.us.cs.faq.model.vo.Faq, com.us.cs.model.vo.CsCategory"%>
 <%
     ArrayList<Faq> list = (ArrayList<Faq>)request.getAttribute("list");
+	ArrayList<CsCategory> cateList = (ArrayList<CsCategory>)request.getAttribute("cateList");
     ArrayList<Faq> orList = (ArrayList<Faq>)request.getAttribute("orList");
     ArrayList<Faq> deList = (ArrayList<Faq>)request.getAttribute("deList");
     ArrayList<Faq> canList = (ArrayList<Faq>)request.getAttribute("canList");
@@ -31,19 +32,19 @@
             <a class="nav-link board_category_click" id="fqAll" href="javascript:void(0)">전체</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="fqOr" href="javascript:void(0)">주문/결제</a>
+            <a class="nav-link" id="fqOr" href="javascript:void(0)"><%= cateList.get(4).getCsName() %></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="fqDe" href="javascript:void(0)">배송</a>
+            <a class="nav-link" id="fqDe" href="javascript:void(0)"><%= cateList.get(5).getCsName() %></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="fqCan" href="javascript:void(0)">취소/환불</a>
+            <a class="nav-link" id="fqCan" href="javascript:void(0)"><%= cateList.get(6).getCsName() %></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="fqEx" href="javascript:void(0)">교환/반품</a>
+            <a class="nav-link" id="fqEx" href="javascript:void(0)"><%= cateList.get(7).getCsName() %></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="fqEtc" href="javascript:void(0)">기타</a>
+            <a class="nav-link" id="fqEtc" href="javascript:void(0)"><%= cateList.get(8).getCsName() %></a>
           </li>
         </ul>
         <br><br>

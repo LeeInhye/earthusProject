@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.us.cs.model.vo.CsCategory;
 import com.us.cs.notice.model.service.NoticeService;
 import com.us.cs.notice.model.vo.Notice;
 
@@ -43,6 +44,9 @@ public class NoticeListController extends HttpServlet {
 		// 전체 목록
 		ArrayList<Notice> list = new NoticeService().selectNoticeList();
 		
+		// 카테고리 목록
+		ArrayList<CsCategory> cateList = new NoticeService().selectCategoryList();
+		
 		// 카테고리별 목록
 		ArrayList<Notice> noList = new NoticeService().selectCateNoticeList(notice);
 		ArrayList<Notice> deList = new NoticeService().selectCateNoticeList(deliver);
@@ -51,6 +55,7 @@ public class NoticeListController extends HttpServlet {
 		
 		// 응답 뷰
 		request.setAttribute("list", list);
+		request.setAttribute("cateList", cateList);
 		request.setAttribute("noList", noList);
 		request.setAttribute("deList", deList);
 		request.setAttribute("evList", evList);
