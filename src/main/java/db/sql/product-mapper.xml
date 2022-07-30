@@ -111,4 +111,28 @@
 	 WHERE USER_ID = ?
 </entry>
 
+<entry key="increaseProCount">
+UPDATE PRODUCT
+   SET PRO_COUNT = PRO_COUNT + 1
+ WHERE PRO_CODE = ?
+ </entry>
+ 
+<entry key="selectProduct">
+	SELECT 
+		   PRO_CODE
+		 , CATEGORY_NO
+		 , PRO_NAME
+		 , PRO_INFO
+		 , PRICE
+		 , STOCK
+		 , PRO_ENROLL_DATE
+		 , PRO_IMG_PATH
+		 , DETAIL_IMG_PATH
+		 , REQ_INFO_IMG_PATH
+		 , PRO_COUNT
+	  FROM PRODUCT
+	 WHERE PRO_CODE = ?
+</entry>
+
+
 </properties>

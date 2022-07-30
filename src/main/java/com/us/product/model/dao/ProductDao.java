@@ -175,8 +175,6 @@ public class ProductDao {
 	
 	// 상품명 키워드로 상품들 조회 핑요!!!
 	
-	
-	
 	// 위시리스트
 	public ArrayList<WishList> selectWishList(Connection conn, String userId){
 		ArrayList<WishList> list = new ArrayList<>();
@@ -208,6 +206,57 @@ public class ProductDao {
 		
 		return list;
 		
+	}
+	
+	public int increaseProCount(Connection conn, String proCode) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("increaseProCount");
 		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, proCode);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public Product selectProduct(Connection conn, String proCode) {
+		Product p = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, proCode);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				p = new Product(rset.getString("pro_code"),
+								rset.getString("category_no"),
+								rset.getString("pro_name"),
+								rset.getString("pro_info"),
+								rset.getString("price"),
+								rset.getInt("stock"),
+								rset.getDate("pro_enroll_date"),
+								rset.getString("pro_img_path"),
+								rset.getString("detail_img_path"),
+								rset.getString("req_info_img_path"),
+								rset.getInt("pro_count")
+								);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return p;
 	}
 }
