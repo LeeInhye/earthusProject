@@ -1,7 +1,6 @@
 package com.us.cs.homepage.model.service;
 
-import static com.us.common.JDBCTemplate.close;
-import static com.us.common.JDBCTemplate.getConnection;
+import static com.us.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -24,6 +23,13 @@ public class AdBannerService {
 		Connection conn = getConnection();
 		int result1 = new AdBannerDao().insertBanner(conn, at);
 		int result2 = new AdBannerDao().insertAttachment(conn, at);
+		
+		if(result1 * result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
 		return result1 * result2;
 	}
 

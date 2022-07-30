@@ -41,8 +41,6 @@ public class AdBannerAddController extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		// File 넘겨 받으므로 request 아닌 MultipartRequest 사용!!
-		
-		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			// 1) 전송 용량 제한
 			int maxSize = 10 * 1024 * 1024; // 10mb

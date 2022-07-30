@@ -40,7 +40,7 @@ public class AdBannerDao {
 			while(rset.next()) {
 				list.add(new Banner(
 									rset.getInt("BN_BO")
-								  , rset.getString("BN_IMG_SRC")
+								  , rset.getString("BN_IMG_URL")
 								  , rset.getString("BN_STATUS")
 						));
 			}
