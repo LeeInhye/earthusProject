@@ -4,7 +4,7 @@ public class Banner {
 	
 	// 필드 영역
 	private int bnNo;
-	private String bnImgSrc;
+	private String bnImgURL;
 	private String bnStatus;
 	
 	// 기본 생성자
@@ -13,10 +13,10 @@ public class Banner {
 	}
 
 	// 매개변수 생성자
-	public Banner(int bnNo, String bnImgSrc, String bnStatus) {
+	public Banner(int bnNo, String bnImgURL, String bnStatus) {
 		super();
 		this.bnNo = bnNo;
-		this.bnImgSrc = bnImgSrc;
+		this.bnImgURL = bnImgURL;
 		this.bnStatus = bnStatus;
 	}
 
@@ -30,12 +30,12 @@ public class Banner {
 		this.bnNo = bnNo;
 	}
 
-	public String getBnImgSrc() {
-		return bnImgSrc;
+	public String getBnImgURL() {
+		return bnImgURL;
 	}
 
-	public void setBnImgSrc(String bnImgSrc) {
-		this.bnImgSrc = bnImgSrc;
+	public void setBnImgURL(String bnImgURL) {
+		this.bnImgURL = bnImgURL;
 	}
 
 	public String getBnStatus() {
@@ -50,7 +50,7 @@ public class Banner {
 	// toString
 	@Override
 	public String toString() {
-		return "Banner [bnNo=" + bnNo + ", bnImgSrc=" + bnImgSrc + ", bnStatus=" + bnStatus + "]";
+		return "Banner [bnNo=" + bnNo + ", bnImgURL=" + bnImgURL + ", bnStatus=" + bnStatus + "]";
 	}
 	
 	

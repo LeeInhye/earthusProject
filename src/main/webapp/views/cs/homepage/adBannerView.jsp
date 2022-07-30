@@ -3,6 +3,7 @@
 <%@ page import="com.us.cs.homepage.model.vo.Banner, java.util.ArrayList" %>
 <%
 	ArrayList<Banner> list = (ArrayList<Banner>)request.getAttribute("list");
+	String errorMsg = (String)session.getAttribute("errorMsg");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,13 +19,10 @@
 	href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"
 	rel="stylesheet" />
 <link href="/resources/css/styles.css" rel="stylesheet" />
-<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
-	crossorigin="anonymous"></script>
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 
 <!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-	crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- Modal -->
 <link rel="stylesheet"
@@ -66,7 +64,7 @@
 	margin: auto;
 }
 
-#thumbnail {
+.thumbnail-img {
 	width: 100%;
 	margin: auto;
 	height: 100px;
@@ -104,11 +102,11 @@
 						<tbody>
 							<% for(Banner b : list){ %>
 							<tr>
-								<td><%= b.getBnNo() %></td>
-								<td><%= b.getBnStatus() %></td>
+								<td><%=b.getBnNo()%></td>
+								<td><%=b.getBnStatus()%></td>
 								<td height="150px;">
 									<a href="" id="activate-edit-modal" data-toggle="modal" data-target="#edit-banner">
-										<img src="<%= b.getBnImgSrc() %>" style="height: 100%">
+										<img src="<%=b.getBnImgURL()%>" style="height:100%;">
 									</a>
 								</td>
 							</tr>
@@ -135,19 +133,18 @@
 
 			<!-- Modal Content - Edit Banner -->
 			<div class="modal-content">
-				<div class="modal-header">
-					<h3 class="modal-title">배너 수정</h3>
-				</div>
-				<form action="" method="get">
+				<form action="<%=contextPath%>/edit.bn" method="post" enctype="multipart/form-data">
+					<div class="modal-header"><h3 class="modal-title">배너 수정</h3></div>
+					
 					<div class="modal-body">
 						<p>배너 이미지 수정</p>
-						<div id="thumbnail" onclick="uploadImg();">
-							<input type="file" name="banner-img" id="input-img"
-								style="visibility: hidden;">
+						<div>
+							<img class="thumbnail-img"  onclick="insertImg();">
+							<input type="file" name="banner-img" id="eidt-img" onchange="loadImg(this);" style="visibility: hidden;">
 							<!-- 파일 업로드하면 업로드된 사진이 썸네일에 변경되어 보여야 함 -->
 						</div>
-
-						<div id="banner-status">
+						
+						<div class="banner-status">
 							<p style="padding-right: 10px;">배너 상태 수정</p>
 							<select name="bn-status" id="bn-status">
 								<option value="Y">공개</option>
@@ -155,8 +152,9 @@
 							</select>
 						</div>
 					</div>
+					
 					<div class="modal-footer">
-						<button type="submit" class="btn btn-default" data-dismiss="modal">수정완료</button>
+						<button type="submit" class="btn btn-default" data-dismiss="modal">수정하기</button>
 					</div>
 				</form>
 			</div>
@@ -170,33 +168,82 @@
 
 			<!-- Modal Content - Add Banner -->
 			<div class="modal-content">
-				<div class="modal-header">
-					<h3 class="modal-title">배너 등록</h3>
-				</div>
-				<form action="" method="get">
+				<form action="<%=contextPath%>/insert.bn" method="post" enctype="multipart/form-data">
+					<div class="modal-header"><h3 class="modal-title">배너 등록</h3></div>
+					
 					<div class="modal-body">
 						<p>배너 이미지 등록</p>
-						<div id="thumbnail" onclick="uploadImg();">
-							<input type="file" name="banner-img" id="input-img"
-								style="visibility: hidden;">
+						<div>
+							<img class="thumbnail-img" onclick="insertImg();">
+							<input type="file" name="banner-img" id="insert-img" onchange="loadImg(this);" style="visibility: hidden;">
 							<!-- 파일 업로드하면 업로드된 사진이 썸네일에 변경되어 보여야 함 -->
 						</div>
+						
 						<div class="modal-footer">
-							<button type="submit" class="btn btn-default"
-								data-dismiss="modal">등록완료</button>
+							<button type="submit" class="btn btn-default" data-dismiss="modal">등록하기</button>
 						</div>
+					</div>
 				</form>
 			</div>
 		</div>
+		
 	</div>
 	<!-- ========== END MODAL CONTENT AREA ========== -->
 
 
 	<!-- ========== START SCRIPT AREA ========== -->
 	<script>
-		function uploadImg() {
-			document.getElementById("input-img").click();
+		// 썸네일 클릭하면 이미지 업로드할 수 있도록 만드는 함수
+		function insertImg(){
+			$("input").click();
 		}
+		
+		// 썸네일에 선택한 이미지 미리보기하는 함수
+		function loadImg(inputFile){
+            if(inputFile.files.length == 1){
+                const reader = new FileReader();
+                reader.readAsDataURL(inputFile.files[0]);
+				
+                reader.onload = function(e){
+                    // 매개변수 e : 이벤트가 발생한 요소의 정보를 담고 있는 요소객체(element)
+                    // e.target.result = 읽어들인 파일의 고유한 url값
+                    // console.log(e.target.result); -- FileReader가 읽어온 요소(이미지)의 고유한 url 출력
+
+                    // num의 값에 따라 대표이미지/상세이미지에 첨부파일 이미지 담기도록
+                    // jQuery의 attr(속성명, 속성값) : 해당 속성명의 속성값을 변경
+                    switch(num){
+                        case 1 : $("#thumbnail").attr("src", e.target.result); break;
+                        case 2 : $("#contentImg1").attr("src", e.target.result); break;
+                        case 3 : $("#contentImg2").attr("src", e.target.result); break;
+                        case 4 : $("#contentImg3").attr("src", e.target.result); break;
+                    }
+                }
+
+            }else{
+                // 파일 선택 취소된 경우 : 미리보기로 보여졌던 이미지도 사라지게 만들기
+                switch(num){
+                        case 1 : $("#titleImg").attr("src", null); break;
+                        case 2 : $("#contentImg1").attr("src", null); break;
+                        case 3 : $("#contentImg2").attr("src", null); break;
+                        case 4 : $("#contentImg3").attr("src", null); break;
+                    }
+            }
+        };
+		
+		// 파일을 첨부하면 수정하기/등록하기 버튼이 활성화되도록 만드는 함수
+		/* $(function(){
+			$("input[type=file]").change(function(){
+				$(".btn").removeAttr("disabled");
+			})
+		}) */
+		
+		$(function(){
+			<% if(errorMsg != null){ %>
+				alert("<%= errorMsg %>");
+			<% }%>
+		})
+		
+		
 	</script>
 
 </div>

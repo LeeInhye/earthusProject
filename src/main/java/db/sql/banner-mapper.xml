@@ -4,9 +4,36 @@
 <properties>
 	<entry key="selectList">
 		SELECT BN_NO
-		     , BN_IMG_SRC
+		     , BN_IMG_URL
 		     , BN_STATUS
 		  FROM BANNER
+	</entry>
+	
+	<entry key="insertBanner">
+		INSERT
+		  INTO BANNER
+		VALUES
+			 (
+			   SEQ_BANNER.NEXTVAL
+			 , ?
+			 , 'Y'
+			 )
+	</entry>
+	
+	<entry key="insertAttachment">
+		INSERT
+		  INTO ATTACHMENT
+		VALUES
+			 (
+			   SEQ_FILENO.NEXTVAL
+			 , 6
+			 , SEQ_BANNER.CURRVAL
+			 , ?
+			 , ?
+			 , ?
+			 , SYSDATE
+			 , 'Y'
+			 )
 	</entry>
 
 
