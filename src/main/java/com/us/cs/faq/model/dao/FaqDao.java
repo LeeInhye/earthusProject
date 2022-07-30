@@ -1,6 +1,6 @@
 package com.us.cs.faq.model.dao;
 
-import static com.us.common.JDBCTemplate.*;
+import static com.us.common.JDBCTemplate.close;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.us.cs.faq.model.vo.Faq;
+import com.us.cs.model.vo.CsCategory;
 
 public class FaqDao {
 	
@@ -50,6 +51,32 @@ public class FaqDao {
 						));
 			}
 			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	// 카테고리 조회
+	public ArrayList<CsCategory> selectCategoryList(Connection conn){
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<CsCategory> list = new ArrayList<>();
+		
+		String sql = prop.getProperty("selectCategoryList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new CsCategory(rset.getInt(1)
+									  , rset.getString(2)
+						));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
