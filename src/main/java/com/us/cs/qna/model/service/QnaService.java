@@ -47,6 +47,7 @@ public class QnaService {
 		} else {
 			rollback(conn);
 		}
+		close(conn);
 		return result1 * result2;
 	}
 	
@@ -65,8 +66,46 @@ public class QnaService {
 		return at;
 	}
 	
+	// 글 수정
+	public int updateQna(Qna q, Attachment at) {
+		Connection conn = getConnection();
+		int result1 = new QnaDao().updateQna(conn, q);
+		int result2 = 1;
+		
+		if(at != null) {	// 새로운 첨부파일이 있으면
+			if(at.getFileNo() != 0) {	// 기존 첨부파일이 있다면
+				result2 = new QnaDao().updateAttachment(conn, at);
+			} else {
+				result2 = new QnaDao().insertNewAttachment(conn, at);
+			}
+		}
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result1 * result2;
+	}
 	
-	
+	// 삭제
+	public int deleteQna(int qNo, Attachment at) {
+		Connection conn = getConnection();
+		int result1 = new QnaDao().deleteQna(conn, qNo);
+		int result2 = 1;
+		
+		if(at != null) {	// 첨부파일이 있을 경우
+			result2 = new QnaDao().deleteAttachment(conn, qNo);
+		}
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result1 * result2;
+	}
 	
 	
 	

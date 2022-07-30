@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.us.cs.qna.model.vo.Qna, com.us.common.model.vo.Attachment"%>
+<%
+	Qna q = (Qna)request.getAttribute("q");
+	Attachment at = (Attachment)request.getAttribute("at");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +12,7 @@
 
    <%@ include file="/views/common/menubar.jsp" %>
    
-   <div class="container">
+    <div class="container">
         <br><br><br><br><br><br><br><br><br>
         
         <h2 class="menu_sub_title">Q&A 작성</h2> <br>
@@ -17,20 +21,22 @@
         </h5>
         <hr class="my-hr2"> <br>
 
-		<form action="<%= contextPath %>/insert.qa" method="post" enctype="multipart/form-data" id="qnaInsertForm">
+		<form action="<%= contextPath %>/update.qa" method="post" enctype="multipart/form-data" id="qnaUpdatetForm">
+	       	<input type="hidden" name="qno" value="<%= q.getQnaNo() %>">
+	       
+	       <!-- 입력했던 내역 보이게 하기 -->
 	        <div class="container qna_insert" style="width:90%;">
-	            <h3 style="color:#778C79;"><b> &nbsp;&nbsp;&nbsp; <%= loginUser.getUserName() %>님</b></h3>
+	            <h3 style="color:#778C79;"><b>&nbsp;&nbsp;&nbsp; <%= loginUser.getUserName() %>님</b></h3>
 	            <hr class="my-hr2"> <br>
 				
-	            <input type="text" class="qna_insert_content" id="qnaTitle" name="qnaTitle" placeholder="제목을 입력해주세요." required>
+	            <input type="text" class="qna_insert_content" id="qnaTitle" name="qnaTitle" value="<%= q.getQnaTitle() %>" placeholder="제목을 입력해주세요." required>
 	            <br><br>
 	            <textarea id="qnaContent" name="qnaContent" class="qna_insert_content"
 	             style="resize:none; border-radius: 5px; height: 300px; white-space: pre-line;"
-	            placeholder="문의 내용을 입력해주세요. (20자 이상 150자 이하)" required></textarea>
+	            placeholder="문의 내용을 입력해주세요. (20자 이상 150자 이하)" required><%= q.getQnaContent() %></textarea>
 	            
 	            <br>
 	            <hr class="my-hr2">
-				
 				
 	            <input type="checkbox" id="pwdCheck" style="vertical-align:bottom;">&nbsp; 
 	            <b> &nbsp; 비밀글 &nbsp; </b> 
@@ -40,6 +46,13 @@
 	            
 	            <script>
 	            	$(document).ready(function(){
+	            		// 비밀번호가 걸려있으면 자동 체크
+	            		if(q.getQnaPwd() == null){
+	            			q.setQnaOwd("");
+	            		} else{
+	            			$("#pwdCheck").prop("checked");
+	            		}
+	            		
 	            		// 비밀글을 체크하고 비밀번호 네자리 입력해야함
 	            		if( $("#pwdCheck").is(":checked") ){
 	            			$("#qnaPwd").focusout(function(){
@@ -57,16 +70,31 @@
 	            
 	            </script>
 	            
+	            <!--  연락처를 null로 출력시키지 않고 빈 문자열로 출력시킴 -->
+	            <% if( q.getQnaEmail() == null ) { %>
+	            	<% q.setQnaEmail(""); %>
+	            <% } %>
+	            <% if( q.getQnaPhone() == null ) { %>
+	            	<% q.setQnaPhone(""); %>
+	            <% } %>
+	            
 	            
 	            <p>답변 소식을 받을 연락처를 기재해주세요. (택1 필수)</p>
 	            <br>
 	            <!-- 해당 회원의 이메일과 번호 placeholder로 -->
-	            <input type="email" id="qnaEmail" name="qnaEmail" placeholder="이메일">
+	            <input type="email" id="qnaEmail" name="qnaEmail" placeholder="이메일" value="<%= q.getQnaEmail() %>">
 	            <br><br>
-	            <input type="text" id="qnaPhone" name="qnaPhone" placeholder="전화번호">
+	            <input type="text" id="qnaPhone" name="qnaPhone" placeholder="전화번호" value="<%= q.getQnaPhone() %>">
 	            <br><br>
 	            
 	            <p>첨부파일을 기재해주세요. (선택)</p>
+	            
+	            <!-- 첨부파일이 있을 경우 -->
+	            <% if(at != null) { %>
+	            	<%= at.getOriginName() %>
+	            	<input type="hidden" name="originFileNo" value="<%= at.getFileNo() %>">
+	            <% } %>
+	            
 	            <input type="file" name="upfile" id="upfile">
 	            <br><br>
 	            <h7>* 사진의 크기는 10MB 이하의 jpg, png, gif파일로 첨부 가능합니다.</h7>
@@ -81,8 +109,8 @@
 	
 	            <br><br><br><br><br>
 	            <div class="btn_two_center">
-	                <button type="button" class="btn btn_gray btn-lg" onclick="history.back();">취소</button>
-	                <button type="button" id="insertQnaBtn" class="btn btn_green btn-lg">등록</button>
+	                <button type="button" class="btn btn_gray btn-lg" onclick="history.back();">초기화</button>
+	                <button type="button" id="insertQnaBtn" class="btn btn_green btn-lg">수정</button>
 	            </div>
 	            
 	            <script>
@@ -107,7 +135,7 @@
                                        ($("#qnaTitle").val() != "") && ($("#qnaContent").val() != "")  ){ // 문의 내용 글자수 제한과 비밀글 조건 지키기
 										$("#insertQnaBtn").removeAttr("data-toggle");
                             			$("#insertQnaBtn").removeAttr("data-target");
-										$("#qnaInsertForm").submit();
+										$("#qnaUpdatetForm").submit();
 							}
 						});
 	            		

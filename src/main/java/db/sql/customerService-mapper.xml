@@ -160,6 +160,9 @@
 		     , QNA_TITLE
 		     , QNA_CONTENT
 		     , QNA_FILE
+		     , QNA_EMAIL
+		     , QNA_PHONE
+		     , QNA_PWD
 		     , QNA_ANSWER
 		     , QNA_ENROLL_DATE
 		  FROM QNA
@@ -177,6 +180,63 @@
 		 WHERE REF_TYPE = 1
 		   AND REF_BNO = ?
 		   AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="updateQna">
+		UPDATE
+		       QNA
+		   SET QNA_TITLE = ?
+		     , QNA_CONTENT = ?
+		     , QNA_EMAIL = ?
+		     , QNA_PHONE = ?
+		     , QNA_PWD = ?
+		 WHERE QNA_NO = ?
+	</entry>
+	
+	<entry key="updateAttachment">
+		UPDATE
+		       ATTACHMENT
+		   SET ORIGIN_NAME = ?
+		     , CHANGE_NAME = ?
+		     , FILE_PATH = ?
+		 WHERE FILE_NO = ?
+	</entry>
+	
+	<entry key='insertNewAttachment'>
+		INSERT
+		  INTO ATTACHMENT
+		  (
+		    FILE_NO
+		  , REF_TYPE
+		  , REF_BNO
+		  , ORIGIN_NAME
+		  , CHANGE_NAME
+		  , FILE_PATH
+		   )
+		   VALUES
+		   (
+		    SEQ_FILENO.NEXTVAL
+		  , 1
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		   )
+	</entry>
+	
+	<entry key="deleteQna">
+		UPDATE
+		       QNA
+		   SET QNA_STATUS = 'N'
+		 WHERE QNA_NO = ?
+	</entry>
+	
+	<entry key='deleteAttachment'>
+		UPDATE
+		       ATTACHMENT
+		   SET STATUS = 'N'
+		 WHERE REF_TYPE = 1
+		   AND REF_BNO = ?
 	</entry>
 
 
