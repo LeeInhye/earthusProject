@@ -59,64 +59,66 @@ ArrayList<WishList> list = (ArrayList<WishList>)request.getAttribute("list");
     
       <!--================Cart Area =================-->
       <section class="cart_area padding_top">
-          <div class="cart_inner">
-            <div class="table-responsive">
-              <table class="table" style="width:70%" align="center">
-                <thead>
-                  <tr align="center">
-                    <th scope="col" width="20px;"><input type="checkbox" id="checkAll"></th>
-                    <th scope="col">상품정보</th>
-                    <th scope="col" colspan="2">가격</th>
-                    <th scope="col"  width="15%;">찜한날짜</th>
-                  </tr>
-                </thead>
-                <tbody>
-                <% if(list == null) {%>
-                	<div style="color:rgb(119,140,121);">
-                		<h3>찜한 상품이 없습니다.</h3>
-                	</div>
-                <% }else { %>
-	                <%for(WishList wi : list) { %>
-	                  <tr>
-	                    <td align="center">
-	                      <input type="checkbox" class="product" >
-	                    </td>
+         <div class="cart_inner">
+          	<div class="table-responsive">
+            	<table class="table" style="width:70%" align="center">
+	                <thead>
+	                  <tr align="center">
+	                    <th scope="col" width="20px;"><input type="checkbox" id="checkAll"></th>
+	                    <th scope="col">상품정보</th>
+	                    <th scope="col" colspan="2">가격</th>
+	                    <th scope="col"  width="15%;">찜한날짜</th>
+	                  </tr>
+	                </thead>
+	                <tbody>
+	                <% if(list.isEmpty()) {%>
+	                	<tr>
+	                		<td colspan="5" align="center">
+	                			<h3>찜한 상품이 없습니다.</h3>
+	                		</td>
+	                	</tr>
+	                <% }else { %>
+		                <%for(WishList wi : list) { %>
+		                  <tr>
+		                    <td align="center">
+		                      <input type="checkbox" class="product" >
+		                    </td>
+		                    <td>
+		                      <div class="media">
+		                        <div class="d-flex">
+		                          <%= wi.getProImgPath() %>
+		                        </div>
+		                        <div class="media-body">
+		                          <p><%= wi.getProName() %></p>
+		                        </div>
+		                      </div>
+		                    </td>
+		                    <td colspan="2" align="center">
+		                      <h5><%= wi.getPrice() %></h5>
+		                    </td>
+		                    <td align="center">
+		                      <h5><%= wi.getWishDate() %></h5>
+		                    </td>
+		                  <%} %>
+	                  <%} %>
+	                  
+	                  <!-- 삭제기능 아직 -->
+	                  <tr class="bottom_button">
 	                    <td>
-	                      <div class="media">
-	                        <div class="d-flex">
-	                          <%= wi.getProImgPath() %>
-	                        </div>
-	                        <div class="media-body">
-	                          <p><%= wi.getProName() %></p>
-	                        </div>
+	                      <button class="del-btn">선택삭제</button>
+	                    </td>
+	                    <td></td>
+	                    <td></td>
+	                    <td></td>
+	                    <td>
+	                      <div class="cupon_text float-right">
+	                        <button class="ca-btn">선택 상품 장바구니로 이동</button>
 	                      </div>
 	                    </td>
-	                    <td colspan="2" align="center">
-	                      <h5><%= wi.getPrice() %></h5>
-	                    </td>
-	                    <td align="center">
-	                      <h5><%= wi.getWishDate() %></h5>
-	                    </td>
-	                  <%} %>
-                  <%} %>
-                  
-                  <!-- 삭제기능 아직 -->
-                  <tr class="bottom_button">
-                    <td>
-                      <button class="del-btn" onclick="deleteProduct">선택삭제</button>
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                      <div class="cupon_text float-right">
-                        <button class="ca-btn" href="">선택 상품 장바구니로 이동</button>
-                      </div>
-                    </td>
-                  </tr>
-                  
-                </tbody>
-              </table>
+	                  </tr>
+	                  
+	                </tbody>
+            	</table>
             </div>
           
       </section>
@@ -142,6 +144,7 @@ ArrayList<WishList> list = (ArrayList<WishList>)request.getAttribute("list");
           })
           
         })
+        
         
       </script>
 	
