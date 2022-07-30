@@ -42,24 +42,29 @@
 	.completion {
 		font-weight:bold;
 	}
+	
+	.section_padding 
+    padding-top: 200px !important;
+	}
 </style>
 
 </head>
 <body>
 
 <%@ include file="/views/common/menubar.jsp" %>
+
 <!-- font awesome -->
 <script src="https://use.fontawesome.com/e3cb36acfb.js"></script>
 <!-- swiper CSS -->
  <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/price_rangs.css">
  
  <!--================상품 상세 조회 영역=================-->
-  <div class="product_image_area section_padding">
+  <div class="product_image_area section_padding" style="padding-top:250px;">
     <div class="container">
       <div class="row s_product_inner justify-content-center">
       
       <!------ 썸네일 영역 (좌측) ------->
-        <div class="col-lg-6 col-xl-6 "> 
+        <div class="col-lg-6 col-xl-4 "> 
           <div class="product_slider_img">
             <div id="vertical">
               <div data-thumb="<%= contextPath %>/<%= p.getProImgPath() %>">
@@ -157,20 +162,13 @@
                     </div>
                   </div>
                 </div>
-                <!-- 장바구니 끝 -->
+                <!------- 장바구니 끝 ------->
 
               <a href="#" class="like_us" onclick="likeUs();"><i class="fa fa-heart-o" style="font-size:large;"></i></a>
               <script>
                 function likeUs(){
-                  	if(logInUser != null){ // 로그인 한 회원만 찜 가능
+                  	if(<%=loginUser%> != null){ // 로그인 한 회원만 찜 가능
                   		
-                  		
-                  		
-                  	}else{
-                  		alert("로그인된 회원만 이용 가능합니다.");
-                  		location.href="<%=contextPath%>/views/member/goLogIn.jsp";
-                  	}
-                  	
                   // 상품이 위시리스트에 담겨 있지 않을 때
                     $('.like_us i').css('color',"#f2f2f2");
                     $('.like_us i').parent().css('background',"#778C79"); 
@@ -179,6 +177,12 @@
                   // 위시리스트에 해당 상품 delete 후 스타일 원상복구
                   //   $('.like_us i').css('color', "");
                   //   $('.like_us i').parent().css('background', ""); 
+                  		
+                  	}else{
+                  		alert("로그인된 회원만 이용 가능합니다.");
+                  		location.href="<%=contextPath%>/views/member/goLogin.jsp";
+                  	}
+                  	
                 }
                   
               </script>
@@ -243,121 +247,64 @@
           </div>
         </div>
 
-        <!--상품 문의-->
+        <!-- 상품 문의 -->
         <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
           <div class="row">
-            <table id="pro-qna-tb" width="80%" align="center">
-              <thead>
-                <tr>
-                  <th width="5%" >No</th>
-                  <th width="15%">상태</th>
-                  <th width="50%">제목</th>
-                  <th width="15%">작성자</th>
-                  <th width="15%">작성일</th>
-                </tr>
-              </thead>
-              <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td  id="waiting">답변대기중</td>
-                    <td align="left" id="proQnaTitle">비밀글입니다.5 &nbsp;<i class="fa fa-lock" aria-hidden="true"></i></td>
-                    <td>아무개</td>
-                    <td>SYSDATE</td>
-                  </tr>
-                  <tr class="pro-qna-detail hide">
-                    <td colspan="5">
-                      <p>문의 내용2문의 내용2문의 내용2문의 내용2>문의 내용2문의 내용2문의 내용2문의 내용2</p>
-                    </td>
-                  </tr>
-
-
-                  <tr data-toggle="collapse" data-target="#demo">
-                    <td>2</td>
-                    <td id="completion">답변완료</td>
-                    <td align="left" id="proQnaTitle">비밀글입니다.4 &nbsp;<i class="fa fa-lock" aria-hidden="true"></i></td>
-                    <td>아무개</td>
-                    <td>SYSDATE</td>
-                  </tr>
-                  <tr class="pro-qna-detail">
-                    <td colspan="5">
-                      <div class="container">
-                        <div id="demo" class="collapse">
-                          <p>문의 내용2문의 내용2문의 내용2문의 내용2>문의 내용2문의 내용2문의 내용2문의 내용2</p>
-                          <div class="pro-qna-a">
-                         <p><b>관리자</b> &nbsp;&nbsp;2022-07-20</p>
-                          안녕하세요. Earth.Us입니다 :) <br>
-                          현재 구매하시는 고체 치약 200정은 2022년 7월 3일 제조로 유통기한은 제조일 기준 2년입니다. <br>
-                          개봉하실 경우, 최대한 빨리 사용해주실 것을 권장합니다!
-                          </div>
-                        </div>
-                      </div>
-
-                    </td>
-
-                  </tr>
-
-
-
-                  <tr>
-                    <td>3</td>
-                    <td id="proQnaStatus">답변완료</td>
-                    <td align="left" id="proQnaTitle">공개글입니다.3 &nbsp;</td>
-                    <td>아무개</td>
-                    <td>SYSDATE</td>
-                  </tr>
-                  <tr class="pro-qna-detail hide">
-                    <td colspan="5">
-                      <p>문의 내용2문의 내용2문의 내용2문의 내용2 <br>문의 내용2문의 내용2문의 내용2문의 내용2</p>
-                      <div class="pro-qna-a">
-                        <p><b>관리자</b> &nbsp;&nbsp;2022-07-20</p>
-                        안녕하세요. Earth.Us입니다 :) <br>
-                        현재 구매하시는 고체 치약 200정은 2022년 7월 3일 제조로 유통기한은 제조일 기준 2년입니다. <br>
-                        개봉하실 경우, 최대한 빨리 사용해주실 것을 권장합니다!
-                      </div>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>4</td>
-                    <td id="proQnaStatus">답변완료</td>
-                    <td align="left" id="proQnaTitle">비밀글입니다.2 &nbsp;<i class="fa fa-lock" aria-hidden="true"></i></td>
-                    <td>아무개</td>
-                    <td>SYSDATE</td>
-                  </tr>
-                  <tr class="pro-qna-detail hide">
-                    <td colspan="5">
-                      <p>문의 내용2문의 내용2문의 내용2문의 내용2 <br>문의 내용2문의 내용2문의 내용2문의 내용2</p>
-                      <div class="pro-qna-a">
-                        <p><b>관리자</b> &nbsp;&nbsp;2022-07-20</p>
-                        안녕하세요. Earth.Us입니다 :) <br>
-                        현재 구매하시는 고체 치약 200정은 2022년 7월 3일 제조로 유통기한은 제조일 기준 2년입니다. <br>
-                        개봉하실 경우, 최대한 빨리 사용해주실 것을 권장합니다!
-                      </div>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>5</td>
-                    <td id="proQnaStatus">답변완료</td>
-                    <td align="left" id="proQnaTitle">비밀글입니다.1 &nbsp;<i class="fa fa-lock" aria-hidden="true"></i></td>
-                    <td>아무개</td>
-                    <td>SYSDATE</td>
-                  </tr>
-                  <tr class="pro-qna-detail hide">
-                    <td colspan="5">
-                      <p>문의 내용2문의 내용2문의 내용2문의 내용2 <br>문의 내용2문의 내용2문의 내용2문의 내용2</p>
-                      <div class="pro-qna-a">
-                        <p><b>관리자</b> &nbsp;&nbsp;2022-07-20</p>
-                        안녕하세요. Earth.Us입니다 :) <br>
-                        현재 구매하시는 고체 치약 200정은 2022년 7월 3일 제조로 유통기한은 제조일 기준 2년입니다. <br>
-                        개봉하실 경우, 최대한 빨리 사용해주실 것을 권장합니다!
-                      </div>
-                    </td>
-                  </tr>
-
-              </tbody>
-            </table>
-            <!-- 문의 테이블 끝 -->
+          	<div id="pro-qna-area" style="margin:auto">
+          		<div id="pro-qna-head">
+          			<ul>
+          				<li class="col1">No</li>
+          				<li class="col2">상태</li>
+          				<li class="col3">제목</li>
+          				<li class="col4">작성자</li>
+          				<li class="col5">작성일</li>
+          			</ul>
+          		</div>
+          		<div id="pro-qna-body">
+          			<!-- ul 반복문 -->
+          			<ul>
+          				<li class="col1">5</li>
+          				<li class="col2 wating">답변대기중</li>
+          				<li class="col3">
+          					불어 일월과 하는 작고 그것은 곧 이것은 아니다. &nbsp;
+          					<i class="fa fa-lock"></i>
+          				</li>
+          				<li class="col4">김뫄뫄</li>
+          				<li class="col5">2022.07.30</li>
+          			</ul>
+          			<!-- ul 반복문 -->
+          		</div>
+          	</div>
+            
+            <!-- 페이징 처리 -->
+            <div class="col-lg-12">
+              <div class="pageination" style="position:relative">
+                  <nav aria-label="Page navigation example">
+                      <ul class="pagination justify-content-center" id="pro-qna-page" style="margin:10px;">
+                          <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <i class="ti-angle-double-left"></i>
+                            </a>
+                          </li>
+                          <li class="page-item"><a class="page-link" href="#">1</a></li>
+                          <li class="page-item"><a class="page-link" href="#">2</a></li>
+                          <li class="page-item"><a class="page-link" href="#">3</a></li>
+                          <li class="page-item"><a class="page-link" href="#">4</a></li>
+                          <li class="page-item"><a class="page-link" href="#">5</a></li>
+                          <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <i class="ti-angle-double-right"></i>
+                            </a>
+                          </li>
+                          <li><a href="product_qna_form.html" class="btn-submit" id="z2"
+                            style="display:inline-block; text-align:right;">상품 문의하기</a></li>
+                      </ul>
+                  </nav>
+              </div>
+            </div>
+            <!-- 페이징 처리 끝 -->
+          </div>
+       </div>
 
             <script>
               const proQnaNo = '0000';
@@ -397,38 +344,6 @@
                 
               })
             </script>
-
-            <!-- 페이징 처리 -->
-            <div class="col-lg-12">
-              <div class="pageination" style="position:relative">
-                  <nav aria-label="Page navigation example">
-                      <ul class="pagination justify-content-center" id="pro-qna-page" style="margin:10px;">
-                          <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <i class="ti-angle-double-left"></i>
-                            </a>
-                          </li>
-                          <li class="page-item"><a class="page-link" href="#">1</a></li>
-                          <li class="page-item"><a class="page-link" href="#">2</a></li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                          <li class="page-item"><a class="page-link" href="#">4</a></li>
-                          <li class="page-item"><a class="page-link" href="#">5</a></li>
-                          <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <i class="ti-angle-double-right"></i>
-                            </a>
-                          </li>
-                          <li><a href="product_qna_form.html" class="btn-submit" id="z2"
-                            style="display:inline-block; text-align:right;">상품 문의하기</a></li>
-                            <!--상품 문의 작성 버튼-->
-                          
-                      </ul>
-                  </nav>
-              </div>
-            </div>
-            <!-- 페이징 처리 끝 -->
-          </div>
-        </div>
 
         <!--리뷰 영역-->
         <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
