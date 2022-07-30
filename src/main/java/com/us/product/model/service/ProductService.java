@@ -50,9 +50,9 @@ public class ProductService {
 		return list;
 	}
 	
-	public ArrayList<WishList> selectWishList(String userId){
+	public ArrayList<WishList> selectWishList(int userNo){
 		Connection conn = getConnection();
-		ArrayList<WishList> list = new ProductDao().selectWishList(conn, userId);
+		ArrayList<WishList> list = new ProductDao().selectWishList(conn, userNo);
 		close(conn);
 		return list;
 	}

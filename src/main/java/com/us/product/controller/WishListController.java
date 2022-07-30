@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.us.member.model.vo.Member;
 import com.us.product.model.service.ProductService;
@@ -33,10 +34,12 @@ public class WishListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
 		
-		String userId = request.getParameter("userId");
+		int userNo = loginUser.getUserNo();
 		
-		ArrayList<WishList> list = new ProductService().selectWishList(userId);
+		ArrayList<WishList> list = new ProductService().selectWishList(userNo);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/product/wishListView.jsp").forward(request, response);
 		

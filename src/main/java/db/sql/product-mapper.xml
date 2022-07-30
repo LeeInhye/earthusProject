@@ -108,7 +108,7 @@
  	  FROM WISHLIST
 	  JOIN PRODUCT USING (PRO_CODE)
 	  JOIN MEMBER USING (USER_NO)
-	 WHERE USER_ID = ?
+	 WHERE USER_NO = ?
 </entry>
 
 </properties>

@@ -178,7 +178,7 @@ public class ProductDao {
 	
 	
 	// 위시리스트
-	public ArrayList<WishList> selectWishList(Connection conn, String userId){
+	public ArrayList<WishList> selectWishList(Connection conn, int userNo){
 		ArrayList<WishList> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -186,7 +186,7 @@ public class ProductDao {
 		String sql = prop.getProperty("selectWishList");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
+			pstmt.setInt(1, userNo);
 			
 			rset = pstmt.executeQuery();
 			
