@@ -13,7 +13,7 @@ public class Product {
 	private Date proEnrollDate;
 	private String proImgPath;
 	private String detailImgPath;
-	private String seqInfoImgPath;
+	private String reqInfoImgPath;
 	private int proCount; // 조회수
 	
 	private int productCount; // 카테고리별 상품 개수 조회용 변수
@@ -21,7 +21,7 @@ public class Product {
 	public Product() {}
 
 	public Product(String proCode, String category, String proName, String proInfo, String price, int stock,
-			Date proEnrollDate, String proImgPath, String detailImgPath, String seqInfoImgPath, int proCount) {
+			Date proEnrollDate, String proImgPath, String detailImgPath, String reqInfoImgPath, int proCount) {
 		super();
 		this.proCode = proCode;
 		this.category = category;
@@ -32,7 +32,7 @@ public class Product {
 		this.proEnrollDate = proEnrollDate;
 		this.proImgPath = proImgPath;
 		this.detailImgPath = detailImgPath;
-		this.seqInfoImgPath = seqInfoImgPath;
+		this.reqInfoImgPath = reqInfoImgPath;
 		this.proCount = proCount;
 	}
 
@@ -125,12 +125,12 @@ public class Product {
 		this.detailImgPath = detailImgPath;
 	}
 
-	public String getSeqInfoImgPath() {
-		return seqInfoImgPath;
+	public String getReqInfoImgPath() {
+		return reqInfoImgPath;
 	}
 
-	public void setSeqInfoImgPath(String seqInfoImgPath) {
-		this.seqInfoImgPath = seqInfoImgPath;
+	public void setReqInfoImgPath(String seqInfoImgPath) {
+		this.reqInfoImgPath = seqInfoImgPath;
 	}
 
 	public int getProCount() {
@@ -153,8 +153,8 @@ public class Product {
 	public String toString() {
 		return "Product [proCode=" + proCode + ", category=" + category + ", proName=" + proName + ", proInfo="
 				+ proInfo + ", price=" + price + ", stock=" + stock + ", proEnrollDate=" + proEnrollDate
-				+ ", proImgPath=" + proImgPath + ", detailImgPath=" + detailImgPath + ", seqInfoImgPath="
-				+ seqInfoImgPath + ", proCount=" + proCount + "]";
+				+ ", proImgPath=" + proImgPath + ", detailImgPath=" + detailImgPath + ", reqInfoImgPath="
+				+ reqInfoImgPath + ", proCount=" + proCount + "]";
 	}
 	
 	

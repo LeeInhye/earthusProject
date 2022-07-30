@@ -33,54 +33,8 @@
 	<!-- font awesome -->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
 	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    
-<style>
-
-	.best_seller{margin:5% 0%;}
-	
-	.price_rangs_aside{margin:5% 0%;}
-	
-	.fa-heart {color:#A8BFAA ;}
-	
-	.custom-select{
-		border: 1px solid #eeeeee;
-		color:#6c757d;
-		font-size:14px;
-		height:40px;
-        width:300px;
-	}
-	
-	#selectArea {width:30%;}
-	
-    #selectTitle {width:50%; line-height:40px;}
-    
-    .single_product_item .single_product_text {
-    	background: white !important;
-    }
-    
-    .single_product_item * {
-   		background: white !important;
-    }
-    
-    .single_product_item {
-        background: white !important;
-    }
-    
-    .single_product_text {
-    	background: white !important;
-    }
-    
-    .color-lightgreen {
-    	color:#a8bfaa;
-    }
-    
-    .color-gray {
-    	color:#f2f2f2;
-    }
-   
-    
-	
-</style>
+    <!-- swiper CSS -->
+ 	<link rel="stylesheet" href="u_css_seulgi/price_rangs.css">
 
 </head>
 <body>
@@ -240,6 +194,7 @@
 	                                  <h4><%= p.getProName() %></h4>
 	                                  <p><%= p.getPrice() %>원</p>&nbsp;&nbsp;&nbsp;<i class="fa fa-heart color-gray"></i>
 	                                  <a href="#" class="add_cart">+ 장바구니 추가</a>
+	                                  <input type="hidden" name="proCode" value="<%= p.getProCode() %>">
 	                              </div>
 	                          </div>
 	                      </div>
@@ -325,15 +280,10 @@
             // ---------------------------------------
             
             // 상품 이미지나 상품명, 가격 클릭 시 상품 상세 페이지로 이동
-            $(".single_product_item img, h4, p").click(function(){
+            $(".single_product_item img").click(function(){
             	
-            	const proCode = $(this).siblings(input[name=proCode]).val(); // 해당 상품의 상품코드
-            	
-            	
-            	<% for(Product p : pList){ %>
-            	<%	if(p.getProCode().isEqual(proCode)) {%>
-            		location.href = "<%=contextPath%>/detail.pro?proCode=" + proCode;
-            	<% } %>
+            	const proCode = $(this).siblings('.single_product_text').children('input[type=hidden]').val(); // 해당 상품의 상품코드
+            	location.href = "<%=contextPath%>/detail.pro?proCode=" + proCode;
             	
             })
             
