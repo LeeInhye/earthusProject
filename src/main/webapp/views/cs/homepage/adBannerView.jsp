@@ -154,7 +154,8 @@
 					</div>
 					
 					<div class="modal-footer">
-						<button type="submit" class="btn btn-default" data-dismiss="modal">수정하기</button>
+						<button type="submit" class="btn btn-default">수정하기</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">돌아가기</button>
 					</div>
 				</form>
 			</div>
@@ -180,7 +181,8 @@
 						</div>
 						
 						<div class="modal-footer">
-							<button type="submit" class="btn btn-default" data-dismiss="modal">등록하기</button>
+							<button type="submit" class="btn btn-default">등록하기</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">돌아가기</button>
 						</div>
 					</div>
 				</form>
