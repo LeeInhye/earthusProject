@@ -76,7 +76,7 @@
 	<entry key="selectListCount">
 		SELECT COUNT(*) AS "COUNT"
 		  FROM QNA
-		 WHERE QNA_STATUS = 'Y';
+		 WHERE QNA_STATUS = 'Y'
 	</entry>
 	
 	<entry key="selectQnaList">
@@ -89,7 +89,7 @@
 		                      , USER_ID
 		                      , QNA_TITLE
 		                      , QNA_CONTENT
-		                      , FILE_NO
+		                      , QNA_FILE
 		                      , QNA_EMAIL
 		                      , QNA_PHONE
 		                      , QNA_PWD
