@@ -41,8 +41,8 @@
                     <hr>
                     <div  style="margin-top:30px;">
                         <div class="editor-body">
-                            <form action="#" method="post">
-                                <textarea id="summernote" name="comInf">
+                            <form action="<%=contextPath%>/insertInfo.hm" method="post">
+                                <textarea id="summernote" name="comInfo">
                                 </textarea>
                                 <br>
 								<div id="button area" align="right">
@@ -69,19 +69,20 @@
 						   ['insert', ['link', 'picture', 'hr']],
 						   ['view', ['fullscreen']]
                       	],
-                        callbacks: { // 이미지 업로드를 위한 콜백 함수
                             // 이미지 업로드하면 이벤트 발생시킴
-                            onImageUpload: function(files, editor, webEitable){
-                                // 이미지 개수대로 sendFile
-                                for(const i=0; i<files.length; i++){
-                                    sendFile(files[i], editor, welEditable);
-                                }
+                        onImageUpload: function(files, editor, webEitable){
+                            // 이미지 개수대로 함수 sendFile 호출
+                            for(var i=0; i<files.length; i++){
+                                sendFile(files[i], editor, welEditable);
                             }
                         }
+                        
                     });
 
                     function sendFile(file, editor, welEditable){
-                        var imgUrl = 'img/uploads/notice'
+                        var imgUrl = 'sources/img/homepage/'
+
+                        // 파일 전송을 위한 form 생성
                         form_data = new FormData();
                         form_data.append("image", file);
                         $.ajax({
@@ -94,8 +95,8 @@
                             processData:"false",
                             processData: "false",
                             success: function(savename){
-                                umgUrl = umgUrl + savename;
-                                editor.insertImage(welEditable, imgUrl);
+                                imgUrl = imgUrl + savename;
+                                editor.insertImage(welEditable, imgUrl); // 에디터에 업로드된 이미지 삽입
                             },
                             error: function(){
                                 alert("error");
@@ -103,9 +104,12 @@
 
                         })
                     }
+                    // $(".note-editable").change( console.log( $(this).html() ) )
+                    
                   </script>
                 
                 <br><br><br><br><br><br><br><br>
+
 
             </div>
         </div>
