@@ -33,9 +33,9 @@
 	
 	// 상품 문의 답변상태 - 답변대기중
 	.waiting {
-		font-weight:bold;
+		font-weight:bold !important;
 		/*color:#778C79;*/
-		color:#a8bfaa;
+		color:#a8bfaa !important;
 	}
 	
 	// 상품 문의 답변상태 - 답변완료
@@ -250,7 +250,7 @@
         <!-- 상품 문의 -->
         <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
           <div class="row">
-          	<div id="pro-qna-area" style="margin:auto">
+          	<div id="pro-qna-area">
           		<div id="pro-qna-head">
           			<ul>
           				<li class="col1">No</li>
@@ -260,11 +260,11 @@
           				<li class="col5">작성일</li>
           			</ul>
           		</div>
-          		<div id="pro-qna-body">
-          			<!-- ul 반복문 -->
+          		<div id="pro-qna-body"> 
+          			<!-- 목록 -->
           			<ul>
           				<li class="col1">5</li>
-          				<li class="col2 wating">답변대기중</li>
+          				<li class="col2 waiting">답변대기중</li>
           				<li class="col3">
           					불어 일월과 하는 작고 그것은 곧 이것은 아니다. &nbsp;
           					<i class="fa fa-lock"></i>
@@ -272,8 +272,19 @@
           				<li class="col4">김뫄뫄</li>
           				<li class="col5">2022.07.30</li>
           			</ul>
-          			<!-- ul 반복문 -->
+          			<!-- 목록 -->
+          			
+          			<!-- 답변 -->
+	          		<div class="pro-qna-answer">
+	          			<p>문의내용</p>
+	          			<div class="pro-answer">
+	          				<p><b>관리자</b>&nbsp;&nbsp;2022-07-30</p> 
+	          				문의내용
+	          			</div>
+	          		</div>
+	          		<!-- 답변 -->
           		</div>
+          	<hr>
           	</div>
             
             <!-- 페이징 처리 -->

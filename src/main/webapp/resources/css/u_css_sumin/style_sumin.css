@@ -1184,16 +1184,17 @@ textarea {
 	width:80% !important;
 	text-align:center !important;
 	vertical-align:middle !important;
+	margin:auto;
 }
 
 #pro-qna-area ul{
 	width:100% !important;
-	border-bottom:1px solid lightgray !important;
 	display:inline-block !important;
 }
 
 #pro-qna-head ul {
 	border-top:1px solid lightgray !important;
+	border-bottom:1px solid lightgray !important;
 	font-weight:bold;
 }
 
@@ -1208,6 +1209,25 @@ textarea {
 .col3 {width:50%; text-align:left !important;}
 .col4 {width:15% !important;}
 .col5 {width:15% !important;}
+
+.pro-qna-answer {
+	width:100%;
+}
+
+.pro-qna-answer>p {
+	padding:20px;
+}
+
+.pro-answer {
+	border:none;
+	background:rgb(231, 237, 232);
+	padding:20px;
+}
+
+.pro-answer>p {
+	padding:20px;
+	padding-top:0;
+}
 /*================= 슬기 상품 문의 끝 =================*/
 
 /*================= 슬기 제출버튼 =================*/
