@@ -11,8 +11,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import org.apache.tomcat.websocket.PojoClassHolder;
+
 import com.us.common.model.vo.PageInfo;
 import com.us.product.model.vo.Category;
+import com.us.product.model.vo.ProQna;
 import com.us.product.model.vo.Product;
 import com.us.product.model.vo.WishList;
 
@@ -227,6 +230,7 @@ public class ProductDao {
 		return result;
 	}
 	
+	// 한 상품 조회
 	public Product selectProduct(Connection conn, String proCode) {
 		Product p = null;
 		PreparedStatement pstmt = null;
@@ -282,5 +286,72 @@ public class ProductDao {
 		}
 		
 		return result;
+	}
+	
+	// 상품 문의글 개수 조회
+	public int selectQlistCount(Connection conn, String proCode) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectQlistCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, proCode);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("listCount");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+	
+	public ArrayList<ProQna> selectProQnaList(Connection conn, PageInfo pi, String proCode){
+		ArrayList<ProQna> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectProQnaList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1; // 시작값
+			int endRow = startRow + pi.getBoardLimit() - 1; // 끝값
+					
+			pstmt.setString(1, proCode);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add( new ProQna(rset.getInt("pro_qna_no"),
+									 rset.getString("pro_code"),
+									 rset.getString("pro_qna_title"),
+									 rset.getString("pro_qna_content"),
+									 rset.getString("pro_qna_pwd"),
+									 rset.getInt("pro_qna_writer_no"),
+									 rset.getString("pro_qn_writer_name"),
+									 rset.getString("pro_qna_email"),
+									 rset.getString("pro_qna_phone"),
+									 rset.getDate("pro_qna_q_enroll_date"),
+									 rset.getDate("pro_qna_a_enroll_date"),
+									 rset.getString("pro_qna_a_writer"),
+									 rset.getString("pro_qna_a_content")
+						));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 }

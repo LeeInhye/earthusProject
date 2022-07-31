@@ -1,7 +1,9 @@
 package com.us.product.model.service;
 
-import static com.us.common.JDBCTemplate.*;
+import static com.us.common.JDBCTemplate.close;
+import static com.us.common.JDBCTemplate.commit;
 import static com.us.common.JDBCTemplate.getConnection;
+import static com.us.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -9,6 +11,7 @@ import java.util.ArrayList;
 import com.us.common.model.vo.PageInfo;
 import com.us.product.model.dao.ProductDao;
 import com.us.product.model.vo.Category;
+import com.us.product.model.vo.ProQna;
 import com.us.product.model.vo.Product;
 import com.us.product.model.vo.WishList;
 
@@ -68,6 +71,38 @@ public class ProductService {
 		
 		close(conn);
 		return result;
+	}
+	
+	public int increaseProCount(String proCode) {
+		Connection conn = getConnection();
+		int result = new ProductDao().increaseProCount(conn, proCode);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+	
+	public Product selectProduct(String proCode) {
+		Connection conn = getConnection();
+		Product p = new ProductDao().selectProduct(conn, proCode);
+		close(conn);
+		return p;
+	}
+	
+	public int selectQlistCount(String proCode) {
+		Connection conn = getConnection();
+		int listCount = new ProductDao().selectQlistCount(conn, proCode);
+		close(conn);
+		return listCount;
+	}
+	
+	public ArrayList<ProQna> selectProQnaList(PageInfo pi, String proCode){
+		Connection conn = getConnection();
+		ArrayList<ProQna> list = new ProductDao().selectProQnaList(conn, pi, proCode);
+		close(conn);
+		return list;
 	}
 	
 }

@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@
-	page import="com.us.product.model.vo.Product"
+	page import="com.us.product.model.vo.Product, com.us.common.model.vo.PageInfo"
 %>
 <%
 	Product p = (Product)session.getAttribute("p");
-	StringBuilder sbPrice = new StringBuilder(p.getPrice());
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -14,8 +14,6 @@
 <title><%= p.getProName() %> - Earth.Us</title>
 
 <style>
-    .hide {display:none;}
-    .show {display:table-row;}
     .green {
     	background:#778C79;
     }
@@ -45,6 +43,10 @@
 	
 	.section_padding 
     padding-top: 200px !important;
+	}
+
+	.pro_qna_answer .on {
+		display:block;
 	}
 	
 	<!-- 리뷰 영역 스타일 -->
@@ -92,7 +94,7 @@
         <div class="col-lg-6 col-xl-4">
           <div class="s_product_text">
             <h3><%= p.getProName() %></h3>
-            <h5 style="color:rgb(119,140,121)">원</h5>
+            <h5 style="color:rgb(119,140,121)"></h5>
             <ul class="list">
               <li>
                 <hr>
@@ -111,14 +113,18 @@
                 <script>
                 	$(function(){
                 		price();
-                		amount();
                 		
-                		function price(){ // 상품 1개당 가격, 천단위 콤마 찍기
-	               			var num = <%= Integer.parseInt(p.getPrice()) %>;
+                		function price(){ // 상품 가격, 천단위 콤마 찍기
+	               			var num = <%= Integer.parseInt(p.getPrice()) %>; // 상품 개당 가격
+                			var amount = $('.input-number').val(); // 상품 선택 개수
+                			var finNum = num * amount + 3000; // 총 가격
 	               			
 	               			$('.s_product_text>h5').text( num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원' );
+                			$('#finPrice').text( finNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원' );
 	                		}
-                		
+                			
+                			
+                			
                 		/*function amount(){ // 작동 x 
                 			
 	                		var amount = $(".input-number").val();
@@ -132,12 +138,11 @@
 	             			})
                 		}
                 		*/
-                		
                 	})
                 </script>
                 <!----- 수량 변경 버튼 끝 ----->
                 
-                <span>최종 금액</span><span style="float:right"><%= sbPrice.reverse() %>원</span>
+                <span>최종 금액</span><span id="finPrice" style="float:right"></span>
                 <br><br>
               </li>
             </ul>
@@ -145,10 +150,10 @@
             <!------- 바로결제/장바구니/찜 시작 ------->
             <div class="card_area d-flex justify-content-between align-items-center">
               <a href="#" class="btn_3 font_bold_gray">바로결제</a>
-              <a href="#" class="btn_3" style="background:#A8BFAA;" data-toggle="modal" data-target="#myModal">장바구니</a>
+              <a href="#" class="btn_3" style="background:#A8BFAA;" data-toggle="modal" data-target="#myModal1">장바구니</a>
                 
                 <!------- 장바구니 Modal ------->
-                <div class="modal" id="myModal">
+                <div class="modal" id="myModal1">
                   <div class="modal-dialog">
                     <div class="modal-content">
 
@@ -275,12 +280,13 @@
           		</div>
           		<div id="pro-qna-body"> 
           			<!-- 목록 -->
-          			<ul>
+          			<ul class="pro-qna-question">
           				<li class="col1">5</li>
           				<li class="col2 waiting">답변대기중</li>
           				<li class="col3">
           					불어 일월과 하는 작고 그것은 곧 이것은 아니다. &nbsp;
           					<i class="fa fa-lock"></i>
+          					<input type="hidden" value="1111">
           				</li>
           				<li class="col4">김뫄뫄</li>
           				<li class="col5">2022.07.30</li>
@@ -331,36 +337,65 @@
        </div>
 
             <script>
-              const proQnaNo = '0000';
 
-              $(function(){
+              //$(function(){
+            	//  contact(); // 상품 문의 게시판 ajax
+              //}
+             
+           	  //function contact(){
+           	  	
+           		//  $.ajax({
+           		//	  url	   : "<%=contextPath%>/qlist.pro",
+           		//	  dataType : "JSON",
+           		//	  data	   : {
+           		//		  			proCode:<%= p.getProCode() %>,
+           		//		    		cpage:1
+           		//		   	     },
+           		//	  type	   : "POST",
+           		//	  success  : function(list){
+           				  		
+           				  			
+           				  
+           		//	  			 },
+           		//	  error	   : function(){
+           		//		  			console.log("상품 문의 조회용 ajax통신 실패");
+           		//	  			 }
+           	  	 //})
+           	  	 
+            	// }
+            	
+             	// ---------- 상품 문의 게시판 ajax 끝 ----------
                 
-                var qnaList = '#pro-qna-tb tr';
-                $(qnaList).click(function(){ // 문의글 클릭했을 때
+                $('.pro-qna-question').click(function(){ // 문의글 클릭했을 때
 
-                  var qnaTitle = $(this).children('#proQnaTitle');
-                  if( qnaTitle.children().hasClass('fa-lock') ){ // 비밀글일 경우 => 비밀번호 입력 받기
-                    const checkNo = prompt('비밀번호를 입력하세요.', '숫자 네자리로 입력');
+                  var title = $(this).children('.col3'); // 문의글 제목
+                  
+                  if( title.children(0).hasClass('fa-lock') ){ // 비밀글일 경우 => 비밀번호 입력 받기
+                	  
+                    const check = prompt('비밀번호를 입력하세요.', '숫자 네자리로 입력');
+                  	var proQnaPwd = $(this).find('input[type=hidden]').val(); // 해당 문의글의 비ㅣ밀번호
 
-                    if(checkNo == proQnaNo){ // 번호 일치
+                    if(check == proQnaPwd){ // 번호 일치
 
-                      $(this).parent().next("tr").removeClass('hide').addClass('show');
-                      $(this).parent().next("tr").show();
-                      qnaTitle.text("!!! 진짜 제목 !!!");
-                      qnaTitle.removeClass('fa-lock').addClass('fa-unlock');
+                      title.removeClass('fa-lock');
+                      title.text("!!! 진짜 제목 !!!");
+                      
+                      $(this).next(".pro-qna-answer").stop().slideToggle(300);
+                      $(this).next("pro-qna-answer").siblings("pro-qna-answer").slideUp(300);
 
-                    }else if(checkNo != proQnaNo){ // 번호 불일치
+                    }else { // 번호 불일치
                       alert("비밀번호가 일치하지 않습니다.");
                     }
 
                   }else { // 비밀글이 아니거나, 비밀글 비번 풀려있는 경우
                     
-                    if($(this).parent().next("tr").is('display','none')){ // 글 안 펼쳐져 있으면
-                      $(this).removeClass('hide').addClass('show');
-                      $(this).show();
+                    if($(this).next('pro-qna-answer').is('display','none')){ // 글 안 펼쳐져 있으면
+                    	$(this).siblings('pro-qna-answer').removeClass('on');
+                      	$(this).next('pro-qna-answer').addClass('on');
+                      	$(this).show();
                     }else{ // 펼쳐져 있으면
-                      $(this).addClass('hide');
-                      $(this).attr('display', 'none');
+                      $(this).next('pro-qna-answer').removeClass('on');
+                      $(this).next('pro-qna-answer').attr('display', 'none');
                     }
                   }
 
@@ -370,7 +405,7 @@
             </script>
 
         <!-- 아래부터 Reviews 영역!! -->
-        <div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
+        <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
           <div class="row">
             <div class="col-lg-6">
               <div class="row total_rate">

@@ -142,4 +142,26 @@ UPDATE PRODUCT
 	   AND PRO_CODE = ?
 </entry>
 
+<entry key="selectQlistCount">
+   SELECT
+	      COUNT(PRO_QNA_NO) "listCount"
+	 FROM PRO_QNA
+	WHERE PRO_CODE = ?
+</entry>
+
+<entry key="selectProQnaList">
+	SELECT *
+	  FROM (
+	     SELECT ROWNUM "RNUM", A.*
+	      FROM (
+	            SELECT *
+	              FROM PRO_QNA
+	             WHERE PRO_CODE = ?
+	             ORDER 
+	                BY PRO_Q_ENROLL_DATE
+	           ) A  
+	       )
+	 WHERE ROWNUM BETWEEN ? AND ?
+</entry>
+
 </properties>

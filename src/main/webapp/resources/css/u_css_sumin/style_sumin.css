@@ -1217,8 +1217,13 @@ textarea {
 .col4 {width:15% !important;}
 .col5 {width:15% !important;}
 
+.pro-qna-question {
+	cursor:pointer;
+}
+
 .pro-qna-answer {
 	width:100%;
+	display:none;
 }
 
 .pro-qna-answer>p {
