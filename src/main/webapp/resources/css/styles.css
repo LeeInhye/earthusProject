@@ -4849,9 +4849,9 @@ textarea.form-control-lg {
 }
 .page-item.active .page-link, .page-item.active .dataTable-pagination a, .dataTable-pagination .page-item.active a, .dataTable-pagination li.active .page-link, .dataTable-pagination li.active a {
   z-index: 3;
-  color: #fff;
-  background-color: #0d6efd;
-  border-color: #0d6efd;
+  color: #f2f2f2;
+  background-color: #778c79;
+  border-color: #778c79;
 }
 .page-item.disabled .page-link, .page-item.disabled .dataTable-pagination a, .dataTable-pagination .page-item.disabled a, .dataTable-pagination li.disabled .page-link, .dataTable-pagination li.disabled a {
   color: #6c757d;
@@ -11932,6 +11932,12 @@ body {
     width:60%;
     height:100%;
 }
+.pro-info-var tr{
+	height:50px;
+}
+#category label {
+	margin-right:20px;
+}
 
 .pro-info-area {
     padding-left:50px;
@@ -11943,17 +11949,17 @@ body {
 }
 
 .pro-info-var button {
-    border:1px solid lightgray;
-    width:60px;
-    float:left;
+    border:1px solid lightgray !important;
+    width:60px !important;
+    float:left !important;
 }
 
 .pro-info-var button:hover {
-    background:#f2f2f2;
+    background:#f2f2f2 !important;
 }
 
 .pro-info-var input[type=date] {
-    border:1px solid lightgray;
+    border:1px solid lightgray !important;
 }
 
 .tb-title {
@@ -11969,6 +11975,8 @@ input::placeholder {
 #pro-select-tb {
     font-size:small;
     margin-top:40px;
+    text-align:center;
+    width:100%;
 }
 #pro-select-tb * {
     border:1px solid lightgray;
@@ -11985,7 +11993,66 @@ input::placeholder {
     width:60px;
 }
 
-input[type='checkbox']:checked + .on {
-    background:#778c79;
+.page-item a{
+	background:#f2f2f2;
+	color:black;
 }
+
+.page-item a:hover {
+	background:rgb(231, 237, 232);
+	cursor:pointer;
+}
+
+input[type=checkbox] {
+	accent-color:#778c79 !important;
+}
+
+/*=================== 슬기 상품 수정 ====================*/
+.btn-input {
+    width:70px;
+    height:30px;
+    background:#404040;
+    border-radius:5px;
+    color:#f2f2f2;
+    vertical-align:top;
+    font-size:small;
+    font-weight:bold;
+    text-align:center;
+    padding-top:5px 15px;
+    line-height:30px;
+}
+
+.insertProduct {padding:20px;}
+
+.insert-pro-tb {
+    width:60%;
+    height:100%;
+    /* margin-left:100px; */
+}
+
+.insert-pro-tb td{padding:10px;}
+
+.insert-pro-tb select {
+    width:100%;
+    height:30px;
+    border:1px solid lightgray;
+    border-radius:5px;
+}
+
+.pro-info {
+    text-align:right;
+    width:25%;
+}
+
+.pro-val {width:40%;}
+
+.pro-btn {width:5%;}
+
+#enroll-btn-area {
+    text-align:center;
+    padding:70px;
+}
+
+#enroll-btn-area * {height:35px;}
+
 /*====================================================*/

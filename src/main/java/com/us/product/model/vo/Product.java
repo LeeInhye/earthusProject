@@ -48,6 +48,15 @@ public class Product {
 		this.proCount = proCount;
 	}
 
+	public Product(String proCode, String category, String proName, int stock, Date proEnrollDate) {
+		super();
+		this.proCode = proCode;
+		this.category = category;
+		this.proName = proName;
+		this.stock = stock;
+		this.proEnrollDate = proEnrollDate;
+	}
+
 	public Product(int productCount) {
 		super();
 		this.productCount = productCount;
