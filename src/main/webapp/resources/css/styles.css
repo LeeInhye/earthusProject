@@ -12053,7 +12053,9 @@ input[type=checkbox] {
     padding:70px;
 }
 
-#enroll-btn-area * {height:35px;}
+#enroll-btn-area * {
+	height:35px;
+}
 
 /*====================================================*/
 

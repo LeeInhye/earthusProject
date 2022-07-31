@@ -33,4 +33,16 @@
 	 WHERE PRO_CODE = ?
 </entry>
 
+<entry key="updateProduct">
+	UPDATE PRODUCT
+	   SET 
+	       CATEGORY_NO = ?
+	     , PRO_NAME = ?
+	     , PRICE = ?
+	     , PRO_ENROLL_DATE = SYSDATE
+	     , PRO_IMG_PATH = ?
+	     , DETAIL_IMG_PATH = ?
+	     , REQ_INFO_IMG_PATH = ?
+	 WHERE PRO_CODE = ?
+</entry>
 </properties>

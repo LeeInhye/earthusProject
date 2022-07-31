@@ -193,7 +193,7 @@
             
             function updatePro(no){ // 상품 수정 버튼 클릭 시
             	
-            	location.href = "<%=contextPath%>/update.pr?no=" + no;
+            	location.href = "<%=contextPath%>/updateForm.pr?no=" + no;
           
             }
             

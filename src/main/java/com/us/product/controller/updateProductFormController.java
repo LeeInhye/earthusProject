@@ -14,14 +14,14 @@ import com.us.product.model.vo.Product;
 /**
  * Servlet implementation class UpdateProductController
  */
-@WebServlet("/update.pr")
-public class goUpdateProductController extends HttpServlet {
+@WebServlet("/updateForm.pr")
+public class updateProductFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public goUpdateProductController() {
+    public updateProductFormController() {
         super();
         // TODO Auto-generated constructor stub
     }

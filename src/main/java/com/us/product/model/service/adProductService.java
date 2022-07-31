@@ -33,5 +33,17 @@ public class adProductService {
 		close(conn);
 		return p;
 	}
+	
+	public int updateProduct(Product p) {
+		Connection conn = getConnection();
+		int result = new adProductDao().updateProduct(conn, p);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 
 }
