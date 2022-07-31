@@ -2,13 +2,13 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
-	<entry key="insertCompanyInfo">
+	<entry key="insertPost">
 		INSERT
 		  INTO COMPANY
 		VALUES
 			 (
 			   SEQ_COMPANY.NEXTVAL
-			 , 1
+			 , ?
 			 , ?
 			 , SYSDATE
 			 )

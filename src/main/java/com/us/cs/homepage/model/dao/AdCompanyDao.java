@@ -25,14 +25,15 @@ public class AdCompanyDao {
 	}
 
 	
-	public int insertCompanyInfo(Connection conn, String html) {
+	public int insertPost(Connection conn, String html, int category) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertCompanyInfo");
+		String sql = prop.getProperty("insertPost");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, html);
+			pstmt.setInt(1, category);
+			pstmt.setString(2, html);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

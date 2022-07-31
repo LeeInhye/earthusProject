@@ -12,9 +12,9 @@ import com.us.cs.homepage.model.vo.Company;
 
 public class AdCompanyService {
 	
-	public int insertCompanyInfo(String html) {
+	public int insertPost(String html, int category) {
 		Connection conn = getConnection();
-		int result = new AdCompanyDao().insertCompanyInfo(conn, html);
+		int result = new AdCompanyDao().insertPost(conn, html, category);
 		
 		if(result > 0) {
 			commit(conn);

@@ -40,7 +40,7 @@
 	                <hr>
 	                <div  style="margin-top:30px;">
                         <div class="editor-body">
-                            <form action="#" method="post">
+                            <form action="<%= contextPath %>/insertTerms.hm" method="post">
                                 <textarea id="summernote" name="terms"> <%= html %> </textarea>
                                 <br>
 								<div id="button area" align="right">
