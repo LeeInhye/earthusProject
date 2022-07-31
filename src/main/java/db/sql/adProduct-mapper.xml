@@ -2,6 +2,35 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
+<entry key="selectListCount">
+	SELECT 
+	       COUNT(PRO_CODE) AS "listCount"
+	  FROM PRODUCT
+</entry>
 
+<entry key="selectProductList">
+	SELECT *
+	  FROM (
+	    SELECT ROWNUM "RNUM", A.*
+	      FROM (
+	        SELECT 
+	               PRO_CODE
+	             , CATEGORY_NO
+	             , PRO_NAME
+	             , STOCK
+	             , PRO_ENROLL_DATE
+	          FROM PRODUCT
+	         ORDER
+	            BY PRO_ENROLL_DATE DESC
+	           ) A
+	       )
+	 WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+<entry key="selectProduct">
+	SELECT *
+	  FROM PRODUCT
+	 WHERE PRO_CODE = ?
+</entry>
 
 </properties>
