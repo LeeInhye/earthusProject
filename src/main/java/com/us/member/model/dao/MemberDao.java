@@ -125,6 +125,8 @@ public class MemberDao {
 			pstmt.setString(10, m.getUserBirth());
 			pstmt.setString(11, m.getGender());
 			
+			pstmt.setString(12, m.getUserStatus());
+			
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {

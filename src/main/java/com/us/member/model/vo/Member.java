@@ -43,8 +43,11 @@ public class Member {
 		this.userStatus = userStatus;
 	}
 
-	public Member(String userId, String userPwd, String userName, String email, String phone, String zonecode,
-			String address, String addrExtra, String addrDetail, String userBirth, String gender) {
+	
+
+	public Member(String userId, String userPwd, String userName, String email, String phone,
+			String zonecode, String address, String addrExtra, String addrDetail, String userBirth, String gender,
+			String userStatus) {
 		super();
 		this.userId = userId;
 		this.userPwd = userPwd;
@@ -57,6 +60,7 @@ public class Member {
 		this.addrDetail = addrDetail;
 		this.userBirth = userBirth;
 		this.gender = gender;
+		this.userStatus = userStatus;
 	}
 
 	public Member(String userId, String userName) {

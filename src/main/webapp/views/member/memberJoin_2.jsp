@@ -47,6 +47,7 @@
                         <br>
                       	<p class="sub_p">첫글자는 영문 소문자로, 영문 소문자/숫자를 포함해 4~12자로 입력하세요.</p>
                         <div id="outputCheckId"></div>
+                        <div id="againCheckId"></div>
                         <input type="hidden" name="outputId_status" val="">
                         
                         <script>
@@ -63,8 +64,9 @@
 		                        		$("#outputCheckId").show();
 		                        		$("input[name=outputId_status").val('');
 		                        	} else{ // 유효한 아이디일 때
-	                                    // $("#outputCheckId").empty();
+	                                    $("#outputCheckId").html("<span class='font_green'>사용 가능한 아이디입니다.</span>");
 	                                    $("input[name=outputId_status").val('Y');
+                                        $("#againCheckId").empty();
 	                                }
 	                            });
 	                        
@@ -190,6 +192,7 @@
                         <button type="button" class="btn btn-sm btn_gray" id="emailCheckBtn">중복 확인</button><br>
                         <input type="hidden" name="checkEmail_status" value="">
                         <div id="outputCheckEmail"></div>
+                        <div id="againCheckEmail"></div>
                         <input type="hidden" name="outputEmail_status" value="">
                     </td>
                     
@@ -204,7 +207,10 @@
 	                        		$("#outputCheckEmail").show();
 	                        		$("input[name=outputEmail_status").val('');
 	                        	} else{ // 유효한 이메일일 때
+                                    $("#outputCheckEmail").html("<span class='font_green'>사용 가능한 이메일입니다.</span>");
                                     $("input[name=outputEmail_status").val('Y');
+                                    $("#againCheckEmail").empty();
+
                                 }
                         	});
                         	
@@ -250,6 +256,7 @@
                         <button type="button" class="btn btn-sm btn_gray" id="phoneCheckBtn">중복 확인</button><br>
                         <input type="hidden" name="checkPhone_status" value="">
                         <div id="outputCheckPhone"></div>
+                        <div id="againCheckPhone"></div>
                         <input type="hidden" name="outputPhone_status" value="">
                     </td>
                     
@@ -264,7 +271,9 @@
 	                        		$("#outputCheckPhone").show();
 	                        		$("input[name=outputPhone_status").val('');
 	                        	} else{ // 유효한 전화번호일 때
+                                    $("#outputCheckPhone").html("<span class='font_green'>사용 가능한 전화번호입니다.</span>");
                                     $("input[name=outputPhone_status").val('Y');
+                                    $("#againCheckPhone").empty();
                                 }
                         	});
                         	 
@@ -427,8 +436,9 @@
                     // 아이디 미입력시
                     if( $("#inputId").val().length == 0 ){
                         $("#inputId").attr("style", "border:2px solid red;");
-                        $("#outputCheckId").html(str);
-                    }
+                        $("#outputCheckId").empty();
+                        $("#againCheckId").html(str);
+                    } 
                     
                     // 비밀번호 미입력시
                     if( $("#inputPwd").val().length == 0 ){
@@ -451,14 +461,16 @@
                     // 이메일 미입력시
                     if( $("#inputEmail").val().length == 0 ){
                         $("#inputEmail").attr("style", "border:2px solid red;");
-                        $("#outputCheckEmail").html(str);
-                    }
+                        $("#outputCheckEmail").empty();
+                        $("#againCheckEmail").html(str);
+                    } 
                     
                     // 전화번호 미입력시
                     if( $("#inputPhone").val().length == 0 ){
                         $("#inputPhone").attr("style", "border:2px solid red;");
-                        $("#outputCheckPhone").html(str);
-                    }
+                        $("#outputCheckPhone").empty()
+                        $("#againCheckPhone").html(str);
+                    } 
                     
                     console.log($("input[name=checkId_status").val());
                     console.log($("input[name=checkEmail_status").val());
@@ -466,7 +478,12 @@
                     
                     // 중복확인을 모두 마쳐야 button submit 가능
                     if( ($("input[name=checkId_status").val() == 'Y') && ($("input[name=checkEmail_status").val() == 'Y') && ($("input[name=checkPhone_status").val() == 'Y') ){
-                    	$("#nextBtn").prop("type", "submit");
+                    	$("#nextBtn").removeAttr("data-toggle");
+                    	$("#nextBtn").removeAttr("data-target");
+                        $("#nextBtn").prop("type", "submit");
+                    } else{
+                        $("#nextBtn").attr("data-toggle", "modal");
+                        $("#nextBtn").attr("data-target", "#again");
                     }
                     
                 });
@@ -474,6 +491,26 @@
                     
             })
         </script>
+
+        <div class="modal fade" id="again" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered cascading-modal modal-avatar" role="document">
+                <!--Content-->
+                <div class="modal-content modal_alert">
+
+                    <!--Body-->
+                    <div class="modal-body text-center modal_alert_child">
+                        <div>
+
+                            <h4 class="mt-1 mb-2">중복확인하셔야 회원가입이 가능합니다.</h4>
+                            <br>
+                            <div class="text-center mt-4"> 
+                                <button class="btn btn_green btn_green btn_medium" data-dismiss="modal">확인</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         
 
         <br><br><br>

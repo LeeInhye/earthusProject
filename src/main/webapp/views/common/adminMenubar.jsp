@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<% String contextPath = request.getContextPath(); %>
+    pageEncoding="UTF-8" import="com.us.member.model.vo.Member"%>
+<% 
+	String contextPath = request.getContextPath(); 
+	Member loginUser = (Member)session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title>Earth.Us-Admin</title>
+	<link rel="icon" href="<%= contextPath %>/resources/img/sub_logo.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
@@ -22,6 +26,7 @@
     </style>
 </head>
 <body class="sb-nav-fixed">
+
     <!-- 상단+사이드 메뉴바 시작 -->
     <nav class="sb-topnav navbar navbar-expand navbar-dark " style="background:#778C79;">
         <!-- 로고 들어가는 자리 -->
@@ -38,6 +43,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="<%= contextPath %>">Main</a></li>
                     <li><a class="dropdown-item" href="<%= contextPath %>/logout.me">Logout</a></li>
                 </ul>
             </li>
