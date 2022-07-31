@@ -46,6 +46,19 @@
 	.section_padding 
     padding-top: 200px !important;
 	}
+	
+	<!-- 리뷰 영역 스타일 -->
+	#rate-star{
+	  display:inline-block;
+	  border:0px;
+	  padding-left:10px;
+	}
+	#rate-star input[type=radio]{
+	  display:none;
+	}
+	.review-rate{
+	  color:#fbd600;
+	}
 </style>
 
 </head>
@@ -356,70 +369,92 @@
               })
             </script>
 
-        <!--리뷰 영역-->
-        <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+        <!-- 아래부터 Reviews 영역!! -->
+        <div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
           <div class="row">
             <div class="col-lg-6">
-              <!--별점 통계 시작-->
               <div class="row total_rate">
                 <div class="col-6">
-                  <div class="box_total">
-                    <h5>총점</h5>
-                    <h4>4.9</h4>
-                    <h6>리뷰(5건)</h6>
+                  <div class="box_total"  style="background-color: #F2F2F2;">
+                    <h5>평점</h5>
+                    <h4 style="color:#778C79;">4.0</h4>
+                    <h6>(03명의 후기)</h6>
                   </div>
                 </div>
-                <div class="col-6" style="position:relative">
+                <div class="col-6">
                   <div class="rating_list">
-                    <ul class="list" style="position:absolute;">
+                    <h3>3개의 리뷰</h3>
+                    <ul class="list">
                       <li>
+                        <a href="#">
                           <i class="fa fa-star"></i>
                           <i class="fa fa-star"></i>
                           <i class="fa fa-star"></i>
                           <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i> 04
+                          <i class="fa fa-star"></i>
+                          <i style="color:gray; font-style: normal;"></i>
+                          <span style="padding-left:10px;">3</span>
+                        </a>
                       </li>
                       <li>
+                        <a href="#">
                           <i class="fa fa-star"></i>
                           <i class="fa fa-star"></i>
                           <i class="fa fa-star"></i>
                           <i class="fa fa-star"></i>
-                          <i class="fa fa-star-o"></i> 01
+                          <i class="fa fa-star" style="color:#F2F2F2"></i> 
+                          <i style="color:gray; font-style: normal;"></i>
+                          <span style="padding-left:10px;">3</span>
+                        </a>
                       </li>
                       <li>
+                        <a href="#">
                           <i class="fa fa-star"></i>
                           <i class="fa fa-star"></i>
                           <i class="fa fa-star"></i>
-                          <i class="fa fa-star-o"></i>
-                          <i class="fa fa-star-o"></i> 00
+                          <i class="fa fa-star" style="color:#F2F2F2"></i>
+                          <i class="fa fa-star" style="color:#F2F2F2"></i> 
+                          <i style="color:gray; font-style: normal;"></i>
+                          <span style="padding-left:10px;">3</span>
+                        </a>
                       </li>
                       <li>
+                        <a href="#">
                           <i class="fa fa-star"></i>
                           <i class="fa fa-star"></i>
-                          <i class="fa fa-star-o"></i>
-                          <i class="fa fa-star-o"></i>
-                          <i class="fa fa-star-o"></i> 00
+                          <i class="fa fa-star" style="color:#F2F2F2"></i>
+                          <i class="fa fa-star" style="color:#F2F2F2"></i>
+                          <i class="fa fa-star" style="color:#F2F2F2"></i> 
+                          <i style="color:gray; font-style: normal;"></i>
+                          <span style="padding-left:10px;">3</span>
+                        </a>
                       </li>
                       <li>
+                        <a href="#">
                           <i class="fa fa-star"></i>
-                          <i class="fa fa-star-o"></i>
-                          <i class="fa fa-star-o"></i>
-                          <i class="fa fa-star-o"></i>
-                          <i class="fa fa-star-o"></i> 00
+                          <i class="fa fa-star" style="color:#F2F2F2"></i>
+                          <i class="fa fa-star" style="color:#F2F2F2"></i>
+                          <i class="fa fa-star" style="color:#F2F2F2"></i>
+                          <i class="fa fa-star" style="color:#F2F2F2"></i> 
+                          <i style="color:gray; font-style: normal;"></i>
+                          <span style="padding-left:10px;">3</span>
+                        </a>
                       </li>
                     </ul>
                   </div>
                 </div>
               </div>
-              <!--별점 통계 끝-->
-
-              <!--리뷰 리스트 시작-->
-              <hr>
+              <br><br>
               <div class="review_list">
                 <div class="review_item">
                   <div class="media">
+                    <table id="member-info">
+                      <tr>
+                        <td width="50px">김지*</td>
+                        <td width="100px;">2022-07-26</td>
+                      </tr>
+                    </table>
                     <div class="media-body">
-                      <p><b>아무*</b> &nbsp;&nbsp;&nbsp;&nbsp; 2022-07-20</p>
                       <i class="fa fa-star"></i>
                       <i class="fa fa-star"></i>
                       <i class="fa fa-star"></i>
@@ -427,20 +462,32 @@
                       <i class="fa fa-star"></i>
                     </div>
                   </div>
-                  <p>
-                    리뷰내용1리뷰내용1리뷰내용1리뷰내용1리뷰내용1리뷰내용1
-                  </p>
+                  <div class="review-content" style="height:200px;">
+                    <p class="review-content-text" style="width:60%; height:100%; float:left; box-sizing:border-box; word-break:break-all;">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                      ullamco laboris nisi ut aliquip ex ea commodo
+                    </p>
+                    <div class="review-content-photo" style="width:40%; height:100%; padding-left:20px; padding-top:20px; float:left; box-sizing:border-box;">
+                      
+                      <a href="" id="activate-modal" data-toggle="modal" data-target="#myModal">
+                        <img src="img/product/b3.jpg" id="review-img">
+                      </a>
+                    </div>
+                  </div>
+                  <br><br>
                 </div>
-                <div id="rev-img">
-                  <img src="img/product/single-product/review-1.png" alt=""/>
-                  <p>더보기 <i class="fa fa-sort-desc" aria-hidden="true"></i></p>
-                </div>
-                <hr>
 
                 <div class="review_item">
                   <div class="media">
+                    <table id="member-info">
+                      <tr>
+                        <td width="50px">김지*</td>
+                        <td width="100px;">2022-07-26</td>
+                      </tr>
+                    </table>
                     <div class="media-body">
-                      <p><b>아무*</b> &nbsp;&nbsp;&nbsp;&nbsp; 2022-07-20</p>
                       <i class="fa fa-star"></i>
                       <i class="fa fa-star"></i>
                       <i class="fa fa-star"></i>
@@ -449,81 +496,70 @@
                     </div>
                   </div>
                   <p>
-                    리뷰내용2리뷰내용2리뷰내용2리뷰내용2리뷰내용2리뷰내용2리뷰내용2
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo
                   </p>
                 </div>
-                <div id="rev-img">
-                  <img src="img/product/single-product/review-1.png" alt=""/>
-                  <p>더보기 <i class="fa fa-sort-desc" aria-hidden="true"></i></p>
-                </div>
-                <hr>
                 
-                <div class="review_item">
-                  <div class="media">
-                    <div class="media-body">
-                      <p><b>아무*</b> &nbsp;&nbsp;&nbsp;&nbsp; 2022-07-20</p>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star-o"></i>
-                    </div>
-                  </div>
-                  <p>
-                    리뷰내용3리뷰내용3리뷰내용3리뷰내용3리뷰내용3리뷰내용3리뷰내용3
-                  </p>
-                </div>
-                <div id="rev-img">
-                  <img src="img/product/single-product/review-1.png" alt=""/>
-                  <p>더보기 <i class="fa fa-sort-desc" aria-hidden="true"></i></p>
-                </div>
-                <hr>
-
               </div>
             </div>
-            <!--리뷰 리스트 끝-->
-
-            <!--리뷰 작성하기-->
             <div class="col-lg-6">
-              <div class="review_box">
-                <h4>리뷰 작성하기</h4>
-                <p>당신의 별점은 : </p>
-                <ul class="list">
-                  <li>
-                      <i class="fa fa-star star-count"></i>
-                  </li>
-                  <li>
-                      <i class="fa fa-star star-count"></i>
-                  </li>
-                  <li>
-                      <i class="fa fa-star star-count"></i>
-                  </li>
-                  <li>
-                      <i class="fa fa-star star-count"></i>
-                  </li>
-                  <li>
-                      <i class="fa fa-star star-count"></i>
-                  </li>
-                </ul>
-                <form class="row contact_form" action="contact_process.php" method="post" novalidate="novalidate">
+              <form class="row contact_form" action="contact_process.php" name="reviewContent" method="post" novalidate="novalidate">
                   <div class="col-md-12">
                     <div class="form-group">
-                      <textarea class="form-control" name="message" rows="10" cols="200" placeholder="상품에 대한 리뷰를 작성해 주세요. (최소 20자 이상)" style="resize:none;"></textarea>
+                      <h4>리뷰 작성하기</h4>
+                      <p style="display:inline;">당신의 별점은: </p>
+                      <fieldset id="rate-star">
+                        <input type="radio" name="rate" value="1" id="rate1">
+                        <label for="rate1"><i class="fa fa-star review-rate"></i></label>
+                        <input type="radio" name="rate" value="2" id="rate2">
+                        <label for="rate2"><i class="fa fa-star review-rate"></i></label>
+                        <input type="radio" name="rate" value="3" id="rate3">
+                        <label for="rate3"><i class="fa fa-star review-rate"></i></label>
+                        <input type="radio" name="rate" value="4" id="rate4">
+                        <label for="rate4"><i class="fa fa-star review-rate"></i></label>
+                        <input type="radio" name="rate" value="5" id="rate5">
+                        <label for="rate5"><i class="fa fa-star review-rate"></i></label>
+                      </fieldset>
+
+                      <script>
+                        // 별점 hover이벤트에 대한 function
+                        //  hover(inFunction, outFunction) 
+                        $(function(){
+                          /*
+                          $(".review-rate").hover(function(){
+                            $(this).parent().nextAll("label").children().css("color", "#F2F2F2");
+                          }, function(){
+                            $(this).parent().nextAll("label").children().css("color", "#fbd600");
+                          });*/
+
+                          // 별점 checked속성에 대한 function (클릭하면 유지되도록)
+                          $("input[name=rate]").change(function(){
+                            $(this).next().children().css("color", "#fbd600");
+                            $(this).prevAll("label").children().css("color", "#fbd600");
+
+                            $(this).next().nextAll("label").children().css("color", "#F2F2F2");
+
+                          })
+                          
+                        })                      
+                      </script>
+               
+                      <textarea name="message" rows="4" placeholder="상품에 대한 리뷰를 최소 20자 이상 입력해주세요." style="width:100%; border:1px solid gainsboro; resize:none;"></textarea>
+                      <input type="file" name="review-upload-img" id="">
                     </div>
                   </div>
                   <div class="col-md-12 text-right">
-                    <!-- <a href="" class="btn_3">상품 사진 첨부</a> -->
-                    <label for="revImg" class="btn_3" style="margin:0px 10px;">상품 사진 첨부</label>
-                    <input type="file" name="revImg" id="revImg" style="display:none;">
-                    <button type="submit" value="submit" class="btn_3">
-                      제출하기
-                    </button>
+                    <button type="submit" value="submit" class="btn" style="background-color:#A8BFAA; color:#F2F2F2;">제출하기</button>
                   </div>
-                </form>
-              </div>
+              </form>
             </div>
           </div>
         </div>
+        <!-- 리뷰 영역 끝!!! -->
+        
       </div>
     </div>
   </section>
