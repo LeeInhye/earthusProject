@@ -40,7 +40,7 @@
 				
 	            <input type="checkbox" id="pwdCheck" style="vertical-align:bottom;">&nbsp; 
 	            <b> &nbsp; 비밀글 &nbsp; </b> 
-	            <input type="password" id="qnaPwd" name="qnaPwd" placeholder="비밀번호 숫자 네자리 입력">
+	            <input type="password" id="qnaPwd" name="qnaPwd" placeholder="비밀번호 숫자 네자리 입력" value="<%= q.getQnaPwd() %>">
 	            <div id="outputPwd"></div>
 	            <br><br>
 	            
@@ -81,7 +81,7 @@
 	            
 	            <p>답변 소식을 받을 연락처를 기재해주세요. (택1 필수)</p>
 	            <br>
-	            <!-- 해당 회원의 이메일과 번호 placeholder로 -->
+
 	            <input type="email" id="qnaEmail" name="qnaEmail" placeholder="이메일" value="<%= q.getQnaEmail() %>">
 	            <br><br>
 	            <input type="text" id="qnaPhone" name="qnaPhone" placeholder="전화번호" value="<%= q.getQnaPhone() %>">
@@ -109,7 +109,7 @@
 	
 	            <br><br><br><br><br>
 	            <div class="btn_two_center">
-	                <button type="button" class="btn btn_gray btn-lg" onclick="history.back();">초기화</button>
+	                <button type="button" class="btn btn_gray btn-lg" onclick="history.back();">취소</button>
 	                <button type="button" id="insertQnaBtn" class="btn btn_green btn-lg">수정</button>
 	            </div>
 	            

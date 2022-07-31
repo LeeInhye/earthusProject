@@ -7,22 +7,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.us.common.model.vo.Attachment;
 import com.us.cs.qna.model.service.QnaService;
-import com.us.cs.qna.model.vo.Qna;
 
 /**
- * Servlet implementation class MpQnaUpdateFormContrller
+ * Servlet implementation class MpQnaDeleteController
  */
-@WebServlet("/mpUpdateForm.qa")
-public class MpQnaUpdateFormContrller extends HttpServlet {
+@WebServlet("/mpDelete.qa")
+public class MpQnaDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MpQnaUpdateFormContrller() {
+    public MpQnaDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,20 +32,26 @@ public class MpQnaUpdateFormContrller extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// 전달값
+		request.setCharacterEncoding("UTF-8");
+		
+		HttpSession session = request.getSession();
+		
 		int qNo = Integer.parseInt(request.getParameter("qno"));
 		
-		// 해당 글 정보 가져오기
-		QnaService qService = new QnaService();
-		Qna q = qService.selectQna(qNo);
-		Attachment at = qService.selectAttachment(qNo);
+		Attachment at = null;
 		
-		request.setAttribute("q", q);
-		request.setAttribute("at", at);
+		at = new QnaService().selectAttachment(qNo);
 		
-		// 페이지 응답
-		request.getRequestDispatcher("/views/cs/qna/mpQnaUpdateForm.jsp").forward(request, response);
+		int result = new QnaService().deleteQna(qNo, at);
 		
+		if(result > 0) {
+			response.sendRedirect(request.getContextPath() + "/mpList.qa?mqpage=1");
+		} else {
+			
+			session.setAttribute("modalId", "deleteQnaFail");
+			session.setAttribute("modalMsg", "Q&A글 삭제 실패");
+			request.getRequestDispatcher("/views/common.errorModal.jsp").forward(request, response);
+		}
 	}
 
 	/**
