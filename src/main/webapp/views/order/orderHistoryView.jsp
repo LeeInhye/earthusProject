@@ -83,58 +83,7 @@
                       <h5>상품준비중</h5>
                     </td>
                   </tr>
-                  <tr>
-                    <td>
-                      <div class="media">
-                        <div class="d-flex">
-                          <img src="img/product/single-product/cart-1.jpg" alt="" />
-                        </div>
-                        <div class="media-body">
-                          <p>Minimalistic shop for multipurpose use</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <h5>2022.07.05</h5>
-                    </td>
-                    <td>
-                      <div class="product_count">
-                        <h5><a href="" style="color:black;">22070502</a></h5>
-                      </div>
-                    </td>
-                    <td>
-                      <h5>15,000</h5>
-                    </td>
-                    <td>
-                      <h5>배송중</h5>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="media">
-                        <div class="d-flex">
-                          <img src="img/product/single-product/cart-1.jpg" alt="" />
-                        </div>
-                        <div class="media-body">
-                          <p>Minimalistic shop for multipurpose use</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <h5>2022.06.29</h5>
-                    </td>
-                    <td>
-                      <div class="product_count">
-                        <h5><a href="" style="color:black;">22062913</a></h5>
-                      </div>
-                    </td>
-                    <td>
-                      <h5>10,000</h5>
-                    </td>
-                    <td>
-                      <h5>배송완료</h5>
-                    </td>
-                  </tr>
+                  
                 </tbody>
               </table>
               
