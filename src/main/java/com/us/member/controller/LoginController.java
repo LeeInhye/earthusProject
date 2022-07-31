@@ -51,7 +51,7 @@ public class LoginController extends HttpServlet {
 			session.setAttribute("loginUser", loginUser);
 
 			// 관리자일 때 관리자 전용 페이지 url 재요청
-			if( loginUser.getUserStatus() == "M"){
+			if( loginUser.getUserStatus().equals("M")){
 				response.sendRedirect(request.getContextPath() + "/main.ad");
 			} else {	// 사용자일 때 사용자 메인페이지 url 재요청
 				response.sendRedirect(request.getContextPath());

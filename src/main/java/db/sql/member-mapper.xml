@@ -69,7 +69,7 @@
 		      , USER_MODIFY_DATE
 		      , USER_STATUS
 		  FROM MEMBER
-		 WHERE USER_STATUS = 'Y'
+		 WHERE USER_STATUS IN ('Y', 'M')
 		   AND USER_ID = ?
 		   AND USER_PWD = ?
 	</entry>
