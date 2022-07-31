@@ -1,11 +1,15 @@
 package com.us.cs.homepage.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.us.cs.homepage.model.service.AdCompanyService;
+import com.us.cs.homepage.model.vo.Company;
 
 /**
  * Servlet implementation class AdCompanyViewController
@@ -26,7 +30,14 @@ public class AdCompanyViewController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/cs/homepage/adCompanyView.jsp").forward(request, response);
+		Company info = new AdCompanyService().selectPost(1);
+		if(info == null) {
+			request.getRequestDispatcher("views/cs/homepage/adCompanyView.jsp").forward(request, response);			
+		}else {
+			System.out.println(info);
+			request.setAttribute("html", info.getComContent());
+			request.getRequestDispatcher("views/cs/homepage/adCompanyView.jsp").forward(request, response);
+		}
 	}
 
 	/**

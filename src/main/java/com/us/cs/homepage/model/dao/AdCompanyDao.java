@@ -58,9 +58,9 @@ public class AdCompanyDao {
 			
 			if(rset.next()) {
 				post = new Company(rset.getInt("COM_NO"),
-								   rset.getInt("GET_CATEGORY"),
-								   rset.getString("GET_CONTENT"),
-								   rset.getDate("GET_UPDATE_DATE")
+								   rset.getInt("COM_CATEGORY"),
+								   rset.getString("COM_CONTENT"),
+								   rset.getDate("COM_UPDATE_DATE")
 								  );
 			}
 		} catch (SQLException e) {

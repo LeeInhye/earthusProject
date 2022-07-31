@@ -15,7 +15,13 @@
 	</entry>
 	
 	<entry key="selectPost">
-		SELECT COM_CONTENT
+		SELECT COM_NO, COM_CATEGORY, COM_CONTENT, COM_UPDATE_DATE
+		  FROM COMPANY
+		 WHERE COM_CATEGORY = ?
+		   AND COM_NO = ( SELECT MAX(COM_NO)
+		   			      	FROM COMPANY
+		   			       WHERE COM_CATEGORY = ?
+		  				)
 	</entry>
 
 </properties>

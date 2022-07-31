@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String html = (String)request.getAttribute("html");
+%>
 <%@ include file="../../common/adminMenubar.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,8 +45,7 @@
                     <div  style="margin-top:30px;">
                         <div class="editor-body">
                             <form action="<%=contextPath%>/insertInfo.hm" method="post">
-                                <textarea id="summernote" name="comInfo">
-                                </textarea>
+                                <textarea id="summernote" name="comInfo"><%= html %></textarea>
                                 <br>
 								<div id="button area" align="right">
 									<button type="submit" style="border-radius: 5px;">변경사항 반영</button>
