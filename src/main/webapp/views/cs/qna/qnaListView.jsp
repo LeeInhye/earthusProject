@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page 
-	import="java.util.ArrayList, com.us.cs.qna.model.vo.Qna, java.text.SimpleDateFormat,
-			com.us.common.model.vo.PageInfo" 
+	import="java.util.ArrayList, com.us.cs.qna.model.vo.Qna, com.us.common.model.vo.PageInfo" 
 %>
 <%
 	ArrayList<Qna> list = (ArrayList<Qna>)request.getAttribute("list");

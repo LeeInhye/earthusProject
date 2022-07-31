@@ -53,7 +53,7 @@ public class QnaDao {
 				list.add(new Qna(rset.getInt("QNA_NO")
 							   , rset.getString("USER_ID")
 							   , rset.getString("QNA_TITLE")
-							   , rset.getString("QNA_TITLE")
+							   , rset.getString("QNA_CONTENT")
 							   , rset.getString("QNA_FILE")
 							   , rset.getString("QNA_EMAIL")
 							   , rset.getString("QNA_PHONE")
@@ -319,6 +319,73 @@ public class QnaDao {
 		return result;
 	}
 	
+	// 마이페이지 qna 리스트 조회
+	// 전체 목록 조회
+	public ArrayList<Qna> selectMpQnaList(Connection conn, PageInfo pi, int userNo){
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Qna> list = new ArrayList<>();
+		
+		String sql = prop.getProperty("selectMpQnaList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Qna(rset.getInt("QNA_NO")
+							   , rset.getString("USER_ID")
+							   , rset.getString("QNA_TITLE")
+							   , rset.getString("QNA_CONTENT")
+							   , rset.getString("QNA_FILE")
+							   , rset.getString("QNA_EMAIL")
+							   , rset.getString("QNA_PHONE")
+							   , rset.getString("QNA_PWD")
+							   , rset.getString("USER_NAME")
+							   , rset.getString("QNA_ANSWER")
+							   , rset.getDate("QNA_ENROLL_DATE")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	// listCount 조회
+	public int selectMpQnaListCount(Connection conn, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("selectMpQnaListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	
 	

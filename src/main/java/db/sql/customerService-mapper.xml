@@ -238,6 +238,41 @@
 		 WHERE REF_TYPE = 1
 		   AND REF_BNO = ?
 	</entry>
+	
+	<entry key="selectMpQnaList">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM(
+		                SELECT
+		                        QNA_NO
+		                      , USER_ID
+		                      , QNA_TITLE
+		                      , QNA_CONTENT
+		                      , QNA_FILE
+		                      , QNA_EMAIL
+		                      , QNA_PHONE
+		                      , QNA_PWD
+		                      , USER_NAME
+		                      , QNA_ANSWER
+		                      , QNA_ENROLL_DATE
+		                  FROM QNA
+		                  JOIN MEMBER ON (USER_NO = QNA_WRITER)
+		                 WHERE QNA_STATUS = 'Y'
+		                   AND USER_NO = ?
+		                  ORDER
+		                    BY QNA_NO DESC
+		                ) A
+		        )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectMpQnaListCount">
+		SELECT COUNT(*) AS "COUNT"
+		  FROM QNA
+		 WHERE QNA_STATUS = 'Y'
+		   AND QNA_WRITER = ?
+	</entry>
 
 
 

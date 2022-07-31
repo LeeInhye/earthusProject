@@ -107,7 +107,22 @@ public class QnaService {
 		return result1 * result2;
 	}
 	
-	
+	// 마이페이지 qna 리스트 조회
+	// 전체 목록 조회
+	public ArrayList<Qna> selectMpQnaList(PageInfo pi, int userNo){
+		Connection conn = getConnection();
+		ArrayList<Qna> list = new QnaDao().selectMpQnaList(conn, pi, userNo);
+		close(conn);
+		return list;
+	}
+		
+	// 페이징
+	public int selectMpQnaListCount(int userNo) {
+		Connection conn = getConnection();
+		int listCount = new QnaDao().selectMpQnaListCount(conn, userNo);
+		close(conn);
+		return listCount;
+	}
 	
 	
 	

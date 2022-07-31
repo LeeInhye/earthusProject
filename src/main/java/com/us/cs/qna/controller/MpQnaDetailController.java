@@ -11,18 +11,20 @@ import javax.servlet.http.HttpSession;
 
 import com.us.common.model.vo.Attachment;
 import com.us.cs.qna.model.service.QnaService;
+import com.us.cs.qna.model.vo.Qna;
+import com.us.member.model.vo.Member;
 
 /**
- * Servlet implementation class QnaDeleteController
+ * Servlet implementation class MpQnaDetailController
  */
-@WebServlet("/delete.qa")
-public class QnaDeleteController extends HttpServlet {
+@WebServlet("/mpDetail.qa")
+public class MpQnaDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QnaDeleteController() {
+    public MpQnaDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,36 +33,24 @@ public class QnaDeleteController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 전달값
+		int qNo = Integer.parseInt(request.getParameter("qno"));
 		
-		request.setCharacterEncoding("UTF-8");
+		QnaService qService = new QnaService();
+		Qna q = qService.selectQna(qNo);
+		Attachment at = qService.selectAttachment(qNo);
 		
+		request.setAttribute("q", q);
+		request.setAttribute("at", at);
 		
 		HttpSession session = request.getSession();
-		
-			int qNo = Integer.parseInt(request.getParameter("qNo"));
-			
-			// 첨부파일 insert
-			Attachment at = null;
-			
-			
-			at = new QnaService().selectAttachment(qNo);
-			
-			int result = new QnaService().deleteQna(qNo, at);
-
-			if(result > 0) {
-				response.sendRedirect(request.getContextPath() + "/list.qa?qpage=1");
-			} else {
-				
-				session.setAttribute("modalId", "deleteQnaFail");
-				session.setAttribute("modalMsg", "Q&A글 삭제 실패");
-				request.getRequestDispatcher("/views/common.errorModal.jsp").forward(request, response);
-			}
-			
-			
-			
-			
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		if(loginUser == null) {
+			response.sendRedirect(request.getContextPath() + "/goLogin.me");
+		} else {
+			request.getRequestDispatcher("/views/cs/qna/mpQnaDetailView.jsp").forward(request, response);
 		}
-		
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

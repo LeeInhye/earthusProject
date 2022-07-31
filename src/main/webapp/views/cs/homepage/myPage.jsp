@@ -84,7 +84,7 @@
                 </div>
             </div>
 
-            <div class="mpBlock" onclick="location.href='<%= contextPath %>';">
+            <div class="mpBlock" onclick="location.href='<%= contextPath %>/mpList.qa?mqpage=1';">
                 <div class="mp_top">
                     <h3>Q&A</h3>
                     <br>
