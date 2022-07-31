@@ -129,7 +129,7 @@
                         <div class="collapse" id="hpCollapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="<%= contextPath %>/editor1.hm">회사 소개 관리</a>
-                                <a class="nav-link" href="">이용 약관 관리</a>
+                                <a class="nav-link" href="<%= contextPath %>/editor2.hm">이용 약관 관리</a>
                                 <a class="nav-link" href="<%= contextPath %>/list.bn">배너 관리</a>
                             </nav>
                         </div>

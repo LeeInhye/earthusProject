@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String html = (String)request.getAttribute("html");
+%>
 <%@ include file="../../common/adminMenubar.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,8 +21,7 @@
 	    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 	    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
         
-
-        
+   
         <style>
             button{
                 background-color:#404040;
@@ -39,9 +41,7 @@
 	                <div  style="margin-top:30px;">
                         <div class="editor-body">
                             <form action="#" method="post">
-                                <textarea id="summernote" name="terms">
-                                    왜 안돼?
-                                </textarea>
+                                <textarea id="summernote" name="terms"> <%= html %> </textarea>
                                 <br>
 								<div id="button area" align="right">
 									<button type="submit" style="border-radius: 5px;">변경사항 반영</button>

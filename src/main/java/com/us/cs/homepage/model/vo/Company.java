@@ -5,7 +5,7 @@ import java.util.Date;
 public class Company {
 	private int comNo;
 	private int comCategory;
-	private int comContent;
+	private String comContent;
 	private Date comUpdateDate;
 	
 	
@@ -13,7 +13,7 @@ public class Company {
 		super();
 	}
 
-	public Company(int comNo, int comCategory, int comContent, Date comUpdateDate) {
+	public Company(int comNo, int comCategory, String comContent, Date comUpdateDate) {
 		super();
 		this.comNo = comNo;
 		this.comCategory = comCategory;
@@ -42,12 +42,12 @@ public class Company {
 	}
 
 
-	public int getComContent() {
+	public String getComContent() {
 		return comContent;
 	}
 
 
-	public void setComContent(int comContent) {
+	public void setComContent(String comContent) {
 		this.comContent = comContent;
 	}
 

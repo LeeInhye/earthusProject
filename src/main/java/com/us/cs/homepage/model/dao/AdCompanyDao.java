@@ -1,13 +1,16 @@
 package com.us.cs.homepage.model.dao;
 
+import static com.us.common.JDBCTemplate.close;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import static com.us.common.JDBCTemplate.*;
+import com.us.cs.homepage.model.vo.Company;
 
 public class AdCompanyDao {
 	
@@ -38,6 +41,36 @@ public class AdCompanyDao {
 		}
 		
 		return result;
+	}
+	
+	
+	public Company selectPost(Connection conn, int category) {
+		Company post = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectPost");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, category);
+			pstmt.setInt(2, category);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				post = new Company(rset.getInt("COM_NO"),
+								   rset.getInt("GET_CATEGORY"),
+								   rset.getString("GET_CONTENT"),
+								   rset.getDate("GET_UPDATE_DATE")
+								  );
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return post;
+		
 	}
 	
 }

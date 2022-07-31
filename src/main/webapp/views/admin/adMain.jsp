@@ -91,7 +91,7 @@
                                 <h5>홈페이지 관리</h5>
                                 <hr>
                                 <a href="<%= contextPath %>/editor1.hm">회사 소개 관리</a> <br>
-                                <a href="">이용 약관 관리</a> <br>
+                                <a href="<%= contextPath %>/editor2.hm">이용 약관 관리</a> <br>
                                 <a href="<%= contextPath %>/list.bn">배너 관리</a>
                             </div>
                         </div>
