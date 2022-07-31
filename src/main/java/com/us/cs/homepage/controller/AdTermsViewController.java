@@ -30,7 +30,7 @@ public class AdTermsViewController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Company terms = new AdCompanyService().selectPost(1);
+		Company terms = new AdCompanyService().selectPost(2);
 		request.setAttribute("html", terms.getComContent());
 		request.getRequestDispatcher("views/cs/homepage/adTermsView.jsp").forward(request, response);
 	}
