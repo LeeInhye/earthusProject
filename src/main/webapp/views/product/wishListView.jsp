@@ -89,7 +89,7 @@ ArrayList<WishList> list = (ArrayList<WishList>)request.getAttribute("list");
 		                          <%= wi.getProImgPath() %>
 		                        </div>
 		                        <div class="media-body">
-		                        	<input type="hidden" name="pCode" value="<%= wi.getProCode() %>">
+		                        	<input type="hidden" name="pCode" id="pc" value="<%= wi.getProCode() %>">
 		                          	<p><%= wi.getProName() %></p>
 		                        </div>
 			                      </div>
@@ -152,9 +152,12 @@ ArrayList<WishList> list = (ArrayList<WishList>)request.getAttribute("list");
         function deleteProduct(){
         	$.ajax({
         		url:"<%=contextPath%>/delWish.pr",
+        		data:{
+        			userNo:$("#lsuccess").val(),
+        			pCode:$("#pc").val()},
         		success:function(result){
         			if(result>0){
-        				document.location.reload(true);
+        				location.reload();
         			}
         			
         		}, error:function(){

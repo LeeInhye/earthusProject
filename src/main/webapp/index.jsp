@@ -143,7 +143,7 @@
                             <% if(loginUser == null) { // 로그인 전 %>
                             	<a href="<%=contextPath%>/goLogin.me"><i class="ti-heart"></i></a>
                             <% } else { // 로그인 후 %>
-                            	<a href="<%=contextPath%>/wish.pr"><i class="ti-heart"></i></a>
+                            	<a href="<%=contextPath%>/wish.pr" id="lsuccess"><i class="ti-heart"></i></a>
                             <% } %>
                             <!-- 장바구니 -->
                                 <a>
