@@ -11926,3 +11926,66 @@ body {
 }
 
 /*======================================================*/
+
+/*======================== 슬기 ========================*/
+.insert-pro-tb {
+    width:60%;
+    height:100%;
+}
+
+.pro-info-area {
+    padding-left:50px;
+    padding-right:50px;
+}
+
+.pro-info-var {
+    padding:10px;
+}
+
+.pro-info-var button {
+    border:1px solid lightgray;
+    width:60px;
+    float:left;
+}
+
+.pro-info-var button:hover {
+    background:#f2f2f2;
+}
+
+.pro-info-var input[type=date] {
+    border:1px solid lightgray;
+}
+
+.tb-title {
+    text-align:right;
+    padding:15px;
+    padding-right:20px;
+}
+
+input::placeholder {
+    font-size:small;
+}
+
+#pro-select-tb {
+    font-size:small;
+    margin-top:40px;
+}
+#pro-select-tb * {
+    border:1px solid lightgray;
+    
+}
+#pro-select-tb thead {
+    background:#f2f2f2;
+}
+.btn-update {
+    background:#404040;
+    color:#f2f2f2;
+    font-weight:bold;
+    font-size:small;
+    width:60px;
+}
+
+input[type='checkbox']:checked + .on {
+    background:#778c79;
+}
+/*====================================================*/
