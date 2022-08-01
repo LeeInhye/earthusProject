@@ -4849,9 +4849,9 @@ textarea.form-control-lg {
 }
 .page-item.active .page-link, .page-item.active .dataTable-pagination a, .dataTable-pagination .page-item.active a, .dataTable-pagination li.active .page-link, .dataTable-pagination li.active a {
   z-index: 3;
-  color: #f2f2f2;
-  background-color: #778c79;
-  border-color: #778c79;
+  color: #404040;
+  background-color: #f2f2f2;
+  border-color: #f2f2f2;
 }
 .page-item.disabled .page-link, .page-item.disabled .dataTable-pagination a, .dataTable-pagination .page-item.disabled a, .dataTable-pagination li.disabled .page-link, .dataTable-pagination li.disabled a {
   color: #6c757d;
@@ -11994,12 +11994,13 @@ input::placeholder {
 }
 
 .page-item a{
-	background:#f2f2f2;
-	color:black;
+	background:#404040;
+	color:white;
 }
 
 .page-item a:hover {
-	background:rgb(231, 237, 232);
+	background:#f2f2f2;
+	color:black;
 	cursor:pointer;
 }
 
@@ -12056,8 +12057,27 @@ input[type=checkbox] {
 #enroll-btn-area * {
 	height:35px;
 }
+/*상품 삭제*/
+// 버튼 2개 있는 모달에서 확인 버튼 style 
+.btn-ok-modal {
+	width:50% !important;
+	height:40px !important;
+	display:inline-block !important;
+	background:#778c79 !important;
+	color:#f2f2f2 !important;
+}
+
+// 버튼 2개 있는 모달에서 취소 버튼 style
+.btn-no-modal {
+	width:50% !important;
+	height:40px !important;
+	display:inline-block !important;
+	backgound:#f2f2f2 !important;
+	color:#404040 !important;
+}
 
 /*====================================================*/
+
 
 /* ========================================= 수민 ======================== */
 input{
