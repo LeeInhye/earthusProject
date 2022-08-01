@@ -35,8 +35,7 @@
         </style>
     </head>
     <body>
-
-        
+   
         <div id="layoutSidenav">
             <div id="layoutSidenav_content">
                 <div class="container-fluid px-4" style="width:800px;">
@@ -71,9 +70,8 @@
 						   ['insert', ['link', 'picture', 'hr']],
 						   ['view', ['fullscreen']]
                       	],
-                            // 이미지 업로드하면 이벤트 발생시킴
                         onImageUpload: function(files, editor, webEitable){
-                            // 이미지 개수대로 함수 sendFile 호출
+                        	// 이미지 업로드하면 이벤트 발생시킴 (개수대로 함수 sendFile 호출)
                             for(var i=0; i<files.length; i++){
                                 sendFile(files[i], editor, welEditable);
                             }
@@ -95,7 +93,6 @@
                             cache: "false",
                             enctype: "multipart/form-data",
                             processData:"false",
-                            processData: "false",
                             success: function(savename){
                                 imgUrl = imgUrl + savename;
                                 editor.insertImage(welEditable, imgUrl); // 에디터에 업로드된 이미지 삽입
