@@ -61,8 +61,10 @@
 	                    <hr><br>
 	
 	                    <div class="container pro-info-area">
-	                        <!-- 정렬 바 시작-->
+	                    
+	                        <!------ 정렬 바 시작 ------>
 	                        <div class="pro-info-var">
+	                        	<form name="search-bar">
 	                            <table height="100%" style="margin:auto">
 	                                <tr>
 	                                    <td width="20%" class="tb-title">카테고리</td>
@@ -86,15 +88,16 @@
 	                                    </td>
 	                                </tr>
 	                                <tr>
-	                                    <td class="tb-title">검색</td>
+	                                    <td class="tb-title" id="search">검색</td>
 	                                    <td colspan="2">
 	                                        <input type="text" class="form-control" name="proKeyword" placeholder="키워드를 입력하세요.">
 	                                    </td>
 	                                    <td>
-	                                    	<button type="button" oncick="searchPro();" class="btn btn-sm btn-update" style="margin-left:20px; width:100px; height:40px;">조회
+	                                    	<button type="button" onclick="searchPro();" class="btn btn-sm btn-update" style="margin-left:20px; width:100px; height:40px;">조회
 	                                    </td>
 	                                </tr>
 	                            </table>
+	                            </form>
 	                        </div>
 	                        <hr>
 	                        <!-- 정렬 바 끝 -->
@@ -258,12 +261,13 @@
             	}
             })
             
+            // 체크된 체크박스의 값 뽑는 함수
             function proCodeArr(){
             	
             	let arr = [];
             	$(".checkbox").each(function(){
             		if( $(this).is(":checked") ){
-			           arr.push($(this).val()); // 체크된 체크박스 값 뽑기
+			           arr.push($(this).val()); 
             		}
             	})
             	return arr;
@@ -295,20 +299,28 @@
             // ------------- 상품 카테고리,키워드로 검색 ---------------
             function searchPro(){
             	
-            	let categoryNo = "";
-            	// 선택된 카테고리의 번호 담기 ()
-            	$("#category:option").each(function(){
-            		if( $(this).is(":chekced") ){
-            			category = category + $(this).val();
+            	let no = []; // 상품 카테고리를 담을 변수
+            	let keyword = ""; // 상품명 키워드를 담을 변수
+            	
+            	// 체크된 카테고리만 변수 no에 담기
+            	$('#category>input[type=checkbox]').each(function(){
+            		if($(this).is(":checked")){
+            			no.push($(this).val());
             		}
             	})
-            	
+            	keyword = $('input[name=proKeyword]').val();
             	$.ajax({
             		
-            		url:"<%=contextPath%>/search.pr",
+            		url:"<%=contextPath%>/adsearch.pr",
+            		type:"get",
             		data:{
-            			
+            			no:no,
+            			keyword:$('input[name=proKeyword]').val()
             			 }
+            		success(result) {
+            			
+            		}
+            	
             		
             	})
             	
