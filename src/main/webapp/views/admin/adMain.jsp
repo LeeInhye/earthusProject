@@ -78,7 +78,7 @@
                                 <h5>상품 관리</a></h5>
                                 <hr>
                                 <h6><a href="">상품</a></h6>
-                                &nbsp;&nbsp;<a href="">등록</a><br>
+                                &nbsp;&nbsp;<a href="<%=contextPath%>/insertForm.pr">등록</a><br>
                                 &nbsp;&nbsp;<a href="<%= contextPath %>/adlist.pr?cpage=1">상품 조회</a><br>
                                 &nbsp;&nbsp;<a href="">상품 문의 관리</a><br>
                                 &nbsp;&nbsp;<a href="">리뷰 관리</a><br>
