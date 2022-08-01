@@ -582,6 +582,10 @@ input[type=checkbox]{
 .CS_table thead{
   background-color: #F2F2F2;
 }
+
+.CS_table tbody tr{
+  cursor: pointer;
+}
 .tb_CS_centered{
   width:80%;
   margin-left: auto;

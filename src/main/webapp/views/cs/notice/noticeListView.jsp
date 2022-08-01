@@ -162,7 +162,7 @@
                 
                 <script> 
 			        $(document).ready(function(){
-			          $("button.board_btn").click(function(e){ 
+			          $(".CS_table>tbody>tr").click(function(e){ 
 			            e.preventDefault();
 			
 			            var targetRow = $(this).closest("tr").next(".CS_hide");
