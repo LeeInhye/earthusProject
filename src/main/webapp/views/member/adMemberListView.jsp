@@ -53,7 +53,7 @@
 		                				var txt = "";
 		                				for(let i = 0; i < newList.length; i++){
 											// 검색 결과 넣어주기	
-		                					txt += '<tr><td><input type="checkbox" name="checkMember"></td>';
+		                					txt += '<tr><td onclick="event.cancelBubble=true;"><input type="checkbox" name="checkMember"></td>';
 				                            txt += "<td>" + newList[i].userNo + "</td>";
 				                            txt += "<td>" + newList[i].userId + "</td>";
 				                            txt += "<td>" + newList[i].userName + "</td>";
@@ -110,7 +110,7 @@
 		                
 		                
 		                
-		                <table class="M_member_table table">
+		                <table class="M_member_table table table-hover">
 		                    <thead>
 		                        <tr class="table_thead_border" style="border-bottom: none;">
 		                            <th width="3%"><input type="checkbox" onclick="checkAll(this);" id="checkAll"></th>
@@ -185,7 +185,7 @@
 		                
                         <script>
 			            	$(function(){
-			            		$(".M_member_table>tbody>tr").click(function(){
+			            		$(".M_member_table>tbody>tr").on("click", "td:not(:first-child)", function() {
 			            			console.log($(this).children().eq(1).text());
 			            			location.href = "<%= contextPath %>/adUpdateForm.me?mNo=" + $(this).children().eq(1).text();
 			            			})

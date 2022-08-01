@@ -39,6 +39,48 @@
 		  ORDER
 		    BY NOTICE_NO DESC
 	</entry>
+	
+	
+	<entry key="selectNoticeListCount">
+		SELECT COUNT(*) AS "COUNT"
+		  FROM NOTICE
+	</entry>
+	
+	<entry key="selectAdNoticeList">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM(
+		                SELECT
+                                NOTICE_NO
+		                      , USER_NAME
+		                      , CS_CATEGORY_NAME
+		                      , NOTICE_TITLE
+		                      , NOTICE_CONTENT
+		                      , NOTICE_ENROLL_DATE
+		                      , NOTICE_STATUS
+		                  FROM NOTICE
+		                  JOIN CS_CATEGORY USING (CS_CATEGORY_NO)
+		                  JOIN MEMBER ON (USER_NO = NOTICE_WRITER)
+		                  ORDER
+		                    BY NOTICE_NO DESC
+		                ) A
+		        )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="adDeleteNotice">
+		UPDATE 
+		       NOTICE
+		   SET NOTICE_STATUS = 'N'
+	</entry>
+	
+	
+	
+	
+	
+	
+	<!-- ================================================================================ -->
 
 	<entry key="selectFaqList">
 		SELECT
@@ -273,6 +315,7 @@
 		 WHERE QNA_STATUS = 'Y'
 		   AND QNA_WRITER = ?
 	</entry>
+	
 
 
 
