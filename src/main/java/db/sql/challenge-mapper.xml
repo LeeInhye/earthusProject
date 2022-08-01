@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="insertChall">
+		INSERT
+		  INTO CHALLENGE
+		     (
+		       CHALL_NO
+		     , CHALL_TITLE
+		     , CHALL_CONTENT
+		     , CHALL_POINT
+		     , CHALL_THUMBNAIL
+		     )
+		VALUES
+		     (
+		       SEQ_CHALLNO.NEXTVAL
+		     , ?
+		     , ?
+		     , ?
+		     , ?
+		     )	
+	</entry>
+	
+	<entry key="insertAttachment">
+		INSERT
+		  INTO ATTACHMENT
+		     (
+		       FILE_NO
+		     , REF_TYPE
+		     , REF_BNO
+		     , ORIGIN_NAME
+		     , CHANGE_NAME
+		     , FILE_PATH
+		     )
+		VALUES
+		     (
+		       SEQ_FILENO.NEXTVAL
+		     , 2
+		     , SEQ_CHALLNO.CURRVAL
+		     , ?
+		     , ?
+		     , ?
+		     )		
+	</entry>
+
+
+
+</properties>
