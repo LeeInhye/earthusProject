@@ -3,7 +3,8 @@
 <%@ page import="com.us.cs.homepage.model.vo.Banner, java.util.ArrayList" %>
 <%
 	ArrayList<Banner> list = (ArrayList<Banner>)request.getAttribute("list");
-	String errorMsg = (String)session.getAttribute("errorMsg");
+	String successMsg = (String)request.getAttribute("successMSg");
+	String errorMsg = (String)request.getAttribute("errorMsg");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -106,7 +107,7 @@
 								<td><%=b.getBnStatus()%></td>
 								<td height="150px;">
 									<a href="" id="activate-edit-modal" data-toggle="modal" data-target="#edit-banner">
-										<img src="<%=b.getBnImgURL()%>" style="height:100%;">
+										<img src="<%=b.getBnImgURL()%>" style="height:100%; width:400px;">
 									</a>
 								</td>
 							</tr>
@@ -140,7 +141,7 @@
 						<p>배너 이미지 수정</p>
 						<div>
 							<img class="thumbnail-img"  onclick="insertImg();">
-							<input type="file" name="banner-img" id="eidt-img" onchange="loadImg(this);" style="visibility: hidden;">
+							<input type="file" name="banner-img" id="eidt-img" onchange="loadImg(this);" style="visibility: hidden;" required>
 							<!-- 파일 업로드하면 업로드된 사진이 썸네일에 변경되어 보여야 함 -->
 						</div>
 						
@@ -163,11 +164,11 @@
 	</div>
 
 
-	<!-- Modal - Add Banner -->
+	<!-- Modal - Insert Banner -->
 	<div class="modal" id="add-banner">
 		<div class="modal-dialog">
 
-			<!-- Modal Content - Add Banner -->
+			<!-- Modal Content - Insert Banner -->
 			<div class="modal-content">
 				<form action="<%=contextPath%>/insert.bn" method="post" enctype="multipart/form-data">
 					<div class="modal-header"><h3 class="modal-title">배너 등록</h3></div>
@@ -176,7 +177,7 @@
 						<p>배너 이미지 등록</p>
 						<div>
 							<img class="thumbnail-img" onclick="insertImg();">
-							<input type="file" name="banner-img" id="insert-img" onchange="loadImg(this);" style="visibility: hidden;">
+							<input type="file" name="banner-img" id="insert-img" onchange="loadImg(this);" style="visibility: hidden;" required>
 							<!-- 파일 업로드하면 업로드된 사진이 썸네일에 변경되어 보여야 함 -->
 						</div>
 						
@@ -225,7 +226,13 @@
 		$(function(){
 			<% if(errorMsg != null){ %>
 				alert("<%= errorMsg %>");
+				<% errorMsg = null; %>
 			<% }%>
+			
+			<% if(successMsg != null) { %>
+				alert("<%= successMsg %>");
+				<% successMsg = null; %>
+			<% } %>
 		})
 		
 		
