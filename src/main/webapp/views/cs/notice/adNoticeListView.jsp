@@ -62,7 +62,7 @@
                         
                         <div class="btn_two_spacing">
                             <button type="button" id="deleteBtn" class="btn btn_black" onclick="deleteNotice();">선택삭제</button>
-                            <button class="btn btn_black btn-sm">새글작성</button>
+                            <button type="button" class="btn btn_black btn-sm" onclick="location.href='<%= contextPath %>/adEnrollForm.no';">새글작성</button>
                         </div>
                     </div>
 		         	

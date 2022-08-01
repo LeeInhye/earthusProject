@@ -75,6 +75,25 @@
 		   SET NOTICE_STATUS = 'N'
 	</entry>
 	
+	<entry key="insertNotice">
+		INSERT
+		  INTO NOTICE
+		  (
+		    NOTICE_NO
+		  , NOTICE_WRITER
+		  , CS_CATEGORY_NO
+		  , NOTICE_TITLE
+		  , NOTICE_CONTENT
+		  )
+		  VALUES
+		  (
+		    SEQ_NNO.NEXTVAL
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  )
+	</entry>
 	
 	
 	

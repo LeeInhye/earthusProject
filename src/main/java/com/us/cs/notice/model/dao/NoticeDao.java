@@ -213,6 +213,28 @@ public class NoticeDao {
 		return result;
 	}
 	
+	// 공지사항 등록
+	public int insertNotice(Connection conn, Notice n) {
+		PreparedStatement pstmt = null;
+		int result = 0; 
+		
+		String sql = prop.getProperty("insertNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, n.getNoticeWriter());
+			pstmt.setString(2, n.getCsCategory());
+			pstmt.setString(3, n.getNoticeTitle());
+			pstmt.setString(4, n.getNoticeContent());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	
 	

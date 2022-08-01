@@ -38,6 +38,14 @@ public class Notice {
 		this.noticeEnrollDate = noticeEnrollDate;
 	}
 
+	public Notice(String noticeWriter, String csCategory, String noticeTitle, String noticeContent) {
+		super();
+		this.noticeWriter = noticeWriter;
+		this.csCategory = csCategory;
+		this.noticeTitle = noticeTitle;
+		this.noticeContent = noticeContent;
+	}
+
 	public int getNoticeNo() {
 		return noticeNo;
 	}
