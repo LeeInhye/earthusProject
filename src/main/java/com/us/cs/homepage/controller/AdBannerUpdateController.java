@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
@@ -63,11 +64,13 @@ public class AdBannerUpdateController extends HttpServlet {
 			// 요청처리 (하나의 controller에서 두번 service 호출하면 안돼!!)
 			int result = new AdBannerService().updateBanner(b, at);
 			
+			HttpSession session = request.getSession();
+			
 			if(result > 0) {
-				request.setAttribute("successMsg", "배너 수정에 성공하였습니다.");
+				session.setAttribute("successMsg", "배너 수정에 성공하였습니다.");
 				response.sendRedirect(request.getContextPath() + "/list.bn");
 			}else {
-				request.setAttribute("errorMsg", "배너 수정에 실패하였습니다.");
+				session.setAttribute("errorMsg", "배너 수정에 실패하였습니다.");
 				response.sendRedirect(request.getContextPath() + "/list.bn");
 			}
 			

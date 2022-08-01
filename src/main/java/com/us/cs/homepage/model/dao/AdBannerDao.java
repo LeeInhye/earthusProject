@@ -104,6 +104,9 @@ public class AdBannerDao {
 				pstmt.setString(1, at.getFilePath() + at.getChangeName());
 				pstmt.setString(2, b.getBnStatus());
 				pstmt.setInt(3, b.getBnNo());
+				
+				result = pstmt.executeUpdate();
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
@@ -116,6 +119,9 @@ public class AdBannerDao {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, b.getBnStatus());
 				pstmt.setInt(2, b.getBnNo());
+				
+				result = pstmt.executeUpdate();
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
@@ -138,6 +144,9 @@ public class AdBannerDao {
 			pstmt.setString(3, at.getFilePath());
 			pstmt.setString(4, at.getStatus());
 			pstmt.setInt(5, at.getRefBNo());
+			
+			result = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

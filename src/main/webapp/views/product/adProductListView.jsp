@@ -39,6 +39,10 @@
 	background:lightgray !important;
 	line-height: 100px;
 }
+.btn-update:hover {
+	background:#f2f2f2 !important;
+	color:#404040 !important;
+}
 
 
 </style>
@@ -87,7 +91,7 @@
 	                                        <input type="text" class="form-control" name="proKeyword" placeholder="키워드를 입력하세요.">
 	                                    </td>
 	                                    <td>
-	                                    	<button type="button" oncick="searchPro();" class="btn btn-sm btn-update" value="조회" style="margin-left:20px;">
+	                                    	<button type="button" oncick="searchPro();" class="btn btn-sm btn-update" style="margin-left:20px; width:100px; height:40px;">조회
 	                                    </td>
 	                                </tr>
 	                            </table>
@@ -291,9 +295,20 @@
             // ------------- 상품 카테고리,키워드로 검색 ---------------
             function searchPro(){
             	
+            	let categoryNo = "";
+            	// 선택된 카테고리의 번호 담기 ()
+            	$("#category:option").each(function(){
+            		if( $(this).is(":chekced") ){
+            			category = category + $(this).val();
+            		}
+            	})
+            	
             	$.ajax({
             		
-            		url:"<%=contextPath%>/"
+            		url:"<%=contextPath%>/search.pr",
+            		data:{
+            			
+            			 }
             		
             	})
             	

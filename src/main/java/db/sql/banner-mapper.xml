@@ -43,7 +43,7 @@
 		 WHERE BN_NO = ?
 	</entry>
 	
-	<entry key="updataBannerWithoutPic">
+	<entry key="updateBannerWithoutPic">
 		UPDATE BANNER
 		   SET BN_STATUS = ?
 		 WHERE BN_NO = ?
