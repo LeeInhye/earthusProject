@@ -139,7 +139,6 @@ UPDATE PRODUCT
 	DELETE 
 	  FROM WISHLIST
 	 WHERE USER_NO = ?
-	   AND PRO_CODE = ?
 </entry>
 
 <entry key="selectQlistCount">

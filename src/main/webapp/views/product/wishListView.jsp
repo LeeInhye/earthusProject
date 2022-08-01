@@ -81,7 +81,7 @@ ArrayList<WishList> list = (ArrayList<WishList>)request.getAttribute("list");
 		                <%for(WishList wi : list) { %>
 		                	<tr>
 		                    	<td align="center">
-		                      		<input type="checkbox" class="product" >
+		                      		<input type="checkbox" class="product" name="pCode" value="<%= wi.getProCode() %>">
 		                    	</td>
 		                    	<td>
 		                      	<div class="media">
@@ -89,7 +89,6 @@ ArrayList<WishList> list = (ArrayList<WishList>)request.getAttribute("list");
 		                          <%= wi.getProImgPath() %>
 		                        </div>
 		                        <div class="media-body">
-		                        	<input type="hidden" name="pCode" id="pc" value="<%= wi.getProCode() %>">
 		                          	<p><%= wi.getProName() %></p>
 		                        </div>
 			                      </div>
@@ -141,24 +140,30 @@ ArrayList<WishList> list = (ArrayList<WishList>)request.getAttribute("list");
         	  $("#checkAll").prop("checked", false);
           })
 		
-          // 체크한 상품 삭제
-	    	$(".del-btn").click(function(){
-	        	$(".product:checked").parent().parent().remove();
-	        })
+          
           
         })
         
         // ajax로 상품 삭제용 function
         function deleteProduct(){
+      		var checkDel = "";
+      		// 현재 클래스가 product인 요소들에 순차적으로 접근(each)하면서 현재 체크박스가 checked 상태인 
+      		// 요소들의 value값들을 , 로 연이어서 문자열만들기 
+      		
+      		// 체크한 상품 삭제
+	    	$("input:checkbox[name=pCode]:checked").each(function(){
+        		checkDel = checkDel + ($(this).val()) + ",";
+        	})
+        	
+        	checkDel = checkDel.substring(0,checkDel.lastIndexOf(","));
+      		
         	$.ajax({
         		url:"<%=contextPath%>/delWish.pr",
         		data:{
         			userNo:$("#lsuccess").val(),
-        			pCode:$("#pc").val()},
-        		success:function(result){
-        			if(result>0){
-        				location.reload();
-        			}
+        			pCode:checkDel},
+        		success:function(){
+        			location.reload();
         			
         		}, error:function(){
     				console.log("위시리스트 삭제용 ajax 통신 실패");

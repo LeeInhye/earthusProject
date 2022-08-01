@@ -201,7 +201,6 @@ public class ProductDao {
 				list.add(wi);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(rset);
@@ -272,14 +271,24 @@ public class ProductDao {
 		
 		String sql = prop.getProperty("deleteWish");
 		
+		sql += "AND PRO_CODE IN ("; 
+		
+		String[] dpArr = pCode.split(",");  // ["3", "4"]
+		for(int i=0; i<dpArr.length; i++) {
+			sql += dpArr[i];
+			if(i != dpArr.length-1) {
+				sql += ",";
+			}
+		}
+		
+		sql += ")";
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userNo);
-			pstmt.setString(2, pCode);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
