@@ -124,4 +124,10 @@
 		    BY CNT_NO DESC
 	</entry>
 
+	<entry key="deleteContents">
+		UPDATE 
+		       CONTENTS
+		   SET CNT_STATUS = 'N'
+	</entry>
+
 </properties>

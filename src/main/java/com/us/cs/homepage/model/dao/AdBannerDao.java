@@ -39,7 +39,7 @@ public class AdBannerDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				list.add(new Banner(
-									rset.getInt("BN_BO")
+									rset.getInt("BN_NO")
 								  , rset.getString("BN_IMG_URL")
 								  , rset.getString("BN_STATUS")
 						));
@@ -60,7 +60,7 @@ public class AdBannerDao {
 		String sql = prop.getProperty("insertBanner");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, at.getFilePath());
+			pstmt.setString(1, at.getFilePath() + at.getChangeName());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

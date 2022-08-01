@@ -60,7 +60,7 @@
                        	   <% for(Contents c : list) { %>
 		                       <tr class="list-area">
  		                           <td onclick="event.stopPropagation();"> <!-- 해당 td 클릭 시에는 수정 페이지로 이동하지 않게 함-->
-		                               <input type="checkbox" name="check">
+		                               <input type="checkbox" name="check" value="<%= c.getCntNo() %>">
 		                           </td>
 		                           <td><%= c.getCntNo() %></td>
 		                           <td><%= c.getCntTitle() %></td>
@@ -72,7 +72,7 @@
                        <% } %>
                    </table>
 
-                       <button class="btn_admin" style="float: left; margin-left: 10%;">선택 삭제</button>
+                       <button class="btn_admin" onclick="deleteContents();" style="float: left; margin-left: 10%;">선택 삭제</button>
                        <button class="btn_admin" style="float: right; margin-right: 10%;" id="btn_enroll">새 글 작성</button>
 
 					<script>
@@ -81,7 +81,7 @@
 							$("#btn_enroll").click(function(){
 								location.href = '<%=contextPath%>/enrollForm.co';
 							})
-							
+    							
                             // 게시글 클릭시 해당 게시글 수정 페이지로 이동
 							$(".list-area").click(function(){
 								const cntNo = $(this).children().eq(1).text(); // 클릭한 글 번호
@@ -115,6 +115,39 @@
 
 						})
 						
+                        // 선택 게시글 삭제
+                        function deleteContents(){
+                            var checkCnt = "";
+
+                            $("input:checkbox[name=check]:checked").each(function(){
+                                checkCnt = checkCnt + ($(this).val()) + ","; // 체크된 것만 게시글번호 뽑기 "2,3,4,"
+                            })
+
+                            checkCnt = checkCnt.substring(0,checkCnt.lastIndexOf(",")); // 맨 뒤 콤마 삭제 "2,3,4"
+                            console.log(checkCnt);
+							
+                            // 선택된 체크박스 없이 삭제 버튼 누른 경우
+                            if(checkCnt == ''){
+                                alert("삭제할 게시글을 선택하세요");
+                                return false;
+                            }
+
+                            if(confirm("정말 삭제하시겠습니까?")) {
+	                            $.ajax({
+	                                url:"/us/delete.co",
+	                                data:{"checkCnt":checkCnt},
+	                                success:function(result){
+	                                	if(result > 0){                             		
+		                                    location.reload();
+	                                	}
+	                                },
+	                                error:function(){
+	                                    console.log("ajax 게시글 삭제 실패")
+	                                }
+	                            })
+                            }							                            
+
+                        }
 					</script>
 
                </div>

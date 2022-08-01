@@ -99,5 +99,19 @@ public class ContentsService {
 		return list;
 	}
 	
+	public int deleteContents(String cntNo) {
+		Connection conn = getConnection();
+		int result = new ContentsDao().deleteContents(conn, cntNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}		
+		close(conn);
+
+		return result;
+	}
+	
 
 }
