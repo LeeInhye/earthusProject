@@ -1058,7 +1058,7 @@ input[type=checkbox]{
 	
 #selectArea {width:30%;}
 
-#selectTitle {width:50%; line-height:40px;}
+#selectTitle {width:60%; line-height:40px;}
    
 .single_product_item .single_product_text {
   background: white !important;
@@ -4329,12 +4329,12 @@ textarea {
 
 /* line 184, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_product.scss */
 .left_sidebar_area .widgets_inner ul li:hover {
-  color: #ff3368;
+  color: #778c79;
 }
 
 /* line 185, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_product.scss */
 .left_sidebar_area .widgets_inner ul li:hover a {
-  color: #ff3368;
+  color: #778c79;
 }
 
 /* line 196, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_product.scss */
