@@ -12057,8 +12057,7 @@ input[type=checkbox] {
 #enroll-btn-area * {
 	height:35px;
 }
-/*상품 삭제*/
-// 버튼 2개 있는 모달에서 확인 버튼 style 
+/*상품 삭제*/ 
 .btn-ok-modal {
 	width:50% !important;
 	height:40px !important;
@@ -12067,7 +12066,6 @@ input[type=checkbox] {
 	color:#f2f2f2 !important;
 }
 
-// 버튼 2개 있는 모달에서 취소 버튼 style
 .btn-no-modal {
 	width:50% !important;
 	height:40px !important;
