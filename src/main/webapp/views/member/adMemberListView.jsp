@@ -165,9 +165,8 @@
 		                            <td>1400</td>
 		                            <td><%= m.getUserStatus() %></td>
 		                            <td class="btn_left">
-		                                <button type="button" id="updateBtn" class="btn-sm btn_black" data-bs-toggle="modal" data-bs-target="#adUpdateMember">
-		                                    수정
-		                                </button>
+		                                <button type="button" class="btn-sm btn_black">수정</button>
+		                                
 		                            </td>
 		                        </tr>
 		                        
@@ -184,8 +183,16 @@
 		                </div>
 		                
 		                
-		                
-		                
+                        <script>
+			            	$(function(){
+			            		$(".M_member_table>tbody>tr").click(function(){
+			            			console.log($(this).children().eq(1).text());
+			            			location.href = "<%= contextPath %>/adUpdateForm.me?mNo=" + $(this).children().eq(1).text();
+			            			})
+			            			
+			            		});
+			         	</script>    
+                        
 		                
 		            </div>
 		            
@@ -226,7 +233,6 @@
 
 					<script>
 						// 체크박스 전체 선택되면 맨 위의 체크박스도 자동 체크
-						// 회원가입1 참고
 						$(document).ready(function(){
 							$("input[name='checkMember']").click(function(){
 								var count = $("input[name='checkMember']").length;

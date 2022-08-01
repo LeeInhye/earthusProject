@@ -146,6 +146,25 @@ public class MemberService {
 			return result;
 		}
 		
+		// 회원 번호로 회원 정보 찾기
+		public Member selectMember(int mNo) {
+			Connection conn = getConnection();
+			Member m = new MemberDao().selectMember(conn, mNo);
+			close(conn);
+			return m;
+		}
+		
+		// 관리자 회원 정보 수정
+		public int adUpdateMember(String a, Member m) {
+			Connection conn = getConnection();
+			int result = new MemberDao().adUpdateMember(conn, a, m);
+			if(result > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+			return result;
+		}
 		
 		
 		

@@ -110,6 +110,21 @@ public class Member {
 		this.userName = userName;
 		this.email = email;
 	}
+	
+
+	public Member(String userId, String userPwd, String userName, String email, String phone, String zonecode,
+			String address, String addrExtra, String addrDetail) {
+		super();
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.email = email;
+		this.phone = phone;
+		this.zonecode = zonecode;
+		this.address = address;
+		this.addrExtra = addrExtra;
+		this.addrDetail = addrDetail;
+	}
 
 	public int getUserNo() {
 		return userNo;

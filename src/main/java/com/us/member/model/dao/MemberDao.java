@@ -480,6 +480,88 @@ public class MemberDao {
 		return result;	
 	}
 	
+	// 회원 번호로 정보 조회
+	public Member selectMember(Connection conn, int mNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member m = null;
+		
+		String sql = prop.getProperty("selectMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, mNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				m = new Member(rset.getString("USER_ID")
+							 , rset.getString("USER_PWD")
+							 , rset.getString("USER_NAME")
+							 , rset.getString("EMAIL")
+							 , rset.getString("PHONE")
+							 , rset.getString("ZONECODE")
+							 , rset.getString("ADDRESS")
+							 , rset.getString("ADDR_EXTRA")
+							 , rset.getString("ADDR_DETAIL")
+						);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return m;
+	}
+	
+	public int adUpdateMember(Connection conn, String a, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("adUpdateMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m.getUserPwd());
+			pstmt.setString(2, m.getUserName());
+			pstmt.setString(3, m.getEmail());
+			pstmt.setString(4, m.getPhone());
+			pstmt.setString(5, m.getZonecode());
+			pstmt.setString(6, m.getAddress());
+			pstmt.setString(7, m.getAddrExtra());
+			pstmt.setString(8, m.getAddrDetail());
+			pstmt.setString(9, a);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 

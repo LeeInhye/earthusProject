@@ -9,7 +9,7 @@
    <%@ include file="/views/common/menubar.jsp" %>
    
    <% if(loginUser == null) { %>
-   		location.href = "<%= contextPath %>";
+   		location.href = "<%= contextPath %>/goLogin.me";
    	<% } else { %>
    
    		<form action="<%= contextPath %>/update.me" method="post">

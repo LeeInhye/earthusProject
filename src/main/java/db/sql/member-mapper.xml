@@ -200,8 +200,34 @@
 		   SET USER_STATUS = 'N'
 	</entry>
 	
+	<entry key="selectMember">
+		SELECT
+		        USER_ID
+		      , USER_PWD
+		      , USER_NAME
+		      , EMAIL
+		      , PHONE
+		      , ZONECODE
+		      , ADDRESS
+		      , ADDR_EXTRA
+		      , ADDR_DETAIL
+		  FROM MEMBER
+		 WHERE USER_NO = ?
+	</entry>
 	
-	
+	<entry key="adUpdateMember">
+		UPDATE MEMBER
+		   SET USER_PWD = ?
+		     , USER_NAME = ?
+		     , EMAIL = ?
+		     , PHONE = ?
+		     , ZONECODE = ?
+		     , ADDRESS = ?
+		     , ADDR_EXTRA = ?
+		     , ADDR_DETAIL = ?
+		     , USER_MODIFY_DATE = SYSDATE
+		 WHERE USER_NO = ?
+	</entry>
 	
 	
 	
