@@ -88,7 +88,7 @@
                                 </a>
                                 <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                     <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="">등록</a>
+                                        <a class="nav-link" href="<%=contextPath%>/insertForm.pr">등록</a>
                                         <a class="nav-link" href="<%=contextPath%>/adlist.pr?cpage=1">조회</a>
                                         <a class="nav-link" href="">상품 문의 관리</a>
                                         <a class="nav-link" href="">리뷰 관리</a>
