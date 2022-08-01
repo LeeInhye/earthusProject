@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상품 > 등록</title>
 </head>
 <body>
 
@@ -67,18 +67,26 @@
                                           <textarea class="form-control" name="proInfo" rows="2" style="resize:none; font-size:small;" placeholder="상품의 간단한 설명을 입력하세요."></textarea>
                                       </td>
                                   </tr>
-
+                                  
                                   <tr>
-                                      <td class="pro-info">* 썸네일이미지 : </td>
-                                      <td>
-                                          <input type="file" name="proImg" id="proImg" required>
-                                      </td>
+                                     <td class="pro-info">* 썸네일이미지 : </td>
+                                     <td class="img" id="proImg-path">
+                                        
+                                     </td>
+                                     <td>
+                                          <input type="file" name="proImg" id="proImg" style="width:0.1px; height:0.1px;" required>
+                                          <label for="proImg" class="btn-input">파일선택</label>
+                                     </td>
                                   </tr>
 
                                   <tr>
                                       <td class="pro-info">* 상세이미지 : </td>
+                                      <td class="img" id="detailImg-path">
+                                        
+                                     </td>
                                       <td>
-                                          <input type="file" name="detailImg" id="detailImg" required>
+                                          <input type="file" name="detailImg" id="detailImg" style="width:0.1px; height:0.1px" required>
+                                          <label for="detailImg" class="btn-input">파일선택</label>
                                       </td>
                                   </tr>
 
@@ -103,8 +111,12 @@
 
                                   <tr>
                                       <td class="pro-info">* 필수표기정보 : </td>
+                                      <td class="img" id="reqInfoImg-path">
+                                        
+                                     </td>
                                       <td>
-                                          <input type="file" name="reqInfoImg" id="reqInfoImg" required>
+                                          <input type="file" name="reqInfoImg" id="reqInfoImg"  style="width:0.1px; height:0.1px" required>
+                                          <label for="reqInfoImg" class="btn-input">파일선택</label>
                                       </td>
                                   </tr>
                               </table>
@@ -133,6 +145,19 @@
        			}
        		})
        	}
+       	
+       	// ----------------- 이미지 파일 선택 시 파일 경로 보여줌 --------------- 작동, 근데 fakepath
+       	$(document).ready(function() {
+       	    $('#proImg').on('change', function() {
+       	        $('#proImg-path').text($(this).val());
+       	    });
+       	 	$('#detailImg').on('change', function() {
+    	        $('#detailImg-path').text($(this).val());
+    	    });
+       	 	$('#reqInfoImg').on('change', function() {
+    	        $('#reqInfoImg-path').text($(this).val());
+    	    });
+       	});
        	// -----------------------------------------------------
        </script>
 	

@@ -317,9 +317,6 @@
             			no:no,
             			keyword:$('input[name=proKeyword]').val()
             			 }
-            		success(result) {
-            			
-            		}
             	
             		
             	})

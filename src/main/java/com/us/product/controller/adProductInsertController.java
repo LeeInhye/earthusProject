@@ -40,9 +40,9 @@ public class adProductInsertController extends HttpServlet {
 		String proInfo = request.getParameter("proInfo");
 		String price = request.getParameter("price");
 		String stock = request.getParameter("stock");
-		String proImgPath = request.getParameter("proImg");
-		String detailImgPath = request.getParameter("detailImg");
-		String reqInfoImgPath = request.getParameter("reqInfoImg");
+		String proImgPath = "resources/img/product/" + request.getParameter("proImg");
+		String detailImgPath = "resources/img/product/" + request.getParameter("detailImg");
+		String reqInfoImgPath = "resources/img/product/" + request.getParameter("reqInfoImg");
 		
 		Product p = new Product();
 		p.setCategory(category);
