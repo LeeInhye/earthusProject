@@ -109,7 +109,7 @@
 	                            </tbody>
 	                        </table>
 	
-	                        <button class="btn btn-sm btn-update" id="pro-delete-btn" style="width:80px; margin-top:10px;">상품삭제</button>
+	                        <button class="btn btn-sm btn-update" id="pro-delete-btn" style="width:85px; margin-top:10px;">상품삭제</button>
 	                        
 	                        <!----- 상품 삭제 Modal ----->
 							  <div class="modal fade" id="deleteModal">

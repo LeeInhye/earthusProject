@@ -76,7 +76,7 @@ public class updateProductController extends HttpServlet {
 		if(result > 0) {
 			session.setAttribute("modalId", "updateProModal");
 			session.setAttribute("modalMsg", "상품 정보가 수정되었습니다.");
-			session.setAttribute("url", request.getContextPath() + "/list.pr?cpage=1");
+			session.setAttribute("url", request.getContextPath() + "/adlist.pr?cpage=1");
 			request.getRequestDispatcher("/views/common/adSuccessPage.jsp").forward(request, response);
 			
 		}
