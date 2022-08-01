@@ -39,11 +39,18 @@ public class OrderDao {
 			pstmt.setInt(1, userNo);
 			rset = pstmt.executeQuery();
 			
-			if(rset.next()) {
+			while(rset.next()) {
+				list.add(new Order(rset.getInt("order_no"),
+								   rset.getInt("payment_amount"),
+								   rset.getInt("del_status"),
+								   rset.getInt("product_count"),
+								   rset.getString("pro_code"),
+								   rset.getString("pro_name"),
+								   rset.getDate("order_date")
+						));
 				
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rset);

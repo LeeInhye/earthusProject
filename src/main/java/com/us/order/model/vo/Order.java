@@ -1,5 +1,7 @@
 package com.us.order.model.vo;
 
+import java.sql.Date;
+
 public class Order {
 	
 	private int orderNo;
@@ -17,7 +19,55 @@ public class Order {
 	private String addrDetail;
 	private int delNo;
 	private int delStatus;
+	private int proCount;
+	private String proCode;
+	private String proName;
+	private Date orderDate;
 	
+	public int getProCount() {
+		return proCount;
+	}
+
+	public void setProCount(int proCount) {
+		this.proCount = proCount;
+	}
+
+	public String getProCode() {
+		return proCode;
+	}
+
+	public void setProCode(String proCode) {
+		this.proCode = proCode;
+	}
+
+	public String getProName() {
+		return proName;
+	}
+
+	public void setProName(String proName) {
+		this.proName = proName;
+	}
+
+	public Date getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
+	}
+
+	public Order(int orderNo, int paymentAmount, int delStatus, int proCount, String proCode, String proName,
+			Date orderDate) {
+		super();
+		this.orderNo = orderNo;
+		this.paymentAmount = paymentAmount;
+		this.delStatus = delStatus;
+		this.proCount = proCount;
+		this.proCode = proCode;
+		this.proName = proName;
+		this.orderDate = orderDate;
+	}
+
 	public Order() {}
 
 	public Order(int orderNo, int userNo, String payment, int pointUsed, String shpMemo, int paymentAmount,

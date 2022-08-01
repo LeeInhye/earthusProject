@@ -3,7 +3,28 @@
 <properties>
 
 	<entry key="selectOrderList">
-		
+		SELECT B.*, P.PRO_NAME
+		  FROM (
+		        SELECT  A.ORDER_NO, A.ORDER_DATE, A.PAYMENT_AMOUNT, A.DEL_STATUS, A.PRODUCT_COUNT, MIN(PRO_CODE) "PRO_CODE"
+		          FROM (
+		                SELECT
+		                       "ORDER".ORDER_NO
+		                     , DECODE(PAYMENT, 'CARD', CARD_APPROVAL_DATE, 'CASH', CASH_APPROVAL_DATE) "ORDER_DATE"
+		                     , PAYMENT_AMOUNT
+		                     , DEL_STATUS
+		                     , (SELECT COUNT(*) FROM ORDER_PRODUCT OP1 WHERE OP1.ORDER_NO = "ORDER".ORDER_NO) "PRODUCT_COUNT"
+		                     , PRO_CODE
+		                  FROM "ORDER" 
+		                LEFT JOIN PAY_CARD PCARD ON ("ORDER".ORDER_NO = PCARD.ORDER_NO)
+		                LEFT JOIN PAY_CASH PCASH ON ("ORDER".ORDER_NO = PCASH.ORDER_NO)
+		                  JOIN ORDER_PRODUCT OP2 ON ("ORDER".ORDER_NO = OP2.ORDER_NO)
+		                 WHERE USER_NO = ?
+		              ) A
+		         GROUP 
+		            BY A.ORDER_NO, A.ORDER_DATE, A.PAYMENT_AMOUNT, A.DEL_STATUS, A.PRODUCT_COUNT
+		    ) B
+		 JOIN PRODUCT P ON (B.PRO_CODE = P.PRO_CODE)
+		 
 	</entry>
 
 

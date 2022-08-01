@@ -37,6 +37,7 @@ public class OrderHistoryController extends HttpServlet {
 		
 		ArrayList<Order> list = new OrderService().selectOrderList(userNo);
 		request.setAttribute("list", list);
+		request.getRequestDispatcher("views/order/orderHistoryView.jsp").forward(request, response);
 		
 	}
 

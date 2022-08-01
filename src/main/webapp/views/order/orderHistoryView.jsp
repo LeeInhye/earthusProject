@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.us.order.model.vo.*"%>
+<% 
+ArrayList<Order> list = (ArrayList<Order>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,35 +58,53 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td style="display:block">
-                      <a href="">
-                        <div class="media">
-                          <div class="d-flex">
-                            <img src="img/product/single-product/cart-1.jpg" alt="" />
-                          </div>
-                          <div class="media-body">
-                            <h5>고체치약 외 3건</h5>
-                          </div>
-                        </div>
-                      </a>
-                    </td>
-                    <td>
-                      <h5>2022.07.07</h5>
-                    </td>
-                    <td>
-                      <div class="product_count">
-                        <h5><a href="" style="color:black;">22070711</a></h5>
-                      </div>
-                    </td>
-                    <td>
-                      <h5>23,000</h5>
-                    </td>
-                    <td>
-                      <h5>상품준비중</h5>
-                    </td>
-                  </tr>
-                  
+                  	<%if(list.isEmpty()){ %>
+                  		<tr>
+                  			<td colspan="5" align="center">
+	                			<h3>주문내역이 없습니다.</h3>
+	                		</td>
+                  		</tr>
+                  	<%}else { %>
+                  		<%for(Order or : list){ %>
+		                  <tr>
+		                    <td style="display:block">
+		                      <a href="">
+		                        <div class="media">
+		                          <div class="d-flex">
+		                            <img src="" alt="" />
+		                          </div>
+		                          <% if(or.getProCount() == 1) {%>
+			                          <div class="media-body">
+			                            <h5><%= or.getProName() %></h5>
+			                          </div>
+		                          <%}else{ %>
+		                          	  <div class="media-body">
+		                          	  	<input type="hidden" value="<%=or.getProCode()%>">
+			                            <h5><%= or.getProName() %> 외 <%=or.getProCount()-1 %>건</h5>
+			                          </div>
+		                          <%} %>
+		                        </div>
+		                      </a>
+		                    </td>
+		                    <td>
+		                      <h5><%= or.getOrderDate() %></h5>
+		                    </td>
+		                    <td>
+		                      <div class="product_count">
+		                        <h5><a href="" style="color:black;"><%= or.getOrderNo() %></a></h5>
+		                      </div>
+		                    </td>
+		                    <td>
+		                      <h5><%=or.getPaymentAmount() %></h5>
+		                    </td>
+		                    <td>
+		                      <% if(or.getDelStatus() == 1){ %>
+		                      	<h5>상품준비중</h5>
+		                      	<%} %>
+		                    </td>
+		                  </tr>
+                  	<%} %>
+                  <%} %>
                 </tbody>
               </table>
               
