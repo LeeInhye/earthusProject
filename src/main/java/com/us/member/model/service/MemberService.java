@@ -6,7 +6,9 @@ import static com.us.common.JDBCTemplate.getConnection;
 import static com.us.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
+import com.us.common.model.vo.PageInfo;
 import com.us.member.model.dao.MemberDao;
 import com.us.member.model.vo.Member;
 
@@ -114,6 +116,21 @@ public class MemberService {
 			return result;
 		}
 		
+		// 페이징
+		public int selectListCount() {
+			Connection conn = getConnection();
+			int listCount = new MemberDao().selectListCount(conn);
+			close(conn);
+			return listCount;
+		}
+		
+		// 회원 리스트
+		public ArrayList<Member> selectMemberList(PageInfo pi){
+			Connection conn = getConnection();
+			ArrayList<Member> list = new MemberDao().selectMemberList(conn, pi);
+			close(conn);
+			return list;
+		}
 		
 		
 		

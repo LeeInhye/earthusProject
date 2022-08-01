@@ -1,6 +1,7 @@
 package com.us.member.controller;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -8,25 +9,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+import com.us.common.JDBCTemplate;
 import com.us.common.model.vo.PageInfo;
-import com.us.cs.qna.model.service.QnaService;
-import com.us.cs.qna.model.vo.Qna;
+import com.us.member.model.dao.MemberDao;
 import com.us.member.model.service.MemberService;
 import com.us.member.model.vo.Member;
 
 /**
- * Servlet implementation class AdMemberListController
+ * Servlet implementation class AdMemberSearchController
  */
-@WebServlet("/adList.me")
-public class AdMemberListController extends HttpServlet {
+@WebServlet("/adSearch.me")
+public class AdMemberSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdMemberListController() {
+    public AdMemberSearchController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -65,25 +66,24 @@ public class AdMemberListController extends HttpServlet {
 		// 페이징바에 필요한 객체
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 
+		// 검색한 키워드
+		String keyword = request.getParameter("keyword");
 		
-		// 현재 요청한 페이지에 보여질 멤버 리스트 조회
-		ArrayList<Member> list = new MemberService().selectMemberList(pi);
+		// 현재 요청한 페이지에 보여질 검색에 해당하는 멤버 리스트 조회
+		// Service 단계 없이 바로 Dao쪽 호출
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Member> list = new MemberDao().searchMemberList(conn, pi, keyword);
+		JDBCTemplate.close(conn);
 		
-
-		// 단순 페이지 요청
-		HttpSession session = request.getSession();
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		if(loginUser == null) {
-			response.sendRedirect(request.getContextPath() + "/goLogin.me");
-		} else {
-			request.setAttribute("pi", pi);
-			request.setAttribute("list", list);
-			request.getRequestDispatcher("/views/member/adMemberListView.jsp").forward(request, response);
-		}
+		// 자바 배열 또는 ArrayList 객체 => JSONArray 형태
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(list, response.getWriter());
+		
+		
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServle	tResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub

@@ -9,8 +9,11 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
+import com.us.common.model.vo.PageInfo;
+import com.us.cs.qna.model.vo.Qna;
 import com.us.member.model.vo.Member;
 
 public class MemberDao {
@@ -335,9 +338,112 @@ public class MemberDao {
 		return result;
 	}
 	
+	// listCount 조회
+	public int selectListCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("selectListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+		
+	// 전체 목록 조회
+	public ArrayList<Member> selectMemberList(Connection conn, PageInfo pi){
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Member> list = new ArrayList<>();
+		
+		String sql = prop.getProperty("selectMemberList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Member(rset.getInt("USER_NO")
+							   , rset.getString("USER_ID")
+							   , rset.getString("USER_PWD")
+							   , rset.getString("USER_NAME")
+							   , rset.getString("EMAIL")
+							   , rset.getString("PHONE")
+							   , rset.getString("ZONECODE")
+							   , rset.getString("ADDRESS")
+							   , rset.getString("ADDR_EXTRA")
+							   , rset.getString("ADDR_DETAIL")
+							   , rset.getDate("USER_ENROLL_DATE")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 	
-	
-	
+	// 회원 검색
+	public ArrayList<Member> searchMemberList(Connection conn, PageInfo pi, String keyword){
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Member> list = new ArrayList<>();
+		
+		String sql = prop.getProperty("searchMemberList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setString(1, "%" + keyword + "%");
+			pstmt.setString(2, "%" + keyword + "%");
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Member(rset.getInt("USER_NO")
+							   , rset.getString("USER_ID")
+							   , rset.getString("USER_PWD")
+							   , rset.getString("USER_NAME")
+							   , rset.getString("EMAIL")
+							   , rset.getString("PHONE")
+							   , rset.getString("ZONECODE")
+							   , rset.getString("ADDRESS")
+							   , rset.getString("ADDR_EXTRA")
+							   , rset.getString("ADDR_DETAIL")
+							   , rset.getDate("USER_ENROLL_DATE")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 	
 	
 	

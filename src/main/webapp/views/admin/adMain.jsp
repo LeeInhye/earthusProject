@@ -109,9 +109,9 @@
                             <div>
                                 <h5>고객센터</h5>
                                 <hr>
-                                <a href="">공지사항</a> <br>
-                                <a href="">자주 묻는 질문 관리</a> <br>
-                                <a href="">Q&A 관리</a>
+                                <a href="<%= contextPath %>/adList.no?npage=1">공지사항</a> <br>
+                                <a href="<%= contextPath %>/adList.fq?fpage=1">자주 묻는 질문 관리</a> <br>
+                                <a href="<%= contextPath %>/adList.qa?qpage=1">Q&A 관리</a>
                             </div>
                         </div>
                         <div class="main-list2-ih">

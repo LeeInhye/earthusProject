@@ -156,9 +156,9 @@
                         </a>
                         <div class="collapse" id="qaCollapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="">공지사항</a>
-                                <a class="nav-link" href="">자주 묻는 질문 관리</a>
-                                <a class="nav-link" href="">Q&A 관리</a>
+                                <a class="nav-link" href="<%= contextPath %>/adList.no?npage=1">공지사항</a>
+                                <a class="nav-link" href="<%= contextPath %>/adList.fq?fpage=1">자주 묻는 질문 관리</a>
+                                <a class="nav-link" href="<%= contextPath %>/adList.qa?qpage=1">Q&A 관리</a>
                             </nav>
                         </div>
                     </div>
