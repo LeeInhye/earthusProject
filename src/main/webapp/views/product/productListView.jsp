@@ -249,7 +249,10 @@
         	// ---------------- 찜 버튼 -----------------
             $('.single_product_text>i').click(function(){ 
 
-                if( $(this).hasClass("color-gray") ){
+            	
+                    
+                    
+                if( $(this).hasClass("color-gray") ){ 
                  	$(this).removeClass("color-gray").addClass("color-lightgreen");
                 }else{
                 	$(this).removeClass("color-lightgreen").addClass("color-gray");

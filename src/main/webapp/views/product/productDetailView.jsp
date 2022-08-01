@@ -61,6 +61,9 @@
 	.review-rate{
 	  color:#fbd600;
 	}
+	#profile p {
+		text-align:center;
+	}
 </style>
 
 </head>
@@ -182,12 +185,14 @@
                 </div>
                 <!------- 장바구니 끝 ------->
 
+			  <!------------- 찜 버튼 시작 -------------->
               <a href="#" class="like_us" onclick="likeUs();"><i class="fa fa-heart-o" style="font-size:large;"></i></a>
               <script>
                 function likeUs(){
                   	if(<%=loginUser%> != null){ // 로그인 한 회원만 찜 가능
                   		
                   // 상품이 위시리스트에 담겨 있지 않을 때
+                  if(  )
                     $('.like_us i').css('color',"#f2f2f2");
                     $('.like_us i').parent().css('background',"#778C79"); 
 
@@ -204,6 +209,7 @@
                 }
                   
               </script>
+              <!------------- 찜 버튼 끝 -------------->
               <!--바로결제/장바구니/찜 끝-->
               
             </div>
@@ -336,73 +342,45 @@
           </div>
        </div>
 
-            <script>
+       <script>
+         
+           // ========================= 문의글 클릭 이벤트 ======================
+           $('.pro-qna-question').click(function(){ // 문의글 클릭했을 때
 
-              //$(function(){
-            	//  contact(); // 상품 문의 게시판 ajax
-              //}
+             var title = $(this).children('.col3'); // 문의글 제목
              
-           	  //function contact(){
-           	  	
-           		//  $.ajax({
-           		//	  url	   : "<%=contextPath%>/qlist.pro",
-           		//	  dataType : "JSON",
-           		//	  data	   : {
-           		//		  			proCode:<%= p.getProCode() %>,
-           		//		    		cpage:1
-           		//		   	     },
-           		//	  type	   : "POST",
-           		//	  success  : function(list){
-           				  		
-           				  			
-           				  
-           		//	  			 },
-           		//	  error	   : function(){
-           		//		  			console.log("상품 문의 조회용 ajax통신 실패");
-           		//	  			 }
-           	  	 //})
-           	  	 
-            	// }
-            	
-             	// ---------- 상품 문의 게시판 ajax 끝 ----------
-                
-                $('.pro-qna-question').click(function(){ // 문의글 클릭했을 때
+             if( title.children(0).hasClass('fa-lock') ){ // 비밀글일 경우 => 비밀번호 입력 받기
+           	  
+               const check = prompt('비밀번호를 입력하세요.', '숫자 네자리로 입력');
+             	var proQnaPwd = $(this).find('input[type=hidden]').val(); // 해당 문의글의 비ㅣ밀번호
 
-                  var title = $(this).children('.col3'); // 문의글 제목
-                  
-                  if( title.children(0).hasClass('fa-lock') ){ // 비밀글일 경우 => 비밀번호 입력 받기
-                	  
-                    const check = prompt('비밀번호를 입력하세요.', '숫자 네자리로 입력');
-                  	var proQnaPwd = $(this).find('input[type=hidden]').val(); // 해당 문의글의 비ㅣ밀번호
+               if(check == proQnaPwd){ // 번호 일치
 
-                    if(check == proQnaPwd){ // 번호 일치
+                 title.removeClass('fa-lock');
+                 title.text("!!! 진짜 제목 !!!");
+                 
+                 $(this).next(".pro-qna-answer").stop().slideToggle(300);
+                 $(this).next("pro-qna-answer").siblings("pro-qna-answer").slideUp(300);
 
-                      title.removeClass('fa-lock');
-                      title.text("!!! 진짜 제목 !!!");
-                      
-                      $(this).next(".pro-qna-answer").stop().slideToggle(300);
-                      $(this).next("pro-qna-answer").siblings("pro-qna-answer").slideUp(300);
+               }else { // 번호 불일치
+                 alert("비밀번호가 일치하지 않습니다.");
+               }
 
-                    }else { // 번호 불일치
-                      alert("비밀번호가 일치하지 않습니다.");
-                    }
+             }else { // 비밀글이 아니거나, 비밀글 비번 풀려있는 경우
+               
+               if($(this).next('pro-qna-answer').is('display','none')){ // 글 안 펼쳐져 있으면
+               	$(this).siblings('pro-qna-answer').removeClass('on');
+                 	$(this).next('pro-qna-answer').addClass('on');
+                 	$(this).show();
+               }else{ // 펼쳐져 있으면
+                 $(this).next('pro-qna-answer').removeClass('on');
+                 $(this).next('pro-qna-answer').attr('display', 'none');
+               }
+             }
 
-                  }else { // 비밀글이 아니거나, 비밀글 비번 풀려있는 경우
-                    
-                    if($(this).next('pro-qna-answer').is('display','none')){ // 글 안 펼쳐져 있으면
-                    	$(this).siblings('pro-qna-answer').removeClass('on');
-                      	$(this).next('pro-qna-answer').addClass('on');
-                      	$(this).show();
-                    }else{ // 펼쳐져 있으면
-                      $(this).next('pro-qna-answer').removeClass('on');
-                      $(this).next('pro-qna-answer').attr('display', 'none');
-                    }
-                  }
-
-                })
-                
-              })
-            </script>
+           })
+           // ====================== 문의글 클릭 이벤트 끝 ===========================
+       </script>
 
         <!-- 아래부터 Review 영역!! -->
         <!-- 아래부터 Review 영역!! -->

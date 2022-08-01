@@ -54,6 +54,7 @@
 	                                    </td>
 	                                    <td colspan="2">
 	                                        <input type="text" class="form-control" name="proName" value="<%=p.getProName()%>">
+	                                        
 	                                    </td>
 	                                </tr>
 	
