@@ -12284,6 +12284,7 @@ hr {
   padding: 25px !important;
 }
 .modal_update_form label{
+  margin-top: 9px;
   display:inline-block;
   width: 25%;
   vertical-align: middle;
@@ -12297,11 +12298,11 @@ hr {
 }
 .modal_update_form .update_misfit{
   color: red;
-  font-size: 12px;
+  font-size: 14px;
   /* text-align: center; */
 }
 .modal_update_form p{
-  margin-left: 25%;
+  margin-left: 27%;
   margin-bottom : 3px;
 }
 

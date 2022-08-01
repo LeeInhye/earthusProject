@@ -81,6 +81,22 @@ public class Member {
 		this.userStatus = userStatus;
 	}
 
+	public Member(int userNo, String userId, String userPwd, String userName, String email, String phone,
+			String zonecode, String address, String addrExtra, String addrDetail, Date userEnrollDate) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.email = email;
+		this.phone = phone;
+		this.zonecode = zonecode;
+		this.address = address;
+		this.addrExtra = addrExtra;
+		this.addrDetail = addrDetail;
+		this.userEnrollDate = userEnrollDate;
+	}
+
 	public Member(String userId, String userName) {
 		super();
 		this.userId = userId;
