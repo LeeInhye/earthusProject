@@ -82,7 +82,7 @@ public class Member {
 	}
 
 	public Member(int userNo, String userId, String userPwd, String userName, String email, String phone,
-			String zonecode, String address, String addrExtra, String addrDetail, Date userEnrollDate) {
+			String zonecode, String address, String addrExtra, String addrDetail, Date userEnrollDate, String userStatus) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
@@ -95,6 +95,7 @@ public class Member {
 		this.addrExtra = addrExtra;
 		this.addrDetail = addrDetail;
 		this.userEnrollDate = userEnrollDate;
+		this.userStatus = userStatus;
 	}
 
 	public Member(String userId, String userName) {

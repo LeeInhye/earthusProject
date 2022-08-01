@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.us.common.model.vo.PageInfo;
-import com.us.cs.qna.model.service.QnaService;
-import com.us.cs.qna.model.vo.Qna;
 import com.us.member.model.service.MemberService;
 import com.us.member.model.vo.Member;
 
@@ -35,7 +33,6 @@ public class AdMemberListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		// 페이징 처리
 		int listCount;	//  현재 게시글 총 갯수
 		int currentPage;	// 사용자가 요청한 페이지

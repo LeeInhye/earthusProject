@@ -132,6 +132,20 @@ public class MemberService {
 			return list;
 		}
 		
+		// 관리자 회원 삭제
+		public int adDeleteMember(String a) {
+			Connection conn = getConnection();
+			int result = new MemberDao().adDeleteMember(conn, a);
+			if(result > 0) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			}		
+			close(conn);
+
+			return result;
+		}
+		
 		
 		
 		

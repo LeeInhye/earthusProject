@@ -157,6 +157,7 @@
 		                      , ADDR_EXTRA
 		                      , ADDR_DETAIL
 		                      , USER_ENROLL_DATE
+		                      , USER_STATUS
 		                  FROM MEMBER
 		                  ORDER
 		                    BY USER_NO DESC
@@ -182,6 +183,7 @@
 		                     , ADDR_EXTRA
 		                     , ADDR_DETAIL
 		                     , USER_ENROLL_DATE
+		                     , USER_STATUS
 		                  FROM MEMBER
 		                 WHERE USER_ID LIKE ?
 		                    OR USER_NAME LIKE ?
@@ -192,7 +194,11 @@
 		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
-	
+	<entry key="adDeleteMember">
+		UPDATE 
+		       MEMBER
+		   SET USER_STATUS = 'N'
+	</entry>
 	
 	
 	

@@ -391,6 +391,7 @@ public class MemberDao {
 							   , rset.getString("ADDR_EXTRA")
 							   , rset.getString("ADDR_DETAIL")
 							   , rset.getDate("USER_ENROLL_DATE")
+							   , rset.getString("USER_STATUS")
 						));
 			}
 		} catch (SQLException e) {
@@ -434,6 +435,7 @@ public class MemberDao {
 							   , rset.getString("ADDR_EXTRA")
 							   , rset.getString("ADDR_DETAIL")
 							   , rset.getDate("USER_ENROLL_DATE")
+							   , rset.getString("USER_STATUS")
 						));
 			}
 		} catch (SQLException e) {
@@ -445,7 +447,38 @@ public class MemberDao {
 		return list;
 	}
 	
-	
+	// 관리자 회원 삭제
+	public int adDeleteMember(Connection conn, String a) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("adDeleteMember");
+		
+		// 동적 sql문
+		sql += "WHERE USER_NO IN ("; 
+		
+		String[] aArr = a.split(",");  // ["3", "4"]
+		for(int i = 0; i < aArr.length; i++) {
+			sql += aArr[i];
+			if(i != aArr.length-1) {
+				sql += ",";
+			}
+		}
+		
+		sql += ")";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;	
+	}
 	
 	
 	

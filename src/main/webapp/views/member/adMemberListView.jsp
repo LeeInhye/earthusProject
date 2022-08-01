@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page 
-	import="java.util.ArrayList, com.us.member.model.vo.Member, com.us.common.model.vo.PageInfo" 
+	import="java.util.ArrayList, com.us.member.model.vo.Member, com.us.common.model.vo.PageInfo, java.text.SimpleDateFormat" 
 %>
 <%
 	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list");
@@ -15,12 +15,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- 부트스트랩 -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-  	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
 </head>
 <body>
 
@@ -36,7 +31,7 @@
                     
                     <br><br>
 		            
-		            <div style="width: 80%" class="main_width  sumin_font">
+		            <div style="width: 90%" class="main_width  sumin_font">
 		                <input type="text" class="search_all" placeholder="회원 아이디/이름 입력" id="keyword">
 		               
 		                &nbsp;
@@ -89,9 +84,12 @@
 				                            	txt += " " + newList[i].addrDetail + "</td>"
 				                            }
 				                           
+				                            
+				                            txt += "<td>" + newList[i].userEnrollDate + "</td>";
 				                            <!--  포인트 넣기 -->
 				                            txt += "<td>1400</td>";
-				                            txt += '<td class="btn_left">'
+				                            txt += "<td>" + newList[i].userStatus + "<td>";
+				                            txt += '<td class="btn_left">';
 				                            txt += '<button type="button" class="btn-sm btn_black" data-toggle="modal" data-target="#adUpdateMember">';
 				                            txt +=         '수정';
 				                            txt +=     '</button></td></tr>';
@@ -117,14 +115,15 @@
 		                        <tr class="table_thead_border" style="border-bottom: none;">
 		                            <th width="3%"><input type="checkbox" onclick="checkAll(this);" id="checkAll"></th>
 		                            <th width="5%">번호</th>
-		                            <th width="10%">아이디</th>
-		                            <th width="9%">이름</th>
-		                            <th width="20%">이메일</th>
+		                            <th width="8%">아이디</th>
+		                            <th width="8%">이름</th>
+		                            <th width="18%">이메일</th>
 		                            <th width="10%">휴대폰</th>
 		                            <th width="20%">주소</th>
 		                            <th width="10%">가입일</th>
 		                            <th width="7%">포인트</th>
-		                            <th width="9%"></th>
+		                            <th width="5%">상태</th>
+		                            <th width="6%"> </th>
 		                        </tr>
 		                    </thead>
 		                    <tbody id="mBody">
@@ -133,7 +132,7 @@
                 			<% for(Member m : list) { %>
 		                        <!-- 값은 다 DB와 연결될 것 -->
 		                        <tr>
-		                            <td><input type="checkbox" name="checkMember"></td>
+		                            <td><input type="checkbox" name="checkMember" value="<%= m.getUserNo() %>"></td>
 		                            <td><%= m.getUserNo() %></td>
 		                            <td><%= m.getUserId() %></td>
 		                            <td><%= m.getUserName() %></td>
@@ -164,8 +163,9 @@
 		                            <td><%= m.getUserEnrollDate() %></td>
 		                            <!--  포인트 넣기 -->
 		                            <td>1400</td>
+		                            <td><%= m.getUserStatus() %></td>
 		                            <td class="btn_left">
-		                                <button type="button" id="updateBtn" class="btn-sm btn_black" data-toggle="modal" data-target="#adUpdateMember">
+		                                <button type="button" id="updateBtn" class="btn-sm btn_black" data-bs-toggle="modal" data-bs-target="#adUpdateMember">
 		                                    수정
 		                                </button>
 		                            </td>
@@ -179,8 +179,14 @@
 		                
 		                <br><br>
 		                <div>
-		                    <button type="button" class="btn btn_black btn_left" data-toggle="modal" data-target="#adDeleteMember">회원삭제</button>
+		                    <button type="button" id="deleteBtn" class="btn btn_black btn_left" onclick="deleteMember();">
+		                    회원삭제</button>
 		                </div>
+		                
+		                
+		                
+		                
+		                
 		            </div>
 		            
 		            <br><br>
@@ -236,90 +242,6 @@
 
 					</script>
 					
-					<!-- 회원 수정 모달창 -->
-					            <form action="<%= contextPath %>/adUpdate.me" method="post">
-				                    <div class="modal" id="adUpdateMember" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" tabindex="-1">
-				                        <div class="modal-dialog modal-dialog-centered cascading-modal modal-avatar">
-				                            <div class="modal-content_su">
-				
-				                                <!-- Modal Header -->
-				                                <div class="modal-header_su">
-				                                    <h4 class="modal-title"><b>회원 정보 수정</b></h4>
-				                                    &emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;
-				                                    <button type="button" class="close" style="text-align: right;" data-dismiss="modal">&times;</button>
-				                                    <hr class="my-hr2">
-				                                </div>
-				                                
-				
-				                                <!-- 원래 등록된 정보 넣어주기, name, id 바꾸기 -->
-				                                <!-- Modal body -->
-				                                <div class="modal-body modal_update_form">
-				                                
-				                                	<!-- 해당 회원 넘버 가져오기 -->
-				                                	<script>
-				                                		$("#updateBtn").click(function(){
-				                                			var td = $(this).parent();
-				                                			int no = Integer.parseInt(td.eq(0).text());
-				                                		})
-				                                	</script>
-				
-				                                    <label for="name">이름</label>
-				                                    <input type="text" id="name" value="<%= list.get(0).getUserName() %>">
-				                                    <p class="update_misfit">* 이름은 필수 입력 사항입니다.</p>
-				
-				                                    <br>
-				                                    <label for="pwd">비밀번호</label>
-				                                    <input type="text" id="pwd" value="<%= list.get(0).getUserPwd() %>">
-				                                    <p style="font-size: 14px; color: gray;">첫글자 영문<br>영문 대소문자/숫자/특수문자 중 2가지 이상 조합.
-				                                        8~16자</p>
-				                                    <p class="update_misfit">* 비밀번호는 필수 입력 사항입니다.</p>
-				
-				                                    <br>
-				                                    <label for="checkPwd">비밀번호 확인</label>
-				                                    <input type="password" id="checkPwd">
-				                                    <p class="update_misfit">* 비밀번호가 일치하지 않습니다.</p>
-				                                    <br>
-				
-				                                    <label for="email">이메일</label>
-				                                    <input type="email" id="email">
-				                                    <button class="btn-sm btn_gray">중복확인</button>
-				                                    <p class="update_misfit">* 중복되는 이메일이 존재합니다.</p>
-				                                    <br>
-				
-				                                    <label for="phone">전화번호</label>
-				                                    <input type="text" id="phone">
-				                                    <button class="btn-sm btn_gray">중복확인</button>
-				                                    <p class="update_misfit">* 중복되는 전화번호가 존재합니다.</p>
-				                                    <br>
-				
-				                                    <label for="address">주소</label>
-				                                    <input type="text" style="width: 25%;"> &nbsp;
-				                                    <button class="btn-sm btn_gray"
-				                                        style="width: 22%; font-size: 13px;">우편번호 찾기</button>
-				                                    <br>
-				                                    <label for=""></label> <input type="text"> <br>
-				                                    <label for=""></label> <input type="text" style="margin-top: 7px;">
-				
-				
-				
-				
-				                                </div>
-				
-				                                <!-- Modal footer -->
-				                                <div class="modal-footer_su">
-				                                    <hr class="my-hr2">
-				                                    <button type="submit" class="btn btn_black btn_save" data-dismiss="modal">저장</button>
-				                                </div>
-				
-				                            </div>
-				                        </div>
-				                    </div>
-				                </form>
-					
-
-		            
-		            
-                    
                     
                     <!-- 회원 삭제 모달창 -->
                     <div class="modal fade" id="adDeleteMember" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -334,8 +256,8 @@
 	                                    <h5 class="mt-1 mb-2">정말 삭제하시겠습니까?</h5>
 	                                    <br>                                
 	                                    <div class="text-center mt-4"> 
-	                                        <button type="button" class="btn btn_gray btn_medium" data-dismiss="modal">취소</button>
-	                                        <button type="button" class="btn btn_black btn_medium" data-toggle="modal" data-target="#adDeleteMemberCheck" data-dismiss="modal">확인</button>
+	                                        <button type="button" id="next" class="btn btn_gray btn_medium" data-bs-dismiss="modal">취소</button>
+	                                        <button type="button" id="realDelete" class="btn btn_black btn_medium">확인</button>
 	                                    </div>
 	                                </div>
 	                            </div>
@@ -343,25 +265,71 @@
 	                    </div>
 	                </div>
 	                
-	                <div class="modal fade" id="adDeleteMemberCheck" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		                <div class="modal-dialog modal-dialog-centered cascading-modal modal-avatar" role="document">
-		                    <!--Content-->
-		                    <div class="modal-content modal_alert">
-		                        
-		                        <!--Body-->
-		                        <div class="modal-body text-center modal_alert_child">
-		                            <div>
-		            
-		                                <h5 class="mt-1 mb-2">성공적으로 삭제되었습니다.</h5>
-		                                <br>                                
-		                                <div class="text-center mt-4"> 
-		                                    <button type="button" class="btn btn_black btn_medium" data-dismiss="modal">확인</button>
-		                                </div>
-		                            </div>
-		                        </div>
-		                    </div>
-		                </div>
-		            </div>
+	                <button type="button" id="nocheckBtn" class="btn_trans" data-bs-toggle="modal" data-bs-target="#nocheck"></button>
+	                <!-- 회원 선택 안했을 때 -->
+	                <div class="modal fade" id="nocheck" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	                    <div class="modal-dialog modal-dialog-centered cascading-modal modal-avatar" role="document">
+	                        <!--Content-->
+	                        <div class="modal-content modal_alert">
+	                            
+	                            <!--Body-->
+	                            <div class="modal-body text-center modal_alert_child">
+	                                <div>
+	                
+	                                    <h5 class="mt-1 mb-2">삭제할 회원을 선택해주세요.</h5>
+	                                    <br>                                
+	                                    <div class="text-center mt-4"> 
+	                                        <button type="button" class="btn btn_black btn_medium" data-bs-dismiss="modal">확인</button>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	                
+	                
+	                <script>
+	                	// 회원 삭제
+	                	function deleteMember(){
+                            var checkCnt = "";
+
+                            $("input:checkbox[name=checkMember]:checked").each(function(){
+                                checkCnt = checkCnt + ($(this).val()) + ","; // 체크된 것만 게시글번호 뽑기 "2,3,4,"
+                            })
+
+                            checkCnt = checkCnt.substring(0,checkCnt.lastIndexOf(",")); // 맨 뒤 콤마 삭제 "2,3,4"
+                            console.log(checkCnt);
+							
+                            // 선택된 체크박스 없이 삭제 버튼 누른 경우
+                            if(checkCnt == ''){
+                            	$("#deleteBtn").removeAttr("data-bs-toggle");
+                            	$("#deleteBtn").removeAttr("data-bs-target");
+                                $("#nocheckBtn").click();
+                            }
+
+                            else {
+                            	$("#deleteBtn").attr("data-bs-toggle", "modal");
+                            	$("#deleteBtn").attr("data-bs-target", "#adDeleteMember");
+                            	
+                            	$("#realDelete").click(function(){
+                            	
+		                            $.ajax({
+		                                url:"<%= contextPath %>/adDelete.me",
+		                                data:{"checkCnt":checkCnt},
+		                                success:function(result){
+		                                	if(result > 0){
+		                                		location.reload();
+		                                	}
+		                                },
+		                                error:function(){
+		                                    console.log("ajax 게시글 삭제 실패")
+		                                }
+		                            })
+                            	})
+                            }							                            
+
+                        }
+		            </script>
 		            
 		            
 		            
