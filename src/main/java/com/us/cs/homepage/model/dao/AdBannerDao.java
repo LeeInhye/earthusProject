@@ -88,5 +88,63 @@ public class AdBannerDao {
 		}
 		return result;
 	}
+	
+	
+	public int updateBanner(Connection conn, Banner b, Attachment at) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = "";
+		
+		
+		if(at != null) {
+			// 업로드된 이미지 파일이 있을 때
+			sql = prop.getProperty("updataBannerWithPic");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, at.getFilePath() + at.getChangeName());
+				pstmt.setString(2, b.getBnStatus());
+				pstmt.setInt(3, b.getBnNo());
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+		}else {
+			// 업로드된 이미지 파일이 없을 때
+			sql = prop.getProperty("updateBannerWithoutPic");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, b.getBnStatus());
+				pstmt.setInt(2, b.getBnNo());
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+		}
+		return result;
+	}
+	
+	
+	public int updateAttachment(Connection conn, Banner b, Attachment at) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+			pstmt.setString(4, at.getStatus());
+			pstmt.setInt(5, at.getRefBNo());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 
 }

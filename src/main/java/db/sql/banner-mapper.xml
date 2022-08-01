@@ -35,6 +35,30 @@
 			 , 'Y'
 			 )
 	</entry>
+	
+	<entry key="updataBannerWithPic">
+		UPDATE BANNER
+		   SET BN_IMG_URL = ?
+		     , BN_STATUS = ?
+		 WHERE BN_NO = ?
+	</entry>
+	
+	<entry key="updataBannerWithoutPic">
+		UPDATE BANNER
+		   SET BN_STATUS = ?
+		 WHERE BN_NO = ?
+	</entry>
+	
+	<entry key="updateAttachment">
+		UPDATE ATTACHMENT
+		   SET ORIGIN_NAME = ?
+		     , CHANGE_NAME = ?
+		     , FILE_PATH = ?
+		     , UPLOAD_DATE = SYSDATE
+		     , STATUS = ?
+		 WHERE REF_TYPE = 6
+		   AND REF_NO = ?
+	</entry>
 
 
 </properties>

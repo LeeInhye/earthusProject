@@ -32,5 +32,24 @@ public class AdBannerService {
 		close(conn);
 		return result1 * result2;
 	}
+	
+	
+	public int updateBanner(Banner b, Attachment at) {
+		Connection conn = getConnection();
+		int result1 = new AdBannerDao().updateBanner(conn, b, at);
+		int result2 = 1;
+		
+		if(at != null) {
+			result2 = new AdBannerDao().updateAttachment(conn, b, at);			
+		}
+		
+		if(result1 * result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result1 * result2;
+	}
 
 }

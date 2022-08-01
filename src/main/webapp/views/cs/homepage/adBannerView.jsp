@@ -3,7 +3,7 @@
 <%@ page import="com.us.cs.homepage.model.vo.Banner, java.util.ArrayList" %>
 <%
 	ArrayList<Banner> list = (ArrayList<Banner>)request.getAttribute("list");
-	String successMsg = (String)request.getAttribute("successMSg");
+	String successMsg = (String)request.getAttribute("successMsg");
 	String errorMsg = (String)request.getAttribute("errorMsg");
 %>
 <!DOCTYPE html>
@@ -103,12 +103,12 @@
 						<tbody>
 							<% for(Banner b : list){ %>
 							<tr>
-								<td><%=b.getBnNo()%></td>
+								<td class="baNo"><%=b.getBnNo()%></td>
 								<td><%=b.getBnStatus()%></td>
 								<td height="150px;">
-									<a href="" id="activate-edit-modal" data-toggle="modal" data-target="#edit-banner">
+									<div class="activate-edit-modal" data-toggle="modal" data-target="#edit-banner">
 										<img src="<%=b.getBnImgURL()%>" style="height:100%; width:400px;">
-									</a>
+									</div>
 								</td>
 							</tr>
 							<% } %>
@@ -127,6 +127,21 @@
 			</div>
 		</main>
 	</div>
+	
+	<!-- START LIST SCRIPT AREA -->
+	<script>
+		$(function(){
+			
+			$(".activate-edit-modal").click(function(){
+				
+				$("#banner-no").val( $(this).parent().siblings(".baNo").text()  );
+				$("#thumbnail-img").attr("src", $(this).children("img").attr("src") );
+			})
+			
+		})
+	</script>
+	<!-- END LIST SCRIPT AREA -->
+	
 	<!-- ========== START MODAL AREA ========== -->
 	<!-- Modal - Edit Banner -->
 	<div class="modal" id="edit-banner">
@@ -136,18 +151,19 @@
 			<div class="modal-content">
 				<form action="<%=contextPath%>/edit.bn" method="post" enctype="multipart/form-data">
 					<div class="modal-header"><h3 class="modal-title">배너 수정</h3></div>
+					<input type="hidden" name="banner-no" value="" id="banner-no">
 					
 					<div class="modal-body">
 						<p>배너 이미지 수정</p>
 						<div>
-							<img class="thumbnail-img"  onclick="insertImg();">
-							<input type="file" name="banner-img" id="eidt-img" onchange="loadImg(this);" style="visibility: hidden;" required>
+							<img class="thumbnail-img" src="" onclick="$('#eidt-img').click();" id="thumbnail-img">
+							<input type="file" name="banner-img" id="eidt-img" onchange="loadImg(this);" style="display:none">
 							<!-- 파일 업로드하면 업로드된 사진이 썸네일에 변경되어 보여야 함 -->
 						</div>
 						
 						<div class="banner-status">
 							<p style="padding-right: 10px;">배너 상태 수정</p>
-							<select name="bn-status" id="bn-status">
+							<select name="banner-status" id="bn-status">
 								<option value="Y">공개</option>
 								<option value="N">삭제</option>
 							</select>
@@ -176,7 +192,7 @@
 					<div class="modal-body">
 						<p>배너 이미지 등록</p>
 						<div>
-							<img class="thumbnail-img" onclick="insertImg();">
+							<img class="thumbnail-img" onclick="$('#insert-img').click();">
 							<input type="file" name="banner-img" id="insert-img" onchange="loadImg(this);" style="visibility: hidden;" required>
 							<!-- 파일 업로드하면 업로드된 사진이 썸네일에 변경되어 보여야 함 -->
 						</div>
@@ -194,13 +210,8 @@
 	<!-- ========== END MODAL CONTENT AREA ========== -->
 
 
-	<!-- ========== START SCRIPT AREA ========== -->
+	<!-- ========== START MODAL SCRIPT AREA ========== -->
 	<script>
-		// 썸네일 클릭하면 이미지 업로드할 수 있도록 만드는 함수
-		function insertImg(){
-			$("input").click();
-		}
-		
 		// 썸네일에 선택한 이미지 미리보기하는 함수
 		function loadImg(inputFile){
             if(inputFile.files.length == 1){
@@ -215,14 +226,9 @@
            		$(".thumbnail-img").attr("src", null);     
             }
         };
-		
-		// 파일을 첨부하면 수정하기/등록하기 버튼이 활성화되도록 만드는 함수
-		/* $(function(){
-			$("input[type=file]").change(function(){
-				$(".btn").removeAttr("disabled");
-			})
-		}) */
-		
+        
+        
+		// 요청처리 완료 후 성공/실패 메시지를 출력하는 함수
 		$(function(){
 			<% if(errorMsg != null){ %>
 				alert("<%= errorMsg %>");
