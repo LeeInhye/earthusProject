@@ -404,7 +404,8 @@
               })
             </script>
 
-        <!-- 아래부터 Reviews 영역!! -->
+        <!-- 아래부터 Review 영역!! -->
+        <!-- 아래부터 Review 영역!! -->
         <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
           <div class="row">
             <div class="col-lg-6">
@@ -541,7 +542,7 @@
               </div>
             </div>
             <div class="col-lg-6">
-              <form class="row contact_form" action="contact_process.php" name="reviewContent" method="post" novalidate="novalidate">
+              <form class="row contact_form" action="<%=contextPath%>/insert.re" name="review" method="post" novalidate="novalidate">
                   <div class="col-md-12">
                     <div class="form-group">
                       <h4>리뷰 작성하기</h4>
@@ -560,25 +561,13 @@
                       </fieldset>
 
                       <script>
-                        // 별점 hover이벤트에 대한 function
-                        //  hover(inFunction, outFunction) 
                         $(function(){
-                          /*
-                          $(".review-rate").hover(function(){
-                            $(this).parent().nextAll("label").children().css("color", "#F2F2F2");
-                          }, function(){
-                            $(this).parent().nextAll("label").children().css("color", "#fbd600");
-                          });*/
-
                           // 별점 checked속성에 대한 function (클릭하면 유지되도록)
                           $("input[name=rate]").change(function(){
                             $(this).next().children().css("color", "#fbd600");
                             $(this).prevAll("label").children().css("color", "#fbd600");
-
                             $(this).next().nextAll("label").children().css("color", "#F2F2F2");
-
                           })
-                          
                         })                      
                       </script>
                
@@ -587,7 +576,7 @@
                     </div>
                   </div>
                   <div class="col-md-12 text-right">
-                    <button type="submit" value="submit" class="btn" style="background-color:#A8BFAA; color:#F2F2F2;">제출하기</button>
+                    <button type="submit" class="btn" style="background-color:#A8BFAA; color:#F2F2F2;">제출하기</button>
                   </div>
               </form>
             </div>
