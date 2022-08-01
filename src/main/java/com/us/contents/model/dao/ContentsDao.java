@@ -267,4 +267,36 @@ public class ContentsDao {
 		return list;
 	}
 	
+	public int deleteContents(Connection conn, String cntNo) {
+		// update => 처리된 행 수
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteContents");
+		
+		// 동적 sql문
+		sql += "WHERE CNT_NO IN ("; 
+		
+		String[] cntArr = cntNo.split(",");  // ["3", "4"]
+		for(int i=0; i<cntArr.length; i++) {
+			sql += cntArr[i];
+			if(i != cntArr.length-1) {
+				sql += ",";
+			}
+		}
+		
+		sql += ")";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;		
+	}
 }
