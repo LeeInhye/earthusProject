@@ -12166,6 +12166,12 @@ hr {
   background-color: rgba(0, 0, 0, 0) !important;
   border: 0;
 }
+.btn_center{
+	text-align: center;
+}
+.btn_center *{
+	font-size: 18px !important;
+}
 
 
 .btn {
@@ -12437,5 +12443,56 @@ hr {
   font-size: 17px;
 }
 
+.update_form input{
+	border: 1px solid gray;
+}
+.update_form * {
+  font-size: 17px;
+}
+.tb_enroll_star{
+  color: red;
+}
 
+.tb_update_member input::placeholder{
+  font-size: 17px;
+}
+.tb_update_member th{
+  background-color: #f2f2f2;
+  text-align: left;
+  width:30%;
+  vertical-align: middle;
+  padding-left: 20px;
+}
+
+.tb_update_member td input[type=text],
+.tb_update_member td input[type=password]
+{
+  width:70%;
+  border: 1px solid #ccc;
+}
+.tb_update_member td input[type=email],
+.tb_update_member td input[type=number],
+.tb_update_member td input[type=date]{
+  border: 1px solid #ccc;
+}
+.tb_enroll_centered{
+  width:65%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.first_tr th{
+	height: 60px;
+	vertical-align: top;
+}
+.font_lighter_gray{
+  font-weight:300;
+  color: gray;
+  font-size:16px;
+}
+.font_green{
+	color: #778C79;
+}
+.addr{
+  margin: 4px 0px;
+}
 /* ========================================================================== */
