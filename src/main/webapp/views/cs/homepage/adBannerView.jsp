@@ -3,8 +3,8 @@
 <%@ page import="com.us.cs.homepage.model.vo.Banner, java.util.ArrayList" %>
 <%
 	ArrayList<Banner> list = (ArrayList<Banner>)request.getAttribute("list");
-	String successMsg = (String)request.getAttribute("successMsg");
-	String errorMsg = (String)request.getAttribute("errorMsg");
+	String successMsg = (String)session.getAttribute("successMsg");
+	String errorMsg = (String)session.getAttribute("errorMsg");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -104,7 +104,7 @@
 							<% for(Banner b : list){ %>
 							<tr>
 								<td class="baNo"><%=b.getBnNo()%></td>
-								<td><%=b.getBnStatus()%></td>
+								<td id="baSt"><%=b.getBnStatus()%></td>
 								<td height="150px;">
 									<div class="activate-edit-modal" data-toggle="modal" data-target="#edit-banner">
 										<img src="<%=b.getBnImgURL()%>" style="height:100%; width:400px;">
@@ -128,19 +128,26 @@
 		</main>
 	</div>
 	
-	<!-- START LIST SCRIPT AREA -->
+	<!-- START SCRIPT AREA FOR EDIT MODAL -->
 	<script>
 		$(function(){
 			
 			$(".activate-edit-modal").click(function(){
-				
-				$("#banner-no").val( $(this).parent().siblings(".baNo").text()  );
+				$("#banner-no").val( $(this).parent().siblings(".baNo").text() );
 				$("#thumbnail-img").attr("src", $(this).children("img").attr("src") );
+				
+				if( $(this).parent().siblings("#baSt") == 'Y' ){
+					$("option[value='Y']").attr("selected", true);
+				}else{
+					$("option[value='Y']").attr("selected", false);
+					$("option[value='N']").attr("selected", true);
+				}
 			})
+			
 			
 		})
 	</script>
-	<!-- END LIST SCRIPT AREA -->
+	<!-- END SCRIPT AREA -->
 	
 	<!-- ========== START MODAL AREA ========== -->
 	<!-- Modal - Edit Banner -->
@@ -230,15 +237,15 @@
         
 		// 요청처리 완료 후 성공/실패 메시지를 출력하는 함수
 		$(function(){
+			<% if(successMsg != null) { %>
+				alert("<%= successMsg %>");
+				 <% successMsg = null; %> 
+			<% } %>
+			
 			<% if(errorMsg != null){ %>
 				alert("<%= errorMsg %>");
 				<% errorMsg = null; %>
-			<% }%>
-			
-			<% if(successMsg != null) { %>
-				alert("<%= successMsg %>");
-				<% successMsg = null; %>
-			<% } %>
+			<% }%>			
 		})
 		
 		

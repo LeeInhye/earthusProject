@@ -65,18 +65,16 @@ public class AdBannerInsertController extends HttpServlet {
 			// 6) 응답 페이지로 
 			if(result > 0) {
 				// 성공 : adBannerView.jsp 재요청
-				request.setAttribute("successMsg", "배너 동록에 성공하였습니다.");
+				session.setAttribute("successMsg", "배너 동록에 성공하였습니다.");
 				response.sendRedirect(request.getContextPath() + "/list.bn");
 			}else {
 				// 업로드 되었던 첨부파일 찾아서 삭제시키기
 				if(at != null) {
 					new File(savePath + at.getChangeName()).delete();
 				}
-				request.setAttribute("errorMsg", "배너 등록에 실패하였습니다.");
+				session.setAttribute("errorMsg", "배너 등록에 실패하였습니다.");
 				response.sendRedirect(request.getContextPath() + "/list.bn");
 			}
-			
-			
 		}
 	}
 
