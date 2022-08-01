@@ -72,8 +72,51 @@
                        <% } %>
                    </table>
 
-                       <button class="btn_admin" onclick="deleteContents();" style="float: left; margin-left: 10%;">선택 삭제</button>
+                       <button class="btn_admin" id="btn_delete" style="float: left; margin-left: 10%;">선택 삭제</button>
                        <button class="btn_admin" style="float: right; margin-right: 10%;" id="btn_enroll">새 글 작성</button>
+
+                    <!-- 모달: 게시글 선택 안 했을 경우 -->
+                    <div class="modal fade" id="jyModal_noCheck">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                <button type="button" class="modal_close" data-bs-dismiss="modal" style="margin-left: 95%;">&times;</button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="modal-body" style="text-align: center;">
+                                삭제할 게시글을 선택해 주세요.
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">확인</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 끝 -->
+
+                    <!-- 모달: 삭제 컨펌 -->
+                    <div class="modal fade" id="jyModal_confirm">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                <button type="button" class="modal_close" data-bs-dismiss="modal" style="margin-left: 95%;">&times;</button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="modal-body" style="text-align: center;">
+                                정말 삭제하시겠습니까?
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">취소</button>
+                                <button type="button" class="btn btn-dark" id="realDelete">확인</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 끝 -->
 
 					<script>
 						$(function(){
@@ -116,7 +159,7 @@
 						})
 						
                         // 선택 게시글 삭제
-                        function deleteContents(){
+                        $("#btn_delete").click(function(){
                             var checkCnt = "";
 
                             $("input:checkbox[name=check]:checked").each(function(){
@@ -126,26 +169,30 @@
                             checkCnt = checkCnt.substring(0,checkCnt.lastIndexOf(",")); // 맨 뒤 콤마 삭제 "2,3,4"
                             console.log(checkCnt);
 							
-                            // 선택된 체크박스 없이 삭제 버튼 누른 경우
-                            if(checkCnt == ''){
-                                alert("삭제할 게시글을 선택하세요");
+                            if(checkCnt == ''){ // 선택된 체크박스 없이 삭제 버튼 누른 경우
+                                $("#btn_delete").attr("data-bs-toggle", "modal");
+                	            $("#btn_delete").attr("data-bs-target", "#jyModal_noCheck");
                                 return false;
-                            }
+                            } 
 
-                            if(confirm("정말 삭제하시겠습니까?")) {
-	                            $.ajax({
-	                                url:"/us/delete.co",
-	                                data:{"checkCnt":checkCnt},
-	                                success:function(){
-		                                location.reload();
-	                                },
-	                                error:function(){
-	                                    console.log("ajax 게시글 삭제 실패")
-	                                }
-	                            })
-                            }							                            
+                            // 체크해서 삭제 버튼 누른 경우
+                            $("#btn_delete").attr("data-bs-toggle", "modal");
+                            $("#btn_delete").attr("data-bs-target", "#jyModal_confirm");
+                            
+                            $("#realDelete").click(function(){
+                                $.ajax({
+                                    url:"<%= contextPath%>/delete.co",
+                                    data:{"checkCnt":checkCnt},
+                                    success:function(){
+                                        location.reload();
+                                    },
+                                    error:function(){
+                                        console.log("ajax 게시글 삭제 실패")
+                                    }
+                                })
+                            })
 
-                        }
+                        })
 					</script>
 
                </div>
