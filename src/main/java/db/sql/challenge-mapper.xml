@@ -44,6 +44,19 @@
 		     )		
 	</entry>
 
-
+	<entry key="selectAdList">
+		SELECT
+		       CHALL_NO
+		     , CHALL_TITLE
+		     , CHALL_POINT
+		     , CHALL_ENROLL_DATE
+		     , (SELECT COUNT(*)
+		          FROM CHALLENGE_CMNT CC 
+		         WHERE CC.CHALL_NO = C.CHALL_NO) AS CHALL_CMNT
+		  FROM CHALLENGE C
+		 WHERE CHALL_STATUS = 'Y'
+		 ORDER 
+		    BY CHALL_NO DESC
+	</entry>
 
 </properties>

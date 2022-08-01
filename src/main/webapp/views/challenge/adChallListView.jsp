@@ -1,8 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.us.challenge.model.vo.Challenge"%>
+<%
+	ArrayList<Challenge> list = (ArrayList<Challenge>)request.getAttribute("adList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+   table{
+           border:2px solid lightgray;
+           font-size:small;
+           text-align:center;
+           width:80%;
+           margin:auto;
+       }
+    table td{
+    	border:1px solid lightgray;
+    	height: 40px;
+    }
+    table th{
+    	background-color:rgba(211, 211, 211,0.5);
+    	border:1px solid lightgray;
+    	height: 50px;
+    }
+    .list-area:hover {
+    	background: #F2F2F2;
+    	cursor:pointer;
+    }
+</style>
 </head>
 <body>
 
@@ -29,7 +54,24 @@
 							<th width="10%">댓글 수</th>
 						</tr>
 						
-
+						<% if(list.isEmpty()) { %>
+							<tr>
+								<td colspan="6">존재하는 콘텐츠가 없습니다.</td>
+							</tr>  	
+						<% } else { %>
+							   <% for(Challenge cc : list) { %>
+								<tr class="list-area">
+									 <td onclick="event.stopPropagation();">
+										<input type="checkbox" name="check" value="<%= cc.getChallNo() %>">
+									</td>
+									<td><%= cc.getChallNo() %></td>
+									<td><%= cc.getChallTitle() %></td>
+									<td><%= cc.getChallEnrollDate() %></td>
+									<td><%= cc.getChallPoint() %></td>
+									<td><%= cc.getChallCmnt() %></td>
+								</tr>
+							<% } %>
+						<% } %>
 					</table>
  
 						<button class="btn_admin" onclick="deleteContents();" style="float: left; margin-left: 10%;">선택 삭제</button>
@@ -44,9 +86,9 @@
 								 
 							 // 게시글 클릭시 해당 게시글 수정 페이지로 이동
 							 $(".list-area").click(function(){
-								 const cntNo = $(this).children().eq(1).text(); // 클릭한 글 번호
+								 const challNo = $(this).children().eq(1).text(); // 클릭한 글 번호
 								 
-								 location.href = '<%=contextPath%>/updateForm.co?no='+ cntNo;
+								 location.href = '<%=contextPath%>/updateForm.ch?no='+ challNo;
 							 })
 							 
 							 // 체크박스 전체선택, 전체해제 기능
@@ -94,7 +136,7 @@
  
 							 if(confirm("정말 삭제하시겠습니까?")) {
 								 $.ajax({
-									 url:"/us/delete.co",
+									 url:"/us/delete.ch",
 									 data:{"checkCnt":checkCnt},
 									 success:function(){
 										 location.reload();

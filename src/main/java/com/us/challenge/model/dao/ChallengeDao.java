@@ -6,12 +6,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import com.us.challenge.model.vo.Challenge;
 import com.us.common.model.vo.Attachment;
-import com.us.contents.model.dao.ContentsDao;
 
 public class ChallengeDao {
 	
@@ -71,6 +72,38 @@ public class ChallengeDao {
 		}
 		
 		return result;
+	}
+	
+	// 관리자_챌린지 리스트 조회
+	public ArrayList<Challenge> selectAdList(Connection conn) {
+		// select => ResultSet(여러 행) => ArrayList<Challenge>
+		ArrayList<Challenge> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectAdList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Challenge(rset.getInt("chall_no"),
+									   rset.getString("chall_title"),
+									   rset.getInt("chall_point"),
+									   rset.getDate("chall_enroll_date"),
+									   rset.getInt("chall_cmnt")
+						));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 
 	

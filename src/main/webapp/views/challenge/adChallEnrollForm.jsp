@@ -35,7 +35,7 @@
                             <br><br>
 
                             <p>지급할 포인트</p>
-                            <input type="number" name="point" min="500" step="500" style="width:150px" required> P
+                            <input type="number" name="point" min="500" step="500" placeholder="최소 500P부터 500P 단위로 입력" style="width:200px" required> P
                             <br><br><br>
 
                             <p>썸네일 이미지</p>

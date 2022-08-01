@@ -12,6 +12,7 @@ public class Challenge {
 	private int challCount;
 	private Date challEnrollDate;
 	private String challStatus;
+	private int challCmnt; // 댓글 수
 	
 	public Challenge() {}
 
@@ -26,6 +27,15 @@ public class Challenge {
 		this.challCount = challCount;
 		this.challEnrollDate = challEnrollDate;
 		this.challStatus = challStatus;
+	}
+
+	public Challenge(int challNo, String challTitle, int challPoint, Date challEnrollDate, int challCmnt) {
+		super();
+		this.challNo = challNo;
+		this.challTitle = challTitle;
+		this.challPoint = challPoint;
+		this.challEnrollDate = challEnrollDate;
+		this.challCmnt = challCmnt;
 	}
 
 	public int getChallNo() {
@@ -92,11 +102,20 @@ public class Challenge {
 		this.challStatus = challStatus;
 	}
 
+	public int getChallCmnt() {
+		return challCmnt;
+	}
+
+	public void setChallCmnt(int challCmnt) {
+		this.challCmnt = challCmnt;
+	}
+
 	@Override
 	public String toString() {
 		return "Challenge [challNo=" + challNo + ", challTitle=" + challTitle + ", challContent=" + challContent
 				+ ", challPoint=" + challPoint + ", challThumbnail=" + challThumbnail + ", challCount=" + challCount
-				+ ", challEnrollDate=" + challEnrollDate + ", challStatus=" + challStatus + "]";
-	};
+				+ ", challEnrollDate=" + challEnrollDate + ", challStatus=" + challStatus + ", challCmnt=" + challCmnt
+				+ "]";
+	}
 	
 }
