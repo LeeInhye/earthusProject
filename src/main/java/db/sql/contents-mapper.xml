@@ -57,39 +57,6 @@
 		    BY CNT_NO DESC
 	</entry>
 	
-	<entry key="increaseCount">
-		UPDATE CONTENTS
-		   SET CNT_COUNT = CNT_COUNT+1
-		 WHERE CNT_NO = ?
-		   AND CNT_STATUS = 'Y'
-	</entry>
-	
-	<entry key="selectContents">
-		 SELECT
-		       CNT_NO
-		     , CNT_TITLE
-		     , CNT_CONTENT
-		     , CNT_THUMBNAIL
-		     , CNT_COUNT
-		     , CNT_ENROLL_DATE
-		     , (SELECT COUNT(*)
-		          FROM CONTENTS_LIKE CL 
-		         WHERE CL.CNT_NO = C.CNT_NO) AS CNT_LIKE
-		  FROM CONTENTS C
-		 WHERE CNT_NO = ?
-	</entry>
-	
-	<entry key="selectAttachment">
-		SELECT 
-		       FILE_NO
-		     , ORIGIN_NAME
-		     , CHANGE_NAME
-		     , FILE_PATH
-		  FROM ATTACHMENT
-		 WHERE REF_TYPE = 3
-		   AND REF_BNO = ?
-	</entry>
-	
 	<entry key="updateContents">
 		UPDATE
 		       CONTENTS
@@ -107,7 +74,13 @@
 		     , FILE_PATH = ?
 		 WHERE FILE_NO = ?
 	</entry>
-	
+
+	<entry key="deleteContents">
+		UPDATE 
+		       CONTENTS
+		   SET CNT_STATUS = 'N'
+	</entry>
+		
 	<entry key="selectContentsList">
 		SELECT
 		       CNT_NO
@@ -123,11 +96,52 @@
 		 ORDER 
 		    BY CNT_NO DESC
 	</entry>
-
-	<entry key="deleteContents">
-		UPDATE 
-		       CONTENTS
-		   SET CNT_STATUS = 'N'
+	
+	<entry key="increaseCount">
+		UPDATE CONTENTS
+		   SET CNT_COUNT = CNT_COUNT+1
+		 WHERE CNT_NO = ?
+		   AND CNT_STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectContents">
+		SELECT *
+		  FROM (SELECT
+		               CNT_NO
+		             , CNT_TITLE
+		             , CNT_CONTENT
+		             , CNT_THUMBNAIL
+		             , CNT_COUNT
+		             , CNT_ENROLL_DATE
+		             , (SELECT COUNT(*)
+		                  FROM CONTENTS_LIKE CL 
+		                 WHERE CL.CNT_NO = C.CNT_NO) AS CNT_LIKE
+		             , LAG(CNT_NO) OVER(ORDER BY CNT_NO)  AS CNTNO_PREV
+		             , LEAD(CNT_NO) OVER(ORDER BY CNT_NO) AS CNTNO_NEXT
+		          FROM CONTENTS C
+		         WHERE CNT_STATUS = 'Y')
+		 WHERE CNT_NO = ?
+	</entry>
+	
+	<entry key="selectAttachment">
+		SELECT 
+		       FILE_NO
+		     , ORIGIN_NAME
+		     , CHANGE_NAME
+		     , FILE_PATH
+		  FROM ATTACHMENT
+		 WHERE REF_TYPE = 3
+		   AND REF_BNO = ?
+	</entry>
+	
+	<entry key="selectPrevNextContents">
+		SELECT
+		       CNT_NO
+		     , CNT_TITLE
+		     , CNT_THUMBNAIL
+		  FROM CONTENTS
+		 WHERE CNT_NO = ?
+		   AND CNT_STATUS = 'Y'
 	</entry>
 
 </properties>

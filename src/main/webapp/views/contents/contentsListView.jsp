@@ -6,6 +6,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+    .blog_item:hover {
+    	cursor:pointer;
+    }
+</style>
 </head>
 <body>
 
@@ -37,6 +42,7 @@
                     <!-- 콘텐츠 게시글 리스트 -->
                     <% for(Contents c : list) { %>
 	                    <article class="blog_item">
+                            <input type="hidden" value="<%= c.getCntNo() %>">
 	                        <div class="blog_item_img">
 	                            <img class="card-img rounded-0" src="<%= contextPath %>/<%= c.getCntThumbnail() %>" alt="" width="1370" height="520">
 	                            <a href="#" class="blog_item_date">
@@ -49,7 +55,9 @@
 	                            <a class="d-inline-block" href="single-blog.html">
 	                                <h2><%= c.getCntTitle() %></h2>
 	                            </a>
-	                            <p><%= c.getCntContent() %></p>
+	                            <% if( c.getCntContent() != null) { %>
+	                            	<p><%= c.getCntContent() %></p>
+	                            <% } %>
 	                            <ul class="blog-info-link">
 	                                <li><a href="#"><i class="ti-calendar"></i><%= c.getCntEnrollDate() %></a></li>
 	                                <li><a href="#"><i class="ti-heart"></i> <%= c.getCntLike() %> Likes</a></li>
@@ -82,8 +90,18 @@
             </div>     
         </div>
     </section>
-    <br><br><br><br><br>
+    <br><br><br><br><br>           
+
+    <script>
+        $(function(){
+            $(".blog_item").click(function(){
+                location.href = '<%=contextPath%>/detail.co?no=' + $(this).children().eq(0).val();
+            })
+        })
+    </script>
+
     <!--================Blog Area =================-->
+
 
 	<%@ include file="/views/common/footerbar.jsp" %>
 	

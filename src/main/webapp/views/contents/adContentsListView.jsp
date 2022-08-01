@@ -136,10 +136,8 @@
 	                            $.ajax({
 	                                url:"/us/delete.co",
 	                                data:{"checkCnt":checkCnt},
-	                                success:function(result){
-	                                	if(result > 0){                             		
-		                                    location.reload();
-	                                	}
+	                                success:function(){
+		                                location.reload();
 	                                },
 	                                error:function(){
 	                                    console.log("ajax 게시글 삭제 실패")

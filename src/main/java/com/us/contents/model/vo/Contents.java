@@ -10,8 +10,10 @@ public class Contents {
 	private String cntThumbnail;
 	private int cntCount;
 	private Date cntEnrollDate;
-	private String cntStatus;
-	private int cntLike;
+	private String cntStatus;	
+	private int cntLike; // 좋아요 개수
+	private int prevNo; // 이전 글번호
+	private int nextNo; // 다음 글번호
 	
 	public Contents() {}
 
@@ -36,13 +38,12 @@ public class Contents {
 		this.cntLike = cntLike;
 	}
 
-	public Contents(int cntNo, String cntTitle, String cntContent, String cntThumbnail, int cntCount,
+	public Contents(int cntNo, String cntTitle, String cntContent, int cntCount,
 			Date cntEnrollDate, int cntLike) {
 		super();
 		this.cntNo = cntNo;
 		this.cntTitle = cntTitle;
 		this.cntContent = cntContent;
-		this.cntThumbnail = cntThumbnail;
 		this.cntCount = cntCount;
 		this.cntEnrollDate = cntEnrollDate;
 		this.cntLike = cntLike;
@@ -57,6 +58,27 @@ public class Contents {
 		this.cntThumbnail = cntThumbnail;
 		this.cntEnrollDate = cntEnrollDate;
 		this.cntLike = cntLike;
+	}
+
+	public Contents(int cntNo, String cntTitle, String cntContent, String cntThumbnail, int cntCount,
+			Date cntEnrollDate, int cntLike, int prevNo, int nextNo) {
+		super();
+		this.cntNo = cntNo;
+		this.cntTitle = cntTitle;
+		this.cntContent = cntContent;
+		this.cntThumbnail = cntThumbnail;
+		this.cntCount = cntCount;
+		this.cntEnrollDate = cntEnrollDate;
+		this.cntLike = cntLike;
+		this.prevNo = prevNo;
+		this.nextNo = nextNo;
+	}
+	
+	public Contents(int cntNo, String cntTitle, String cntThumbnail) {
+		super();
+		this.cntNo = cntNo;
+		this.cntTitle = cntTitle;
+		this.cntThumbnail = cntThumbnail;
 	}
 
 	public int getCntNo() {
@@ -123,11 +145,27 @@ public class Contents {
 		this.cntLike = cntLike;
 	}
 
+	public int getPrevNo() {
+		return prevNo;
+	}
+
+	public void setPrevNo(int prevNo) {
+		this.prevNo = prevNo;
+	}
+
+	public int getNextNo() {
+		return nextNo;
+	}
+
+	public void setNextNo(int nextNo) {
+		this.nextNo = nextNo;
+	}
+
 	@Override
 	public String toString() {
 		return "Contents [cntNo=" + cntNo + ", cntTitle=" + cntTitle + ", cntContent=" + cntContent + ", cntThumbnail="
 				+ cntThumbnail + ", cntCount=" + cntCount + ", cntEnrollDate=" + cntEnrollDate + ", cntStatus="
-				+ cntStatus + ", cntLike=" + cntLike + "]";
+				+ cntStatus + ", cntLike=" + cntLike + ", prevNo=" + prevNo + ", nextNo=" + nextNo + "]";
 	}
 	
 }

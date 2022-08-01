@@ -14,6 +14,7 @@ import com.us.contents.model.vo.Contents;
 
 public class ContentsService {
 	
+	// 관리자_콘텐츠 작성
 	public int insertContents(Contents c, Attachment at) {
 		Connection conn = getConnection();
 
@@ -33,6 +34,7 @@ public class ContentsService {
 		return result1 * result2;
 	}
 	
+	// 관리자_콘텐츠 리스트 조회
 	public ArrayList<Contents> selectAdList() {
 		Connection conn = getConnection();		
 		ArrayList<Contents> list = new ContentsDao().selectAdList(conn);
@@ -41,36 +43,7 @@ public class ContentsService {
 		return list;
 	}
 	
-	public int increaseCount(int cntNo) {
-		Connection conn = getConnection();
-		int result = new ContentsDao().increaseCount(conn, cntNo);
-		
-		if(result > 0) {
-			commit(conn);
-		}else {
-			rollback(conn);
-		}
-		close(conn);
-		
-		return result;
-	}
-	
-	public Contents selectContents(int cntNo) {
-		Connection conn = getConnection();
-		Contents c = new ContentsDao().selectContents(conn, cntNo);
-		close(conn);
-		
-		return c;
-	}
-	
-	public Attachment selectAttachment(int cntNo) {
-		Connection conn = getConnection();
-		Attachment at = new ContentsDao().selectAttachment(conn, cntNo);
-		close(conn);
-		
-		return at;
-	}
-	
+	// 관리자_콘텐츠 수정
 	public int updateContents(Contents c, Attachment at) {
 		Connection conn = getConnection();
 		
@@ -91,14 +64,7 @@ public class ContentsService {
 		return result1 * result2;
 	}
 	
-	public ArrayList<Contents> selectContentsList(){
-		Connection conn = getConnection();
-		ArrayList<Contents> list = new ContentsDao().selectContentsList(conn);
-		close(conn);
-		
-		return list;
-	}
-	
+	// 관리자_콘텐츠 선택 삭제
 	public int deleteContents(String cntNo) {
 		Connection conn = getConnection();
 		int result = new ContentsDao().deleteContents(conn, cntNo);
@@ -112,6 +78,59 @@ public class ContentsService {
 
 		return result;
 	}
-	
 
+	// 사용자_콘텐츠 리스트 조회
+	public ArrayList<Contents> selectContentsList(){
+		Connection conn = getConnection();
+		ArrayList<Contents> list = new ContentsDao().selectContentsList(conn);
+		close(conn);
+		
+		return list;
+	}
+	
+	// 사용자_콘텐츠 상세 조회
+	// 1) 조회수 증가
+	public int increaseCount(int cntNo) {
+		Connection conn = getConnection();
+		int result = new ContentsDao().increaseCount(conn, cntNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+		
+	// 2) 게시글 데이터 조회 (이전글번호, 다음글번호 포함)
+	public Contents selectContents(int cntNo) {
+		Connection conn = getConnection();
+		Contents c = new ContentsDao().selectContents(conn, cntNo);
+		close(conn);
+		
+		return c;
+	}
+	
+	// 3) 상세 이미지 첨부파일 조회
+	public Attachment selectAttachment(int cntNo) {
+		Connection conn = getConnection();
+		Attachment at = new ContentsDao().selectAttachment(conn, cntNo);
+		close(conn);
+		
+		return at;
+	}
+	
+	// 4) 이전 글, 다음 글 데이터 조회
+	public Contents selectPrevNextContents(int cntNo) {
+		Connection conn = getConnection();
+		Contents c = new ContentsDao().selectPrevNextContents(conn, cntNo);
+		close(conn);
+		
+		return c;
+	}
+
+	
 }
+

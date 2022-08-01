@@ -26,6 +26,7 @@ public class ContentsDao {
 		}
 	}
 	
+	// 관리자_콘텐츠 작성
 	public int insertContents(Connection conn, Contents c) {
 		// contents에 insert => 처리된 행 수
 		int result = 0;
@@ -72,6 +73,7 @@ public class ContentsDao {
 		return result;
 	}
 	
+	// 관리자_콘텐츠 리스트 조회
 	public ArrayList<Contents> selectAdList(Connection conn) {
 		// select => ResultSet(여러 행) => ArrayList<Contents>
 		ArrayList<Contents> list = new ArrayList<>();
@@ -102,92 +104,7 @@ public class ContentsDao {
 		return list;
 	}
 	
-	public int increaseCount(Connection conn, int cntNo) {
-		// update => 처리된 행 수
-		int result = 0;
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("increaseCount");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, cntNo);
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
-	
-	public Contents selectContents(Connection conn, int cntNo) {
-		// contents로부터 select => ResultSet(한 행) => Contents
-		Contents c = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectContents");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, cntNo);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				c = new Contents(rset.getInt("cnt_no"),
-								 rset.getString("cnt_title"),
-								 rset.getString("cnt_content"),
-								 rset.getString("cnt_thumbnail"),
-								 rset.getInt("cnt_count"),
-								 rset.getDate("cnt_enroll_date"),
-								 rset.getInt("cnt_like")
-								);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return c;
-	}
-	
-	public Attachment selectAttachment(Connection conn, int cntNo) {
-		// attachment로부터 select => ResultSet(한 행) => Attachment
-		Attachment at = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectAttachment");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, cntNo);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				at = new Attachment(rset.getInt("file_no"),
-								    rset.getString("origin_name"),
-								    rset.getString("change_name"),
-								    rset.getString("file_path")
-									);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return at;
-	}
-	
+	// 관리자_콘텐츠 수정
 	public int updateContents(Connection conn, Contents c) {
 		// contents에 update => 처리된 행 수
 		int result = 0;
@@ -211,7 +128,7 @@ public class ContentsDao {
 		
 		return result;
 	}
-	
+
 	public int updateAttachment(Connection conn, Attachment at) {
 		// attachment에 update => 처리된 행 수
 		int result = 0;
@@ -236,37 +153,7 @@ public class ContentsDao {
 		return result;
 	}
 	
-	public ArrayList<Contents> selectContentsList(Connection conn) {
-		// select => ResultSet(여러 행) => ArrayList<Contents>
-		ArrayList<Contents> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectContentsList");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				list.add(new Contents(rset.getInt("cnt_no"),
-									  rset.getString("cnt_title"),
-									  rset.getString("cnt_content"),
-									  rset.getString("cnt_thumbnail"),
-									  rset.getDate("cnt_enroll_date"),
-									  rset.getInt("cnt_like")
-						));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return list;
-	}
-	
+	// 관리자_콘텐츠 선택 삭제
 	public int deleteContents(Connection conn, String cntNo) {
 		// update => 처리된 행 수
 		int result = 0;
@@ -299,4 +186,160 @@ public class ContentsDao {
 		
 		return result;		
 	}
+	
+	// 사용자_콘텐츠 리스트 조회
+	public ArrayList<Contents> selectContentsList(Connection conn) {
+		// select => ResultSet(여러 행) => ArrayList<Contents>
+		ArrayList<Contents> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectContentsList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Contents(rset.getInt("cnt_no"),
+									  rset.getString("cnt_title"),
+									  rset.getString("cnt_content"),
+									  rset.getString("cnt_thumbnail"),
+									  rset.getDate("cnt_enroll_date"),
+									  rset.getInt("cnt_like")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	// 사용자_콘텐츠 상세 조회
+	// 1) 조회수 증가
+	public int increaseCount(Connection conn, int cntNo) {
+		// update => 처리된 행 수
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("increaseCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cntNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	// 2) 게시글 데이터 조회
+	public Contents selectContents(Connection conn, int cntNo) {
+		// contents로부터 select => ResultSet(한 행) => Contents
+		Contents c = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectContents");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cntNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				c = new Contents(rset.getInt("cnt_no"),
+								 rset.getString("cnt_title"),
+								 rset.getString("cnt_content"),
+								 rset.getString("cnt_thumbnail"),
+								 rset.getInt("cnt_count"),
+								 rset.getDate("cnt_enroll_date"),
+								 rset.getInt("cnt_like"),
+								 rset.getInt("cntno_prev"),
+								 rset.getInt("cntno_next")
+								);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return c;
+	}
+	
+	// 3) 상세 이미지 첨부파일 조회
+	public Attachment selectAttachment(Connection conn, int cntNo) {
+		// attachment로부터 select => ResultSet(한 행) => Attachment
+		Attachment at = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cntNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				at = new Attachment(rset.getInt("file_no"),
+								    rset.getString("origin_name"),
+								    rset.getString("change_name"),
+								    rset.getString("file_path")
+									);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return at;
+	}
+	
+	// 4) 이전 글, 다음 글 데이터 조회
+	public Contents selectPrevNextContents(Connection conn, int cntNo) {
+		// select => ResultSet(한 행) => Contents
+		Contents c = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectPrevNextContents");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cntNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				c = new Contents(rset.getInt("cnt_no"),
+								 rset.getString("cnt_title"),
+								 rset.getString("cnt_thumbnail")
+								);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return c;
+	}
+	
 }
