@@ -45,4 +45,32 @@
 	     , REQ_INFO_IMG_PATH = ?
 	 WHERE PRO_CODE = ?
 </entry>
+
+<entry key="selectMaxProCode">
+SELECT LAST_NUMBER "maxProCode"
+  FROM USER_SEQUENCES
+ WHERE SEQUENCE_NAME = 'SEQ_PRONO'
+</entry>
+
+<entry key="insertProduct">
+	INSERT INTO PRODUCT
+	VALUES (
+	         SEQ_PRONO.NEXTVAL
+	       , ?
+	       , ?
+	       , ?
+	       , ?
+	       , ?
+	       , DEFAULT
+	       , ?
+	       , ?
+	       , ?
+	       , DEFAULT
+	        )
+</entry>
+
+<entry key="deleteProduct">
+	DELETE PRODUCT
+	 WHERE PRO_CODE = ?
+ </entry>
 </properties>

@@ -140,4 +140,67 @@ public class adProductDao {
 		return result;
 	}
 	
+	public String selectMaxProCode(Connection conn) {
+		String maxProCode = "";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMaxProCode");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				maxProCode = rset.getString("maxProCode");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(conn);
+		}
+		return maxProCode;
+	}
+	
+	public int insertProduct(Connection conn, Product p) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, p.getCategory());
+			pstmt.setString(2, p.getProName());
+			pstmt.setString(3, p.getProInfo());
+			pstmt.setString(4, p.getPrice());
+			pstmt.setInt(5, p.getStock());
+			pstmt.setString(6, p.getProImgPath());
+			pstmt.setString(7, p.getDetailImgPath());
+			pstmt.setString(8, p.getReqInfoImgPath());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int deleteProduct(Connection conn, String proCode) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, proCode);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

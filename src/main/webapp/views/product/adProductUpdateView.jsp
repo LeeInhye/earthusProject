@@ -67,7 +67,7 @@
 	                                <tr>
 	                                    <td class="pro-info">* 썸네일이미지 : </td>
 	                                    <td class="img">
-	                                        <%=p.getProImgPath().substring(22)%>
+	                                        <%=p.getProImgPath().substring( p.getReqInfoImgPath().lastIndexOf('/')+1 )%>
 	                                    </td>
 	                                    <td>
 	                                        <input type="file" name="proImg" id="proImg" style="display:none;">
@@ -78,7 +78,7 @@
 	                                <tr>
 	                                    <td class="pro-info">* 상세이미지 : </td>
 	                                    <td class="img">
-	                                    	<%=p.getDetailImgPath().substring(22)%>
+	                                    	<%=p.getDetailImgPath().substring( p.getReqInfoImgPath().lastIndexOf('/')+1 )%>
 	                                    </td>
 	                                    <td>
 	                                        <input type="file" name="detailImg" id="detailImg" style="display:none;">
@@ -98,7 +98,7 @@
 	                                <tr>
 	                                    <td class="pro-info">* 필수표기정보 : </td>
 	                                    <td>
-	                                        <%=p.getReqInfoImgPath().substring(22)%>
+	                                        <%=p.getReqInfoImgPath().substring( p.getReqInfoImgPath().lastIndexOf('/')+1 )%>
 	                                    </td>
 	                                    <td>
 	                                        <input type="file" name="reqInfoImg" id="reqInfoImg" style="display:none;">
@@ -112,7 +112,7 @@
 	                        </div>
 	
 	                        <div id="enroll-btn-area">
-	                            <input type="submit" value="저장" class="btn-input" style="border:none;">
+	                            <input data-toggle="modal" data-target="proUpdateModal" type="submit" value="저장" class="btn-input" style="border:none;">
 	                            <a href="<%=contextPath%>/adlist.pr?cpage=1" class="btn btn-sm btn-input" style="background:#f2f2f2; color:black; vertical-align:middle; font-size:small;">취소</a>
 	                        </div>
 	                    </form>
@@ -122,36 +122,19 @@
 	        </main>
 		</div>
 		
-		  <!-- 상품 수정 버튼 클릭 시 modal -->
-		  <div class="modal fade" id="proUpdateModal">
-		    <div class="modal-dialog modal-sm">
-		      <div class="modal-content">
-		      
-		        <!-- Modal body -->
-		        <div class="modal-body">
-		          상품 정보를 수정하시겠습니까?
-		        </div>
-		        
-		        <!-- Modal footer -->
-		        <div class="modal-footer">
-		          <button type="button" class="btn btn-medium btn-gray" data-dismiss="modal">취소</button>
-		          <a href="" class="btn btn-medium btn-gray">확인</a>
-		        </div>
-		        
-		      </div>
-		    </div>
-		  </div>
-		
 	</div>
     <script>
-    
     $(function(){
-    	<% for(int i=0; i<4; i++){ %> // 카테고리
-    if( $('#category option:eq(<%=i%>)').val() == <%=p.getCategory()%> ){
-    	$(this).prop("selected", true);
-    }
-    <%}%>
-
+    	
+    	// -------- 상품의 기존 카테고리가 선택되어 있도록 --------- 동작!
+	   $("#category option").each(function(){
+			if($(this).val() == "<%=p.getCategory()%>"){
+				$(this).attr("selected", true);
+			}
+		})
+		// --------------------------------------------
+		
+	// ------------ 천 원 단위로 콤마 찍어서 반환 --------------- 동작!
     price();
 
     function price(){ // 천원 단위로 콤마 찍기
@@ -164,14 +147,17 @@
     	}
     	
     })
+    // -------------------------------------------------
     
-    function proUpdate(){
-    	$(function(){
-       
-       $('#proUpdateModal').modal();
-
-    	})
+    // ------------ 파일 input 요소에 값이 들어왔을 떄 ------------ 동작 x
+    fileInputCheck();
+    
+    function fileInputCheck(){
+    	if( $('input[type=file]').length != 0){ 
+    		$(this).parent().eq(1).text( '파일 값 변경됨' ); 
+    	}
     }
+    // ---------------------------------------------------
     </script>
 </body>
 </html>

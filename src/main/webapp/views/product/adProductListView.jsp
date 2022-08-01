@@ -17,6 +17,31 @@
 <head>
 <meta charset="UTF-8">
 <title>상품 관리 > 상품 > 조회 - Earth.Us</title>
+
+<style>
+.modal-body {
+	text-align:center !important;
+		height:100px !Important;
+}
+.modal-footer{
+	text-align:center;
+	border-top:none !important;
+}
+.btn-s-modal {
+	display:inline-block;
+	width:100%;
+	background:#778c79 !important;
+	color:#f2f2f2 !important;
+	text-align:center;
+	height:40px;
+}
+.modal-content {
+	background:lightgray !important;
+	line-height: 100px;
+}
+
+
+</style>
 </head>
 <body>
 
@@ -62,7 +87,7 @@
 	                                        <input type="text" class="form-control" name="proKeyword" placeholder="키워드를 입력하세요.">
 	                                    </td>
 	                                    <td>
-	                                    	<input type="submit" class="btn btn-sm btn-update" value="조회" style="margin-left:20px;">
+	                                    	<button type="button" oncick="searchPro();" class="btn btn-sm btn-update" value="조회" style="margin-left:20px;">
 	                                    </td>
 	                                </tr>
 	                            </table>
@@ -96,7 +121,7 @@
 	                            	<% for(Product p : list) { %>
 	                                <tr>
 	                                    <td>
-	                                        <input type="checkbox" class="checkbox">
+	                                        <input type="checkbox" class="checkbox" value="<%=p.getProCode()%>">
 	                                    </td>
 	                                    <td class="proCode"><%= p.getProCode() %></td>
 	                                    <td><%= p.getProName() %></td>
@@ -111,8 +136,28 @@
 	
 	                        <button class="btn btn-sm btn-update" id="pro-delete-btn" style="width:85px; margin-top:10px;">상품삭제</button>
 	                        
-	                        <!----- 상품 삭제 Modal ----->
-							  <div class="modal fade" id="deleteModal">
+							  <!----- 삭제할 항목을 선택해 주세요 Modal ----->
+							  <div class="modal fade" id="deteteModal1">
+							    <div class="modal-dialog modal-sm">
+							      <div class="modal-content">
+							        
+							        <!-- Modal body -->
+							        <div class="modal-body">
+							          삭제할 항목을 선택해 주세요.
+							        </div>
+							        
+							        <!-- Modal footer -->
+							        <div class="modal-footer">
+							          <button type="button" class="btn btn-s-modal" data-dismiss="modal">확인</button>
+							        </div>
+							        
+							      </div>
+							    </div>
+							  </div>
+							  <!----- 상품 삭제 Modal 끝 ----->
+							  
+	                        <!----- 정말로 삭제하시겠습니까? Modal ----->
+							  <div class="modal fade" id="deleteModal2">
 							    <div class="modal-dialog modal-sm">
 							      <div class="modal-content">
 							        
@@ -123,15 +168,17 @@
 							        
 							        <!-- Modal footer -->
 							        <div class="modal-footer">
-							          <button type="submit" class="btn btn-update">삭제</button>
-							          <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+							          <button type="button" onclick="deletePro();" class="btn btn-no-modal" style="display:inline-block;width:45%;background:#778c79;color:#f2f2f2;">삭제</button>
+							          <button type="button" class="btn btn-ok-modal" style="display:inline-block;width:45%;background:#f2f2f2;color:#404040;" data-bs-dismiss="modal">취소</button>
 							        </div>
 							        
 							      </div>
 							    </div>
 							  </div>
-							  <!----- 상품 삭제 Modal 끝 ----->
+							  <!----- 정말로 삭제하시겠습니까? Modal 끝 ----->
+							  
 	                        
+	                        <!------- 페이징 처리 ------>
 	                        <div class="pageination">
 	                        	<nav aria-label="Page navigation example">
 	                        		<ul class="pagination justify-content-center">
@@ -165,39 +212,92 @@
 	                        		</ul>
 	                        	</nav>
 	                        </div>
-	                        <!-- 상품 조회 영역 끝-->
+	                        <!------- 페이징 처리 끝 ------>
+	                        
 	                    </div>
 	                </div>
 	            </div>
 	        </main>
 	     </div>
       </div>
+      <!-- 상품 조회 영역 끝-->
                 
         <script>
             function dateAll(){
                 // 클릭된 버튼만 lightgray 배경!!
                 
             }
-
-            $('#pro-delete-btn').click(function(){ // 상품 삭제 버튼 클릭 시
+            
+            // ---------- 전체 체크 체크박스 jQuery ----------- 동작!
+            $('#selectAll').click(function(){
+            	
+	            if( $('#selectAll').is(":checked") ){
+	            	
+	            	$('.checkbox').prop("checked", true);
+	            }else{
+	            	$('.checkbox').prop("checked", false);
+	            }
+            })
+            // ------------------------------------------
+            
+            
+            // ------------- 상품 삭제 버튼 클릭 시 -------------- 동작 o
+            $('#pro-delete-btn').click(function(){
                 
                 if($(".checkbox:checked").length == 0){ // 체크된 상품이 없다면
                 	
-            		alert("삭제할 항목을 선택해 주세요.");
+            		$('#deleteModal1').modal('show');
             		
             	}else{ // 체크된 상품이 있다면
             		
-            		$('#deleteModal').modal();
+            		$('#deleteModal2').modal('show');
             	}
             })
             
-            function updatePro(no){ // 상품 수정 버튼 클릭 시
+            function proCodeArr(){
+            	
+            	let arr = [];
+            	$(".checkbox").each(function(){
+            		if( $(this).is(":checked") ){
+			           arr.push($(this).val()); // 체크된 체크박스 값 뽑기
+            		}
+            	})
+            	return arr;
+            }
+            
+            function sendArr(no){
+            	location.href = "<%=contextPath%>/delete.pr?no="+ no;
+            }
+            
+           	function deletePro(){
+            	
+            	let no = proCodeArr();
+            	
+            	sendArr(no);
+            	
+            }
+            
+            
+            // --------------------------------------------
+            
+            // ------------- 상품 수정 버튼 클릭 시 --------------  동작 O
+            function updatePro(no){
             	
             	location.href = "<%=contextPath%>/updateForm.pr?no=" + no;
           
             }
+            // --------------------------------------------
             
-            
+            // ------------- 상품 카테고리,키워드로 검색 ---------------
+            function searchPro(){
+            	
+            	$.ajax({
+            		
+            		url:"<%=contextPath%>/"
+            		
+            	})
+            	
+            }
         </script>
 </body>
 </html>

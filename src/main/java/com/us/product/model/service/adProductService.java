@@ -45,5 +45,36 @@ public class adProductService {
 		close(conn);
 		return result;
 	}
+	
+	public String selectMaxProCode() {
+		Connection conn = getConnection();
+		String maxProCode = new adProductDao().selectMaxProCode(conn);
+		close(conn);
+		return maxProCode;
+	}
+	
+	public int insertProduct(Product p) {
+		Connection conn = getConnection();
+		int result = new adProductDao().insertProduct(conn, p);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	public int deleteProduct(String proCode) {
+		Connection conn = getConnection();
+		int result = new adProductDao().deleteProduct(conn, proCode);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 
 }
