@@ -359,8 +359,10 @@
           				<li class="col3">
           					비밀글입니다. &nbsp;					 
           					<i class="fa fa-lock"></i>
-          					<input type="hidden" value="<%=q.getProQnaPwd()%>">
+          					<input type="hidden" name="proQnaPwd" value="<%=q.getProQnaPwd()%>">
           				</li>
+          				<input type="hidden" name="proQnaTitle" value="<%=q.getProQnaTitle()%>" >
+          				
           				<% } else {%>  <!-- 공개글이면 -->	
           				<li class="col3">
           					<%=q.getProQnaTitle()%> &nbsp;
@@ -372,17 +374,17 @@
           			</ul>
           			<!-- 목록 -->
           			
-          			<% if(q.getProAEnrollDate() != null) { %> <!-- 답변 등록 상태면 -->
           			<!-- 답변 -->
 	          		<div class="pro-qna-answer">
 	          			<p><%= q.getProQnaContent() %></p>
+          			<% if(q.getProAEnrollDate() != null) { %> <!-- 답변 등록 상태면 -->
 	          			<div class="pro-answer">
 	          				<p><b>관리자</b>&nbsp;&nbsp;<%=q.getProAEnrollDate()%></p> 
 	          				<%=q.getProAcontent()%>
 	          			</div>
+	          		<% } %>
 	          		</div>
 	          		<!-- 답변 -->
-	          		<% } %>
 	          	<% } %>
 	          	<!-- 반복문 끝 -->
 	          	
@@ -436,14 +438,14 @@
              if( title.children(0).hasClass('fa-lock') ){ // 비밀글일 경우 => 비밀번호 입력 받기
            	  
 	             const check = prompt('비밀번호를 입력하세요.', '숫자 네자리로 입력');
-	             var proQnaPwd = $(this).find('input[type=hidden]').val(); // 해당 문의글의 비밀번호
+	             var proQnaPwd = $(this).find('input[name=proQnaPwd]').val(); // 해당 문의글의 비밀번호
 	
 	             	if(check == null){ // 입력값이 없을 때
 	             		 return;
 	             	}else if(check == proQnaPwd){ // 입력값이 있을 때 번호 일치
 	
 		                 title.removeClass('fa-lock');
-		                 title.text("!!! 진짜 제목 !!!");
+		                 title.text( $(this).find('input[name=proQnaTitle]').val() );
 		                 
 		                 $(this).next(".pro-qna-answer").stop().slideToggle(300);
 		                 $(this).next("pro-qna-answer").siblings("pro-qna-answer").slideUp(300);
@@ -455,7 +457,7 @@
 
              }else { // 비밀글이 아니거나, 비밀글 비번 풀려있는 경우
             	 
-            	 title.text("!!! 진짜 제목 !!!");
+            	 title.text( $(this).find('input[name=proQnaTitle]').val() );
                  
                  $(this).next(".pro-qna-answer").stop().slideToggle(300);
                  $(this).next("pro-qna-answer").siblings("pro-qna-answer").slideUp(300);

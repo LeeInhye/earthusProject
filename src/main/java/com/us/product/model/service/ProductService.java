@@ -111,4 +111,15 @@ public class ProductService {
 		close(conn);
 		return list;
 	}
+	
+	public int insertProQna(ProQna pq) {
+		Connection conn = getConnection();
+		int result = new ProductDao().insertProQna(conn, pq);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
 }

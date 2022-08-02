@@ -398,4 +398,28 @@ public class ProductDao {
 		}
 		return list;
 	}
+	
+	public int insertProQna(Connection conn, ProQna pq) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertProQna");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, pq.getProCode());
+			pstmt.setString(2, pq.getProQnaTitle());
+			pstmt.setString(3, pq.getProQnaContent());
+			pstmt.setString(4, pq.getProQnaPwd());
+			pstmt.setString(5, pq.getProQnaWriterName());
+			pstmt.setString(6, pq.getProQnaEmail());
+			pstmt.setString(7, pq.getProQnaPhone());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }
