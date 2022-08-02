@@ -47,7 +47,7 @@
                             <input type="file" name="file2" required>
                             <br><br><br>
                         
-                            <button type="button" class="btn_admin_cancel" style="margin-left:2%">취소</button>
+                            <a href="" class="btn_admin_cancel" style="margin-left:2%; text-decoration: none;">취소</a>
                             <button type="submit" class="btn_admin_enroll">등록</button>
 
                             <script>

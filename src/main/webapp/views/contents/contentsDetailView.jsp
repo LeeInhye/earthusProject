@@ -136,7 +136,9 @@
      </section>
     
      <br><br><br><br><br><br><br>
-        <!--================Blog Area =================-->    
+     <!--================Blog Area =================-->
+
+	<%@ include file="/views/common/footerbar.jsp" %>
 
 </body>
 </html>
