@@ -63,11 +63,11 @@
           <table class="table">
             <thead>
               <tr>
-                <th scope="col" style="width:50px;"> <input type="checkbox" id="check-all" onclick="checkAll();"></th>
-                <th scope="col">상품</th>
-                <th scope="col">가격</th>
-                <th scope="col">수량</th>
-                <th scope="col">총 금액</th>
+                <th width="100px" style="width:50px;"> <input type="checkbox" id="check-all" onclick="checkAll();"></th>
+                <th width="500px">상품</th>
+                <th width="200px">가격</th>
+                <th width="200px">수량</th>
+                <th width="150px">총 금액</th>
               </tr>
             </thead>
 
@@ -87,17 +87,17 @@
 							    </div>
 						  </div>
 						</td>
-						<td>
+						<td id="price">
 					  		<h5><%= c.getPrice() %></h5>
 						</td>
-						<td>
+						<td id="quantity">
 					  		<div class="product_count">
 							    <span class="input-number-decrement"> <i class="ti-angle-down"></i></span>
 							    <input class="input-number" type="text" value="<%= c.getProQty() %>">
 							    <span class="input-number-increment"> <i class="ti-angle-up"></i></span>
 					  		</div>
 						</td>
-					 	<td id="price">
+					 	<td id="multipliedPrice">
 							<h5><%= c.getPrice() * c.getProQty() %></h5>
 					  	</td>
 					</tr>
@@ -121,14 +121,14 @@
               </tr>
               <tr style="font-size:20px;">
                 <td colspan="4">총 주문 금액</td>
-                <td>xxxx원</td>
+                <td id="totalPriceWithDelivery"></td>
               </tr>
             </tfoot>
           </table>
           <div class="checkout_btn_inner float-right">
           	<input type="hidden" id="userNo" value="<%= list.get(0).getUserNo() %>">
             <a class="btn" href="<%=contextPath%>">계속 쇼핑하기</a>
-            <a class="btn" id="checkout_btn" href="<%=contextPath%>/order.ct">주문하기</a>
+            <a class="btn" id="checkout_btn" href="<%=contextPath%>/order.or">주문하기</a>
           </div>
         </div>
       </div>
@@ -169,11 +169,17 @@
       })
     })
 	
-	// 수량이 변경되었을 때 (수량은 1 이상, 숫자여야만함) 바로 DB에 반영되도록 하는 AJAX 구문
+	// 수량이 변경되었을 때 (수량은 1 이상, 숫자여야만함),
+	// 1) 상품 개수가 변경된 상품의 총 금액을 변경
+	// 2) 바로 DB에 반영되도록 하는 AJAX 구문
 	$(function(){
 		$(".input-number").change(function(){
+			// 상품의 총 금액을 가격 * 금액으로 변경
+			$(this).parent().parent().siblings("#multipliedPrice").children().text( Number($(this).parent().parent().siblings("#price").text()) * Number($(this).val()) );
+			
 			// ".input-number"의 value가 숫자일 때만 DB에 반영하기 위한 조건
 			if( /^[0-9]+$/.test($(this).val()) ){
+				// DB에 변경사항을 반영하기 위해 AJAX 구문 작성
 				$.ajax({
 					url:"<%=contextPath%>/update.ct",
 					data:{
@@ -182,8 +188,7 @@
 						proQty:$(this).val()
 					},
 					success:function(result){
-						console.log(result);
-						console.log("DB에 수량 변경 반영");
+						console.log("DB에 수량 변경 성공");
 					},
 					error:function(){
 						alert("수량 변경에 실패하였습니다.");
@@ -193,6 +198,19 @@
 		})
 	})
 	
+    // 현재 장바구니에 담긴 상품 개수 변화에 따라 총 상품 금액을 변경
+    $(function(){
+    	// input 요소에 변화가 생길 때마다 "체크된" 모든 금액*수량의 합 구해서 text()로  
+    	$("input").change(function(){    		
+    		var totalPrice = 0;
+    		$("input[name=check]:checked").each(function(){
+    			totalPrice += Number($(this).parent().siblings("#price").children("h5").text()) * Number($(this).parent().siblings("#quantity").children().children("input").val());
+    		})
+    		$("#totalPrice").text(totalPrice);
+    		$("#totalPriceWithDelivery").text(totalPrice + 3000);
+    	})
+    	
+    })
 	
     // 전체체크박스에 대한 함수
     function checkAll(){
@@ -249,16 +267,6 @@
     })
     
     
-    // AJAX를 이용해 현재 장바구니 상품의 총 상품금액을 출력
-    $(function(){
-    	var totalPrice = 0;
-    	
-    	// input 요소에 변화가 생길 때마다 "체크된" 모든 금액*수량의 합 구해서 text()로  
-    	$("input").change(function(){
-    		$()
-    	})
-    	
-    })
   </script>
 
   <!-- ============ End Script Area ==============-->
