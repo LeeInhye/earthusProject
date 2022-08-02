@@ -73,38 +73,35 @@
 		                    <!-- 모달 끝 -->
 
                             <script>
-                                $(function(){
-                                    
-                                    function chooseFile(){
-                                        $("input[name=file1]").click();
-                                    }
-    
-                                    function loadImg(inputFile){
-                                        // inputFile : 현재 변화가 생긴 input type="file" 요소객체
-                                        if(inputFile.files.length == 1){ // 파일 선택된 경우 => 읽어들여서 미리보기
-                                            const reader = new FileReader();
-                                            reader.readAsDataURL(inputFile.files[0]);
-                                            reader.onload = function(e){
-                                                $("#thumbnailImg").attr("src", e.target.result);
-                                            }
-                                        }else { // 파일 취소된 경우 => 미리보기 사라지게
-                                            $("#thumbnailImg").attr("src", null);
+                                function chooseFile(){
+                                    $("input[name=file1]").click();
+                                }
+
+                                function loadImg(inputFile){
+                                    // inputFile : 현재 변화가 생긴 input type="file" 요소객체
+                                    if(inputFile.files.length == 1){ // 파일 선택된 경우 => 읽어들여서 미리보기
+                                        const reader = new FileReader();
+                                        reader.readAsDataURL(inputFile.files[0]);
+                                        reader.onload = function(e){
+                                            $("#thumbnailImg").attr("src", e.target.result);
                                         }
+                                    }else { // 파일 취소된 경우 => 미리보기 사라지게
+                                        $("#thumbnailImg").attr("src", null);
                                     }
-    
+                                }
+                                    
+                                $(function(){
                                     // 취소
                                     $("#btn_cancle").click(function(){
-                                        location.href = '<%=contextPath%>/adList.co';
+                                    	window.history.back();
                                     })
 
-                                    // 수정 컨펌 모달 > 확인 버튼 클릭시 제출
+                                    // 등록 컨펌 모달 > 확인 버튼 클릭시 제출
                                     $("#realEnroll").click(function(){
                                         $("#enrollForm").submit();
                                     })
 
                                 })
-
-                                    
                             </script>
                         </form>
                   </div>

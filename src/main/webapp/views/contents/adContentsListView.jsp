@@ -84,7 +84,6 @@
 					
 			        <!-- 페이징바 영역 -->
 			        <div class="paging-area" align="center">
-			        
 			        	<% if(currentPage != 1) {%>
 			            	<button onclick="location.href='<%=contextPath%>/adList.co?cpage=<%= pi.getCurrentPage()-1 %>';" class="btn btn_black">&lt;</button>
 						<% } %>

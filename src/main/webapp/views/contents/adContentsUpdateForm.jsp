@@ -106,7 +106,7 @@
 
                                     // 취소
                                     $("#btn_cancle").click(function(){
-                                        location.href = '<%=contextPath%>/adList.co';
+                                    	window.history.back();
                                     })
                                     
                                     // 수정 컨펌 모달 > 확인 버튼 클릭시 제출

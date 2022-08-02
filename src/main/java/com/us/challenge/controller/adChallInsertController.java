@@ -67,7 +67,7 @@ public class adChallInsertController extends HttpServlet {
 			int result = new ChallengeService().insertChall(ch, at);
 
 			if(result > 0) { // 성공 => 관리자 챌린지 리스트 페이지
-				response.sendRedirect(request.getContextPath() + "/adList.ch");
+				response.sendRedirect(request.getContextPath() + "/adList.ch?cpage=1");
 			}else { // 실패 => 업로드된 첨부파일 찾아서 삭제, 에러페이지
 				new File(savePath + at.getChangeName()).delete();
 				
