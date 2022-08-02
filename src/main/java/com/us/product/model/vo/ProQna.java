@@ -38,6 +38,18 @@ public class ProQna {
 		this.proAwriter = proAwriter;
 		this.proAcontent = proAcontent;
 	}
+	
+	public ProQna(String proCode, String proQnaTitle, String proQnaContent, String proQnaPwd, String proQnaWriterName,
+			String proQnaEmail, String proQnaPhone) {
+		super();
+		this.proCode = proCode;
+		this.proQnaTitle = proQnaTitle;
+		this.proQnaContent = proQnaContent;
+		this.proQnaPwd = proQnaPwd;
+		this.proQnaWriterName = proQnaWriterName;
+		this.proQnaEmail = proQnaEmail;
+		this.proQnaPhone = proQnaPhone;
+	}
 
 	public int getProQnaNo() {
 		return proQnaNo;

@@ -156,6 +156,33 @@ UPDATE PRODUCT
 	    BY PRO_Q_ENROLL_DATE
 </entry>
 
+<entry key="insertProQna">
+	INSERT
+	  INTO PRO_QNA
+	       (
+	         PRO_QNA_NO
+	       , PRO_CODE
+	       , PRO_QNA_TITLE
+	       , PRO_QNA_CONTENT
+	       , PRO_QNA_PWD
+	       , PRO_QNA_WRITER_NAME
+	       , PRO_QNA_EMAIL
+	       , PRO_QNA_PHONE
+	       , PRO_Q_ENROLL_DATE
+	       )
+	VALUES (
+	         SEQ_PROQNANO.NEXTVAL
+	       , ?
+	       , ?
+	       , ?
+	       , ?
+	       , ?
+	       , ?
+	       , ?
+	       , DEFAULT
+	       )
+</entry>
+
 <entry key="priceDesc">
 	SELECT *
 	  FROM (

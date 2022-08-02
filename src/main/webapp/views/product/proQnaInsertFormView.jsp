@@ -52,10 +52,11 @@
 	    <hr>
 	    <br>
 	
-	    <form action="/insert.pq" method="post" id="pro-qna-form">
+	    <form action="<%=contextPath%>/insert.pq" method="post" id="pro-qna-form">
 	    <div class="container form-group" style="padding:50px;">
 	        <p style="font-weight:bold; font-size:large; color:#778C79">[<%=proName%>]</p>
 	        <hr style="padding:5px 0px;">
+	        <input type="hidden" name="proCode" value="<%=proCode%>">
 	        <input type="text" class="form-control" name="proQnaTitle" placeholder="제목을 입력해 주세요." required>
 	        <br>
 	        <textarea class="form-control" name="proQnaContent" rows="7" placeholder="문의 사항을 입력해 주세요. (20자 이상 150자 이하)" style="resize:none;" required></textarea>
@@ -84,9 +85,13 @@
 	      </div>
 	
 	      <div id="pro-qna-btn">
-	        <button type="button" data-toggle="modal" data-target="#proQnaModal" class="pro-qna-btn" style="background:#f2f2f2;">취소</ㅍ>
-	        <button class="pro-qna-btn" onclick="return validate();" style="background:#778C79; color:#f2f2f2;">등록</button>
+	        <button type="button" data-toggle="modal" data-target="#proQnaModal" class="pro-qna-btn" style="background:#f2f2f2;">취소</button>
+	        <button type="submit" class="pro-qna-btn" onclick="return validate();" style="background:#778C79; color:#f2f2f2;">등록</button>
 	      </div>
+	 
+    </form>
+  </div>
+</div>
 	
 	      <!-- 취소 버튼 모달 시작 -->
 	        <div class="modal fade" id="proQnaModal">
@@ -114,15 +119,12 @@
 	        </div>
 	      <!-- 취소 버튼 모달 끝 -->
 	
-	    </form>
-	  </div>
-	</div>
 
 <script>
 
     function checkPrivate(){ // 비밀글 체크 여부 검사 (잘됨)
         
-
+		
         if($("input[name=private]").is(':checked')){ // 비밀글 체크 O
   
           $('#proQnaPwd').attr("readonly", false);
@@ -145,8 +147,10 @@
         let proQnaEmail = $('input[name=proQnaEmail]').val();  // 이메일
         let proQnaPhone = $('input[name=proQnaPhone]').val();  // 휴대폰 번호
   
-        const regExp1 = "/^{20,150}$/"; // 20자 이상, 150자 이하
-       	const regExp2 = "";
+        let regExp = /^.{20,150}$/; // 20자 이상, 150자 이하
+        let regExp2 = /^[0-9]{4}$/; // 숫자 4글자만 입력
+        //const reqExp3 = ""
+        // proQnaContent.length < 20 || proQnaContent.length > 150
 		
         if(proQnaTitle == ""){ // 제목 미입력
         	
@@ -154,32 +158,48 @@
         	
         }else if(proQnaContent == ""){ // 문의사항 미입력
         	
-        	alert("문의 내용을 입력해 주세요."); return false;
+        	alert("문의 사항을 입력해 주세요."); return false;
         	
-        }else if( proQnaContent.length < 20 || proQnaContent.length > 150 ) { // 문의 사항 글자수 비일치
+        }else if( !regExp.test(proQnaContent) ) { // 문의 사항 글자수 유효 x
 
             alert("문의 사항을 20자 이상 150자 이하로 작성해 주세요."); return false;
             
-        } else if( $('input[name=private]').is(":checked") ){ // 비밀글 체크됐을때
+        }else if( $('input[name=private]').is(":checked") ){ // 비밀글 체크됐을때
         	
         	if(proQnaPwd == ""){ // 비밀번호 미입력
         		
         		alert("비밀번호를 입력해 주세요."); return false;
         		
-        	}else if( proQnaWriterName = "" ){ // 작성자명 미입력
+        	}else if( !regExp2.test(proQnaPwd) ){ // 비밀번호 형식 유효 x
+        		
+        		alert("비밀번호를 숫자 네자리로 입력해 주세요."); return false;
+        		
+        	}else if( proQnaWriterName == "" ){ // 작성자명 미입력
             	
-            	alert("성함을 입력해 주세요."); return false;
+               	alert("성함을 입력해 주세요."); return false;
+               	
+            }else if( proQnaEmail == "" && proQnaPhone == "" ){ // 연락처 미입력
+                	
+               	alert("연락처를 입력해 주세요."); return false;
+               	
+            }else{
             	
-            }else if( proQnaEmail.val() = "" && proQnaPhone().val() = ""  ){ // 연락처 미입력
-            	
-            	alert("연락처를 입력해 주세요."); return false;
+    			return true;	
             }
-        
-        
+        		
+        }else if( proQnaWriterName == "" ){ // 작성자명 미입력
+            	
+           	alert("성함을 입력해 주세요."); return false;
+           	
+        }else if( proQnaEmail == "" && proQnaPhone == "" ){ // 연락처 미입력
+            	
+           	alert("연락처를 입력해 주세요."); return false;
+           	
+        }else{
+        	
+			return true;	
         }
         
-        
-		return true;
     }
     
 </script>
