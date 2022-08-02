@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.us.common.model.vo.PageInfo;
 import com.us.cs.faq.model.vo.Faq;
 import com.us.cs.model.vo.CsCategory;
 
@@ -118,10 +119,99 @@ public class FaqDao {
 		return list;
 	}
 	
+	// 페이징
+	public int selectListCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		String sql = prop.getProperty("selectFaqListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
 	
+	// 관리자 전체 조회
+	public ArrayList<Faq> selectAdFaqList(Connection conn, PageInfo pi){
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Faq> list = new ArrayList<>();
+		
+		String sql = prop.getProperty("selectAdFaqList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Faq(rset.getInt("FAQ_NO"),
+									rset.getString("USER_NAME"),
+									rset.getString("CS_CATEGORY_NAME"),
+									rset.getString("FAQ_TITLE"),
+									rset.getString("FAQ_CONTENT"),
+									rset.getDate("FAQ_ENROLL_DATE"),
+									rset.getString("FAQ_STATUS")
+						));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 	
-	
-	
+	// 게시글 삭제
+	public int adDeleteFaq(Connection conn, String a) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		// 동적 sql문
+		String sql = prop.getProperty("deleteFaq");
+		
+		sql += "WHERE FAQ_NO IN (";
+		
+		String[] aArr = a.split(",");
+		for(int i = 0; i < aArr.length; i++) {
+			sql += aArr[i];
+			if(i != aArr.length - 1) {
+				sql += ",";
+			}
+		}
+		
+		sql += ")";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 
 }

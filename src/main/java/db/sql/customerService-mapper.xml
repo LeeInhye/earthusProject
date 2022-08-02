@@ -183,6 +183,12 @@
 		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
+	<entry key="deleteFaq">
+		UPDATE 
+		       FAQ
+		   SET FAQ_STATUS = 'N'
+	</entry>
+	
 <!-- ==================================================================================================================== -->
 	
 	<entry key="selectListCount">

@@ -35,7 +35,7 @@
                         <table class="M_member_table table table-hover">
                             <thead>
                                 <tr class="table_thead_border" style="border-bottom: none;">
-                                    <th width="3%"><input type="checkbox" onclick="checkAll(this);"></th>
+                                    <th width="3%"><input type="checkbox" onclick="checkAll(this);" id="checkAll"></th>
                                     <th width="5%">번호</th>
                                     <th width="8%">카테고리</th>
                                     <th width="30%">제목</th>
