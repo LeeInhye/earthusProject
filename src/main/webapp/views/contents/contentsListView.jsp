@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.us.contents.model.vo.Contents" %>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.us.contents.model.vo.Contents, com.us.common.model.vo.PageInfo" %>
 <%
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<Contents> list = (ArrayList<Contents>)request.getAttribute("list");
+	
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
 %>
 <!DOCTYPE html>
 <html>
@@ -65,27 +71,41 @@
 	                        </div>
 	                    </article>
                     <% } %>
-
+                    
+					<!-- 페이징바 영역 -->
                     <nav class="blog-pagination justify-content-center d-flex">
                         <ul class="pagination">
-                            <li class="page-item">
-                                <a href="#" class="page-link" aria-label="Previous">
-                                    <i class="ti-angle-left"></i>
-                                </a>
-                            </li>
-                            <li class="page-item">
-                                <a href="#" class="page-link">1</a>
-                            </li>
-                            <li class="page-item active">
-                                <a href="#" class="page-link">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a href="#" class="page-link" aria-label="Next">
-                                    <i class="ti-angle-right"></i>
-                                </a>
-                            </li>
+                        	<% if(currentPage != 1) {%>
+                                <li class="page-item">
+                                    <button onclick="location.href='<%=contextPath%>/list.co?cpage=<%= pi.getCurrentPage()-1 %>';" class="page-link" aria-label="Previous">
+                                        <i class="ti-angle-left"></i>
+                                    </button>
+                                </li>
+                            <% } %>
+                            
+                            <% for(int p=startPage; p<=endPage; p++) { %>
+					            <% if(p == currentPage){ %>
+                                    <li class="page-item active">
+                                        <button class="page-link" disabled><%= p %></button>
+                                    </li>
+					            <% }else { %>
+                                    <li class="page-item">
+                                        <button class="page-link" onclick="location.href='<%=contextPath%>/list.co?cpage=<%= p %>';"><%= p %></button>
+                                    </li>
+								<% } %>
+							<% } %>
+						
+                            <% if(currentPage != maxPage) { %>
+                                <li class="page-item">
+                                    <button onclick="location.href='<%=contextPath%>/list.co?cpage=<%= pi.getCurrentPage()+1 %>';" class="page-link" aria-label="Next">
+                                        <i class="ti-angle-right"></i>
+                                    </button>
+                                </li>
+                            <% } %>
                         </ul>
                     </nav>
+                    <!-- 페이징바 영역 끝 -->
+                    
                 </div>
             </div>     
         </div>

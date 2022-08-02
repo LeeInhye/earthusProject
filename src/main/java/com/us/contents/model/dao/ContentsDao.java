@@ -220,7 +220,7 @@ public class ContentsDao {
 	}
 	
 	// 사용자_콘텐츠 리스트 조회
-	public ArrayList<Contents> selectContentsList(Connection conn) {
+	public ArrayList<Contents> selectContentsList(Connection conn, PageInfo pi) {
 		// select => ResultSet(여러 행) => ArrayList<Contents>
 		ArrayList<Contents> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -230,6 +230,11 @@ public class ContentsDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {

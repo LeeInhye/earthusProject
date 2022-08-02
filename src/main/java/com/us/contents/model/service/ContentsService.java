@@ -90,9 +90,9 @@ public class ContentsService {
 	}
 
 	// 사용자_콘텐츠 리스트 조회
-	public ArrayList<Contents> selectContentsList(){
+	public ArrayList<Contents> selectContentsList(PageInfo pi){
 		Connection conn = getConnection();
-		ArrayList<Contents> list = new ContentsDao().selectContentsList(conn);
+		ArrayList<Contents> list = new ContentsDao().selectContentsList(conn, pi);
 		close(conn);
 		
 		return list;
