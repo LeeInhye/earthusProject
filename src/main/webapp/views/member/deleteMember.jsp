@@ -136,7 +136,7 @@
 		                <div class="modal-body text-center modal_alert_child">
 		                    <div>
 		
-		                        <h4 class="mt-1 mb-2">현재 보유중인 포인트 : XXXXX원</h4>
+		                        <h4 class="mt-1 mb-2">현재 보유중인 포인트 : <%= loginUser.getPoint() %>원</h4>
 		                        <h4 class="mt-1 mb-2">탈퇴시 보유중인 혜택이 모두 사라집니다.</h4>
 		                        <h4 class="mt-1 mb-2">정말 탈퇴하시겠습니까?</h4>
 		                        

@@ -13,16 +13,16 @@ public class ProQna {
 	private String proQnaWriterName;
 	private String proQnaEmail;
 	private String proQnaPhone;
-	private Date proQnaQEnrollDate;
-	private Date proQnaAEnrollDate;
-	private String proQnaAwriter;
-	private String proQnaAcontent;
+	private Date proQEnrollDate;
+	private Date proAEnrollDate;
+	private String proAwriter;
+	private String proAcontent;
 
 	public ProQna() {}
 
 	public ProQna(int proQnaNo, String proCode, String proQnaTitle, String proQnaContent, String proQnaPwd,
-			int proQnaWriterNo, String proQnaWriterName, String proQnaEmail, String proQnaPhone, Date proQnaQEnrollDate,
-			Date proQnaAEnrollDate, String proQnaAwriter, String proQnaAcontent) {
+			int proQnaWriterNo, String proQnaWriterName, String proQnaEmail, String proQnaPhone, Date proQEnrollDate,
+			Date proAEnrollDate, String proAwriter, String proAcontent) {
 		super();
 		this.proQnaNo = proQnaNo;
 		this.proCode = proCode;
@@ -33,10 +33,10 @@ public class ProQna {
 		this.proQnaWriterName = proQnaWriterName;
 		this.proQnaEmail = proQnaEmail;
 		this.proQnaPhone = proQnaPhone;
-		this.proQnaQEnrollDate = proQnaQEnrollDate;
-		this.proQnaAEnrollDate = proQnaAEnrollDate;
-		this.proQnaAwriter = proQnaAwriter;
-		this.proQnaAcontent = proQnaAcontent;
+		this.proQEnrollDate = proQEnrollDate;
+		this.proAEnrollDate = proAEnrollDate;
+		this.proAwriter = proAwriter;
+		this.proAcontent = proAcontent;
 	}
 
 	public int getProQnaNo() {
@@ -111,36 +111,36 @@ public class ProQna {
 		this.proQnaPhone = proQnaPhone;
 	}
 
-	public Date getProQnaQEnrollDate() {
-		return proQnaQEnrollDate;
+	public Date getProQEnrollDate() {
+		return proQEnrollDate;
 	}
 
-	public void setProQnaQEnrollDate(Date proQnaQEnrollDate) {
-		this.proQnaQEnrollDate = proQnaQEnrollDate;
+	public void setProQEnrollDate(Date proQEnrollDate) {
+		this.proQEnrollDate = proQEnrollDate;
 	}
 
-	public Date getProQnaAEnrollDate() {
-		return proQnaAEnrollDate;
+	public Date getProAEnrollDate() {
+		return proAEnrollDate;
 	}
 
-	public void setProQnaAEnrollDate(Date proQnaAEnrollDate) {
-		this.proQnaAEnrollDate = proQnaAEnrollDate;
+	public void setProAEnrollDate(Date proAEnrollDate) {
+		this.proAEnrollDate = proAEnrollDate;
 	}
 
-	public String getProQnaAwriter() {
-		return proQnaAwriter;
+	public String getProAwriter() {
+		return proAwriter;
 	}
 
-	public void setProQnaAwriter(String proQnaAwriter) {
-		this.proQnaAwriter = proQnaAwriter;
+	public void setProAwriter(String proAwriter) {
+		this.proAwriter = proAwriter;
 	}
 
-	public String getProQnaAcontent() {
-		return proQnaAcontent;
+	public String getProAcontent() {
+		return proAcontent;
 	}
 
-	public void setProQnaAcontent(String proQnaAcontent) {
-		this.proQnaAcontent = proQnaAcontent;
+	public void setProAcontent(String proAcontent) {
+		this.proAcontent = proAcontent;
 	}
 
 	@Override
@@ -148,7 +148,7 @@ public class ProQna {
 		return "ProQna [proQnaNo=" + proQnaNo + ", proCode=" + proCode + ", proQnaTitle=" + proQnaTitle
 				+ ", proQnaContent=" + proQnaContent + ", proQnaPwd=" + proQnaPwd + ", proQnaWriterNo=" + proQnaWriterNo
 				+ ", proQnaWriterName=" + proQnaWriterName + ", proQnaEmail=" + proQnaEmail + ", proQnaPhone="
-				+ proQnaPhone + ", proQnaQEnrollDate=" + proQnaQEnrollDate + ", proQnaAEnrollDate=" + proQnaAEnrollDate
-				+ ", proQnaAwriter=" + proQnaAwriter + ", proQnaAcontent=" + proQnaAcontent + "]";
+				+ proQnaPhone + ", proQEnrollDate=" + proQEnrollDate + ", proAEnrollDate=" + proAEnrollDate
+				+ ", proAwriter=" + proAwriter + ", proAcontent=" + proAcontent + "]";
 	}
 }

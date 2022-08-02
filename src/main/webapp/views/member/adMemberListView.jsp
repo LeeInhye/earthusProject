@@ -87,7 +87,7 @@
 				                            
 				                            txt += "<td>" + newList[i].userEnrollDate + "</td>";
 				                            <!--  포인트 넣기 -->
-				                            txt += "<td>1400</td>";
+				                            txt += "<td>" + newList[i].point + "</td>";
 				                            txt += "<td>" + newList[i].userStatus + "<td>";
 				                            txt += '<td class="btn_left">';
 				                            txt += '<button type="button" class="btn-sm btn_black" data-toggle="modal" data-target="#adUpdateMember">';
@@ -162,7 +162,7 @@
 									</td>
 		                            <td><%= m.getUserEnrollDate() %></td>
 		                            <!--  포인트 넣기 -->
-		                            <td>1400</td>
+		                            <td><%= m.getPoint() %></td>
 		                            <td><%= m.getUserStatus() %></td>
 		                            <td class="btn_left">
 		                                <button type="button" class="btn-sm btn_black">수정</button>
