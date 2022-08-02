@@ -146,9 +146,12 @@
                             	<a href="<%=contextPath%>/wish.pr" id="lsuccess"><i class="ti-heart"></i></a>
                             <% } %>
                             <!-- 장바구니 -->
-                                <a href="<%=contextPath%>/list.ct">
-                                    <i class="ti-shopping-cart"></i>
-                                </a>
+                            <% if(loginUser == null) { // 로그인 전 %>
+                            	<a href="<%=contextPath%>/goLogin.me"><i class="ti-shopping-cart"></i></a>
+                            <% } else { // 로그인 후 %>
+                            	<a href="<%=contextPath%>/list.ct"><i class="ti-shopping-cart"></i></a>
+                            <% } %>
+                                
                                 
 
                              <!-- 마이페이지 -->

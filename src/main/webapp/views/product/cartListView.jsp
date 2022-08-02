@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ page import="com.us.product.model.vo.Cart, java.util.ArrayList" %>
+<%
+	ArrayList<Cart> list = (ArrayList<Cart>)request.getAttribute("list");
+%>
 <!doctype html>
 <html lang="zxx">
 
@@ -69,33 +72,34 @@
             </thead>
 
             <tbody>
-                <tr class="product" class="check-item">
-                  <td><input type="checkbox" name="check"></td>
-                  <td>
-                    <div class="media">
-                      <div class="d-flex">
-                        <img src="img/product/single-product/cart-1.jpg">
-                      </div>
-                      <div class="media-body">
-                        <p>짜지 않은 저칼로리 대나무 칫솔</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <h5>xxxx원</h5>
-                  </td>
-                  <td>
-                    <div class="product_count">
-                      <span class="input-number-decrement"> <i class="ti-angle-down"></i></span>
-                      <!-- 문자 입력 시 넘어 -->
-                      <input class="input-number" type="text" value="1">
-                    <span class="input-number-increment"> <i class="ti-angle-up"></i></span>
-                  </div>
-                </td>
-                <td>
-                  <h5>xxxx원</h5>
-                </td>
-              </tr>
+            	<% for(Cart c : list) { %>
+	                <tr class="product" class="check-item">
+	                  <td><input type="checkbox" name="check"></td>
+	                  <td>
+	                    <div class="media">
+	                      <div class="d-flex">
+	                        <img src="img/product/single-product/cart-1.jpg">
+	                      </div>
+	                      <div class="media-body">
+	                        <p><%= c.getProName() %></p>
+	                      </div>
+	                    </div>
+	                  </td>
+	                  <td>
+	                    <h5><%= c.getPrice() %>원</h5>
+	                  </td>
+	                  <td>
+	                    <div class="product_count">
+	                      <span class="input-number-decrement"> <i class="ti-angle-down"></i></span>
+	                      <input class="input-number" type="text" value="<%= c.getProQty() %>">
+	                    <span class="input-number-increment"> <i class="ti-angle-up"></i></span>
+	                  </div>
+	                </td>
+	                <td>
+	                  <h5><%= c.getPrice() * c.getProQty() %>원</h5>
+	                </td>
+	              </tr>
+              <% } %>
              
               <tr class="bottom_button">
                 <td colspan="2">
@@ -120,13 +124,16 @@
             </tfoot>
           </table>
           <div class="checkout_btn_inner float-right">
-            <a class="btn" href="#">계속 쇼핑하기</a>
-            <a class="btn" id="checkout_btn" href="#">주문하기</a>
+            <a class="btn" href="<%=contextPath%>">계속 쇼핑하기</a>
+            <a class="btn" id="checkout_btn" href="<%=contextPath%>/order.ct">주문하기</a>
           </div>
         </div>
       </div>
      </div>
   </section>
+  
+  <br><br><br><br><br><br><br><br><br>
+  
   <!--================End Cart Area =================-->
 
 
@@ -155,8 +162,6 @@
           $(".input-number").val("1");
         }
       })
-      
-      
     })
 
     function checkAll(){
