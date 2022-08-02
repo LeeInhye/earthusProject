@@ -73,32 +73,34 @@
 
             <tbody>
             	<% for(Cart c : list) { %>
-	                <tr class="product" class="check-item">
-	                  <td><input type="checkbox" name="check" value="<%=c.getProCode()%>"></td>
-	                  <td>
-	                    <div class="media">
-	                      <div class="d-flex">
-	                        <img src="img/product/single-product/cart-1.jpg">
-	                      </div>
-	                      <div class="media-body">
-	                        <p><%= c.getProName() %></p>
-	                      </div>
-	                    </div>
-	                  </td>
-	                  <td>
-	                    <h5><%= c.getPrice() %>원</h5>
-	                  </td>
-	                  <td>
-	                    <div class="product_count">
-	                      <span class="input-number-decrement"> <i class="ti-angle-down"></i></span>
-	                      <input class="input-number" type="text" value="<%= c.getProQty() %>">
-	                    <span class="input-number-increment"> <i class="ti-angle-up"></i></span>
-	                  </div>
-	                </td>
-	                <td>
-	                  <h5><%= c.getPrice() * c.getProQty() %>원</h5>
-	                </td>
-	              </tr>
+					<tr class="product" class="check-item">
+					  <td>
+					  	<input type="checkbox" name="check" value="<%=c.getProCode()%>">
+					  </td>
+					<td>
+					  <div class="media">
+					    <div class="d-flex">
+				      		<img src="img/product/single-product/cart-1.jpg">
+					    </div>
+					    <div class="media-body">
+					      <p><%= c.getProName() %></p>
+					    </div>
+					  </div>
+					</td>
+					<td>
+					  <h5><%= c.getPrice() %></h5>
+					</td>
+					<td>
+				  		<div class="product_count">
+						    <span class="input-number-decrement"> <i class="ti-angle-down"></i></span>
+						    <input class="input-number" type="text" value="<%= c.getProQty() %>">
+						    <span class="input-number-increment"> <i class="ti-angle-up"></i></span>
+				  		</div>
+					</td>
+					 <td id="price">
+						<h5><%= c.getPrice() * c.getProQty() %></h5>
+					  </td>
+					</tr>
               <% } %>
              
               <tr class="bottom_button">
@@ -111,7 +113,7 @@
             <tfoot id="display-price" align="right" style="font-size:15px;">
               <tr>
                 <td colspan="4">총 상품 금액</td>
-                <td></td>
+                <td id="totalPrice"></td>
               </tr>
               <tr>
                 <td colspan="4">배송비</td>
@@ -147,22 +149,22 @@
     	
       // 수량 증가 버튼 클릭 시 함수
       $(".input-number-increment").click(function(){
-        if( Number($(".input-number").val()) < 10 ){
-          $(".input-number").val( Number($(".input-number").val()) + 1 )
+        if( Number($(this).siblings("input").val()) < 10 ){
+          $(this).siblings("input").val( Number($(this).siblings("input").val()) + 1 )
         }
       })
 
       // 수량 감소 버튼 클릭 시 함수
       $(".input-number-decrement").click(function(){
-        if( Number($(".input-number").val()) > 1 ){
-          $(".input-number").val( Number($(".input-number").val()) - 1 )
+        if( Number($(this).siblings("input").val()) > 1 ){
+          $(this).siblings("input").val( Number($(this).siblings("input").val()) - 1 )
         }
       })
 
       // 1~10 이외의 값 입력 시 val()을 1로 바꾸는 함수
       $(".input-number").change(function(){
-        if( !/[0-9]/.test($(".input-number").val()) || !/10/.test($(".input-number").val()) ){
-          $(".input-number").val("1");
+        if( !/[0-9]/.test($(this).val()) || !/10/.test($(this).val()) ){
+        	$(this).val("1");
         }
       })
     })
@@ -206,8 +208,6 @@
 				alert("선택한 상품 삭제에 실패하였습니다.");
 			}
 		})
-		
-        /* $(this).parent().parent().remove(); */
     }
 	
     $(function(){
@@ -229,9 +229,9 @@
     $(function(){
     	var totalPrice = 0;
     	
-    	// input 요소에 변화가 생길 때마다 모든 금액*수량의 합 구해서 text()로  
+    	// input 요소에 변화가 생길 때마다 "체크된" 모든 금액*수량의 합 구해서 text()로  
     	$("input").change(function(){
-    		
+    		$()
     	})
     	
     })
@@ -240,36 +240,6 @@
   <!-- ============ End Script Area ==============-->
 
 
-
-  <!-- jquery plugins here-->
-  <!-- jquery -->
-  <script src="js/jquery-1.12.1.min.js"></script>
-  <!-- popper js -->
-  <script src="js/popper.min.js"></script>
-  <!-- bootstrap js -->
-  <script src="js/bootstrap.min.js"></script>
-  <!-- easing js -->
-  <script src="js/jquery.magnific-popup.js"></script>
-  <!-- swiper js -->
-  <script src="js/swiper.min.js"></script>
-  <!-- swiper js -->
-  <script src="js/masonry.pkgd.js"></script>
-  <!-- particles js -->
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.nice-select.min.js"></script>
-  <!-- slick js -->
-  <script src="js/slick.min.js"></script>
-  <script src="js/jquery.counterup.min.js"></script>
-  <script src="js/waypoints.min.js"></script>
-  <script src="js/contact.js"></script>
-  <script src="js/jquery.ajaxchimp.min.js"></script>
-  <script src="js/jquery.form.js"></script>
-  <script src="js/jquery.validate.min.js"></script>
-  <script src="js/mail-script.js"></script>
-  <script src="js/stellar.js"></script>
-  <script src="js/price_rangs.js"></script>
-  <!-- custom js -->
-  <script src="js/custom.js"></script>
 </body>
 
 </html>
