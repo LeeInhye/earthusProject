@@ -74,32 +74,32 @@
             <tbody>
             	<% for(Cart c : list) { %>
 					<tr class="product" class="check-item">
-					  <td>
-					  	<input type="checkbox" name="check" value="<%=c.getProCode()%>">
-					  </td>
-					<td>
-					  <div class="media">
-					    <div class="d-flex">
-				      		<img src="img/product/single-product/cart-1.jpg">
-					    </div>
-					    <div class="media-body">
-					      <p><%= c.getProName() %></p>
-					    </div>
-					  </div>
-					</td>
-					<td>
-					  <h5><%= c.getPrice() %></h5>
-					</td>
-					<td>
-				  		<div class="product_count">
-						    <span class="input-number-decrement"> <i class="ti-angle-down"></i></span>
-						    <input class="input-number" type="text" value="<%= c.getProQty() %>">
-						    <span class="input-number-increment"> <i class="ti-angle-up"></i></span>
-				  		</div>
-					</td>
-					 <td id="price">
-						<h5><%= c.getPrice() * c.getProQty() %></h5>
-					  </td>
+				  		<td id="proCode">
+					  		<input type="checkbox" name="check" value="<%=c.getProCode()%>">
+					  	</td>
+						<td>
+						  	<div class="media">
+							    <div class="d-flex">
+					      			<img src="img/product/single-product/cart-1.jpg">
+							    </div>
+							    <div class="media-body">
+						      		<p><%= c.getProName() %></p>
+							    </div>
+						  </div>
+						</td>
+						<td>
+					  		<h5><%= c.getPrice() %></h5>
+						</td>
+						<td>
+					  		<div class="product_count">
+							    <span class="input-number-decrement"> <i class="ti-angle-down"></i></span>
+							    <input class="input-number" type="text" value="<%= c.getProQty() %>">
+							    <span class="input-number-increment"> <i class="ti-angle-up"></i></span>
+					  		</div>
+						</td>
+					 	<td id="price">
+							<h5><%= c.getPrice() * c.getProQty() %></h5>
+					  	</td>
 					</tr>
               <% } %>
              
@@ -149,7 +149,7 @@
     	
       // 수량 증가 버튼 클릭 시 함수
       $(".input-number-increment").click(function(){
-        if( Number($(this).siblings("input").val()) < 10 ){
+        if( Number($(this).siblings("input").val()) < 50 ){
           $(this).siblings("input").val( Number($(this).siblings("input").val()) + 1 )
         }
       })
@@ -163,11 +163,35 @@
 
       // 1~10 이외의 값 입력 시 val()을 1로 바꾸는 함수
       $(".input-number").change(function(){
-        if( !/[0-9]/.test($(this).val()) || !/10/.test($(this).val()) ){
+        if( !/^[0-9]+$/.test($(this).val()) ){
         	$(this).val("1");
         }
       })
     })
+	
+	// 수량이 변경되었을 때 (수량은 1 이상, 숫자여야만함) 바로 DB에 반영되도록 하는 AJAX 구문
+	$(function(){
+		$(".input-number").change(function(){
+			// ".input-number"의 value가 숫자일 때만 DB에 반영하기 위한 조건
+			if( /^[0-9]+$/.test($(this).val()) ){
+				$.ajax({
+					url:"<%=contextPath%>/update.ct",
+					data:{
+						userNo:$("#userNo").val(),
+						proCode:$(this).parent().parent().siblings("#proCode").children().val(),
+						proQty:$(this).val()
+					},
+					success:function(result){
+						console.log(result);
+						console.log("DB에 수량 변경 반영");
+					},
+					error:function(){
+						alert("수량 변경에 실패하였습니다.");
+					}
+				})
+			}
+		})
+	})
 	
 	
     // 전체체크박스에 대한 함수

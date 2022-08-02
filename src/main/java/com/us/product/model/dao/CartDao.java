@@ -71,7 +71,29 @@ public class CartDao {
 		} finally {
 			close(pstmt);
 		}
-		return result;	
+		return result;		
+	}
+	
+	
+	public int updateQuantity(Connection conn, int userNo, String proCode, int proQty) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateQuantity");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, proQty);
+			pstmt.setInt(2, userNo);
+			pstmt.setString(3, proCode);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;		
+		
+		
 		
 	}
 	

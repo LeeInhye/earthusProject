@@ -21,6 +21,13 @@
 		 WHERE USER_NO = ?
 		   AND PRO_CODE IN (?)
 	</entry>
+	
+	<entry key="updateQuantity">
+		UPDATE CART
+		   SET PRO_QTY = ?
+		 WHERE USER_NO = ?
+		   AND PRO_CODE = ?
+	</entry>
 
 </properties>
 

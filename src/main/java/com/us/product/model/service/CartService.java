@@ -32,4 +32,19 @@ public class CartService {
 		return result;
 	}
 	
+	
+	public int updateQuantity(int userNo, String proCode, int proQty) {
+		Connection conn = getConnection();
+		int result = new CartDao().updateQuantity(conn, userNo, proCode, proQty);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+		
+	}
+	
 }
