@@ -34,7 +34,6 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
 	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <!-- swiper CSS -->
- 	<link rel="stylesheet" href="u_css_seulgi/price_rangs.css">
 
 </head>
 <body>
@@ -45,6 +44,7 @@
     <link rel="stylesheet" href="<%= contextPath %>/resources/sass/u_sass/_banner.scss">
     <link rel="stylesheet" href="<%= contextPath %>/resources/sass/u_sass/_product_list.scss">
     <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/style.map">
+ 	<link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/price_rangs.css">
 	<link rel="stylesheet" href="<%= contextPath %>/resources/js/custom.js">
 	
 <!-- banner part start-->
@@ -62,7 +62,11 @@
         </div>
     </section>
 <!-- banner part end -->
-    
+    <script>
+    	$(document).ready(function(){
+    		$('.cat_product_area .row').removeAttr('align-items');
+    	})
+    </script>
     
     <!--================상품 카테고리 영역=================-->
     <section class="cat_product_area section_padding">
@@ -102,7 +106,7 @@
                             </div>
                             <div class="widgets_inner">
                                 <div class="range_item">
-                                    <input type="range" class="js-range-slider" value=""/>
+                                    <input type="text" class="js-range-slider" name="" value=""/>
                                     <div class="d-flex">
                                         <div class="price_text">
                                             <p>가격 :</p>
