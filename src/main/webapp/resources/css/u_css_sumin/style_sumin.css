@@ -952,6 +952,7 @@ input[type=checkbox]{
   background-color: #F2F2F2;
   color: #A8BFAA;
   font-weight: bold;
+  font-size: 16px;
 }
 
 .btn_cmnt {

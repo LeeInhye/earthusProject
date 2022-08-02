@@ -12,6 +12,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+    .chall_item:hover {
+    	cursor:pointer;
+    }
+</style>
 </head>
 <body>
 
@@ -43,6 +48,7 @@
 					<!-- 챌린지 게시글 리스트 -->
 					<% for(Challenge ch : list) { %>
 						<article class="chall_item">
+							<input type="hidden" value="<%= ch.getChallNo() %>">
 							<div class="chall_item_img">
 								<img class="card-img rounded-0" src="<%= contextPath %>/<%= ch.getChallThumbnail() %>" alt="">
 							</div>
@@ -100,6 +106,15 @@
         </div>
     </section>
     <br><br><br><br><br>
+    
+    <script>
+        $(function(){
+            $(".chall_item").click(function(){
+                location.href = '<%=contextPath%>/detail.ch?no=' + $(this).children().eq(0).val();
+            })
+        })
+    </script>
+    
     <!--================Blog Area =================-->
 
 	<%@ include file="/views/common/footerbar.jsp" %>

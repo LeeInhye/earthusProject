@@ -209,7 +209,129 @@ public class ChallengeDao {
 		
 		return list;
 	}
-	
 
+	// 사용자_챌린지 상세 조회
+	// 1) 조회수 증가
+	public int increaseCount(Connection conn, int challNo) {
+		// update => 처리된 행 수
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("increaseCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, challNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
+	// 2) 게시글 데이터 조회
+	public Challenge selectChall(Connection conn, int challNo) {
+		// challenge로부터 select => ResultSet(한 행) => Challenge
+		Challenge ch = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectChall");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, challNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				ch = new Challenge(rset.getInt("chall_no"),
+								   rset.getString("chall_title"),
+								   rset.getString("chall_content"),
+								   rset.getString("chall_thumbnail"),
+								   rset.getInt("chall_count"),
+								   rset.getDate("chall_enroll_date"),
+								   rset.getInt("chall_cmnt"),
+								   rset.getInt("challno_prev"),
+								   rset.getInt("challno_next")
+								  );
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return ch;
+	}
+	
+	// 3) 상세 이미지 첨부파일 조회
+	public Attachment selectAttachment(Connection conn, int challNo) {
+		// attachment로부터 select => ResultSet(한 행) => Attachment
+		Attachment at = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, challNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				at = new Attachment(rset.getInt("file_no"),
+								    rset.getString("origin_name"),
+								    rset.getString("change_name"),
+								    rset.getString("file_path")
+									);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return at;
+	}
+
+	// 4) 이전 글, 다음 글 데이터 조회
+	public Challenge selectPrevNextChall(Connection conn, int challNo) {
+		// select => ResultSet(한 행) => Challenge
+		Challenge ch = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectPrevNextChall");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, challNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				ch = new Challenge(rset.getInt("chall_no"),
+								   rset.getString("chall_title"),
+								   rset.getString("chall_thumbnail")
+								   );
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return ch;
+	}
+
 }

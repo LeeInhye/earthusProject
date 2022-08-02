@@ -13,6 +13,8 @@ public class Challenge {
 	private Date challEnrollDate;
 	private String challStatus;
 	private int challCmnt; // 댓글 수
+	private int prevNo; // 이전 글번호
+	private int nextNo; // 다음 글번호
 	
 	public Challenge() {}
 
@@ -47,6 +49,27 @@ public class Challenge {
 		this.challThumbnail = challThumbnail;
 		this.challEnrollDate = challEnrollDate;
 		this.challCmnt = challCmnt;
+	}
+
+	public Challenge(int challNo, String challTitle, String challContent, String challThumbnail, int challCount,
+			Date challEnrollDate, int challCmnt, int prevNo, int nextNo) {
+		super();
+		this.challNo = challNo;
+		this.challTitle = challTitle;
+		this.challContent = challContent;
+		this.challThumbnail = challThumbnail;
+		this.challCount = challCount;
+		this.challEnrollDate = challEnrollDate;
+		this.challCmnt = challCmnt;
+		this.prevNo = prevNo;
+		this.nextNo = nextNo;
+	}
+	
+	public Challenge(int challNo, String challTitle, String challThumbnail) {
+		super();
+		this.challNo = challNo;
+		this.challTitle = challTitle;
+		this.challThumbnail = challThumbnail;
 	}
 
 	public int getChallNo() {
@@ -120,13 +143,29 @@ public class Challenge {
 	public void setChallCmnt(int challCmnt) {
 		this.challCmnt = challCmnt;
 	}
+	
+	public int getPrevNo() {
+		return prevNo;
+	}
+
+	public void setPrevNo(int prevNo) {
+		this.prevNo = prevNo;
+	}
+
+	public int getNextNo() {
+		return nextNo;
+	}
+
+	public void setNextNo(int nextNo) {
+		this.nextNo = nextNo;
+	}
 
 	@Override
 	public String toString() {
 		return "Challenge [challNo=" + challNo + ", challTitle=" + challTitle + ", challContent=" + challContent
 				+ ", challPoint=" + challPoint + ", challThumbnail=" + challThumbnail + ", challCount=" + challCount
 				+ ", challEnrollDate=" + challEnrollDate + ", challStatus=" + challStatus + ", challCmnt=" + challCmnt
-				+ "]";
+				+ ", prevNo=" + prevNo + ", nextNo=" + nextNo + "]";
 	}
 	
 }

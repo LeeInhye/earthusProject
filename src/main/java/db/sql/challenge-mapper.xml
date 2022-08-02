@@ -73,12 +73,66 @@
 		     , ?
 		     )		
 	</entry>
+	
+	<entry key="updateChall">
+	
+	</entry>
+	
+	<entry key="updateAttachment">
+	
+	</entry>
 
 	<entry key="deleteChall">
 		UPDATE 
 		       CHALLENGE
 		   SET CHALL_STATUS = 'N'
 	</entry>
-
+	
+	<entry key="increaseCount">
+		UPDATE CHALLENGE
+		   SET CHALL_COUNT = CHALL_COUNT+1
+		 WHERE CHALL_NO = ?
+		   AND CHALL_STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectChall">
+		SELECT *
+		  FROM (SELECT
+		               CHALL_NO
+		             , CHALL_TITLE
+		             , CHALL_CONTENT
+		             , CHALL_THUMBNAIL
+		             , CHALL_COUNT
+		             , CHALL_ENROLL_DATE
+		             , (SELECT COUNT(*)
+		                  FROM CHALLENGE_CMNT CC 
+		                 WHERE CC.CHALL_NO = C.CHALL_NO) AS CHALL_CMNT
+		             , LAG(CHALL_NO) OVER(ORDER BY CHALL_NO)  AS CHALLNO_PREV
+		             , LEAD(CHALL_NO) OVER(ORDER BY CHALL_NO) AS CHALLNO_NEXT
+		          FROM CHALLENGE C
+		         WHERE CHALL_STATUS = 'Y')
+		 WHERE CHALL_NO = ?
+	</entry>
+	
+	<entry key="selectAttachment">
+		SELECT 
+		       FILE_NO
+		     , ORIGIN_NAME
+		     , CHANGE_NAME
+		     , FILE_PATH
+		  FROM ATTACHMENT
+		 WHERE REF_TYPE = 2
+		   AND REF_BNO = ?
+	</entry>
+	
+	<entry key="selectPrevNextChall">
+		SELECT
+		       CHALL_NO
+		     , CHALL_TITLE
+		     , CHALL_THUMBNAIL
+		  FROM CHALLENGE
+		 WHERE CHALL_NO = ?
+		   AND CHALL_STATUS = 'Y'
+	</entry>
 
 </properties>

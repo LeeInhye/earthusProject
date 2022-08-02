@@ -78,7 +78,52 @@ public class ChallengeService {
 		
 		return list;
 	}
+	
+	// 사용자_챌린지 상세 조회
+	// 1) 조회수 증가
+	public int increaseCount(int challNo) {
+		Connection conn = getConnection();
+		int result = new ChallengeDao().increaseCount(conn, challNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
+	// 2) 게시글 데이터 조회 (이전글번호, 다음글번호 포함)
+	public Challenge selectChall(int challNo) {
+		Connection conn = getConnection();
+		Challenge ch = new ChallengeDao().selectChall(conn, challNo);
+		close(conn);
+		
+		return ch;
+	}
+	
+	// 3) 상세 이미지 첨부파일 조회
+	public Attachment selectAttachment(int challNo) {
+		Connection conn = getConnection();
+		Attachment at = new ChallengeDao().selectAttachment(conn, challNo);
+		close(conn);
+		
+		return at;
+	}
+	
+	// 4) 이전 글, 다음 글 데이터 조회
+	public Challenge selectPrevNextChall(int challNo) {
+		Connection conn = getConnection();
+		Challenge ch = new ChallengeDao().selectPrevNextChall(conn, challNo);
+		close(conn);
+		
+		return ch;
+	}
 
+	
+	
 	
 	
 }
