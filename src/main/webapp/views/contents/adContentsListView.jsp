@@ -41,42 +41,42 @@
                    <h3 class="mt-4" style="font-weight:bold;">콘텐츠 관리</h3>
                    <hr><br><br>
                    
-                   <table>
-                       <tr>
-                           <th width="5%" height="50px">
+                    <table>
+                        <tr>
+                            <th width="5%" height="50px">
                                <input type="checkbox" id="checkAll">
-                           </th>
-                           <th width="5%">No.</th>
-                           <th width="55%">제목</th>
-                           <th width="15%">작성일</th>
-                           <th width="10%">조회수</th>
-                           <th width="10%">좋아요 수</th>
-                       </tr>
-                       <% if(list.isEmpty()) { %>
-	                       <tr>
-	                           <td colspan="6">존재하는 콘텐츠가 없습니다.</td>
-	                       </tr>  	
-                       <% } else { %>
-                       	   <% for(Contents c : list) { %>
-		                       <tr class="list-area">
- 		                           <td onclick="event.stopPropagation();"> <!-- 해당 td 클릭 시에는 수정 페이지로 이동하지 않게 함-->
-		                               <input type="checkbox" name="check" value="<%= c.getCntNo() %>">
-		                           </td>
-		                           <td><%= c.getCntNo() %></td>
-		                           <td><%= c.getCntTitle() %></td>
-		                           <td><%= c.getCntEnrollDate() %></td>
-		                           <td><%= c.getCntCount() %></td>
-		                           <td><%= c.getCntLike() %></td>
-		                       </tr>
-	                       <% } %>
-                       <% } %>
-                   </table>
+                            </th>
+                            <th width="5%">No.</th>
+                            <th width="55%">제목</th>
+                            <th width="15%">작성일</th>
+                            <th width="10%">조회수</th>
+                            <th width="10%">좋아요 수</th>
+                        </tr>
+                        <% if(list.isEmpty()) { %>
+                            <tr>
+                                <td colspan="6">존재하는 콘텐츠가 없습니다.</td>
+                            </tr>  	
+                        <% } else { %>
+                            <% for(Contents c : list) { %>
+                                <tr class="list-area">
+                                    <td onclick="event.stopPropagation();"> <!-- 해당 td 클릭 시에는 수정 페이지로 이동하지 않게 함-->
+                                        <input type="checkbox" name="check" value="<%= c.getCntNo() %>">
+                                    </td>
+                                    <td><%= c.getCntNo() %></td>
+                                    <td><%= c.getCntTitle() %></td>
+                                    <td><%= c.getCntEnrollDate() %></td>
+                                    <td><%= c.getCntCount() %></td>
+                                    <td><%= c.getCntLike() %></td>
+                                </tr>
+                            <% } %>
+                        <% } %>
+                    </table>
 
-                       <button class="btn_admin" id="btn_delete" style="float: left; margin-left: 10%;">선택 삭제</button>
-                       <button class="btn_admin" style="float: right; margin-right: 10%;" id="btn_enroll">새 글 작성</button>
+                    <button class="btn_admin" id="btn_delete" style="float: left; margin-left: 10%;" data-bs-toggle="modal" data-bs-target="#jyModal_noCheck">선택 삭제</button>
+                    <button class="btn_admin" style="float: right; margin-right: 10%;" id="btn_enroll">새 글 작성</button>
 
-                    <!-- 모달: 게시글 선택 안 했을 경우 -->
-                    <div class="modal fade" id="jyModal_noCheck">
+                   <!-- 모달: 게시글 선택 안 했을 경우 -->
+                    <div class="modal" id="jyModal_noCheck">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <!-- Modal Header -->
@@ -97,7 +97,7 @@
                     <!-- 모달 끝 -->
 
                     <!-- 모달: 삭제 컨펌 -->
-                    <div class="modal fade" id="jyModal_confirm">
+                    <div class="modal" id="jyModal_confirm">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <!-- Modal Header -->
@@ -155,36 +155,36 @@
                                     $("#checkAll").prop("checked", true);
                                 }
                             })
-
-						})
-						
-                        // 선택 게시글 삭제
-                        $("#btn_delete").click(function(){
-                            var checkCnt = "";
-
-                            $("input:checkbox[name=check]:checked").each(function(){
-                                checkCnt = checkCnt + ($(this).val()) + ","; // 체크된 것만 게시글번호 뽑기 "2,3,4,"
-                            })
-
-                            checkCnt = checkCnt.substring(0,checkCnt.lastIndexOf(",")); // 맨 뒤 콤마 삭제 "2,3,4"
-                            console.log(checkCnt);
-							
-                            if(checkCnt == ''){ // 선택된 체크박스 없이 삭제 버튼 누른 경우
-                                $("#btn_delete").attr("data-bs-toggle", "modal");
-                	            $("#btn_delete").attr("data-bs-target", "#jyModal_noCheck");
-                                return false;
-                            } 
-
-                            // 체크해서 삭제 버튼 누른 경우
-                            $("#btn_delete").attr("data-bs-toggle", "modal");
-                            $("#btn_delete").attr("data-bs-target", "#jyModal_confirm");
                             
-                            $("#realDelete").click(function(){
+                            // 체크박스 체크/체크해제시 선택삭제 버튼의 모달 속성 변경
+                            var checkCnt = "";
+							$("input:checkbox[name=check]").change(function(){
+								checkCnt = "";
+								$("input:checkbox[name=check]:checked").each(function(){
+	                                checkCnt += ($(this).val()) + ","; // 체크된 것만 게시글번호 뽑기 "2,3,4,"
+	                            })
+	                            checkCnt = checkCnt.substring(0,checkCnt.lastIndexOf(",")); // 맨 뒤 콤마 삭제 "2,3,4"
+								
+								if(checkCnt == ''){ // 선택된 체크박스 하나도 없을 경우
+	                	            $("#btn_delete").attr("data-bs-target", "#jyModal_noCheck");
+	                                
+	                            }else{ // 선택된 체크박스 있을 경우
+		                            $("#btn_delete").attr("data-bs-target", "#jyModal_confirm");
+	                            }
+								
+							})                                                     
+                            
+							// 선택한 게시글 삭제
+	                        $("#realDelete").click(function(){
                                 $.ajax({
                                     url:"<%= contextPath%>/delete.co",
                                     data:{"checkCnt":checkCnt},
-                                    success:function(){
-                                        location.reload();
+                                    success:function(result){
+                        				if(result > 0){ // 게시글 삭제 성공
+	                                        location.reload();
+                        				}else{
+                        					alert("게시글 삭제에 실패하였습니다.");
+                        				}
                                     },
                                     error:function(){
                                         console.log("ajax 게시글 삭제 실패")
@@ -192,14 +192,13 @@
                                 })
                             })
 
-                        })
+						})
 					</script>
-
+                    
                </div>
            </main>
 
        </div>
 	</div>
-	
 </body>
 </html>

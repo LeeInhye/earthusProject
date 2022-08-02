@@ -34,13 +34,7 @@ public class adAjaxContentsDeleteController extends HttpServlet {
 		
 		int result = new ContentsService().deleteContents(cntNo);
 		
-		if(result > 0) {
-			response.sendRedirect(request.getContextPath() + "/adList.co");
-		}else {
-			request.setAttribute("modalMsg", "콘텐츠 삭제에 실패했습니다.");
-			request.getRequestDispatcher("views/common/errorModal.jsp").forward(request, response);
-		}
-		
+		response.getWriter().print(result);
 	}
 
 	/**
