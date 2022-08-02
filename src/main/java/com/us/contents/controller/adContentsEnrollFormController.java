@@ -6,6 +6,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.us.member.model.vo.Member;
 
 /**
  * Servlet implementation class adContentsEnrollFormController
@@ -26,9 +29,14 @@ public class adContentsEnrollFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		request.getRequestDispatcher("views/contents/adContentsEnrollForm.jsp").forward(request, response);
-	
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		if(loginUser == null) {
+			response.sendRedirect(request.getContextPath() + "/goLogin.me");
+		} else {
+			request.getRequestDispatcher("views/contents/adContentsEnrollForm.jsp").forward(request, response);
+		}
 	}
 
 	/**

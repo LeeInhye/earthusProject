@@ -8,9 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.us.contents.model.service.ContentsService;
 import com.us.contents.model.vo.Contents;
+import com.us.member.model.vo.Member;
 
 /**
  * Servlet implementation class ContentsListController
@@ -33,9 +35,16 @@ public class ContentsListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		ArrayList<Contents> list = new ContentsService().selectContentsList();
-		request.setAttribute("list", list);
 		
-		request.getRequestDispatcher("views/contents/contentsListView.jsp").forward(request, response);
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		if(loginUser == null) {
+			response.sendRedirect(request.getContextPath() + "/goLogin.me");
+		} else {
+			request.setAttribute("list", list);
+			request.getRequestDispatcher("views/contents/contentsListView.jsp").forward(request, response);
+		}
 	
 	}
 

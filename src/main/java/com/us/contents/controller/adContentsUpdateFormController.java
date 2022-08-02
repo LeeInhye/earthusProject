@@ -7,10 +7,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.us.common.model.vo.Attachment;
 import com.us.contents.model.service.ContentsService;
 import com.us.contents.model.vo.Contents;
+import com.us.member.model.vo.Member;
 
 /**
  * Servlet implementation class adContentsUpdateFormController
@@ -39,10 +41,18 @@ public class adContentsUpdateFormController extends HttpServlet {
 		Contents c = cService.selectContents(cntNo);
 		Attachment at = cService.selectAttachment(cntNo);
 		
-		request.setAttribute("c", c);
-		request.setAttribute("at", at);
-
-		request.getRequestDispatcher("views/contents/adContentsUpdateForm.jsp").forward(request, response);
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		if(loginUser == null) {
+			response.sendRedirect(request.getContextPath() + "/goLogin.me");
+		} else {
+			request.setAttribute("c", c);
+			request.setAttribute("at", at);
+			
+			request.getRequestDispatcher("views/contents/adContentsUpdateForm.jsp").forward(request, response);
+		}
+		
 	}
 
 	/**
