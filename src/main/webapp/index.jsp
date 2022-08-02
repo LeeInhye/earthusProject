@@ -146,7 +146,7 @@
                             	<a href="<%=contextPath%>/wish.pr" id="lsuccess"><i class="ti-heart"></i></a>
                             <% } %>
                             <!-- 장바구니 -->
-                                <a>
+                                <a href="<%=contextPath%>/list.ct">
                                     <i class="ti-shopping-cart"></i>
                                 </a>
                                 

@@ -143,7 +143,7 @@
                             <!-- 위시리스트-->
                             <a href=""><i class="ti-heart"></i></a>
                             <!-- 장바구니 -->
-                                <a>
+                                <a href="<%=contextPath%>/list.ct">
                                     <i class="ti-shopping-cart"></i>
                                 </a>
                                 
