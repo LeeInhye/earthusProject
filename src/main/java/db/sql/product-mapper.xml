@@ -150,17 +150,25 @@ UPDATE PRODUCT
 
 <entry key="selectProQnaList">
 	SELECT *
+	  FROM PRO_QNA
+	 WHERE PRO_CODE = ?
+	 ORDER 
+	    BY PRO_Q_ENROLL_DATE
+</entry>
+
+<entry key="priceDesc">
+	SELECT *
 	  FROM (
-	     SELECT ROWNUM "RNUM", A.*
-	      FROM (
-	            SELECT *
-	              FROM PRO_QNA
-	             WHERE PRO_CODE = ?
-	             ORDER 
-	                BY PRO_Q_ENROLL_DATE
-	           ) A  
+	    SELECT ROWNUM "RNUM", A.*
+	    FROM (
+	      SELECT *
+	      FROM PRODUCT
+	     WHERE CATEGORY_NO = ?
+	     ORDER
+	        BY PRICE DESC
+	         )A
 	       )
-	 WHERE ROWNUM BETWEEN ? AND ?
+	 WHERE RNUM BETWEEN ? AND ?
 </entry>
 
 </properties>

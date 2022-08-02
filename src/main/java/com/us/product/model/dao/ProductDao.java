@@ -321,7 +321,7 @@ public class ProductDao {
 		return listCount;
 	}
 	
-	public ArrayList<ProQna> selectProQnaList(Connection conn, PageInfo pi, String proCode){
+	public ArrayList<ProQna> selectProQnaList(Connection conn, String proCode){
 		ArrayList<ProQna> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -329,13 +329,8 @@ public class ProductDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
-			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1; // 시작값
-			int endRow = startRow + pi.getBoardLimit() - 1; // 끝값
 					
 			pstmt.setString(1, proCode);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -345,16 +340,56 @@ public class ProductDao {
 									 rset.getString("pro_qna_content"),
 									 rset.getString("pro_qna_pwd"),
 									 rset.getInt("pro_qna_writer_no"),
-									 rset.getString("pro_qn_writer_name"),
+									 rset.getString("pro_qna_writer_name"),
 									 rset.getString("pro_qna_email"),
 									 rset.getString("pro_qna_phone"),
-									 rset.getDate("pro_qna_q_enroll_date"),
-									 rset.getDate("pro_qna_a_enroll_date"),
-									 rset.getString("pro_qna_a_writer"),
-									 rset.getString("pro_qna_a_content")
+									 rset.getDate("pro_q_enroll_date"),
+									 rset.getDate("pro_a_enroll_date"),
+									 rset.getString("pro_a_writer"),
+									 rset.getString("pro_a_content")
 						));
 			}
 			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public ArrayList<Product> priceDesc(Connection conn, PageInfo pi, int categoryNo){
+		ArrayList<Product> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("priceDesc");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1; // 시작값
+		int endRow = startRow + pi.getBoardLimit() - 1; // 끝값
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, categoryNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Product( rset.getString("pro_code"),
+									  rset.getString("categoryNo"),
+									  rset.getString("pro_name"),
+									  rset.getString("pro_info"),
+									  rset.getString("price"),
+									  rset.getInt("stock"),
+									  rset.getDate("pro_enroll_date"),
+									  rset.getString("pro_img_path"),
+									  rset.getString("detail_img_path"),
+									  rset.getString("req_info_img_path"),
+									  rset.getInt("pro_count")
+						));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
