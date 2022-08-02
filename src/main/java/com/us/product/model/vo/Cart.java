@@ -6,17 +6,21 @@ public class Cart {
 	
 	private int userNo;
 	private String proCode;
+	private String proName;
+	private int price;
 	private int proQty;
 	private Date addDate;
 	
 	public Cart() {
 		super();
 	}
-
-	public Cart(int userNo, String proCode, int proQty, Date addDate) {
+	
+	public Cart(int userNo, String proCode, String proName, int price, int proQty, Date addDate) {
 		super();
 		this.userNo = userNo;
 		this.proCode = proCode;
+		this.proName = proName;
+		this.price = price;
 		this.proQty = proQty;
 		this.addDate = addDate;
 	}
@@ -37,6 +41,22 @@ public class Cart {
 		this.proCode = proCode;
 	}
 
+	public String getProName() {
+		return proName;
+	}
+
+	public void setProName(String proName) {
+		this.proName = proName;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
 	public int getProQty() {
 		return proQty;
 	}
@@ -55,7 +75,9 @@ public class Cart {
 
 	@Override
 	public String toString() {
-		return "Cart [userNo=" + userNo + ", proCode=" + proCode + ", proQty=" + proQty + ", addDate=" + addDate + "]";
+		return "Cart [userNo=" + userNo + ", proCode=" + proCode + ", proName=" + proName + ", price=" + price
+				+ ", proQty=" + proQty + ", addDate=" + addDate + "]";
 	}
+	
 	
 }

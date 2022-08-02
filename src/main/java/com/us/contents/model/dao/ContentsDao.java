@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.us.common.model.vo.Attachment;
+import com.us.common.model.vo.PageInfo;
 import com.us.contents.model.vo.Contents;
 
 public class ContentsDao {
@@ -24,6 +25,68 @@ public class ContentsDao {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	// 페이징바_현재 총 게시글 갯수
+	public int selectListCount(Connection conn) {
+		// select문 => ResultSet(숫자 한 개) => listCount
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	// 관리자_콘텐츠 리스트 조회
+	public ArrayList<Contents> selectAdList(Connection conn, PageInfo pi) {
+		// select => ResultSet(여러 행) => ArrayList<Contents>
+		ArrayList<Contents> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectAdList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Contents(rset.getInt("cnt_no"),
+									  rset.getString("cnt_title"),
+									  rset.getInt("cnt_count"),
+									  rset.getDate("cnt_enroll_date"),
+									  rset.getInt("cnt_like")				
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 	
 	// 관리자_콘텐츠 작성
@@ -71,37 +134,6 @@ public class ContentsDao {
 		}
 		
 		return result;
-	}
-	
-	// 관리자_콘텐츠 리스트 조회
-	public ArrayList<Contents> selectAdList(Connection conn) {
-		// select => ResultSet(여러 행) => ArrayList<Contents>
-		ArrayList<Contents> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectAdList");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				list.add(new Contents(rset.getInt("cnt_no"),
-									  rset.getString("cnt_title"),
-									  rset.getInt("cnt_count"),
-									  rset.getDate("cnt_enroll_date"),
-									  rset.getInt("cnt_like")				
-						));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return list;
 	}
 	
 	// 관리자_콘텐츠 수정

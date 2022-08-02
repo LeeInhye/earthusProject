@@ -2,6 +2,12 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
+	<entry key="selectListCount">
+		SELECT COUNT(*) AS COUNT
+		  FROM CONTENTS
+		 WHERE CNT_STATUS = 'Y'
+	</entry>
+
 	<entry key="insertContents">
 		INSERT
 		  INTO CONTENTS
@@ -43,18 +49,25 @@
 	</entry>
 	
 	<entry key="selectAdList">
-		SELECT
-		       CNT_NO
-		     , CNT_TITLE
-		     , CNT_ENROLL_DATE
-		     , CNT_COUNT
-		     , (SELECT COUNT(*)
-		          FROM CONTENTS_LIKE CL 
-		         WHERE CL.CNT_NO = C.CNT_NO) AS CNT_LIKE
-		  FROM CONTENTS C
-		 WHERE CNT_STATUS = 'Y'
-		 ORDER 
-		    BY CNT_NO DESC
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM (
+		                SELECT
+		                       CNT_NO
+		                     , CNT_TITLE
+		                     , CNT_COUNT
+		                     , CNT_ENROLL_DATE
+		                     , (SELECT COUNT(*)
+		                          FROM CONTENTS_LIKE CL 
+		                         WHERE CL.CNT_NO = C.CNT_NO) AS CNT_LIKE
+		                  FROM CONTENTS C
+		                 WHERE CNT_STATUS = 'Y'
+		                 ORDER 
+		                    BY CNT_NO DESC
+		                ) A
+		        )
+		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
 	<entry key="updateContents">

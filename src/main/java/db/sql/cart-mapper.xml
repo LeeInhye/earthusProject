@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+	<entry key="selectList">
+		SELECT PRO_CODE
+		     , PRO_NAME
+		     , PRICE
+		     , PRO_QTY
+		     , ADD_DATE
+		  FROM CART 
+		  JOIN PRODUCT USING (PRO_CODE)
+		 WHERE USER_NO = ?
+		 ORDER
+		    BY ADD_DATE DESC
+	</entry>
+
+</properties>
+

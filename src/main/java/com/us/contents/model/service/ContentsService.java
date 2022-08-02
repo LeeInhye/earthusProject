@@ -1,16 +1,38 @@
 package com.us.contents.model.service;
 
-import static com.us.common.JDBCTemplate.*;
+import static com.us.common.JDBCTemplate.close;
+import static com.us.common.JDBCTemplate.commit;
+import static com.us.common.JDBCTemplate.getConnection;
+import static com.us.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.us.common.model.vo.Attachment;
+import com.us.common.model.vo.PageInfo;
 import com.us.contents.model.dao.ContentsDao;
 import com.us.contents.model.vo.Contents;
 
 public class ContentsService {
 	
+	// 페이징바_현재 총 게시글 갯수
+	public int selectListCount() {
+		Connection conn = getConnection();
+		int listCount = new ContentsDao().selectListCount(conn);
+		close(conn);
+		
+		return listCount;		
+	}
+	
+	// 관리자_콘텐츠 리스트 조회
+	public ArrayList<Contents> selectAdList(PageInfo pi) {
+		Connection conn = getConnection();		
+		ArrayList<Contents> list = new ContentsDao().selectAdList(conn, pi);
+		close(conn);
+		
+		return list;
+	}
+
 	// 관리자_콘텐츠 작성
 	public int insertContents(Contents c, Attachment at) {
 		Connection conn = getConnection();
@@ -29,15 +51,6 @@ public class ContentsService {
 		close(conn);
 		
 		return result1 * result2;
-	}
-	
-	// 관리자_콘텐츠 리스트 조회
-	public ArrayList<Contents> selectAdList() {
-		Connection conn = getConnection();		
-		ArrayList<Contents> list = new ContentsDao().selectAdList(conn);
-		close(conn);
-
-		return list;
 	}
 	
 	// 관리자_콘텐츠 수정
