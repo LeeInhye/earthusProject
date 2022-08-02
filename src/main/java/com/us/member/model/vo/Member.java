@@ -19,8 +19,31 @@ public class Member {
 	private Date userEnrollDate;
 	private Date userModifyDate;
 	private String userStatus;
+	private int point;
 	
 	public Member() {}
+	
+	public Member(int userNo, String userId, String userPwd, String userName, String email, String phone,
+			String zonecode, String address, String addrExtra, String addrDetail, String userBirth, String gender,
+			Date userEnrollDate, Date userModifyDate, String userStatus, int point) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.email = email;
+		this.phone = phone;
+		this.zonecode = zonecode;
+		this.address = address;
+		this.addrExtra = addrExtra;
+		this.addrDetail = addrDetail;
+		this.userBirth = userBirth;
+		this.gender = gender;
+		this.userEnrollDate = userEnrollDate;
+		this.userModifyDate = userModifyDate;
+		this.userStatus = userStatus;
+		this.point = point;
+	}
 
 	public Member(int userNo, String userId, String userPwd, String userName, String email, String phone,
 			String zonecode, String address, String addrExtra, String addrDetail, String userBirth, String gender,
@@ -81,6 +104,24 @@ public class Member {
 		this.userStatus = userStatus;
 	}
 
+	public Member(int userNo, String userId, String userPwd, String userName, String email, String phone,
+			String zonecode, String address, String addrExtra, String addrDetail, Date userEnrollDate, String userStatus, int point) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.email = email;
+		this.phone = phone;
+		this.zonecode = zonecode;
+		this.address = address;
+		this.addrExtra = addrExtra;
+		this.addrDetail = addrDetail;
+		this.userEnrollDate = userEnrollDate;
+		this.userStatus = userStatus;
+		this.point = point;
+	}
+	
 	public Member(int userNo, String userId, String userPwd, String userName, String email, String phone,
 			String zonecode, String address, String addrExtra, String addrDetail, Date userEnrollDate, String userStatus) {
 		super();
@@ -246,14 +287,24 @@ public class Member {
 		this.userStatus = userStatus;
 	}
 
+	public int getPoint() {
+		return point;
+	}
+
+	public void setPoint(int point) {
+		this.point = point;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [userNo=" + userNo + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
 				+ ", email=" + email + ", phone=" + phone + ", zonecode=" + zonecode + ", address=" + address
 				+ ", addrExtra=" + addrExtra + ", addrDetail=" + addrDetail + ", userBirth=" + userBirth + ", gender="
 				+ gender + ", userEnrollDate=" + userEnrollDate + ", userModifyDate=" + userModifyDate + ", userStatus="
-				+ userStatus + "]";
-	};
+				+ userStatus + ", point=" + point + "]";
+	}
+
+	
 	
 	
 }

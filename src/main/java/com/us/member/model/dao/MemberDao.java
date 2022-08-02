@@ -170,6 +170,7 @@ public class MemberDao {
 							 , rset.getDate(13)
 							 , rset.getDate(14)
 							 , rset.getString(15)
+							 , rset.getInt(16)
 							  );
 			}
 			
@@ -392,6 +393,7 @@ public class MemberDao {
 							   , rset.getString("ADDR_DETAIL")
 							   , rset.getDate("USER_ENROLL_DATE")
 							   , rset.getString("USER_STATUS")
+							   , rset.getInt("POINT_BALANCE")
 						));
 			}
 		} catch (SQLException e) {
