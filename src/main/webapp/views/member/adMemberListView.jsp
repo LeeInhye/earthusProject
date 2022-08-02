@@ -178,7 +178,7 @@
 		                
 		                <br><br>
 		                <div>
-		                    <button type="button" id="deleteBtn" class="btn btn_black btn_left" onclick="deleteMember();">
+		                    <button type="button" id="deleteBtn" class="btn btn_black btn_left" data-bs-toggle="modal" data-bs-target="#nocheck">
 		                    회원삭제</button>
 		                </div>
 		                
@@ -186,8 +186,8 @@
                         <script>
 			            	$(function(){
 			            		$(".M_member_table>tbody>tr").on("click", "td:not(:first-child)", function() {
-			            			console.log($(this).children().eq(1).text());
-			            			location.href = "<%= contextPath %>/adUpdateForm.me?mNo=" + $(this).children().eq(1).text();
+			            			console.log( $(this:ntd-1).text());
+			            			//location.href = "<%= contextPath %>/adUpdateForm.me?mNo=" + $(this).children().eq(1).text();
 			            			})
 			            			
 			            		});
@@ -250,7 +250,7 @@
 					
                     
                     <!-- 회원 삭제 모달창 -->
-                    <div class="modal fade" id="adDeleteMember" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal" id="adDeleteMember" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	                    <div class="modal-dialog modal-dialog-centered cascading-modal modal-avatar" role="document">
 	                        <!--Content-->
 	                        <div class="modal-content modal_alert">
@@ -271,9 +271,8 @@
 	                    </div>
 	                </div>
 	                
-	                <button type="button" id="nocheckBtn" class="btn_trans" data-bs-toggle="modal" data-bs-target="#nocheck"></button>
 	                <!-- 회원 선택 안했을 때 -->
-	                <div class="modal fade" id="nocheck" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	                <div class="modal" id="nocheck" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	                    <div class="modal-dialog modal-dialog-centered cascading-modal modal-avatar" role="document">
 	                        <!--Content-->
 	                        <div class="modal-content modal_alert">
@@ -295,46 +294,53 @@
 	                
 	                
 	                <script>
-	                	// 회원 삭제
-	                	function deleteMember(){
+	               		$(function(){
+	                	
+	                		// 회원 삭제
                             var checkCnt = "";
 
-                            $("input:checkbox[name=checkMember]:checked").each(function(){
-                                checkCnt = checkCnt + ($(this).val()) + ","; // 체크된 것만 게시글번호 뽑기 "2,3,4,"
+                            $("input:checkbox[name=checkMember]").change(function(){
+                            	checkCnt = "";
+                            	$("input:checkbox[name=checkMember]:checked").each(function(){
+	                                checkCnt += ($(this).val()) + ","; // 체크된 것만 게시글번호 뽑기 "2,3,4,"
+	                            })
+	                            
+	                            checkCnt = checkCnt.substring(0,checkCnt.lastIndexOf(",")); // 맨 뒤 콤마 삭제 "2,3,4"
+	                            console.log(checkCnt);
+	                            
+	                            // 선택된 체크박스 없이 삭제 버튼 누른 경우
+	                            if(checkCnt == ''){
+	                            	$("#deleteBtn").attr("data-bs-target", "#nocheck");
+	                            }
+
+	                            else {
+	                            	$("#deleteBtn").attr("data-bs-target", "#adDeleteMember");
+	                            }
                             })
 
-                            checkCnt = checkCnt.substring(0,checkCnt.lastIndexOf(",")); // 맨 뒤 콤마 삭제 "2,3,4"
-                            console.log(checkCnt);
-							
-                            // 선택된 체크박스 없이 삭제 버튼 누른 경우
-                            if(checkCnt == ''){
-                            	$("#deleteBtn").removeAttr("data-bs-toggle");
-                            	$("#deleteBtn").removeAttr("data-bs-target");
-                                $("#nocheckBtn").click();
-                            }
-
-                            else {
-                            	$("#deleteBtn").attr("data-bs-toggle", "modal");
-                            	$("#deleteBtn").attr("data-bs-target", "#adDeleteMember");
+                            
+                            $("#realDelete").click(function(){
                             	
-                            	$("#realDelete").click(function(){
-                            	
-		                            $.ajax({
-		                                url:"<%= contextPath %>/adDelete.me",
-		                                data:{"checkCnt":checkCnt},
-		                                success:function(result){
-		                                	if(result > 0){
-		                                		location.reload();
-		                                	}
-		                                },
-		                                error:function(){
-		                                    console.log("ajax 게시글 삭제 실패")
-		                                }
-		                            })
-                            	})
-                            }							                            
+                                $.ajax({
+                                    url:"<%= contextPath %>/adDelete.me",
+                                    data:{"checkCnt":checkCnt},
+                                    success:function(result){
+                                    	if(result > 0){
+                                    		location.reload();
+                                    	} else{
+                                    		alert("회원 삭제에 실패하였습니다.");
+                                    	}
+                                    },
+                                    error:function(){
+                                        console.log("ajax 게시글 삭제 실패")
+                                    }
+                                });
+                        	});
 
-                        }
+                        })
+	                	
+	                	
+                    
 		            </script>
 		            
 		            

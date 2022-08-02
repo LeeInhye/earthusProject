@@ -39,6 +39,7 @@
                                     <th width="5%">번호</th>
                                     <th width="8%">카테고리</th>
                                     <th width="30%">제목</th>
+                                    <th width="8%">작성자</th>
                                     <th width="10%">작성일</th>
                                     <th width="5%">상태</th>
                                 </tr>
@@ -51,6 +52,7 @@
                                     <td><%= n.getNoticeNo() %></td>
                                     <td><%= n.getCsCategory() %></td>
                                     <td><%= n.getNoticeTitle() %></td>
+                                    <td><%= n.getNoticeWriter() %></td>
                                     <td><%= n.getNoticeEnrollDate() %></td>
 									<td><%= n.getNotice_status() %></td>
                                 </tr>
@@ -61,7 +63,7 @@
                         <br><br>
                         
                         <div class="btn_two_spacing">
-                            <button type="button" id="deleteBtn" class="btn btn_black" onclick="deleteNotice();">선택삭제</button>
+                            <button type="button" id="deleteBtn" class="btn btn_black" data-bs-toggle="modal" data-bs-target="#nocheck">선택삭제</button>
                             <button type="button" class="btn btn_black btn-sm" onclick="location.href='<%= contextPath %>/adEnrollForm.no';">새글작성</button>
                         </div>
                     </div>
@@ -125,7 +127,7 @@
 					
 					
 		         	<!-- 공지사항 삭제 모달창 -->
-                    <div class="modal fade" id="adDeleteNotice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal" id="adDeleteNotice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	                    <div class="modal-dialog modal-dialog-centered cascading-modal modal-avatar" role="document">
 	                        <!--Content-->
 	                        <div class="modal-content modal_alert">
@@ -146,9 +148,8 @@
 	                    </div>
 	                </div>
 	                
-	                <button type="button" id="nocheckBtn" class="btn_trans" data-bs-toggle="modal" data-bs-target="#nocheck"></button>
 	                <!-- 회원 선택 안했을 때 -->
-	                <div class="modal fade" id="nocheck" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	                <div class="modal" id="nocheck" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	                    <div class="modal-dialog modal-dialog-centered cascading-modal modal-avatar" role="document">
 	                        <!--Content-->
 	                        <div class="modal-content modal_alert">
@@ -170,47 +171,54 @@
 	                
 	                
 	                <script>
-                	// 회원 삭제
-                		function deleteNotice(){
-                           var checkCnt = "";
+	               		$(function(){
+	                	
+	                		// 회원 삭제
+                            var checkCnt = "";
 
-                           $("input:checkbox[name=checkNotice]:checked").each(function(){
-                               checkCnt = checkCnt + ($(this).val()) + ","; // 체크된 것만 게시글번호 뽑기 "2,3,4,"
-                           })
-
-                           checkCnt = checkCnt.substring(0,checkCnt.lastIndexOf(",")); // 맨 뒤 콤마 삭제 "2,3,4"
-                           console.log(checkCnt);
-						
-                           // 선택된 체크박스 없이 삭제 버튼 누른 경우
-                           if(checkCnt == ''){
-                           	$("#deleteBtn").removeAttr("data-bs-toggle");
-                           	$("#deleteBtn").removeAttr("data-bs-target");
-                               $("#nocheckBtn").click();
-                           }
-
-                           else {
-                           	$("#deleteBtn").attr("data-bs-toggle", "modal");
-                           	$("#deleteBtn").attr("data-bs-target", "#adDeleteNotice");
-                           	
-                           	$("#realDelete").click(function(){
-                           	
-	                            $.ajax({
-	                                url:"<%= contextPath %>/adDelete.no",
-	                                data:{"checkCnt":checkCnt},
-	                                success:function(result){
-	                                	if(result > 0){
-	                                		location.reload();
-	                                	}
-	                                },
-	                                error:function(){
-	                                    console.log("ajax 공지사항 삭제 실패")
-	                                }
+                            $("input:checkbox[name=checkNotice]").change(function(){
+                            	checkCnt = "";
+                            	$("input:checkbox[name=checkNotice]:checked").each(function(){
+	                                checkCnt += ($(this).val()) + ","; // 체크된 것만 게시글번호 뽑기 "2,3,4,"
 	                            })
-                           	})
-                           }							                            
+	                            
+	                            checkCnt = checkCnt.substring(0,checkCnt.lastIndexOf(",")); // 맨 뒤 콤마 삭제 "2,3,4"
+	                            console.log(checkCnt);
+	                            
+	                            // 선택된 체크박스 없이 삭제 버튼 누른 경우
+	                            if(checkCnt == ''){
+	                            	$("#deleteBtn").attr("data-bs-target", "#nocheck");
+	                            }
 
-                       }
-	            </script>
+	                            else {
+	                            	$("#deleteBtn").attr("data-bs-target", "#adDeleteNotice");
+	                            }
+                            })
+
+                            
+                            $("#realDelete").click(function(){
+                            	
+                                $.ajax({
+                                    url:"<%= contextPath %>/adDelete.no",
+                                    data:{"checkCnt":checkCnt},
+                                    success:function(result){
+                                    	if(result > 0){
+                                    		location.reload();
+                                    	} else{
+                                    		alert("회원 삭제에 실패하였습니다.");
+                                    	}
+                                    },
+                                    error:function(){
+                                        console.log("ajax 게시글 삭제 실패")
+                                    }
+                                });
+                        	});
+
+                        })
+	                	
+	                	
+                    
+		            </script>
 		         	
 		         	
 

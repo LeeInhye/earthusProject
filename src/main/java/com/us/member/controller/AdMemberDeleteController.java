@@ -37,9 +37,6 @@ public class AdMemberDeleteController extends HttpServlet {
 		
 		if(result > 0) {
 			response.getWriter().print(result);
-		}else {
-			request.setAttribute("modalMsg", "회원 삭제에 실패했습니다.");
-			request.getRequestDispatcher("views/common/errorModal.jsp").forward(request, response);
 		}
 	}
 
