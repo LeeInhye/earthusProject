@@ -33,6 +33,18 @@ public class Order {
 	private String addrDetail;
 	
 	
+	public Order(int orderNo, int delStatus, String proName, Date orderDate, String proImgPath, int price,
+			int quantity) {
+		super();
+		this.orderNo = orderNo;
+		this.delStatus = delStatus;
+		this.proName = proName;
+		this.orderDate = orderDate;
+		this.proImgPath = proImgPath;
+		this.price = price;
+		this.quantity = quantity;
+	}
+
 	public int getDelStatus() {
 		return delStatus;
 	}

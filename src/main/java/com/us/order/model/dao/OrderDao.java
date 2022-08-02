@@ -108,4 +108,37 @@ public class OrderDao {
 		
 		return olist;
 	}
+	
+	// 취소/교환/반품 페이지
+	public ArrayList<Order> selectCeList(Connection conn, int userNo){
+		ArrayList<Order> celist = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectCeList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				celist.add(new Order(rset.getInt("order_no"),
+									 rset.getInt("del_status"),
+									 rset.getString("pro_name"),
+									 rset.getDate("order_date"),
+									 rset.getString("pro_img_path"),
+									 rset.getInt("price"),
+									 rset.getInt("quantity")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return celist;
+	}
 }
