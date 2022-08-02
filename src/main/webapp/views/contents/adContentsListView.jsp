@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.us.contents.model.vo.Contents"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.us.contents.model.vo.Contents, com.us.common.model.vo.PageInfo"%>
 <%
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<Contents> list = (ArrayList<Contents>)request.getAttribute("adList");
+		
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
 %>
 <!DOCTYPE html>
 <html>
@@ -74,6 +80,28 @@
 
                     <button class="btn_admin" id="btn_delete" style="float: left; margin-left: 10%;" data-bs-toggle="modal" data-bs-target="#jyModal_noCheck">선택 삭제</button>
                     <button class="btn_admin" style="float: right; margin-right: 10%;" id="btn_enroll">새 글 작성</button>
+					<br><br><br><br>
+					
+			        <!-- 페이징바 영역 -->
+			        <div class="paging-area" align="center">
+			        
+			        	<% if(currentPage != 1) {%>
+			            	<button onclick="location.href='<%=contextPath%>/adList.co?cpage=<%= pi.getCurrentPage()-1 %>';" class="btn btn_black">&lt;</button>
+						<% } %>
+						
+						<% for(int p=startPage; p<=endPage; p++) { %>
+				            <% if(p == currentPage){ %>
+				            	<button class="btn btn_gray" disabled><%= p %></button>
+				            <% }else { %>
+				            	<button class="btn btn_black" onclick="location.href='<%=contextPath%>/adList.co?cpage=<%= p %>';"><%= p %></button>
+							<% } %>
+						<% } %>
+						
+						<% if(currentPage != maxPage) { %>
+			            <button onclick="location.href='<%=contextPath%>/adList.co?cpage=<%= pi.getCurrentPage()+1 %>';" class="btn btn_black">&gt;</button>
+			            <% } %>
+			        </div>
+			        <!-- 페이징바 영역 끝 -->
 
                    <!-- 모달: 게시글 선택 안 했을 경우 -->
                     <div class="modal" id="jyModal_noCheck">
