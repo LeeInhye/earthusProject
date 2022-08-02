@@ -387,12 +387,174 @@ public class QnaDao {
 		return result;
 	}
 	
+	// 관리자 페이징
+	public int selectAdListCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("selectAdListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// 관리자 목록 조회
+	public ArrayList<Qna> selectAdQnaList(Connection conn, PageInfo pi){
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Qna> list = new ArrayList<>();
+		
+		String sql = prop.getProperty("selectAdQnaList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Qna(rset.getInt("Qna_NO"),
+									rset.getString("USER_NAME"),
+									rset.getString("QNA_TITLE"),
+									rset.getString("QNA_CONTENT"),
+									rset.getString("QNA_FILE"),
+									rset.getString("QNA_ANSWER"),
+									rset.getDate("QNA_ENROLL_DATE"),
+									rset.getString("QNA_STATUS")
+						));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 	
 	
+	// 관리자 삭제
+	// 첨부파일
+	public ArrayList<Attachment> selectAdAttachment(Connection conn, String a) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Attachment> atlist = new ArrayList<>();
+		
+		String sql = prop.getProperty("selectAdAttachment");
+		
+		// 동적 sql문
+		sql += "AND REF_BNO IN (";
+		
+		String[] aArr = a.split(",");
+		for(int i = 0; i < aArr.length; i++) {
+			sql += aArr[i];
+			if(i != aArr.length - 1) {
+				sql += ",";
+			}
+		}
+		
+		sql += ")";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				atlist.add(new Attachment(rset.getInt("FILE_NO")
+								  , rset.getString("ORIGIN_NAME")
+								  , rset.getString("CHANGE_NAME")
+								  , rset.getString("FILE_PATH")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return atlist;
+	}
 	
+	public int adDeleteQna(Connection conn, String a) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("adDeleteQna");
+		
+		// 동적 sql문
+		sql += "WHERE QNA_NO IN (";
+		
+		String[] aArr = a.split(",");
+		for(int i = 0; i < aArr.length; i++) {
+			sql += aArr[i];
+			if(i != aArr.length - 1) {
+				sql += ",";
+			}
+		}
+		
+		sql += ")";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
-	
-	
+	public int deleteAdAttachment(Connection conn, String a) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("deleteAdAttachment");
+		
+		// 동적 sql문
+		sql += "AND REF_BNO IN (";
+		
+		String[] aArr = a.split(",");
+		for(int i = 0; i < aArr.length; i++) {
+			sql += aArr[i];
+			if(i != aArr.length - 1) {
+				sql += ",";
+			}
+		}
+		
+		sql += ")";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+
+	}
 	
 
 }

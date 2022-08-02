@@ -47,7 +47,7 @@
                             <tbody>
                                 <!-- 값은 다 DB와 연결될 것 -->
                                 <% for(Notice n : list) { %>
-                                <tr>
+                                <tr style="height: 50px;">
                                     <td><input type="checkbox" name="checkNotice" value="<%= n.getNoticeNo() %>"></td>
                                     <td><%= n.getNoticeNo() %></td>
                                     <td><%= n.getCsCategory() %></td>

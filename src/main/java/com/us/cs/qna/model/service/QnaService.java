@@ -124,12 +124,46 @@ public class QnaService {
 		return listCount;
 	}
 	
+	// 관리자 페이징
+	public int selectAdListCount() {
+		Connection conn = getConnection();
+		int listCount = new QnaDao().selectAdListCount(conn);
+		close(conn);
+		return listCount;
+	}
 	
+	// 관리자 목록 조회
+	public ArrayList<Qna> selectAdQnaList(PageInfo pi){
+		Connection conn = getConnection();
+		ArrayList<Qna> list = new QnaDao().selectAdQnaList(conn, pi);
+		close(conn);
+		return list;
+	}
 	
+	// 관리자 삭제
+	public ArrayList<Attachment> selectAdAttachment(String a) {
+		Connection conn = getConnection();
+		ArrayList<Attachment> atlist = new QnaDao().selectAdAttachment(conn, a);
+		close(conn);
+		return atlist;
+	}
 	
-	
-	
-	
+	public int adDeleteQna(String a, ArrayList<Attachment> atlist) {
+		Connection conn = getConnection();
+		int result1 = new QnaDao().adDeleteQna(conn, a);
+		int result2 = 1;
+		
+		if(atlist != null) {
+			result2 = new QnaDao().deleteAdAttachment(conn, a);
+		}
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result1 * result2;
+	}
 	
 	
 	

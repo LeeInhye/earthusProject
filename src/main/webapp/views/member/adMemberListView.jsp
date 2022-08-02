@@ -131,7 +131,7 @@
 		                    <!-- 전체  -->
                 			<% for(Member m : list) { %>
 		                        <!-- 값은 다 DB와 연결될 것 -->
-		                        <tr>
+		                        <tr style="cursor: auto;">
 		                            <td><input type="checkbox" name="checkMember" value="<%= m.getUserNo() %>"></td>
 		                            <td><%= m.getUserNo() %></td>
 		                            <td><%= m.getUserId() %></td>
@@ -185,7 +185,7 @@
 		                
                         <script>
 			            	$(function(){
-			            		$(".M_member_table>tbody>tr").on("click", "td:not(:first-child)", function() {
+			            		$(".M_member_table>tbody>tr").on("click", "td:last-child", function() {
 			            			console.log( $(this).parent().children().eq(1).text() );
 			            			location.href = "<%= contextPath %>/adUpdateForm.me?mNo=" + $(this).parent().children().eq(1).text();
 			            			})

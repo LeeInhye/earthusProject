@@ -47,7 +47,7 @@
                             <tbody>
                                 <!-- 값은 다 DB와 연결될 것 -->
                                 <% for(Faq f : list) { %>
-                                <tr>
+                                <tr style="height: 50px;">
                                     <td><input type="checkbox" name="checkFaq" value="<%= f.getFaqNo() %>"></td>
                                     <td><%= f.getFaqNo() %></td>
                                     <td><%= f.getCsCategory() %></td>
@@ -148,7 +148,7 @@
 	                    </div>
 	                </div>
 	                
-	                <!-- 회원 선택 안했을 때 -->
+	                <!-- 선택 안했을 때 -->
 	                <div class="modal" id="nocheck" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	                    <div class="modal-dialog modal-dialog-centered cascading-modal modal-avatar" role="document">
 	                        <!--Content-->
@@ -173,7 +173,7 @@
 	                <script>
 	               		$(function(){
 	                	
-	                		// 회원 삭제
+	                		// 삭제
                             var checkCnt = "";
 
                             $("input:checkbox[name=checkFaq]").change(function(){

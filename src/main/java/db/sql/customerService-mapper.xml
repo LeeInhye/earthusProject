@@ -431,8 +431,57 @@
 		   AND QNA_WRITER = ?
 	</entry>
 	
+	<entry key="selectAdListCount">
+		SELECT COUNT(*) AS "COUNT"
+		  FROM QNA
+	</entry>
 
-
-
+	<entry key="selectAdQnaList">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM(
+		                SELECT
+		                        QNA_NO
+		                      , USER_NAME
+		                      , QNA_TITLE
+		                      , QNA_CONTENT
+		                      , QNA_FILE
+		                      , QNA_ANSWER
+		                      , QNA_ENROLL_DATE
+                              , QNA_STATUS
+		                  FROM QNA
+		                  JOIN MEMBER ON (USER_NO = QNA_WRITER)
+		                  ORDER
+		                    BY QNA_NO DESC
+		                ) A
+		        )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<!-- 관리자 삭제 기능 -->
+	<entry key="selectAdAttachment">
+		SELECT
+		       FILE_NO
+		     , ORIGIN_NAME
+		     , CHANGE_NAME
+		     , FILE_PATH
+		  FROM ATTACHMENT
+		 WHERE REF_TYPE = 1
+	</entry>
+	
+	<entry key="adDeleteQna">
+		UPDATE
+		       QNA
+		   SET QNA_STATUS = 'N'
+	</entry>
+	
+	<entry key='deleteAdAttachment'>
+		UPDATE
+		       ATTACHMENT
+		   SET STATUS = 'N'
+		 WHERE REF_TYPE = 1
+	</entry>
+	
 
 </properties>

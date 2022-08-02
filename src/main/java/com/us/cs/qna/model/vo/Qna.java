@@ -69,6 +69,19 @@ public class Qna {
 		this.qnaAnswer = qnaAnswer;
 		this.qnaEnrollDate = qnaEnrollDate;
 	}
+	
+	public Qna(int qnaNo, String qnaWriter, String qnaTitle, String qnaContent, String qnaFile, String qnaAnswer,
+			Date qnaEnrollDate, String qnaStatus) {
+		super();
+		this.qnaNo = qnaNo;
+		this.qnaWriter = qnaWriter;
+		this.qnaTitle = qnaTitle;
+		this.qnaContent = qnaContent;
+		this.qnaFile = qnaFile;
+		this.qnaAnswer = qnaAnswer;
+		this.qnaEnrollDate = qnaEnrollDate;
+		this.qnaStatus = qnaStatus;
+	}
 
 	public int getQnaNo() {
 		return qnaNo;
