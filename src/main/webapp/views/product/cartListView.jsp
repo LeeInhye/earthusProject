@@ -74,7 +74,7 @@
             <tbody>
             	<% for(Cart c : list) { %>
 	                <tr class="product" class="check-item">
-	                  <td><input type="checkbox" name="check"></td>
+	                  <td><input type="checkbox" name="check" value="<%=c.getProCode()%>"></td>
 	                  <td>
 	                    <div class="media">
 	                      <div class="d-flex">
@@ -111,11 +111,11 @@
             <tfoot id="display-price" align="right" style="font-size:15px;">
               <tr>
                 <td colspan="4">총 상품 금액</td>
-                <td>xxxx원</td>
+                <td></td>
               </tr>
               <tr>
                 <td colspan="4">배송비</td>
-                <td>xxxx원</td>
+                <td>3000원</td>
               </tr>
               <tr style="font-size:20px;">
                 <td colspan="4">총 주문 금액</td>
@@ -124,6 +124,7 @@
             </tfoot>
           </table>
           <div class="checkout_btn_inner float-right">
+          	<input type="hidden" id="userNo" value="<%= list.get(0).getUserNo() %>">
             <a class="btn" href="<%=contextPath%>">계속 쇼핑하기</a>
             <a class="btn" id="checkout_btn" href="<%=contextPath%>/order.ct">주문하기</a>
           </div>
@@ -140,8 +141,10 @@
   <!-- ============ Start Script Area ==============-->
 
   <script>
-
+	
+	// 상품 수량에 대한 함수 모음
     $(function(){
+    	
       // 수량 증가 버튼 클릭 시 함수
       $(".input-number-increment").click(function(){
         if( Number($(".input-number").val()) < 10 ){
@@ -163,7 +166,9 @@
         }
       })
     })
-
+	
+	
+    // 전체체크박스에 대한 함수
     function checkAll(){
       if( $("#check-all").is(':checked') ){
         $("input[name='check']").prop('checked', true);
@@ -171,25 +176,64 @@
         $("input[name='check']").prop('checked', false)
       }
     }
-
+	
+    // 선택 삭제에 대한 함수
     function deleteChecked(){
-      $("input[name='check']:checked").each(function(){
-        $(this).parent().parent().remove();
-      })
+    	
+		var deleteElement = "";
+		
+		// 체크된 상품에 순차적으로 접근해 해당 요소의 val()값을 ,로 연결해 하나의 문자열 만들기
+		$("input[name=check]:checked").each(function(){
+			deleteElement = deleteElement + ($(this).val()) + ",";
+		})	
+		  	
+		// "value값, value값, ... value값," 와 같은 형태의 문자열이 만들어지므로
+		// 마지막 ","을 삭제해야 "value값, ... value값" 형태로 WHERE PRO_CODE IN ( ? ) 안에 넣을 수 있음
+		// => 이것을 "동적 SQL문"이라고 함!!
+		deleteElement = deleteElement.substring(0, deleteElement.lastIndexOf(","));
+				
+		$.ajax({
+			url:"<%=contextPath%>/delete.ct",
+			data:{
+				userNo:$("#userNo").val(),
+				proCode:deleteElement
+				},
+			success:function(result){
+				alert("선택한 상품 삭제에 성공하였습니다.");
+				location.reload();
+			}, 
+			error:function(){
+				alert("선택한 상품 삭제에 실패하였습니다.");
+			}
+		})
+		
+        /* $(this).parent().parent().remove(); */
     }
-
+	
     $(function(){
-      $("input[name='check']").change(function(){ 
-				// .check-review에 change이벤트가 발생했을 때 실행
-				//	** document ready function은 문서의 요소가 '다 만들어지자마자' 실행되므로, 이 시점에 모든 checkbox는 체크되지 않은 상태
-				// 		=> 따라서, 각 checkbox에 변화가 생길 때(change이벤트 발생할 때)마다 조건검사 해주어야 제대로 작동
-				$("input[name='check']").each(function(){
-					if(!$(this).prop('checked')){
-						$("#check-all").prop('checked', false);
-					}
-				})
+	    // 전체체크 클릭 후 하나라도 체크 해제하면 전체체크도 해제되는 함수
+	    $("input[name='check']").change(function(){ 
+		// .check-review에 change이벤트가 발생했을 때 실행
+		//	** document ready function은 문서의 요소가 '다 만들어지자마자' 실행되므로, 이 시점에 모든 checkbox는 체크되지 않은 상태
+		// 		=> 따라서, 각 checkbox에 변화가 생길 때(change이벤트 발생할 때)마다 조건검사 해주어야 제대로 작동
+			$("input[name='check']").each(function(){
+				if(!$(this).prop('checked')){
+					$("#check-all").prop('checked', false);
+				}
 			})
-
+		})
+    })
+    
+    
+    // AJAX를 이용해 현재 장바구니 상품의 총 상품금액을 출력
+    $(function(){
+    	var totalPrice = 0;
+    	
+    	// input 요소에 변화가 생길 때마다 모든 금액*수량의 합 구해서 text()로  
+    	$("input").change(function(){
+    		
+    	})
+    	
     })
   </script>
 
