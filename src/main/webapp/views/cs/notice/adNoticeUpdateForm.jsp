@@ -61,30 +61,33 @@
 	
 	                        <div class="btn_two_big_btn">
 	                            <button type="button" class="btn btn_gray btn_big btn-lg" onclick="location.href='<%= contextPath %>/adList.no?npage=1';">목록으로</button>
-	                            <button type="button" id="enrollBtn" class="btn btn_black btn_big btn-lg">수정</button>
+	                            <button type="button" id="enrollBtn" class="btn btn_black btn_big btn-lg">
+	                            수정</button>
 	                        </div>
 	                    </div>
+	                    
+		                <!-- 제목, 내용 입력 안했을 때 모달창 -->
+		                <script>
+		                	$(document).ready(function(){
+		                		$("#enrollBtn").click(function(){
+			                		if( ($("input[name=nTitle]").val().length) * ($("textarea[name=nContent]").val().length) != 0) {
+			                			$("#enrollBtn").removeAttr("data-bs-toggle");
+			                			$("#enrollBtn").removeAttr("data-bs-target");
+			                			$("#enrollBtn").prop("type", "submit");
+			                			
+			                		} else{
+			                			$("#enrollBtn").attr("data-bs-toggle", "modal");
+			                			$("#enrollBtn").attr("data-bs-target", "#blank");
+			                		}
+		                			
+		                		});
+		                	}) 
+		                </script>
 	                </form>
 	                
-	                <!-- 제목, 내용 입력 안했을 때 모달창 -->
-	                <script>
-	                	$(document).ready(function(){
-	                		$("#enrollBtn").click(function(){
-		                		if( ($("input[name='nTitle']").val() == "") || ($("textarea[name='nContent']").val() == "") ) {
-		                			$("#enrollBtn").attr("data-bs-toggle", "modal");
-		                			$("#enrollBtn").attr("data-bs-target", "#blank");
-		                		} else{
-		                			$("#enrollBtn").removeAttr("data-bs-toggle");
-		                			$("#enrollBtn").removeAttr("data-bs-target");
-		                			$("#noticeEnrollForm").submit();
-		                		}
-	                			
-	                		});
-	                	}) 
-	                </script>
 	                
 	                <!-- 모달 -->
-	                <div class="modal fade" id="blank" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	                <div class="modal" id="blank" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	                    <div class="modal-dialog modal-dialog-centered cascading-modal modal-avatar" role="document">
 	                        <!--Content-->
 	                        <div class="modal-content modal_alert">

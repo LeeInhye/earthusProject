@@ -84,6 +84,8 @@
 		  , CS_CATEGORY_NO
 		  , NOTICE_TITLE
 		  , NOTICE_CONTENT
+		  , NOTICE_ENROLL_DATE
+		  , NOTICE_STATUS
 		  )
 		  VALUES
 		  (
@@ -92,6 +94,8 @@
 		  , ?
 		  , ?
 		  , ?
+		  , DEFAULT
+		  , DEFAULT
 		  )
 	</entry>
 	
@@ -112,7 +116,7 @@
 		     , CS_CATEGORY_NO = ?
 		     , NOTICE_TITLE = ?
 		     , NOTICE_CONTENT = ?
-		  FROM NOTICE_NO = ?
+		 WHERE NOTICE_NO = ?
 	</entry>
 	
 	
@@ -150,6 +154,36 @@
 		  ORDER
 		    BY FAQ_NO DESC
 	</entry>
+	
+	<entry key="selectFaqListCount">
+		SELECT COUNT(*) AS "COUNT"
+		  FROM FAQ
+	</entry>
+	
+	<entry key="selectAdFaqList">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM(
+		                SELECT
+                                FAQ_NO
+		                      , USER_NAME
+		                      , CS_CATEGORY_NAME
+		                      , FAQ_TITLE
+		                      , FAQ_CONTENT
+		                      , FAQ_ENROLL_DATE
+		                      , FAQ_STATUS
+		                  FROM FAQ
+		                  JOIN CS_CATEGORY USING (CS_CATEGORY_NO)
+                          JOIN MEMBER ON (USER_NO = FAQ_WRITER)
+		                  ORDER
+		                    BY FAQ_NO DESC
+		                ) A
+		        )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+<!-- ==================================================================================================================== -->
 	
 	<entry key="selectListCount">
 		SELECT COUNT(*) AS "COUNT"

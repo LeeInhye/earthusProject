@@ -57,7 +57,7 @@ public class AdNoticeUpdateController extends HttpServlet {
 			
 			// 공지사항 수정 성공
 			if(result > 0) {
-				response.sendRedirect(request.getContextPath() + "/adUpdateForm.no?nNo=" + nNo );
+				response.sendRedirect(request.getContextPath() + "/adUpdateForm.no?nNo=" + nNo);
 			} else {
 				session.setAttribute("modalMsg", "공지사항 수정에 실패하였습니다.");
 				request.getRequestDispatcher("/views/common/errorModal.jsp").forward(request, response);

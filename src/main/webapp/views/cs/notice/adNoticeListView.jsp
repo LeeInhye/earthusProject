@@ -205,7 +205,7 @@
                                     	if(result > 0){
                                     		location.reload();
                                     	} else{
-                                    		alert("회원 삭제에 실패하였습니다.");
+                                    		alert("공지사항 삭제에 실패하였습니다.");
                                     	}
                                     },
                                     error:function(){
