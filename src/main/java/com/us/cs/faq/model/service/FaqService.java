@@ -65,11 +65,37 @@ public class FaqService {
 		return result;
 	}
 	
+	// 등록
+	public int insertFaq(Faq f) {
+		Connection conn = getConnection();
+		int result = new FaqDao().insertFaq(conn, f);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result;
+	}
 	
+	// 해당 글 조회
+	public Faq selectFaq(String a) {
+		Connection conn = getConnection();
+		Faq f = new FaqDao().selectFaq(conn, a);
+		close(conn);
+		return f;
+	}
 	
-	
-	
-	
+	// 해당 글 수정
+	public int updateFaq(Faq f) {
+		Connection conn = getConnection();
+		int result = new FaqDao().updateFaq(conn, f);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result;
+	}
 	
 	
 	

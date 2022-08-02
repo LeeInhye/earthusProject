@@ -1,6 +1,7 @@
 package com.us.cs.faq.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,19 +12,20 @@ import javax.servlet.http.HttpSession;
 
 import com.us.cs.faq.model.service.FaqService;
 import com.us.cs.faq.model.vo.Faq;
+import com.us.cs.model.vo.CsCategory;
 import com.us.member.model.vo.Member;
 
 /**
  * Servlet implementation class AdFaqUpdateController
  */
-@WebServlet("/adUpdate.fq")
-public class AdFaqUpdateController extends HttpServlet {
+@WebServlet("/adUpdateForm.fq")
+public class AdFaqUpdateFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdFaqUpdateController() {
+    public AdFaqUpdateFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,29 +35,25 @@ public class AdFaqUpdateController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// 인코딩
-		request.setCharacterEncoding("UTF-8");
-		
 		// 전달값
-		int fNo = Integer.parseInt(request.getParameter("fNo"));
-		String csCate = request.getParameter("csCate");
-		String fTitle = request.getParameter("fTitle");
-		String fContent = request.getParameter("fContent");
+		String fNo = request.getParameter("fNo");
+		
+		// 해당 게시글 정보 가져오기
+		Faq f = new FaqService().selectFaq(fNo);
+		
+		// 카테고리 목록
+		ArrayList<CsCategory> cateList = new FaqService().selectCategoryList();
 		
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		
-		String fWriter = Integer.toString(loginUser.getUserNo());
-		
-		Faq f = new Faq(fNo, fWriter, csCate, fTitle, fContent);
-		
-		int result = new FaqService().updateFaq(f);
-		
-		if(result > 0) {
-			response.sendRedirect(request.getContextPath() + "/adUpdateForm.fq?fNo=" + fNo);
+		if(loginUser == null) {
+			response.sendRedirect(request.getContextPath() + "/goLogin.me");
 		} else {
-			session.setAttribute("modalMsg", "자주 묻는 질문 수정에 실패하였습니다.");
-			request.getRequestDispatcher("/views/common/errorModal.jsp").forward(request, response);
+			request.setAttribute("cateList", cateList);
+			request.setAttribute("fNo", fNo);
+			request.setAttribute("f", f);
+			request.getRequestDispatcher("/views/cs/faq/adFaqUpdateForm.jsp").forward(request, response);
 		}
 	}
 

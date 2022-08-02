@@ -213,5 +213,81 @@ public class FaqDao {
 		return result;
 	}
 	
+	// 등록
+	public int insertFaq(Connection conn, Faq f) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("insertFaq");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, f.getFaqWriter());
+			pstmt.setString(2, f.getCsCategory());
+			pstmt.setString(3, f.getFaqTitle());
+			pstmt.setString(4, f.getFaqContent());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// 조회
+	public Faq selectFaq(Connection conn, String a) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Faq f = null;
+		
+		String sql = prop.getProperty("selectFaq");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, a);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				f = new Faq(rset.getString("USER_NAME")
+						  , rset.getString("CS_CATEGORY_NO")
+						  , rset.getString("FAQ_TITLE")
+						  , rset.getString("FAQ_CONTENT")
+						);
+						
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return f;
+	}
+	
+	// 게시글 수정
+	public int updateFaq(Connection conn, Faq f) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("updateFaq");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, f.getFaqWriter());
+			pstmt.setString(2, f.getCsCategory());
+			pstmt.setString(3, f.getFaqTitle());
+			pstmt.setString(4, f.getFaqContent());
+			pstmt.setInt(5, f.getFaqNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 }

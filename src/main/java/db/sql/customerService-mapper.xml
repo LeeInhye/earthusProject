@@ -189,6 +189,45 @@
 		   SET FAQ_STATUS = 'N'
 	</entry>
 	
+	<entry key="insertFaq">
+		INSERT
+		  INTO FAQ
+		  (
+		    FAQ_NO
+		  , FAQ_WRITER
+		  , CS_CATEGORY_NO
+		  , FAQ_TITLE
+		  , FAQ_CONTENT
+		  )
+		  VALUES
+		  (
+		    SEQ_FAQNO.NEXTVAL
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  )
+	</entry>
+	
+	<entry key="selectFaq">
+		SELECT
+		       USER_NAME
+		     , CS_CATEGORY_NO
+		     , FAQ_TITLE
+		     , FAQ_CONTENT
+		  FROM FAQ
+		  JOIN MEMBER ON (USER_NO = FAQ_WRITER)
+		 WHERE FAQ_NO = ?
+	</entry>
+	
+	<entry key="updateFaq">
+		UPDATE FAQ
+		   SET FAQ_WRITER = ?
+		     , CS_CATEGORY_NO = ?
+		     , FAQ_TITLE = ?
+		     , FAQ_CONTENT = ?
+		 WHERE FAQ_NO = ?
+	</entry>
 <!-- ==================================================================================================================== -->
 	
 	<entry key="selectListCount">
