@@ -1,9 +1,6 @@
 package com.us.contents.model.service;
 
-import static com.us.common.JDBCTemplate.close;
-import static com.us.common.JDBCTemplate.commit;
-import static com.us.common.JDBCTemplate.getConnection;
-import static com.us.common.JDBCTemplate.rollback;
+import static com.us.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;

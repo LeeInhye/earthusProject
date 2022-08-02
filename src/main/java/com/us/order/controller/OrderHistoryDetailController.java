@@ -1,6 +1,7 @@
-package com.us.contents.controller;
+package com.us.order.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,19 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.us.contents.model.service.ContentsService;
+import com.us.order.model.service.OrderService;
+import com.us.order.model.vo.Order;
 
 /**
- * Servlet implementation class adAjaxContentsDeleteController
+ * Servlet implementation class OrderHistoryDetailController
  */
-@WebServlet("/delete.co")
-public class adAjaxContentsDeleteController extends HttpServlet {
+@WebServlet("/historyDetail.or")
+public class OrderHistoryDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adAjaxContentsDeleteController() {
+    public OrderHistoryDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,12 +31,12 @@ public class adAjaxContentsDeleteController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		String cntNo = request.getParameter("checkCnt");
+		request.setCharacterEncoding("UTF-8");
+		int orderNo = Integer.parseInt(request.getParameter("oNo"));
 		
-		int result = new ContentsService().deleteContents(cntNo);
-		
-		response.getWriter().print(result);
+		ArrayList<Order> olist = new OrderService().selectOrder(orderNo);
+		request.setAttribute("olist", olist);
+		request.getRequestDispatcher("views/order/orderHistoryDetailView.jsp").forward(request, response);
 	}
 
 	/**

@@ -7,23 +7,40 @@ public class Order {
 	private int orderNo;
 	private int userNo;
 	private String payment;
-	private int pointUsed;
+	private int pointsUsed;
 	private String shpMemo;
 	private int paymentAmount;
 	private String ordrrName;
 	private String ordrrPhone;
 	private String delName;
 	private String delPhone;
-	private String zoneCode;
+	private String delZoneCode;
 	private String delAddress;
-	private String addrDetail;
+	private String delAddrDetail;
 	private int delNo;
 	private int delStatus;
 	private int proCount;
 	private String proCode;
 	private String proName;
 	private Date orderDate;
+	private String proImgPath;
+	private int price;
+	private int quantity;
+	private String zoneCode;
+	private String userName;
+	private String phone;
+	private String address;
+	private String addrDetail;
 	
+	
+	public int getDelStatus() {
+		return delStatus;
+	}
+
+	public void setDelStatus(int delStatus) {
+		this.delStatus = delStatus;
+	}
+
 	public int getProCount() {
 		return proCount;
 	}
@@ -56,6 +73,102 @@ public class Order {
 		this.orderDate = orderDate;
 	}
 
+	public String getProImgPath() {
+		return proImgPath;
+	}
+
+	public void setProImgPath(String proImgPath) {
+		this.proImgPath = proImgPath;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public String getZoneCode() {
+		return zoneCode;
+	}
+
+	public void setZoneCode(String zoneCode) {
+		this.zoneCode = zoneCode;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getAddrDetail() {
+		return addrDetail;
+	}
+
+	public void setAddrDetail(String addrDetail) {
+		this.addrDetail = addrDetail;
+	}
+
+	public Order(int orderNo, String payment, int pointsUsed, String shpMemo, int paymentAmount, String delName,
+			String delPhone, String delZoneCode, String delAddress, String delAddrDetail, int delStatus, String proName,
+			Date orderDate, String proImgPath, int price, int quantity, String zoneCode, String userName, String phone,
+			String address, String addrDetail) {
+		super();
+		this.orderNo = orderNo;
+		this.payment = payment;
+		this.pointsUsed = pointsUsed;
+		this.shpMemo = shpMemo;
+		this.paymentAmount = paymentAmount;
+		this.delName = delName;
+		this.delPhone = delPhone;
+		this.delZoneCode = delZoneCode;
+		this.delAddress = delAddress;
+		this.delAddrDetail = delAddrDetail;
+		this.delStatus = delStatus;
+		this.proName = proName;
+		this.orderDate = orderDate;
+		this.proImgPath = proImgPath;
+		this.price = price;
+		this.quantity = quantity;
+		this.zoneCode = zoneCode;
+		this.userName = userName;
+		this.phone = phone;
+		this.address = address;
+		this.addrDetail = addrDetail;
+	}
+
+	public Order() {}
+	
+	
+
 	public Order(int orderNo, int paymentAmount, int delStatus, int proCount, String proCode, String proName,
 			Date orderDate) {
 		super();
@@ -68,27 +181,24 @@ public class Order {
 		this.orderDate = orderDate;
 	}
 
-	public Order() {}
-
-	public Order(int orderNo, int userNo, String payment, int pointUsed, String shpMemo, int paymentAmount,
-			String ordrrName, String ordrrPhone, String delName, String delPhone, String zoneCode, String delAddress,
-			String addrDetail, int delNo, int delStatus) {
+	public Order(int orderNo, int userNo, String payment, int pointsUsed, String shpMemo, int paymentAmount,
+			String ordrrName, String ordrrPhone, String delName, String delPhone, String delZoneCode, String delAddress,
+			String delAddrDetail, int delNo) {
 		super();
 		this.orderNo = orderNo;
 		this.userNo = userNo;
 		this.payment = payment;
-		this.pointUsed = pointUsed;
+		this.pointsUsed = pointsUsed;
 		this.shpMemo = shpMemo;
 		this.paymentAmount = paymentAmount;
 		this.ordrrName = ordrrName;
 		this.ordrrPhone = ordrrPhone;
 		this.delName = delName;
 		this.delPhone = delPhone;
-		this.zoneCode = zoneCode;
+		this.delZoneCode = delZoneCode;
 		this.delAddress = delAddress;
-		this.addrDetail = addrDetail;
+		this.delAddrDetail = delAddrDetail;
 		this.delNo = delNo;
-		this.delStatus = delStatus;
 	}
 
 	public int getOrderNo() {
@@ -115,12 +225,12 @@ public class Order {
 		this.payment = payment;
 	}
 
-	public int getPointUsed() {
-		return pointUsed;
+	public int getPointsUsed() {
+		return pointsUsed;
 	}
 
-	public void setPointUsed(int pointUsed) {
-		this.pointUsed = pointUsed;
+	public void setPointsUsed(int pointsUsed) {
+		this.pointsUsed = pointsUsed;
 	}
 
 	public String getShpMemo() {
@@ -171,12 +281,12 @@ public class Order {
 		this.delPhone = delPhone;
 	}
 
-	public String getZoneCode() {
-		return zoneCode;
+	public String getDelZoneCode() {
+		return delZoneCode;
 	}
 
-	public void setZoneCode(String zoneCode) {
-		this.zoneCode = zoneCode;
+	public void setDelZoneCode(String delZoneCode) {
+		this.delZoneCode = delZoneCode;
 	}
 
 	public String getDelAddress() {
@@ -187,12 +297,12 @@ public class Order {
 		this.delAddress = delAddress;
 	}
 
-	public String getAddrDetail() {
-		return addrDetail;
+	public String getDelAddrDetail() {
+		return delAddrDetail;
 	}
 
-	public void setAddrDetail(String addrDetail) {
-		this.addrDetail = addrDetail;
+	public void setDelAddrDetail(String delAddrDetail) {
+		this.delAddrDetail = delAddrDetail;
 	}
 
 	public int getDelNo() {
@@ -203,22 +313,18 @@ public class Order {
 		this.delNo = delNo;
 	}
 
-	public int getDelStatus() {
-		return delStatus;
-	}
-
-	public void setDelStatus(int delStatus) {
-		this.delStatus = delStatus;
-	}
-
 	@Override
 	public String toString() {
-		return "Order [orderNo=" + orderNo + ", userNo=" + userNo + ", payment=" + payment + ", pointUsed=" + pointUsed
+		return "Order [orderNo=" + orderNo + ", userNo=" + userNo + ", payment=" + payment + ", pointsUsed=" + pointsUsed
 				+ ", shpMemo=" + shpMemo + ", paymentAmount=" + paymentAmount + ", ordrrName=" + ordrrName
-				+ ", ordrrPhone=" + ordrrPhone + ", delName=" + delName + ", delPhone=" + delPhone + ", zoneCode="
-				+ zoneCode + ", delAddress=" + delAddress + ", addrDetail=" + addrDetail + ", delNo=" + delNo
-				+ ", delStatus=" + delStatus + "]";
+				+ ", ordrrPhone=" + ordrrPhone + ", delName=" + delName + ", delPhone=" + delPhone + ", delZoneCode="
+				+ delZoneCode + ", delAddress=" + delAddress + ", delAddrDetail=" + delAddrDetail + ", delNo=" + delNo
+				+ "]";
 	}
+	
+	
+	
+	
 	
 
 }

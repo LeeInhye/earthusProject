@@ -32,7 +32,7 @@
                     <h3 class="mt-4" style="font-weight:bold;">콘텐츠 관리 > 수정</h3>
                     <hr><br>
                     <div class="enrollForm">
-                        <form action="<%=contextPath%>/update.co" method="post" enctype="multipart/form-data">
+                        <form action="<%=contextPath%>/update.co" method="post" id="updateForm" enctype="multipart/form-data">
                         	<input type="hidden" name="no" value="<%= c.getCntNo() %>">
                         	<input type="hidden" name="originThumbnail" value="<%= c.getCntThumbnail() %>">
                         	<input type="hidden" name="originFileNo" value="<%= at.getFileNo() %>" >
@@ -59,26 +59,62 @@
                             <span>원본명 : <%= at.getOriginName() %></span>
                             <br><br><br>
                         
-                            <button type="button" class="btn_admin_cancel" style="margin-left:2%">취소</button>
-                            <button type="submit" class="btn_admin_enroll">등록</button>
+                            <button type="button" class="btn_admin_cancel" style="margin-left:2%" id="btn_cancle">취소</button>
+                            <button type="button" class="btn_admin_enroll" data-bs-toggle="modal" data-bs-target="#jyModal_confirm">등록</button>
+
+		                    <!-- 모달: 수정 컨펌 -->
+		                    <div class="modal" id="jyModal_confirm">
+		                        <div class="modal-dialog modal-dialog-centered">
+		                            <div class="modal-content">
+		                                <!-- Modal Header -->
+		                                <div class="modal-header">
+		                                <button type="button" class="modal_close" data-bs-dismiss="modal" style="margin-left: 95%;">&times;</button>
+		                                </div>
+		                                <!-- Modal body -->
+		                                <div class="modal-body" style="text-align: center;">
+		                                수정하시겠습니까?
+		                                </div>
+		                                <!-- Modal footer -->
+		                                <div class="modal-footer">
+		                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">취소</button>
+		                                <button type="button" class="btn btn-dark" id="realUpdate">확인</button>
+		                                </div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                    <!-- 모달 끝 -->
 
                             <script>
-                                function chooseFile(){
-                                    $("input[name=file1]").click();
-                                }
-
-                                function loadImg(inputFile){
-                                    // inputFile : 현재 변화가 생긴 input type="file" 요소객체
-                                    if(inputFile.files.length == 1){ // 파일 선택된 경우 => 읽어들여서 미리보기
-                                        const reader = new FileReader();
-                                        reader.readAsDataURL(inputFile.files[0]);
-                                        reader.onload = function(e){
-                                            $("#thumbnailImg").attr("src", e.target.result);
-                                        }
-                                    }else { // 파일 취소된 경우 => 미리보기 사라지게
-                                        $("#thumbnailImg").attr("src", null);
+                                $(function(){
+                                    
+                                    function chooseFile(){
+                                        $("input[name=file1]").click();
                                     }
-                                }
+    
+                                    function loadImg(inputFile){
+                                        // inputFile : 현재 변화가 생긴 input type="file" 요소객체
+                                        if(inputFile.files.length == 1){ // 파일 선택된 경우 => 읽어들여서 미리보기
+                                            const reader = new FileReader();
+                                            reader.readAsDataURL(inputFile.files[0]);
+                                            reader.onload = function(e){
+                                                $("#thumbnailImg").attr("src", e.target.result);
+                                            }
+                                        }else { // 파일 취소된 경우 => 미리보기 사라지게
+                                            $("#thumbnailImg").attr("src", null);
+                                        }
+                                    }
+
+                                    // 취소
+                                    $("#btn_cancle").click(function(){
+                                        location.href = '<%=contextPath%>/adList.co';
+                                    })
+                                    
+                                    // 수정 컨펌 모달 > 확인 버튼 클릭시 제출
+                                    $("#realUpdate").click(function(){
+                                        $("#updateForm").submit();
+                                    })
+                                    
+                                })
                             </script>
                         </form>
                   </div>

@@ -46,6 +46,15 @@ public class Notice {
 		this.noticeContent = noticeContent;
 	}
 
+	public Notice(int noticeNo, String noticeWriter, String csCategory, String noticeTitle, String noticeContent) {
+		super();
+		this.noticeNo = noticeNo;
+		this.noticeWriter = noticeWriter;
+		this.csCategory = csCategory;
+		this.noticeTitle = noticeTitle;
+		this.noticeContent = noticeContent;
+	}
+
 	public int getNoticeNo() {
 		return noticeNo;
 	}

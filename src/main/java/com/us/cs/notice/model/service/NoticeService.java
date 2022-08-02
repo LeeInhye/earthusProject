@@ -79,5 +79,26 @@ public class NoticeService {
 		return result;
 	}
 	
+	// 공지사항 조회
+	public Notice selectNotice(String nNo) {
+		Connection conn  = getConnection();
+		Notice n = new NoticeDao().selectNotice(conn, nNo);
+		close(conn);
+		return n;
+	}
+	
+	// 공지사항 수정
+	public int updateNotice(Notice n) {
+		Connection conn = getConnection();
+		int result = new NoticeDao().updateNotice(conn, n);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
 
 }

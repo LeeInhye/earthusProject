@@ -37,9 +37,6 @@ public class AdNoticeDeleteController extends HttpServlet {
 		
 		if(result > 0) {
 			response.getWriter().print(result);
-		}else {
-			request.setAttribute("modalMsg", "공지사항 삭제에 실패했습니다.");
-			request.getRequestDispatcher("views/common/errorModal.jsp").forward(request, response);
 		}
 	}
 

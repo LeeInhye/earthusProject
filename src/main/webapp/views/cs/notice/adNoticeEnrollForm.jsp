@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.us.cs.model.vo.CsCategory"%>
+<%
+	ArrayList<CsCategory> cateList = (ArrayList<CsCategory>)request.getAttribute("cateList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,10 +25,10 @@
 	                    <div style="width: 90%" class="main_width  sumin_font_big">
 	                        <div>
 	                           <select name="csCate" class="form-select select_category">
-	                                <option value="10" selected>공지사항</option>
-	                                <option value="11">배송안내</option>
-	                                <option value="12">이벤트</option>
-	                                <option value="13">채용공고</option>
+	                           		<!-- db로부터 카테고리를 조회해와서 option요소들을 만들어야함 -->
+		                            <% for(int i = 0; i < 4; i++) { %>
+			                            <option value="<%= cateList.get(i).getCsNo() %>"><%= cateList.get(i).getCsName() %></option>
+		                            <% } %>
 	                           </select>
 	                            
 	                        </div>

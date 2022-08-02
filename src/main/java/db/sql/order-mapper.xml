@@ -26,6 +26,38 @@
 		 JOIN PRODUCT P ON (B.PRO_CODE = P.PRO_CODE)
 		 
 	</entry>
+	
+	<entry key="selectOrder">
+		SELECT
+		       ORDER_NO
+		     , DECODE(PAYMENT, 'CARD', CARD_APPROVAL_DATE, 'CASH', CASH_APPROVAL_DATE)"ORDER_DATE"
+		     , PRO_IMG_PATH
+		     , PRO_NAME
+		     , PRICE
+		     , QUANTITY
+		     , DEL_STATUS
+		     , DEL_NAME
+		     , DEL_PHONE
+		     , DEL_ZONECODE
+		     , DEL_ADDRESS
+		     , DEL_ADDR_DETAIL
+		     , SHP_MEMO
+		     , USER_NAME
+		     , PHONE
+		     , ZONECODE
+		     , ADDRESS
+		     , ADDR_DETAIL
+		     , PAYMENT_AMOUNT
+		     , POINTS_USED
+		     , PAYMENT
+		  FROM "ORDER"
+		  JOIN MEMBER USING (USER_NO)
+		LEFT JOIN PAY_CARD USING (ORDER_NO)
+		LEFT JOIN PAY_CASH USING (ORDER_NO)
+		  JOIN ORDER_PRODUCT USING (ORDER_NO)
+		  JOIN PRODUCT USING (PRO_CODE)
+		 WHERE ORDER_NO = ?
+	</entry>
 
 
 

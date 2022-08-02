@@ -40,8 +40,6 @@ public class adContentsInsertController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 
-		HttpSession session = request.getSession();
-
 		// enctype이 multipart/form-data로 잘 전송되었을 경우
 		if(ServletFileUpload.isMultipartContent(request)) {
 			

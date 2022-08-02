@@ -68,7 +68,9 @@
 		      , USER_ENROLL_DATE
 		      , USER_MODIFY_DATE
 		      , USER_STATUS
+		      , POINT_BALANCE
 		  FROM MEMBER
+		  LEFT JOIN POINT USING(USER_NO)
 		 WHERE USER_STATUS IN ('Y', 'M')
 		   AND USER_ID = ?
 		   AND USER_PWD = ?
@@ -158,7 +160,9 @@
 		                      , ADDR_DETAIL
 		                      , USER_ENROLL_DATE
 		                      , USER_STATUS
+		                      , POINT_BALANCE
 		                  FROM MEMBER
+		                  LEFT JOIN POINT USING(USER_NO)
 		                  ORDER
 		                    BY USER_NO DESC
 		                ) A
