@@ -79,7 +79,7 @@ public class adContentsUpdateController extends HttpServlet {
 			// 새로운 첨부파일 O, 기존 첨부파일 O	=> c, fileNo이 담긴 at  => CONTENTS UPDATE, ATTACHMENT UPDATE
 			
 			if(result > 0) { // 성공 => 콘텐츠관리 리스트 페이지
-				response.sendRedirect(request.getContextPath() + "/adList.co");
+				response.sendRedirect(request.getContextPath() + "/adList.co?cpage=1");
 			}else { // 실패 => 에러 페이지
 				request.setAttribute("errorMsg", "게시글 작성 실패");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
