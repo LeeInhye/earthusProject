@@ -47,7 +47,7 @@
 		font-weight:bold;
 	}
 	
-	.section_padding 
+	.section_padding {
     padding-top: 200px !important;
 	}
 
@@ -609,45 +609,6 @@
                 </div>
                 
               </div>
-            </div>
-            <div class="col-lg-6">
-              <form class="row contact_form" action="<%=contextPath%>/insert.re" name="review" method="post" novalidate="novalidate">
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <h4>리뷰 작성하기</h4>
-                      <p style="display:inline;">당신의 별점은: </p>
-                      <fieldset id="rate-star">
-                        <input type="radio" name="rate" value="1" id="rate1">
-                        <label for="rate1"><i class="fa fa-star review-rate"></i></label>
-                        <input type="radio" name="rate" value="2" id="rate2">
-                        <label for="rate2"><i class="fa fa-star review-rate"></i></label>
-                        <input type="radio" name="rate" value="3" id="rate3">
-                        <label for="rate3"><i class="fa fa-star review-rate"></i></label>
-                        <input type="radio" name="rate" value="4" id="rate4">
-                        <label for="rate4"><i class="fa fa-star review-rate"></i></label>
-                        <input type="radio" name="rate" value="5" id="rate5">
-                        <label for="rate5"><i class="fa fa-star review-rate"></i></label>
-                      </fieldset>
-
-                      <script>
-                        $(function(){
-                          // 별점 checked속성에 대한 function (클릭하면 유지되도록)
-                          $("input[name=rate]").change(function(){
-                            $(this).next().children().css("color", "#fbd600");
-                            $(this).prevAll("label").children().css("color", "#fbd600");
-                            $(this).next().nextAll("label").children().css("color", "#F2F2F2");
-                          })
-                        })                      
-                      </script>
-               
-                      <textarea name="message" rows="4" placeholder="상품에 대한 리뷰를 최소 20자 이상 입력해주세요." style="width:100%; border:1px solid gainsboro; resize:none;"></textarea>
-                      <input type="file" name="review-upload-img" id="">
-                    </div>
-                  </div>
-                  <div class="col-md-12 text-right">
-                    <button type="submit" class="btn" style="background-color:#A8BFAA; color:#F2F2F2;">제출하기</button>
-                  </div>
-              </form>
             </div>
           </div>
         </div>

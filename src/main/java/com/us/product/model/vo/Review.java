@@ -9,12 +9,13 @@ public class Review {
 	private Date revDate;
 	private int revRate;
 	private String revContent;
+	private String revType;
 
 	public Review() {
 		super();
 	}
 
-	public Review(int revNo, int userNo, String proCode, Date revDate, int revRate, String revContent) {
+	public Review(int revNo, int userNo, String proCode, Date revDate, int revRate, String revContent, String revType) {
 		super();
 		this.revNo = revNo;
 		this.userNo = userNo;
@@ -22,6 +23,7 @@ public class Review {
 		this.revDate = revDate;
 		this.revRate = revRate;
 		this.revContent = revContent;
+		this.revType = revType;
 	}
 
 	public int getRevNo() {
@@ -72,13 +74,19 @@ public class Review {
 		this.revContent = revContent;
 	}
 
+	public String getRevType() {
+		return revType;
+	}
+
+	public void setRevType(String revType) {
+		this.revType = revType;
+	}
+
 	@Override
 	public String toString() {
 		return "Review [revNo=" + revNo + ", userNo=" + userNo + ", proCode=" + proCode + ", revDate=" + revDate
-				+ ", revRate=" + revRate + ", revContent=" + revContent + "]";
+				+ ", revRate=" + revRate + ", revContent=" + revContent + ", revType=" + revType + "]";
 	}
 
-	
-	
 	
 }

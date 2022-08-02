@@ -34,7 +34,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 	
 	<style>
-		.btn-delete{
+		.btn-bottom{
 			border-radius: 5px;
 			font-weight:bold;
 			background-color: #A8BFAA;
@@ -60,8 +60,8 @@
                 <div class="col-lg-8">
                     <div class="breadcrumb_iner">
                         <div class="breadcrumb_iner_item">
-                            <h2>작성 리뷰 관리</h2>
-                            <p>작성했던 리뷰를 한 군데에 모아서 조회, 수정, 삭제해 보세요!</p>
+                            <h2>리뷰 관리</h2>
+                            <p>구매한 상품에 리뷰를 남기고 조회, 수정, 삭제해 보세요!</p>
                         </div>
                     </div>
                 </div>
@@ -115,7 +115,8 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="4"><button type="button" class="btn-delete"onclick="deleteChecked();">삭제</button></td>
+					<td colspan="3"><button type="button" class="btn-bottom btn-delete" onclick="deleteChecked();">삭제</button></td>
+					<td align="right"><button type="button" class="btn-bottom btn-insert">새로운 리뷰 등록</button></td>
 				</tr>
 			</tfoot>
 		</table>		
@@ -160,8 +161,18 @@
 				var popupX = screen.width/2 - 250;
 				var popupY = screen.height/2 - 300; 
 				const option = "scrollbars=no, location=no, toolbar=no, resizable=no, status=no, width=500px, height=600px, left=" + popupX + ", top=" + popupY;
-				window.open("<%= contextPath %>/views/member/mypageReviewEdit.jsp", "리뷰 수정", option);
+				window.open("<%= contextPath %>/views/member/mypageReviewEditView.jsp", "리뷰 수정", option);
 			})
+			
+			
+			// 새로운 리뷰 등록 버튼 누르면 팝업페이지 (리뷰등록 페이지) 띄우는 함수
+			$(".btn-insert").click(function(){
+				var popupX = screen.width/2 - 250;
+				var popupY = screen.height/2 - 300; 
+				const option = "scrollbars=no, location=no, toolbar=no, resizable=no, status=no, width=500px, height=600px, left=" + popupX + ", top=" + popupY;
+				window.open("<%= contextPath %>/views/member/mypageReviewInsertView.jsp", "리뷰 등록", option);
+			})
+			
 		})
 	</script>
 	<!-- ============ End Script Area ==============-->

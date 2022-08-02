@@ -32,7 +32,7 @@
                 </div>
             </div>
 	
-            <div class="mpBlock" onclick="location.href='<%= contextPath %>';">
+            <div class="mpBlock" onclick="location.href='<%= contextPath %>/CncltExrtr.or';">
                 <div class="mp_top">
                     <h3>CANCLE | EXCHANGE | RETURN</h3>
                     <br>

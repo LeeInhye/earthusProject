@@ -25,4 +25,12 @@ public class OrderService {
 		close(conn);
 		return olist;
 	}
+	
+	// 취소/교환/반품 페이지
+	public ArrayList<Order> selectCeList(int userNo){
+		Connection conn = getConnection();
+		ArrayList<Order> celist = new OrderDao().selectCeList(conn, userNo);
+		close(conn);
+		return celist;
+	}
 }
