@@ -128,7 +128,7 @@
                                     <h4 id="selectTitle">정렬기준 : </h4>
                                         <select class="custom-select">
                                             <option value="1">조회순</option>
-                                            <option value="2">판매량높은순</option>
+                                            <option value="2">인기순</option> <!-- 판매량높은순 -->
                                             <option value="3">가격높은순</option>
                                             <option value="4">가격낮은순</option>
                                         </select>
@@ -242,7 +242,6 @@
     </section>
 
     <script>
-       
 
         $(function(){
 
@@ -289,8 +288,9 @@
             	location.href = "<%=contextPath%>/detail.pro?proCode=" + proCode;
             	
             })
+            // ---------------------------------------
             
-            
+            // 상품 정렬
 			
         })
                                             
@@ -298,6 +298,7 @@
     </script>
     <!--상품 목록 영역 끝-->
     <!--================상품 카테고리 영역 끝=================-->
+    
 	<script src="<%= contextPath %>/resources/js/owl.carousel.min.js"></script>
 	<script>
 		$(function(){
