@@ -11,8 +11,27 @@ import java.util.ArrayList;
 import com.us.challenge.model.dao.ChallengeDao;
 import com.us.challenge.model.vo.Challenge;
 import com.us.common.model.vo.Attachment;
+import com.us.common.model.vo.PageInfo;
 
 public class ChallengeService {
+	
+	// 페이징바_현재 총 게시글 갯수
+	public int selectListCount() {
+		Connection conn = getConnection();
+		int listCount = new ChallengeDao().selectListCount(conn);
+		close(conn);
+		
+		return listCount;		
+	}
+	
+	// 관리자_챌린지 리스트 조회
+	public ArrayList<Challenge> selectAdList(PageInfo pi) {
+		Connection conn = getConnection();
+		ArrayList<Challenge> list = new ChallengeDao().selectAdList(conn, pi);
+		close(conn);
+		
+		return list;
+	}
 	
 	// 관리자_챌린지 작성
 	public int insertChall(Challenge ch, Attachment at) {
@@ -32,15 +51,6 @@ public class ChallengeService {
 		close(conn);
 		
 		return result1 * result2;
-	}
-	
-	// 관리자_챌린지 리스트 조회
-	public ArrayList<Challenge> selectAdList() {
-		Connection conn = getConnection();
-		ArrayList<Challenge> list = new ChallengeDao().selectAdList(conn);
-		close(conn);
-		
-		return list;
 	}
 
 }

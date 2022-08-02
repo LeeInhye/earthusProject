@@ -2,6 +2,34 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
+	<entry key="selectListCount">
+		SELECT COUNT(*) AS COUNT
+		  FROM CHALLENGE
+		 WHERE CHALL_STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectAdList">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM (
+		                SELECT
+		                       CHALL_NO
+		                     , CHALL_TITLE
+		                     , CHALL_POINT
+		                     , CHALL_ENROLL_DATE
+		                     , (SELECT COUNT(*)
+		                          FROM CHALLENGE_CMNT CC 
+		                         WHERE CC.CHALL_NO = C.CHALL_NO) AS CHALL_CMNT
+		                  FROM CHALLENGE C
+		                 WHERE CHALL_STATUS = 'Y'
+		                 ORDER 
+		                    BY CHALL_NO DESC
+		                ) A
+		        )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+
 	<entry key="insertChall">
 		INSERT
 		  INTO CHALLENGE
@@ -44,19 +72,6 @@
 		     )		
 	</entry>
 
-	<entry key="selectAdList">
-		SELECT
-		       CHALL_NO
-		     , CHALL_TITLE
-		     , CHALL_POINT
-		     , CHALL_ENROLL_DATE
-		     , (SELECT COUNT(*)
-		          FROM CHALLENGE_CMNT CC 
-		         WHERE CC.CHALL_NO = C.CHALL_NO) AS CHALL_CMNT
-		  FROM CHALLENGE C
-		 WHERE CHALL_STATUS = 'Y'
-		 ORDER 
-		    BY CHALL_NO DESC
-	</entry>
+
 
 </properties>

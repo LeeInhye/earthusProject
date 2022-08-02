@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import com.us.challenge.model.vo.Challenge;
 import com.us.common.model.vo.Attachment;
+import com.us.common.model.vo.PageInfo;
 
 public class ChallengeDao {
 	
@@ -24,6 +25,68 @@ public class ChallengeDao {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	// 페이징바_현재 총 게시글 갯수
+	public int selectListCount(Connection conn) {
+		// select문 => ResultSet(숫자 한 개) => listCount
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	// 관리자_챌린지 리스트 조회
+	public ArrayList<Challenge> selectAdList(Connection conn, PageInfo pi) {
+		// select => ResultSet(여러 행) => ArrayList<Challenge>
+		ArrayList<Challenge> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectAdList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Challenge(rset.getInt("chall_no"),
+									   rset.getString("chall_title"),
+									   rset.getInt("chall_point"),
+									   rset.getDate("chall_enroll_date"),
+									   rset.getInt("chall_cmnt")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 	
 	// 관리자_챌린지 작성
@@ -73,38 +136,7 @@ public class ChallengeDao {
 		
 		return result;
 	}
-	
-	// 관리자_챌린지 리스트 조회
-	public ArrayList<Challenge> selectAdList(Connection conn) {
-		// select => ResultSet(여러 행) => ArrayList<Challenge>
-		ArrayList<Challenge> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectAdList");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				list.add(new Challenge(rset.getInt("chall_no"),
-									   rset.getString("chall_title"),
-									   rset.getInt("chall_point"),
-									   rset.getDate("chall_enroll_date"),
-									   rset.getInt("chall_cmnt")
-						));
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return list;
-	}
+
 
 	
 	
