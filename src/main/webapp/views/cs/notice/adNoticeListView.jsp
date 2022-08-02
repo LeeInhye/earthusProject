@@ -118,7 +118,7 @@
 						$(function(){
 		            		$(".M_member_table>tbody>tr").on("click", "td:not(:first-child)", function() {
 		            			console.log($(this).children().eq(1).text());
-		            			location.href = "<%= contextPath %>/adUpdateForm.no?nNo=" + $(this).children().eq(1).text();
+		            			location.href = "<%= contextPath %>/adUpdateForm.no?nNo=" + $(this).parent().children().eq(1).text();
 		            			})
 		            			
 		            		});

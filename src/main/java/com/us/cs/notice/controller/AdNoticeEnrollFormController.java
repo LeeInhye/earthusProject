@@ -1,6 +1,7 @@
 package com.us.cs.notice.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.us.cs.model.vo.CsCategory;
+import com.us.cs.notice.model.service.NoticeService;
 import com.us.member.model.vo.Member;
 
 /**
@@ -31,6 +34,9 @@ public class AdNoticeEnrollFormController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// 카테고리 목록
+		ArrayList<CsCategory> cateList = new NoticeService().selectCategoryList();
+		
 		// 단순 페이지 요청
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
@@ -38,6 +44,7 @@ public class AdNoticeEnrollFormController extends HttpServlet {
 		if(loginUser == null) {
 			response.sendRedirect(request.getContextPath() + "/goLogin.me");
 		} else {
+			request.setAttribute("cateList", cateList);
 			request.getRequestDispatcher("/views/cs/notice/adNoticeEnrollForm.jsp").forward(request, response);
 		}
 		

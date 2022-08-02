@@ -236,7 +236,58 @@ public class NoticeDao {
 		return result;
 	}
 	
+	// 공지사항 조회
+	public Notice selectNotice(Connection conn, String nNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Notice n = null;
+		
+		String sql = prop.getProperty("selectNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, nNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				n = new Notice(rset.getString("USER_NAME")
+							 , rset.getString("CS_CATEGORY_NO")
+							 , rset.getString("NOTICE_TITLE")
+							 , rset.getString("NOTICE_CONTENT")
+						);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return n;
+	}
 	
+	public int updateNotice(Connection conn, Notice n) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("updateNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, n.getNoticeWriter());
+			pstmt.setString(2, n.getCsCategory());
+			pstmt.setString(3, n.getNoticeTitle());
+			pstmt.setString(4, n.getNoticeContent());
+			pstmt.setInt(5, n.getNoticeNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	
 	

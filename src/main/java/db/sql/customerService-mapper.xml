@@ -95,8 +95,25 @@
 		  )
 	</entry>
 	
+	<entry key="selectNotice">
+		SELECT
+		       USER_NAME
+		     , CS_CATEGORY_NO
+		     , NOTICE_TITLE
+		     , NOTICE_CONTENT
+		  FROM NOTICE
+		  JOIN MEMBER ON (NOTICE_WRITER = USER_NO)
+		 WHERE NOTICE_NO = ?
+	</entry>
 	
-	
+	<entry key="updateNotice">
+		UPDATE NOTICE
+		   SET NOTICE_WRITER = ?
+		     , CS_CATEGORY_NO = ?
+		     , NOTICE_TITLE = ?
+		     , NOTICE_CONTENT = ?
+		  FROM NOTICE_NO = ?
+	</entry>
 	
 	
 	<!-- ================================================================================ -->
