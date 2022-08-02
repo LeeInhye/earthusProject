@@ -20,7 +20,6 @@ public class CartDao {
 		try {
 			prop.loadFromXML(new FileInputStream( CartDao.class.getResource("/db/sql/cart-mapper.xml").getPath() ));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -53,6 +52,27 @@ public class CartDao {
 			close(pstmt);
 		}
 		return list;		
+	}
+	
+	
+	public int deleteSelected(Connection conn, int userNo, String proCode) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteSelected");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setString(2, proCode);
+			result = pstmt.executeUpdate();
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;	
+		
 	}
 	
 

@@ -18,4 +18,18 @@ public class CartService {
 		return list;
 	}
 	
+	
+	public int deleteSelected(int userNo, String proCode) {
+		Connection conn = getConnection();
+		int result = new CartDao().deleteSelected(conn, userNo, proCode);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
 }
