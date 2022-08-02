@@ -59,7 +59,7 @@
                             <span>원본명 : <%= at.getOriginName() %></span>
                             <br><br><br>
                         
-                            <button type="button" class="btn_admin_cancel" style="margin-left:2%">취소</button>
+                            <button type="button" class="btn_admin_cancel" style="margin-left:2%" id="btn_cancle">취소</button>
                             <button type="button" class="btn_admin_enroll" data-bs-toggle="modal" data-bs-target="#jyModal_confirm">등록</button>
 
 		                    <!-- 모달: 수정 컨펌 -->
@@ -103,8 +103,13 @@
                                             $("#thumbnailImg").attr("src", null);
                                         }
                                     }
+
+                                    // 취소
+                                    $("#btn_cancle").click(function(){
+                                        location.href = '<%=contextPath%>/adList.co';
+                                    })
                                     
-                                    // 수정 컨펌 모달 => 확인 버튼 클릭시 제출
+                                    // 수정 컨펌 모달 > 확인 버튼 클릭시 제출
                                     $("#realUpdate").click(function(){
                                         $("#updateForm").submit();
                                     })
