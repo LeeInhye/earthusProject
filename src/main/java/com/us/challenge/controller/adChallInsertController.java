@@ -56,7 +56,7 @@ public class adChallInsertController extends HttpServlet {
 			ch.setChallTitle(multiRequest.getParameter("title"));
 			ch.setChallContent(multiRequest.getParameter("content"));
 			ch.setChallPoint(Integer.parseInt(multiRequest.getParameter("point")));
-			ch.setChallThumbnail("resources/challenge_upfiles/"+multiRequest.getParameter("file1"));
+			ch.setChallThumbnail("resources/challenge_upfiles/"+multiRequest.getFilesystemName("file1"));
 			
 			// 첨부파일의 원본명, 수정명, 저장경로 => ATTACHMENT에 INSERT
 			Attachment at = new Attachment();

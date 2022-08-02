@@ -61,7 +61,7 @@ public class ChallengeDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("selectAdList");
+		String sql = prop.getProperty("selectChallList");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -173,6 +173,43 @@ public class ChallengeDao {
 		return result;		
 	}
 
+	// 사용자_챌린지 리스트 조회
+	public ArrayList<Challenge> selectChallList(Connection conn, PageInfo pi) {
+		// select => ResultSet(여러 행) => ArrayList<Challenge>
+		ArrayList<Challenge> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectChallList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Challenge(rset.getInt("chall_no"),
+									   rset.getString("chall_title"),
+									   rset.getInt("chall_point"),
+									   rset.getString("chall_thumbnail"),
+									   rset.getDate("chall_enroll_date"),
+									   rset.getInt("chall_cmnt")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
 
 	
 }

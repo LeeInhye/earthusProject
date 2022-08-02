@@ -37,6 +37,17 @@ public class Challenge {
 		this.challEnrollDate = challEnrollDate;
 		this.challCmnt = challCmnt;
 	}
+	
+	public Challenge(int challNo, String challTitle, int challPoint, String challThumbnail, Date challEnrollDate,
+			int challCmnt) {
+		super();
+		this.challNo = challNo;
+		this.challTitle = challTitle;
+		this.challPoint = challPoint;
+		this.challThumbnail = challThumbnail;
+		this.challEnrollDate = challEnrollDate;
+		this.challCmnt = challCmnt;
+	}
 
 	public int getChallNo() {
 		return challNo;

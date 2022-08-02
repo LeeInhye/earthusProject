@@ -69,6 +69,15 @@ public class ChallengeService {
 
 		return result;
 	}
+	
+	// 사용자_챌린지 리스트 조회
+	public ArrayList<Challenge> selectChallList(PageInfo pi){
+		Connection conn = getConnection();
+		ArrayList<Challenge> list = new ChallengeDao().selectChallList(conn, pi);
+		close(conn);
+		
+		return list;
+	}
 
 	
 	

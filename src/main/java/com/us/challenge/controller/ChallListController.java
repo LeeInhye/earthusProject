@@ -1,4 +1,4 @@
-package com.us.contents.controller;
+package com.us.challenge.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,24 +8,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import com.us.challenge.model.service.ChallengeService;
+import com.us.challenge.model.vo.Challenge;
 import com.us.common.model.vo.PageInfo;
 import com.us.contents.model.service.ContentsService;
-import com.us.contents.model.vo.Contents;
-import com.us.member.model.vo.Member;
 
 /**
- * Servlet implementation class ContentsListController
+ * Servlet implementation class ChallListController
  */
-@WebServlet("/list.co")
-public class ContentsListController extends HttpServlet {
+@WebServlet("/list.ch")
+public class ChallListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ContentsListController() {
+    public ChallListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,7 +35,7 @@ public class ContentsListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// * 페이징 처리
-		int listCount = new ContentsService().selectListCount(); // 현재 게시글 총 갯수
+		int listCount = new ChallengeService().selectListCount(); // 현재 게시글 총 갯수
 		int currentPage = Integer.parseInt(request.getParameter("cpage")); // 사용자가 보게 될 페이지 (즉, 사용자가 요청한 페이지)
 		int pageLimit = 3; // 페이징바의 페이지 최대 갯수 (몇 개 단위씩)		
 		int boardLimit = 4; // 한 페이지당 보여질 게시글의 최대 갯수 (몇 개 단위씩)
@@ -52,11 +51,11 @@ public class ContentsListController extends HttpServlet {
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		  
 		// * 현재 요청한 페이지(currentPage)에 보여질 게시글 리스트 조회 (boardLimit수만큼 조회)
-		ArrayList<Contents> list = new ContentsService().selectContentsList(pi);
+		ArrayList<Challenge> list = new ChallengeService().selectChallList(pi);
 
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/contents/contentsListView.jsp").forward(request, response);
+		request.getRequestDispatcher("views/challenge/challListView.jsp").forward(request, response);
 	
 	}
 
