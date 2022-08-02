@@ -130,7 +130,8 @@ public class OrderDao {
 									 rset.getDate("order_date"),
 									 rset.getString("pro_img_path"),
 									 rset.getInt("price"),
-									 rset.getInt("quantity")
+									 rset.getInt("quantity"),
+									 rset.getString("pro_code")
 						));
 			}
 		} catch (SQLException e) {
@@ -140,5 +141,45 @@ public class OrderDao {
 			close(pstmt);
 		}
 		return celist;
+	}
+	
+	// 교환/반품 신청할 상품 조회
+	public Order selectOrderProduct(Connection conn, int orderNo, String proCode) {
+		Order o = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectOrderProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, orderNo);
+			pstmt.setString(2, proCode);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				o = new Order(rset.getInt("order_no"),
+							  rset.getInt("points_used"),
+				 		      rset.getInt("payment_amount"),
+				 		      rset.getString("del_name"),
+				 		      rset.getString("del_phone"),
+				 		      rset.getString("del_zonecode"),
+				 		      rset.getString("del_address"),
+				 		      rset.getString("del_addr_detail"),
+							  rset.getInt("del_status"),
+							  rset.getString("pro_name"),
+							  rset.getDate("order_date"),
+							  rset.getString("pro_img_path"),
+							  rset.getInt("price"),
+							  rset.getInt("quantity"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return o;
 	}
 }

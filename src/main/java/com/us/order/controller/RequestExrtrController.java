@@ -1,7 +1,6 @@
 package com.us.order.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,20 +8,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.us.member.model.vo.Member;
 import com.us.order.model.service.OrderService;
 import com.us.order.model.vo.Order;
 
 /**
- * Servlet implementation class OrderHistoryDetailController
+ * Servlet implementation class RequestExrtrController
  */
-@WebServlet("/historyDetail.or")
-public class OrderHistoryDetailController extends HttpServlet {
+@WebServlet("/request.or")
+public class RequestExrtrController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OrderHistoryDetailController() {
+    public RequestExrtrController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,11 +32,13 @@ public class OrderHistoryDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		int orderNo = Integer.parseInt(request.getParameter("oNo"));
+		int orderNo = Integer.parseInt(request.getParameter("exNo"));
+		String proCode = request.getParameter("pCo");
 		
-		ArrayList<Order> olist = new OrderService().selectOrder(orderNo);
-		request.getSession().setAttribute("olist", olist);
-		request.getRequestDispatcher("views/order/orderHistoryDetailView.jsp").forward(request, response);
+		Order o = new OrderService().selectOrderProduct(orderNo, proCode);
+		
+		request.setAttribute("o", o);
+		request.getRequestDispatcher("views/order/requestExrtrForm.jsp").forward(request, response);
 	}
 
 	/**

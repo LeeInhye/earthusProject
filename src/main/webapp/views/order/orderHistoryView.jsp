@@ -79,7 +79,7 @@ ArrayList<Order> list = (ArrayList<Order>)session.getAttribute("list");
 			                          </div>
 		                          <%}else{ %>
 		                          	  <div class="media-body">
-		                          	  	<input type="hidden" value="<%=or.getProCode()%>">
+		                          	  	<input type="hidden" name="proCode" value="<%=or.getProCode()%>">
 			                            <h5><%= or.getProName() %> 외 <%=or.getProCount()-1 %>건</h5>
 			                          </div>
 		                          <%} %>

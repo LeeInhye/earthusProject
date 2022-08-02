@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.us.order.model.vo.*"%>
 <%
-	ArrayList<Order> olist = (ArrayList<Order>)request.getAttribute("olist");
+	ArrayList<Order> olist = (ArrayList<Order>)session.getAttribute("olist");
 %>
 <!DOCTYPE html>
 <html>

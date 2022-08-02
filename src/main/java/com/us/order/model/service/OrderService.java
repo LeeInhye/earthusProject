@@ -1,6 +1,7 @@
 package com.us.order.model.service;
 
-import static com.us.common.JDBCTemplate.*;
+import static com.us.common.JDBCTemplate.close;
+import static com.us.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -32,5 +33,13 @@ public class OrderService {
 		ArrayList<Order> celist = new OrderDao().selectCeList(conn, userNo);
 		close(conn);
 		return celist;
+	}
+	
+	// 교환/반품 신청할 상품 조회
+	public Order selectOrderProduct(int orderNo, String proCode) {
+		Connection conn = getConnection();
+		Order o = new OrderDao().selectOrderProduct(conn, orderNo, proCode);
+		close(conn);
+		return o;
 	}
 }

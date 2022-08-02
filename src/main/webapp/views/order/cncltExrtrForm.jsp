@@ -24,7 +24,7 @@
 		.table{
 		  text-align:center;
 		}
-		.cancel, #exchange{
+		.cancel, #exchange, #detail{
 		  background-color:rgb(168,191,170);
 		  border:0;
 		  color:white;
@@ -77,9 +77,10 @@
 						<td>
 						  <div class="media">
 							<div class="d-flex">
-							  <img src="<%=or.getProImgPath() %>" alt="" />
+							  <img src="<%=contextPath %>/<%=or.getProImgPath() %>" />
 							</div>
 							<div class="media-body">
+							  <input type="hidden" name="proCode" value="">
 							  <h5><%=or.getProName() %></h5>
 							</div>
 						  </div>
@@ -102,7 +103,8 @@
 						<td>
 						  <div class="p-btn">
 							<button id="cancel<%=or.getProCode()%>" class="cancel">취소</button> <br>
-							<button id="exchange">교환/반품</button>
+							<button id="exchange" onclick="location.href='<%=contextPath%>/request.or?exNo=<%=or.getOrderNo()%>&pCo=<%=or.getProCode()%>';">교환/반품</button> <br>
+							<button id="detail">내역조회</button>
 						  </div>
 						</td>
 					  </tr>

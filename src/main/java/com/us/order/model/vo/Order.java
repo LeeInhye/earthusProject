@@ -34,7 +34,7 @@ public class Order {
 	
 	
 	public Order(int orderNo, int delStatus, String proName, Date orderDate, String proImgPath, int price,
-			int quantity) {
+			int quantity, String proCode) {
 		super();
 		this.orderNo = orderNo;
 		this.delStatus = delStatus;
@@ -43,7 +43,30 @@ public class Order {
 		this.proImgPath = proImgPath;
 		this.price = price;
 		this.quantity = quantity;
+		this.proCode = proCode;
 	}
+	
+
+	public Order(int orderNo, int pointsUsed, int paymentAmount, String delName, String delPhone, String delZoneCode,
+			String delAddress, String delAddrDetail, int delStatus, String proName, Date orderDate, String proImgPath,
+			int price, int quantity) {
+		super();
+		this.orderNo = orderNo;
+		this.pointsUsed = pointsUsed;
+		this.paymentAmount = paymentAmount;
+		this.delName = delName;
+		this.delPhone = delPhone;
+		this.delZoneCode = delZoneCode;
+		this.delAddress = delAddress;
+		this.delAddrDetail = delAddrDetail;
+		this.delStatus = delStatus;
+		this.proName = proName;
+		this.orderDate = orderDate;
+		this.proImgPath = proImgPath;
+		this.price = price;
+		this.quantity = quantity;
+	}
+
 
 	public int getDelStatus() {
 		return delStatus;

@@ -66,6 +66,7 @@
 		     , PRO_IMG_PATH
 		     , PRO_NAME
 		     , PRICE
+		     , PRO_CODE
 		     , QUANTITY
 		     , DEL_STATUS
 		  FROM "ORDER"
@@ -75,6 +76,31 @@
 		  JOIN PRODUCT USING (PRO_CODE)
 		 WHERE USER_NO = ?
 		 ORDER BY ORDER_NO DESC
+	</entry>
+	
+	<entry key="selectOrderProduct">
+		SELECT
+		       ORDER_NO
+		     , DECODE(PAYMENT, 'CARD', CARD_APPROVAL_DATE, 'CASH', CASH_APPROVAL_DATE) "ORDER_DATE"
+		     , PRO_IMG_PATH
+		     , PRO_NAME
+		     , PRICE
+		     , QUANTITY
+		     , DEL_STATUS
+		     , DEL_NAME
+             , DEL_PHONE
+			 , DEL_ZONECODE
+			 , DEL_ADDRESS
+			 , DEL_ADDR_DETAIL
+			 , POINTS_USED
+			 , PAYMENT_AMOUNT
+		  FROM "ORDER"
+		LEFT JOIN PAY_CARD USING (ORDER_NO)
+		LEFT JOIN PAY_CASH USING (ORDER_NO)
+		  JOIN ORDER_PRODUCT USING (ORDER_NO)
+		  JOIN PRODUCT USING (PRO_CODE)
+		 WHERE ORDER_NO = ?
+		   AND PRO_CODE = ?
 	</entry>
 
 
