@@ -84,7 +84,6 @@
 						
 				       <!-- 페이징바 영역 -->
 				       <div class="paging-area" align="center">
-				        
 				        	<% if(currentPage != 1) {%>
 				            	<button onclick="location.href='<%=contextPath%>/adList.ch?cpage=<%= pi.getCurrentPage()-1 %>';" class="btn btn_black">&lt;</button>
 							<% } %>
@@ -185,15 +184,15 @@
 							 })
  
                             // 체크박스 체크/체크해제시 선택삭제 버튼의 모달 속성 변경
-                            var checkCnt = "";
+                            var checkChall = "";
 							$("input:checkbox[name=check]").change(function(){
-								checkCnt = "";
+								checkChall = "";
 								$("input:checkbox[name=check]:checked").each(function(){
-	                                checkCnt += ($(this).val()) + ","; // 체크된 것만 게시글번호 뽑기 "2,3,4,"
+	                                checkChall += ($(this).val()) + ","; // 체크된 것만 게시글번호 뽑기 "2,3,4,"
 	                            })
-	                            checkCnt = checkCnt.substring(0,checkCnt.lastIndexOf(",")); // 맨 뒤 콤마 삭제 "2,3,4"
+	                            checkChall = checkChall.substring(0,checkChall.lastIndexOf(",")); // 맨 뒤 콤마 삭제 "2,3,4"
 								
-								if(checkCnt == ''){ // 선택된 체크박스 하나도 없을 경우
+								if(checkChall == ''){ // 선택된 체크박스 하나도 없을 경우
 	                	            $("#btn_delete").attr("data-bs-target", "#jyModal_noCheck");
 	                                
 	                            }else{ // 선택된 체크박스 있을 경우
@@ -206,7 +205,7 @@
 	                        $("#realDelete").click(function(){
                                 $.ajax({
                                     url:"<%= contextPath%>/delete.ch",
-                                    data:{"checkCnt":checkCnt},
+                                    data:{"checkChall":checkChall},
                                     success:function(result){
                         				if(result > 0){ // 게시글 삭제 성공
 	                                        location.reload();

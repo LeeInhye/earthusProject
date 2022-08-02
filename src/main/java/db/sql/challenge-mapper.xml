@@ -72,6 +72,14 @@
 		     )		
 	</entry>
 
+	<entry key="deleteChall">
+		UPDATE 
+		       CHALLENGE
+		   SET CHALL_STATUS = 'N'
+	</entry>
 
+	<entry key="selectChallList">
+	
+	</entry>
 
 </properties>

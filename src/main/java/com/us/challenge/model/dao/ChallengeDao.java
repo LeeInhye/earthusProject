@@ -14,6 +14,7 @@ import java.util.Properties;
 import com.us.challenge.model.vo.Challenge;
 import com.us.common.model.vo.Attachment;
 import com.us.common.model.vo.PageInfo;
+import com.us.contents.model.vo.Contents;
 
 public class ChallengeDao {
 	
@@ -138,8 +139,40 @@ public class ChallengeDao {
 	}
 
 
-	
-	
+	// 관리자_챌린지 선택 삭제
+	public int deleteChall(Connection conn, String challNo) {
+		// update => 처리된 행 수
+		int result = 0;
+		PreparedStatement pstmt = null;
 		
+		String sql = prop.getProperty("deleteChall");
 		
+		// 동적 sql문
+		sql += "WHERE CHALL_NO IN ("; 
+		
+		String[] challArr = challNo.split(",");  // ["3", "4"]
+		for(int i=0; i<challArr.length; i++) {
+			sql += challArr[i];
+			if(i != challArr.length-1) {
+				sql += ",";
+			}
+		}
+		
+		sql += ")";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;		
+	}
+
+
+	
 }

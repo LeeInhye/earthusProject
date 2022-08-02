@@ -12,6 +12,8 @@ import com.us.challenge.model.dao.ChallengeDao;
 import com.us.challenge.model.vo.Challenge;
 import com.us.common.model.vo.Attachment;
 import com.us.common.model.vo.PageInfo;
+import com.us.contents.model.dao.ContentsDao;
+import com.us.contents.model.vo.Contents;
 
 public class ChallengeService {
 	
@@ -52,5 +54,22 @@ public class ChallengeService {
 		
 		return result1 * result2;
 	}
+	
+	// 관리자_챌린지 선택 삭제
+	public int deleteChall(String challNo) {
+		Connection conn = getConnection();
+		int result = new ChallengeDao().deleteChall(conn, challNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}		
+		close(conn);
 
+		return result;
+	}
+
+	
+	
 }
