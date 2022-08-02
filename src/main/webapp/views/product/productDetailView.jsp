@@ -1,10 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@
-	page import="com.us.product.model.vo.Product, com.us.common.model.vo.PageInfo"
+	page import="java.util.ArrayList, com.us.product.model.vo.Product, com.us.common.model.vo.PageInfo,
+				 com.us.product.model.vo.ProQna"
 %>
 <%
 	Product p = (Product)session.getAttribute("p");
+	ArrayList<ProQna> qlist = (ArrayList<ProQna>)session.getAttribute("list");
+	int qnaCount = 0; // 상품 문의 게시글 수를 담을 변수
+	for(int i=0; i<qlist.size(); i++){
+		qnaCount++;
+	}
 	
 %>
 <!DOCTYPE html>
@@ -107,55 +113,79 @@
                 
                 <!----- 수량 변경 버튼 ----->
                 <div class="product_count" style="width:35%;">
-                  <span class="inumber-decrement"> <i class="ti-minus"></i></span>
-                  <input class="input-number" type="type" value="1" min="0" max="10" style="border:none; text-align:center;">
-                  <span class="number-increment"> <i class="ti-plus"></i></span>
+                  <span class="inumber-decrement" id="minus" onclick="amount('m');" style="cursor:pointer"> <i class="ti-minus"></i></span>
+                  <input class="input-number" id="qty" type="number" value="1" min="0" max="10" style="border:none; text-align:center;" readonly>
+                  <span class="number-increment" id="pluse" onclick="amount('p');" style="cursor:pointer"> <i class="ti-plus"></i></span>
                   <script></script>
                 </div>
                 <br>
-                <script>
-                	$(function(){
-                		price();
-                		
-                		function price(){ // 상품 가격, 천단위 콤마 찍기
-	               			var num = <%= Integer.parseInt(p.getPrice()) %>; // 상품 개당 가격
-                			var amount = $('.input-number').val(); // 상품 선택 개수
-                			var finNum = num * amount + 3000; // 총 가격
-	               			
-	               			$('.s_product_text>h5').text( num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원' );
-                			$('#finPrice').text( finNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원' );
-	                		}
-                			
-                			
-                			
-                		/*function amount(){ // 작동 x 
-                			
-	                		var amount = $(".input-number").val();
-	             			// '-' 클릭 시 수량 - 1
-	             			$('.inumber-decrement').click(function(){
-	             				$(this).siblings('input').val() = 1 + amount;
-	             			}
-	             			// '+' 클릭 시 수량 + 1
-	             			$('.number-increment').click(function(){
-	             				$(this).siblings('input').val() = 1 - amount;
-	             			})
-                		}
-                		*/
-                	})
-                </script>
-                <!----- 수량 변경 버튼 끝 ----->
-                
                 <span>최종 금액</span><span id="finPrice" style="float:right"></span>
                 <br><br>
               </li>
             </ul>
+                <script>
+               		price();
+                		
+               		function amount(t){ // 상품 선택 수량 변경 (동작!!!)
+               			
+               				
+                		var min_qty = 1;
+               			var this_qty = $("#qty").val() * 1;
+               			var max_qty = <%=p.getStock()%>;
+               			
+               			if(t == 'm'){ // 마이너스 아이콘 선택 시
+               				this_qty -= 1;
+               				if(this_qty < min_qty){
+               					alert("수량은 1개 이상 입력해 주십시오.");
+               					return;
+               				}
+               			}else if(t == 'p') { // 플러스 아이콘 선택 시
+               				this_qty += 1;
+               				if(this_qty > max_qty){
+               					this_qty = max_qty;
+               					return;
+               				}
+               			}
+               			
+               			$('#qty').val(this_qty);
+               			
+               			
+               			var num = <%= Integer.parseInt(p.getPrice()) %>; // 상품 개당 가격
+               			var finNum = num * this_qty + 3000; // 총 가격
+               			
+               			$('.s_product_text>h5').text( num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원' );
+               			$('#finPrice').text( finNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원' );
+               			
+               			
+               		}
+                			
+                			
+               		function price(){ // 상품 가격, 천단위 콤마 찍기
+               			
+               			var num = <%= Integer.parseInt(p.getPrice()) %>; // 상품 개당 가격
+               			var amount = $('#qty').val(); // 상품 선택 개수
+               			var finNum = num * amount + 3000; // 총 가격
+               			
+               			$('.s_product_text>h5').text( num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원' );
+               			$('#finPrice').text( finNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원' );
+	                		
+               				
+               		}
+                </script>
+                <!----- 수량 변경 버튼 끝 ----->
+                
             
             <!------- 바로결제/장바구니/찜 시작 ------->
             <div class="card_area d-flex justify-content-between align-items-center">
-              <a href="#" class="btn_3 font_bold_gray">바로결제</a>
+              <a href="<%=contextPath%>/order/orderHistoryView.jsp" class="btn_3 font_bold_gray">바로결제</a>
               <a href="#" class="btn_3" style="background:#A8BFAA;" data-toggle="modal" data-target="#myModal1">장바구니</a>
-                
-                <!------- 장바구니 Modal ------->
+                <script>
+                	function cart(){
+                      	
+                      	
+                    }
+                </script>
+                <!------- 장바구니 이동 확인 Modal ------->
                 <div class="modal" id="myModal1">
                   <div class="modal-dialog">
                     <div class="modal-content">
@@ -164,6 +194,32 @@
                       <div class="modal-body" style="text-align:center; padding:50px 0px; line-height:30px;">
                         상품이 장바구니에 담겼습니다.<br>
                         장바구니로 이동하시겠습니까?
+                      </div>
+                      
+                      <!-- Modal footer -->
+                      <div class="modal-footer" style="display:inline-block; text-align:center;">
+                        <button type="button" class="btn btn_2" id="goToCart" data-dismiss="modal">확인</button>
+                        <button type="button" class="btn btn_2" data-dismiss="modal">취소</button>
+                      </div>
+                   </div>
+          		</div>
+        	</div>
+                <script>
+                  $(function(){ // 장바구니로 이동
+                    $('#goToCart').click(function(){
+						location.href = "#";
+                    })
+                  })
+                </script>
+                      
+               <!------- 장바구니 담기 실패 Modal ------->
+                <div class="modal" id="addCartModal2">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+
+                      <!-- Modal body -->
+                      <div class="modal-body" style="text-align:center; padding:50px 0px; line-height:30px;">
+                        로그인된 회원만 이용 가능합니다.
                       </div>
                       
                       <!-- Modal footer -->
@@ -180,6 +236,7 @@
                       </script>
              		<!------- 장바구니 Modal 끝 ------->
              		
+             		
                     </div>
                   </div>
                 </div>
@@ -192,7 +249,6 @@
                   	if(<%=loginUser%> != null){ // 로그인 한 회원만 찜 가능
                   		
                   // 상품이 위시리스트에 담겨 있지 않을 때
-                  if(  )
                     $('.like_us i').css('color',"#f2f2f2");
                     $('.like_us i').parent().css('background',"#778C79"); 
 
@@ -212,9 +268,7 @@
               <!------------- 찜 버튼 끝 -------------->
               <!--바로결제/장바구니/찜 끝-->
               
-            </div>
-          </div>
-        </div>
+            
         <!--썸네일 우측 상품 설명란 끝-->
         
       </div>
@@ -223,7 +277,7 @@
   <!--================End Single Product Area =================-->
 
   <!--================Product Description Area =================-->
-  <section class="product_description_area">
+  <section class="product_description_area" style="width:100%">
     <div class="container">
       <hr><br>
       
@@ -239,7 +293,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
-            aria-selected="false">상품 문의(상품문의수)</a>
+            aria-selected="false">상품 문의(<%=qnaCount%>)</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
@@ -285,29 +339,59 @@
           			</ul>
           		</div>
           		<div id="pro-qna-body"> 
+          		
+          		<!-- 문의글 있을 때 -->
+          		<% if(!qlist.isEmpty()) {%>
+          		<% for(ProQna q : qlist) { %>
           			<!-- 목록 -->
           			<ul class="pro-qna-question">
-          				<li class="col1">5</li>
+          				<li class="col1"><%=q.getProQnaNo()%></li>
+          				
+          				<!-- 답변 미등록 상태면 -->
+          				<% if(q.getProAEnrollDate() == null) { %> 
           				<li class="col2 waiting">답변대기중</li>
+          				<% }else { %>
+          				<li class="col2 completion">답변완료</li>
+          				<% } %>
+          				
+          				<!-- 비밀글이면 -->
+          				<% if(q.getProQnaPwd() != null) { %> 
           				<li class="col3">
-          					불어 일월과 하는 작고 그것은 곧 이것은 아니다. &nbsp;
+          					비밀글입니다. &nbsp;					 
           					<i class="fa fa-lock"></i>
-          					<input type="hidden" value="1111">
+          					<input type="hidden" value="<%=q.getProQnaPwd()%>">
           				</li>
-          				<li class="col4">김뫄뫄</li>
-          				<li class="col5">2022.07.30</li>
+          				<% } else {%>  <!-- 공개글이면 -->	
+          				<li class="col3">
+          					<%=q.getProQnaTitle()%> &nbsp;
+          				</li>
+          				<% } %>	
+          				
+          				<li class="col4"><%=q.getProQnaWriterName()%></li>
+          				<li class="col5"><%=q.getProQEnrollDate()%></li>
           			</ul>
           			<!-- 목록 -->
           			
+          			<% if(q.getProAEnrollDate() != null) { %> <!-- 답변 등록 상태면 -->
           			<!-- 답변 -->
 	          		<div class="pro-qna-answer">
-	          			<p>문의내용</p>
+	          			<p><%= q.getProQnaContent() %></p>
 	          			<div class="pro-answer">
-	          				<p><b>관리자</b>&nbsp;&nbsp;2022-07-30</p> 
-	          				문의내용
+	          				<p><b>관리자</b>&nbsp;&nbsp;<%=q.getProAEnrollDate()%></p> 
+	          				<%=q.getProAcontent()%>
 	          			</div>
 	          		</div>
 	          		<!-- 답변 -->
+	          		<% } %>
+	          	<% } %>
+	          	<!-- 반복문 끝 -->
+	          	
+	          	<!-- 문의 글 없을 때 -->
+	          	<% } else { %> 
+	          		<ul class="pro-qna-question">
+          				<li colspan="5" style="width:100%; text-align:center;">등록되어 있는 상품 문의가 없습니다. 상품 문의를 등록해 주세요.</li>
+          			</ul>
+          		<% } %>
           		</div>
           	<hr>
           	</div>
@@ -351,33 +435,40 @@
              
              if( title.children(0).hasClass('fa-lock') ){ // 비밀글일 경우 => 비밀번호 입력 받기
            	  
-               const check = prompt('비밀번호를 입력하세요.', '숫자 네자리로 입력');
-             	var proQnaPwd = $(this).find('input[type=hidden]').val(); // 해당 문의글의 비ㅣ밀번호
+	             const check = prompt('비밀번호를 입력하세요.', '숫자 네자리로 입력');
+	             var proQnaPwd = $(this).find('input[type=hidden]').val(); // 해당 문의글의 비밀번호
+	
+	             	if(check == null){ // 입력값이 없을 때
+	             		 return;
+	             	}else if(check == proQnaPwd){ // 입력값이 있을 때 번호 일치
+	
+		                 title.removeClass('fa-lock');
+		                 title.text("!!! 진짜 제목 !!!");
+		                 
+		                 $(this).next(".pro-qna-answer").stop().slideToggle(300);
+		                 $(this).next("pro-qna-answer").siblings("pro-qna-answer").slideUp(300);
+					 
+	               } else { // 입력값이 있을 때 번호 불일치
+	                 	 alert("비밀번호가 일치하지 않습니다.");
+	               	 	 return;
+	               }
 
-               if(check == proQnaPwd){ // 번호 일치
-
-                 title.removeClass('fa-lock');
-                 title.text("!!! 진짜 제목 !!!");
+             }else { // 비밀글이 아니거나, 비밀글 비번 풀려있는 경우
+            	 
+            	 title.text("!!! 진짜 제목 !!!");
                  
                  $(this).next(".pro-qna-answer").stop().slideToggle(300);
                  $(this).next("pro-qna-answer").siblings("pro-qna-answer").slideUp(300);
-
-               }else { // 번호 불일치
-                 alert("비밀번호가 일치하지 않습니다.");
-               }
-
-             }else { // 비밀글이 아니거나, 비밀글 비번 풀려있는 경우
-               
-               if($(this).next('pro-qna-answer').is('display','none')){ // 글 안 펼쳐져 있으면
-               	$(this).siblings('pro-qna-answer').removeClass('on');
-                 	$(this).next('pro-qna-answer').addClass('on');
-                 	$(this).show();
-               }else{ // 펼쳐져 있으면
-                 $(this).next('pro-qna-answer').removeClass('on');
-                 $(this).next('pro-qna-answer').attr('display', 'none');
-               }
              }
+             
 
+             if($(this).next('pro-qna-answer').is('display','none')){ // 글 안 펼쳐져 있으면
+             	$(this).siblings('pro-qna-answer').attr('display', 'none');
+              $(this).next('pro-qna-answer').show();
+             }else{ // 펼쳐져 있으면
+               $(this).next('pro-qna-answer').removeClass('on');
+               $(this).next('pro-qna-answer').attr('display', 'none');
+             }
            })
            // ====================== 문의글 클릭 이벤트 끝 ===========================
        </script>
