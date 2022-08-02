@@ -5,32 +5,6 @@
 <html lang="zxx">
 
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>cart</title>
-  <link rel="icon" href="img/favicon.png">
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <!-- animate CSS -->
-  <link rel="stylesheet" href="css/animate.css">
-  <!-- owl carousel CSS -->
-  <link rel="stylesheet" href="css/owl.carousel.min.css">
-  <!-- nice select CSS -->
-  <link rel="stylesheet" href="css/nice-select.css">
-  <!-- font awesome CSS -->
-  <link rel="stylesheet" href="css/all.css">
-  <!-- flaticon CSS -->
-  <link rel="stylesheet" href="css/flaticon.css">
-  <link rel="stylesheet" href="css/themify-icons.css">
-  <!-- font awesome CSS -->
-  <link rel="stylesheet" href="css/magnific-popup.css">
-  <!-- swiper CSS -->
-  <link rel="stylesheet" href="css/slick.css">
-  <link rel="stylesheet" href="css/price_rangs.css">
-  <!-- style CSS -->
-  <link rel="stylesheet" href="css/style.css">
-
   <!-- jQuery Script -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -95,7 +69,7 @@
             </thead>
 
             <tbody>
-                <tr class="product" id="product-1" class="check-item">
+                <tr class="product" class="check-item">
                   <td><input type="checkbox" name="check"></td>
                   <td>
                     <div class="media">
@@ -151,6 +125,7 @@
           </div>
         </div>
       </div>
+     </div>
   </section>
   <!--================End Cart Area =================-->
 
