@@ -17,4 +17,12 @@ public class OrderService {
 		close(conn);
 		return list;
 	}
+	
+	// 주문 상세 조회
+	public ArrayList<Order> selectOrder(int orderNo){
+		Connection conn = getConnection();
+		ArrayList<Order> olist = new OrderDao().selectOrder(conn, orderNo);
+		close(conn);
+		return olist;
+	}
 }

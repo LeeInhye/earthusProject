@@ -56,9 +56,56 @@ public class OrderDao {
 			close(rset);
 			close(pstmt);
 		}
-		
 		return list;
 		
+	}
+	
+	// 주문 상세 조회
+	public ArrayList<Order> selectOrder(Connection conn, int orderNo){
+		ArrayList<Order> olist = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
 		
+		String sql = prop.getProperty("selectOrder");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, orderNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				olist.add(new Order(rset.getInt("order_no"),
+						 		   rset.getString("payment"),
+						 		   rset.getInt("points_used"),
+						 		   rset.getString("shp_memo"),
+						 		   rset.getInt("payment_amount"),
+						 		   rset.getString("del_name"),
+						 		   rset.getString("del_phone"),
+						 		   rset.getString("del_zonecode"),
+						 		   rset.getString("del_address"),
+						 		   rset.getString("del_addr_detail"),
+						 		   rset.getInt("del_status"),
+						 		   rset.getString("pro_name"),
+						 		   rset.getDate("order_date"),
+						 		   rset.getString("pro_img_path"),
+						 		   rset.getInt("price"),
+						 		   rset.getInt("quantity"),
+						 		   rset.getString("zonecode"),
+						 		   rset.getString("user_name"),
+						 		   rset.getString("phone"),
+						 		   rset.getString("address"),
+						 		   rset.getString("addr_detail")
+						 		   
+						));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return olist;
 	}
 }

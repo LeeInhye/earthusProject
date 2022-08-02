@@ -9,21 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.us.member.model.vo.Member;
 import com.us.order.model.service.OrderService;
 import com.us.order.model.vo.Order;
 
 /**
- * Servlet implementation class OrderHistoryController
+ * Servlet implementation class OrderHistoryDetailController
  */
-@WebServlet("/history.or")
-public class OrderHistoryController extends HttpServlet {
+@WebServlet("/historyDetail.or")
+public class OrderHistoryDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OrderHistoryController() {
+    public OrderHistoryDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,12 +32,11 @@ public class OrderHistoryController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		int orderNo = Integer.parseInt(request.getParameter("oNo"));
 		
-		ArrayList<Order> list = new OrderService().selectOrderList(userNo);
-		request.getSession().setAttribute("list", list);
-		request.getRequestDispatcher("views/order/orderHistoryView.jsp").forward(request, response);
-		
+		ArrayList<Order> olist = new OrderService().selectOrder(orderNo);
+		request.setAttribute("olist", olist);
+		request.getRequestDispatcher("views/order/orderHistoryDetailView.jsp").forward(request, response);
 	}
 
 	/**

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.us.order.model.vo.*"%>
 <% 
-ArrayList<Order> list = (ArrayList<Order>)request.getAttribute("list");
+ArrayList<Order> list = (ArrayList<Order>)session.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
@@ -91,7 +91,9 @@ ArrayList<Order> list = (ArrayList<Order>)request.getAttribute("list");
 		                    </td>
 		                    <td>
 		                      <div class="product_count">
-		                        <h5><a href="" style="color:black;"><%= or.getOrderNo() %></a></h5>
+		                        <h5>
+		                        <a href="<%=contextPath %>/historyDetail.or?oNo=<%= or.getOrderNo() %>" style="color:black;"><%= or.getOrderNo() %></a>
+		                        </h5>
 		                      </div>
 		                    </td>
 		                    <td>
@@ -111,6 +113,15 @@ ArrayList<Order> list = (ArrayList<Order>)request.getAttribute("list");
             </div>
           </div>
       </section>
+      <script>
+      $(function(){
+  		$(".table>tbody>tr").on("click", "td(:third-child)", function() {
+  			console.log($(this).children().eq(1).text());
+  			location.href = "<%= contextPath %>/historyDetail.or?oNo=" + $(this).children().eq(1).text();
+  			})
+  			
+  		});
+      </script>
 		<br><br><br><br><br><br><br><br><br><br>
 	<%@ include file="../common/footerbar.jsp" %>
 </body>
