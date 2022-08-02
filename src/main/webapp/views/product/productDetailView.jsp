@@ -416,7 +416,7 @@
                                 <i class="ti-angle-double-right"></i>
                             </a>
                           </li>
-                          <li><a href="product_qna_form.html" class="btn-submit" id="z2"
+                          <li><a href="<%=contextPath%>/insertForm.pq?code=<%=p.getProCode()%>&name=<%=p.getProName()%>" class="btn-submit" id="z2"
                             style="display:inline-block; text-align:right;">상품 문의하기</a></li>
                       </ul>
                   </nav>
