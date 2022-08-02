@@ -50,7 +50,7 @@
                             <button type="button" class="btn_admin_cancel" style="margin-left:2%" id="btn_cancle">취소</button>
                             <button type="button" class="btn_admin_enroll" data-bs-toggle="modal" data-bs-target="#jyModal_confirm">등록</button>
 
-                            <!-- 모달: 수정 컨펌 -->
+                            <!-- 모달: 등록 컨펌 -->
 		                    <div class="modal" id="jyModal_confirm">
 		                        <div class="modal-dialog modal-dialog-centered">
 		                            <div class="modal-content">
