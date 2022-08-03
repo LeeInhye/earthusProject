@@ -35,77 +35,130 @@
 		                <input type="text" class="search_all" placeholder="회원 아이디/이름 입력" id="keyword">
 		               
 		                &nbsp;
-		                <button type="button" class="btn-sm btn_black" id="searchBtn">조회</button>
+		                <button type="button" class="btn-sm btn_black" id="searchBtn" onclick="searchList(1);">조회</button>
 		                <br><br><br>
 		                
 		                <!-- 검색기능 -->
 		                <script>
-		                $(document).ready(function(){
-		                	$("#searchBtn").click(function(){
-		                		$.ajax({
-		                			url:"<%= contextPath %>/adSearch.me",
-		                			type:"post",
-		                			data:{
-		                				keyword:$("#keyword").val(),
-		                				mpage:<%= pi.getCurrentPage() %>
-		                			},
-		                			success:function(newList){
-		                				var txt = "";
-		                				for(let i = 0; i < newList.length; i++){
-											// 검색 결과 넣어주기	
-		                					txt += '<tr><td onclick="event.cancelBubble=true;"><input type="checkbox" name="checkMember"></td>';
-				                            txt += "<td>" + newList[i].userNo + "</td>";
-				                            txt += "<td>" + newList[i].userId + "</td>";
-				                            txt += "<td>" + newList[i].userName + "</td>";
-				                            txt += "<td>" + newList[i].email + "</td>";
-				                            txt += "<td>" + newList[i].phone + "</td>";
-				                            
-				                            if( newList[i].zonecode == null){
-				                            	txt += "<td>";
-				                            } else{
-				                            	txt += "<td>(" + newList[i].zonecode + ")";
-				                            }
-				                            
-				                            if( newList[i].address == null){
-				                            	txt += "";
-				                            } else{
-				                            	txt += " " + newList[i].address;
-				                            }
-				                            
-				                            if( newList[i].addrExtra == null) {
-				                            	txt += "";
-				                            } else{
-				                            	txt += " " + newList[i].addrExtra;
-				                            }
-				                            
-				                            if( newList[i].addrDetail == null) {
-				                            	txt += "</td>";
-				                            } else{
-				                            	txt += " " + newList[i].addrDetail + "</td>"
-				                            }
-				                           
-				                            
-				                            txt += "<td>" + newList[i].userEnrollDate + "</td>";
-				                            <!--  포인트 넣기 -->
-				                            txt += "<td>" + newList[i].point + "</td>";
-				                            txt += "<td>" + newList[i].userStatus + "<td>";
-				                            txt += '<td class="btn_left">';
-				                            txt += '<button type="button" class="btn-sm btn_black" data-toggle="modal" data-target="#adUpdateMember">';
-				                            txt +=         '수정';
-				                            txt +=     '</button></td></tr>';
-				                            
-		            					}
-		                				
-		                				// 페이징바
-		                				
-		                				$("#mBody").empty();
-		                				$("#mBody").append(txt);
-		                			}, error:function(){
-		                				console.log("ajax 검색 기능 실패");
-		                			}
-		                		});
-		                	});
-		                })
+		                
+		                function searchList(page){
+		                	$.ajax({
+	                			url:"<%= contextPath %>/adSearch.me",
+	                			type:"post",
+	                			data:{
+	                				keyword:$("#keyword").val(),
+	                				mpage:page
+	                			},
+	                			success:function(map){
+	                				console.log(map);
+	                				
+	                				const pi = map.pi; // {}
+	                				const newList = map.list; // [{}, {}, {}]
+	                				
+	                				var txt = "";
+	                				
+	                				var year = "";
+		                            var month = "";
+		                            var day = ""
+		                            
+		                            var indexM = "";
+		                            var indexD = "";
+		                            var indexY = "";
+		                            
+	                				for(let i = 0; i < newList.length; i++){
+										// 검색 결과 넣어주기	
+	                					txt += '<tr><td onclick="event.cancelBubble=true;"><input type="checkbox" name="checkMember"></td>';
+			                            txt += "<td>" + newList[i].userNo + "</td>";
+			                            txt += "<td>" + newList[i].userId + "</td>";
+			                            
+			                            
+			                            
+			                            txt += "<td>" + newList[i].userName + "</td>";
+			                            txt += "<td>" + newList[i].email + "</td>";
+			                            txt += "<td>" + newList[i].phone + "</td>";
+			                            
+			                            if( newList[i].zonecode == null){
+			                            	txt += "<td>";
+			                            } else{
+			                            	txt += "<td>(" + newList[i].zonecode + ")";
+			                            }
+			                            
+			                            if( newList[i].address == null){
+			                            	txt += "";
+			                            } else{
+			                            	txt += " " + newList[i].address;
+			                            }
+			                            
+			                            if( newList[i].addrExtra == null) {
+			                            	txt += "";
+			                            } else{
+			                            	txt += " " + newList[i].addrExtra;
+			                            }
+			                            
+			                            if( newList[i].addrDetail == null) {
+			                            	txt += "</td>";
+			                            } else{
+			                            	txt += " " + newList[i].addrDetail + "</td>"
+			                            }
+			                            
+			                            console.log(newList[i].userEnrollDate);
+			                            
+			                            <!-- 날짜 -->
+			                            indexM = newList[i].userEnrollDate.indexOf("월");
+			                            indexD = newList[i].userEnrollDate.indexOf(",");
+			                            indexY = newList[i].userEnrollDate.length;
+			                            
+			                            year = newList[i].userEnrollDate.substring(indexD + 2, indexY);
+			                            month = newList[i].userEnrollDate.substring(0, indexM);
+			                            day = newList[i].userEnrollDate.substring(indexM + 2, indexD);
+			                            
+			                           	if(month < 10){
+			                           		month = "0" + month;
+			                           	}
+			                           	if(day < 10){
+			                           		day = "0" + day;
+			                           	}
+			                            
+			                            txt += "<td>" + year + "-" + month + "-" + day + "</td>";
+			                            <!--  포인트 넣기 -->
+			                            txt += "<td>" + newList[i].point + "</td>";
+			                            txt += "<td>" + newList[i].userStatus + "</td>";
+			                            txt += '<td class="btn_left">';
+			                            txt += '<button type="button" class="btn-sm btn_black" data-toggle="modal" data-target="#adUpdateMember">수정</button></td></tr>';
+			                            
+	            					}
+	                				
+	                				var ptxt = "";
+	                				// 페이징바
+	                				ptxt += '<div class="paging-area" align="center" id="pagingBar">';
+	                				
+	                				if(pi.currentPage != 1){
+	                					ptxt += '<button class="btn btn_black" onclick="searchList(' + (pi.currentPage - 1) + ');">&lt;</button> ';
+	                				}
+	                				
+	                				for(var pp = pi.startPage; pp <= pi.endPage; pp++){
+	                					if(pp == pi.currentPage) {
+	                						ptxt += '<button class="btn btn_gray" disabled>' + pp + '</button> ';
+	                					} else {
+	                						ptxt += '<button class="btn btn_black" onclick="searchList(' + pp + ');">' + pp + '</button> ';
+	                					}
+	                				}
+	                				
+	                				if(pi.currentPage != pi.maxPage){
+	                					ptxt += '<button class="btn btn_black" onclick="searchList(' + (pi.currentPage + 1) + ');">&gt;</button>';
+	                				}
+	                				
+	                				ptxt += "</div>";
+	                			
+	                				$("#mBody").empty();
+	                				$("#mBody").append(txt);
+	                				$("#pagingBar").empty()
+	                				$("#pagingBar").append(ptxt);
+	                			}, error:function(){
+	                				console.log("ajax 검색 기능 실패");
+	                			}
+	                		});
+		                }
 		                </script>
 		                
 		                

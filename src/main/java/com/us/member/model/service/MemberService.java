@@ -132,6 +132,13 @@ public class MemberService {
 			return list;
 		}
 		
+		public int searchListCount(String keyword) {
+			Connection conn = getConnection();
+			int listCount = new MemberDao().searchListCount(conn, keyword);
+			close(conn);
+			return listCount;
+		}
+		
 		// 관리자 회원 삭제
 		public int adDeleteMember(String a) {
 			Connection conn = getConnection();

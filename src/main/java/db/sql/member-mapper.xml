@@ -170,6 +170,15 @@
 		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
+	
+	<entry key="searchListCount">
+		SELECT COUNT(*) AS "COUNT"
+		  FROM MEMBER
+		 WHERE USER_ID LIKE ?
+		    OR USER_NAME LIKE ? 
+	</entry>
+	
+	
 	<entry key="searchMemberList">
 		SELECT *
 		  FROM (

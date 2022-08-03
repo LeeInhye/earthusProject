@@ -405,6 +405,30 @@ public class MemberDao {
 		return list;
 	}
 	
+	public int searchListCount(Connection conn, String keyword) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("searchListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + keyword + "%");
+			pstmt.setString(2, "%" + keyword + "%");
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	// 회원 검색
 	public ArrayList<Member> searchMemberList(Connection conn, PageInfo pi, String keyword){
 		PreparedStatement pstmt = null;
