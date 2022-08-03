@@ -143,73 +143,16 @@
 
         <!-- 댓글 리스트 시작 -->
         <div class="comments-area">
-            <h4>05 개의 댓글</h4>
-            <div class="comment-list">
-                <div class="single-comment justify-content-between d-flex">
-                    <div class="user justify-content-between d-flex">
-                        <div class="desc">
-                            <div class="d-flex justify-content-between">
-                                <div class="d-flex align-items-center">
-                                    <h5>
-                                        <a>홍길*</a>
-                                    </h5>
-                                    <p class="date">2022-07-26 15:12</p>
-                                </div>
-                                <div class="reply-btn">
-                                    <a href="#" class="btn-reply text-uppercase">reply</a>
-                                </div>
-                            </div>
-                            <p class="comment">
-                                참여 완료! 포인트 지급해 주세요 @hong22 입니다.
-                            </p>
-                        </div>
-                    </div>
-                </div>
+            <h4><%= ch.getChallCmnt() %> 개의 댓글</h4>
+
+            <!-- 개별 댓글 -->
+            <div id="cmntInsertArea">
+
             </div>
-            <div class="comment-list">
-                <div class="single-comment justify-content-between d-flex">
-                    <div class="user justify-content-between d-flex">
-                        <div class="desc">
-                            <div class="d-flex justify-content-between">
-                                <div class="d-flex align-items-center">
-                                    <h5>
-                                        <a>김말*</a>
-                                    </h5>
-                                    <p class="date">2022-07-26 15:00</p>
-                                </div>
-                                <div class="reply-btn">
-                                    <a href="#" class="btn-reply text-uppercase">reply</a>
-                                </div>
-                            </div>
-                            <p class="comment">
-                                참여해 보고 싶네요. 포인트도 받아서 샴푸바 살래요!
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="comment-list">
-                <div class="single-comment justify-content-between d-flex">
-                    <div class="user justify-content-between d-flex">
-                        <div class="desc">
-                            <div class="d-flex justify-content-between">
-                                <div class="d-flex align-items-center">
-                                    <h5>
-                                        <a>김개*</a>
-                                    </h5>
-                                    <p class="date">2022-07-25 11:22</p>
-                                </div>
-                                <div class="reply-btn">
-                                    <a href="#" class="btn-reply text-uppercase">reply</a>
-                                </div>
-                            </div>
-                            <p class="comment">
-                                1등으로 참여했습니다. @gaeddong82 얼른 포인트 주세요!
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- 개별 댓글 -->
+
+		</div>
+        <!-- 댓글 리스트 끝 -->
     		
     		<hr>
             <br>
@@ -219,6 +162,48 @@
             
         </div>
      </section>
+    
+    <script>
+    	$(function(){ // 현재 이 페이지 상의 모든 요소가 다 로딩되자마자 곧바로 실행
+    		selectCmntList();
+    	})
+    	
+    	// ajax로 현재 게시글에 달려 있는 댓글 목록 조회용 function
+    	function selectCmntList(){
+    		
+    		$.ajax({
+    			url:"<%=contextPath%>/cmntList.co",
+    			data:{"no":<%= ch.getChallNo() %>},
+    			success:function(list){
+    				
+    				let value = "";
+    				for(let i=0; i<list.length; i++) {
+    					value += "<div class='comment-list'>"
+    						   + "<div class='single-comment justify-content-between d-flex'>"
+		    				   + "<div class='user justify-content-between d-flex'>"
+		    				   + "<div class='desc'>"
+		    				   + "<div class='d-flex justify-content-between'>"
+		    				   + "<div class='d-flex align-items-center'>"
+		    				   + "<h5>"
+		    				   + "<a>" + list[i].cmntWriter + "</a>"
+		    				   + "</h5>"
+		    				   + "<p class='date'>" + list[i].cmntEnrollDate + "</p>"
+		    				   + "</div></div>"
+		    				   + "<p class='comment'>" + list[i].cmntContent + "</p>"
+		    				   + "</div></div></div></div>";
+    				}
+    				
+    				$("#cmntInsertArea").html(value);
+    				
+    			},error:function(){
+    				console.log("댓글목록 조회용 ajax 통신 실패");
+    			}
+    			
+    		});
+    		
+    	}
+    
+    </script>
     
      <br><br><br><br><br><br><br>
      <!--================Blog Area =================-->

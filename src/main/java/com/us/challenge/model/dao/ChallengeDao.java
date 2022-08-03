@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.us.challenge.model.vo.Challenge;
+import com.us.challenge.model.vo.Comment;
 import com.us.common.model.vo.Attachment;
 import com.us.common.model.vo.PageInfo;
-import com.us.contents.model.vo.Contents;
 
 public class ChallengeDao {
 	
@@ -334,4 +334,36 @@ public class ChallengeDao {
 		return ch;
 	}
 
+	// 사용자_댓글 리스트 조회
+	public ArrayList<Comment> selectCmntList(Connection conn, int challNo) {
+		// select문 => ResultSet(여러 행) => ArrayList<Comment>
+		ArrayList<Comment> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectCmntList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, challNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Comment(rset.getInt("cmnt_no"),
+								     rset.getString("user_name"),
+								     rset.getString("cmnt_content"),
+								     rset.getString("enroll_date")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
 }

@@ -10,10 +10,9 @@ import java.util.ArrayList;
 
 import com.us.challenge.model.dao.ChallengeDao;
 import com.us.challenge.model.vo.Challenge;
+import com.us.challenge.model.vo.Comment;
 import com.us.common.model.vo.Attachment;
 import com.us.common.model.vo.PageInfo;
-import com.us.contents.model.dao.ContentsDao;
-import com.us.contents.model.vo.Contents;
 
 public class ChallengeService {
 	
@@ -122,6 +121,13 @@ public class ChallengeService {
 		return ch;
 	}
 
+	// 사용자_댓글 리스트 조회
+	public ArrayList<Comment> selectCmntList(int challNo) {
+		Connection conn = getConnection();
+		ArrayList<Comment> list = new ChallengeDao().selectCmntList(conn, challNo);
+		close(conn);
+		return list;
+	}
 	
 	
 	

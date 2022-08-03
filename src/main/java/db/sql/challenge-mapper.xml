@@ -134,5 +134,18 @@
 		 WHERE CHALL_NO = ?
 		   AND CHALL_STATUS = 'Y'
 	</entry>
+	
+	<entry key="selectCmntList">
+		SELECT
+		       CMNT_NO
+		     , USER_NAME
+		     , CMNT_CONTENT
+		     , TO_CHAR(CMNT_ENROLL_DATE, 'YY/MM/DD HH:MI:SS') AS ENROLL_DATE
+		  FROM CHALLENGE_CMNT
+		  JOIN MEMBER USING (USER_NO)
+		 WHERE CHALL_NO = ?
+		 ORDER
+		    BY CMNT_NO DESC
+	</entry>
 
 </properties>
