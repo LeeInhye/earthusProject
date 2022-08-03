@@ -8,10 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.us.common.model.vo.Attachment;
 import com.us.contents.model.service.ContentsService;
 import com.us.contents.model.vo.Contents;
+import com.us.member.model.vo.Member;
 
 /**
  * Servlet implementation class adContentsDetailController
@@ -36,6 +38,14 @@ public class ContentsDetailController extends HttpServlet {
 		
 		int cntNo = Integer.parseInt(request.getParameter("no"));
 		
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		int userNo = 0;
+		if(loginUser != null) {
+			userNo = loginUser.getUserNo();
+		}
+		
 		ContentsService cs = new ContentsService();
 		
 		// 1) 조회수 증가
@@ -53,10 +63,14 @@ public class ContentsDetailController extends HttpServlet {
 			Contents prev = cs.selectPrevNextContents(c.getPrevNo());
 			Contents next =	cs.selectPrevNextContents(c.getNextNo());	
 			
+			// 5) 좋아요 여부 조회
+			int likeResult = new ContentsService().selectLike(cntNo, userNo);
+			
 			request.setAttribute("c", c);
 			request.setAttribute("at", at);
 			request.setAttribute("prev", prev);
 			request.setAttribute("next", next);
+			request.setAttribute("likeResult", likeResult);
 			request.getRequestDispatcher("views/contents/contentsDetailView.jsp").forward(request, response);
 			
 		}else { // 실패 => 유효한 글번호가 아니거나 삭제될 글번호 => 조회 불가능

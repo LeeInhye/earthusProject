@@ -163,5 +163,32 @@
 		 WHERE CNT_NO = ?
 		   AND CNT_STATUS = 'Y'
 	</entry>
+	
+	<entry key="insertLike">
+		INSERT
+		  INTO CONTENTS_LIKE
+		       (
+		         CNT_NO
+		       , USER_NO
+		       )
+		VALUES (
+		         ?
+		       , ?
+		       )
+	</entry>
+	
+	<entry key="selectLike">
+		SELECT COUNT(*) AS LIKERESULT
+		  FROM CONTENTS_LIKE
+		 WHERE CNT_NO = ?
+		   AND USER_NO = ?
+	</entry>
+	
+	<entry key="deleteLike">
+		DELETE 
+		  FROM CONTENTS_LIKE
+		 WHERE CNT_NO = ?
+		   AND USER_NO = ?
+	</entry>
 
 </properties>

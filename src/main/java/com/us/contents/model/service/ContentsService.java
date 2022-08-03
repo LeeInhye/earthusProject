@@ -140,6 +140,33 @@ public class ContentsService {
 		
 		return c;
 	}
+	
+	// 사용자_좋아요 여부 select
+	public int selectLike(int cntNo, int userNo) {
+		Connection conn = getConnection();
+		int result = new ContentsDao().selectLike(conn, cntNo, userNo);
+		close(conn);
+		
+		return result;
+	}
+	
+	// 사용자_좋아요 insert
+	public int insertLike(int cntNo, int userNo) {
+		Connection conn = getConnection();
+		int result = new ContentsDao().insertLike(conn, cntNo, userNo);
+		close(conn);
+		
+		return result;
+	}
+	
+	// 사용자_좋아요 delete
+	public int deleteLike(int cntNo, int userNo) {
+		Connection conn = getConnection();
+		int result = new ContentsDao().deleteLike(conn, cntNo, userNo);
+		close(conn);
+		
+		return result;
+	}
 
 	
 }

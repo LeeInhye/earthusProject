@@ -57,7 +57,7 @@ public class ContentsListController extends HttpServlet {
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/contents/contentsListView.jsp").forward(request, response);
-	
+
 	}
 
 	/**

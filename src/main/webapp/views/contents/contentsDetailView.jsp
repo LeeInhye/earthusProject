@@ -5,6 +5,7 @@
 	Attachment at = (Attachment)request.getAttribute("at");
 	Contents prev = (Contents)request.getAttribute("prev");
 	Contents next = (Contents)request.getAttribute("next");
+	int likeResult = (int)request.getAttribute("likeResult");
 %>
 <!DOCTYPE html>
 <html>
@@ -13,6 +14,12 @@
 .img-fluid{
 	width: 200px;
     height: 100px;
+}
+.fa-heart:hover{
+    cursor: pointer;
+}
+#likeCount{
+	
 }
 </style>
 </head>
@@ -78,9 +85,40 @@
             </div>
             <div class="navigation-top">
                 <div class="d-sm-flex justify-content-between text-center" style="margin-left:2%">
-                    <p class="like-info"><span class="align-middle"><i class="far fa-heart"></i></span>
-                        <%= c.getCntLike() %>명이 좋아합니다</p>
+                    <p class="like-info">
+                    
+                    	<!-- 좋아요 버튼 -->
+                    	<% if(loginUser != null){ %>
+                        <button style="border:none; background:none;" id="btn_like">
+                        	<span class="align-middle">
+	                    	<% if(likeResult == 1) { %>
+	                        	<i class="fas fa-heart"></i>
+							<% } else { %>
+								<i class="far fa-heart"></i>
+							<% } %>
+                        	</span>
+                        </button>
+                        <% } else{%>
+                        <button style="border:none; background:none;" onclick="goLogin();">
+                        	<span class="align-middle">
+								<i class="far fa-heart"></i>
+                        	</span>
+                        </button>
+                        <% } %>
+                        <!-- 좋아요 버튼 끝 -->
+                        
+                        <span id="likeCount"><%= c.getCntLike() %></span>명이 좋아합니다
+                    </p>
                  </div>
+                 <script>
+                 	function goLogin(){ // 로그인 하지 않고 좋아요 클릭 시
+                 		alert("로그인 후 이용가능합니다.");
+                 		if(confirm("로그인 페이지로 이동하시겠습니까?")){
+                 			location.href = "<%=contextPath%>/goLogin.me";
+                 		}
+                 	}
+                 </script>
+                 
                 <div class="navigation-area">
                     <div class="row">                    
                         <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
@@ -129,14 +167,57 @@
     
             <br><br>
             <div style="width:1140px" align="right">
-                <a href="<%= contextPath %>/list.co" class="btn_list">목록</a>
+                <a href="<%= contextPath %>/list.co?cpage=1" class="btn_list">목록</a>
             </div>
             
         </div>
-     </section>
+    </section>
     
-     <br><br><br><br><br><br><br>
-     <!--================Blog Area =================-->
+    <script>
+    	// 로그인 상태에서 좋아요(하트) 아이콘 클릭 시
+        $("#btn_like").click(function(){
+        	
+        	let $likeIcon = $(this).find("i");
+        	
+        	if($likeIcon.is(".fas")){ // 채워진 하트일 경우 => 좋아요 delete
+        		$.ajax({
+                    url:"<%= contextPath%>/likeDelete.co",
+                    data:{"cntNo":<%= c.getCntNo() %>
+                    	 },
+                    success:function(result){ 
+                    	if(result > 0) { // delete 성공 => 빈 하트로 변경
+                    		$likeIcon.removeClass("fas");
+                    		$likeIcon.addClass("far");
+                    		$("#likeCount").text(Number($("#likeCount").text()) - 1);
+                    	}
+                    },
+                    error:function(){
+                        console.log("ajax 게시글 삭제 실패")
+                    }
+                })
+        	}else{ // 빈 하트일 경우 => 좋아요 insert
+        		$.ajax({
+                    url:"<%= contextPath%>/likeInsert.co",
+                    data:{"cntNo":<%= c.getCntNo() %>
+                    	 },
+                    success:function(result){ 
+                    	if(result > 0) { // insert 성공 => 채워진 하트로 변경
+                    		$likeIcon.removeClass("far");
+                    		$likeIcon.addClass("fas");
+                    		$("#likeCount").text(Number($("#likeCount").text()) + 1);
+                    	}
+                    },
+                    error:function(){
+                        console.log("ajax 게시글 삭제 실패")
+                    }
+                })
+        	}
+        	            
+        })
+    </script>
+
+    <br><br><br><br><br><br><br>
+    <!--================Blog Area =================-->
 
 	<%@ include file="/views/common/footerbar.jsp" %>
 

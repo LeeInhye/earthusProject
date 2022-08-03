@@ -379,4 +379,78 @@ public class ContentsDao {
 		return c;
 	}
 	
+	// 사용자_좋아요 여부 select
+	public int selectLike(Connection conn, int cntNo, int userNo) {
+		// select => ResultSet(0 또는 1) => int
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectLike");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cntNo);
+			pstmt.setInt(2, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("likeresult");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close (pstmt);
+		}
+	
+		return result;
+	}
+	
+	// 사용자_좋아요 insert
+	public int insertLike(Connection conn, int cntNo, int userNo) {
+		// contents_like에 insert => 처리된 행 수
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertLike");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cntNo);
+			pstmt.setInt(2, userNo);
+			
+			result = pstmt.executeUpdate(); 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	// 사용자_좋아요 delete
+	public int deleteLike(Connection conn, int cntNo, int userNo) {
+		// contents_like에 delete => 처리된 행 수
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteLike");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cntNo);
+			pstmt.setInt(2, userNo);
+			
+			result = pstmt.executeUpdate(); 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
 }
