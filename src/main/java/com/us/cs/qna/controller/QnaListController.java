@@ -66,6 +66,8 @@ public class QnaListController extends HttpServlet {
 		// 현재 요청한 페이지에 보여질 게시글 리스트 조회
 		ArrayList<Qna> list = new QnaService().selectQnaList(pi);
 		
+		
+		
 		// 응답뷰
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);

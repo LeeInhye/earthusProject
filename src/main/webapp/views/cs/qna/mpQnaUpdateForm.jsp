@@ -105,9 +105,19 @@
 	            <% if(at != null) { %>
 	            	<%= at.getOriginName() %>
 	            	<input type="hidden" name="originFileNo" value="<%= at.getFileNo() %>">
+	            	
+	            	<div class="qna_img">
+                    	<img id="titleImg" src = "<%= contextPath %>/<%= at.getFilePath() + at.getChangeName() %>">
+                	</div>
+	            <% } else {%>
+	            	<div class="qna_img">
+                    	<img id="titleImg">
+                	</div>
 	            <% } %>
 	            
-	            <input type="file" name="upfile" id="upfile">
+	            
+	            <input type="file" name="upfile" id="upfile" onchange="loadImg(this);">
+	            
 	            <br><br>
 	            <h7>* 사진의 크기는 10MB 이하의 jpg, png, gif파일로 첨부 가능합니다.</h7>
 	
@@ -151,7 +161,34 @@
 							}
 						});
 	            		
+						// 이미지 썸네일 부분 클릭시 이미지 파일 선택
+						$("#titleImg").click(function(){
+							$("#upfile").click();
+						});
+						
+						
 	            	})
+						// 이미지 로드
+						
+					function loadImg(inputFile){
+	                    if(inputFile.files.length == 1){    // 파일선택된 경우 => 파일 읽어들여서 미리보기
+	                        
+	                        // 파일을 읽어들일 FileReader 객체 생성
+	                        const reader = new FileReader();
+	                        // 파일을 읽어들일 메소드
+	                        reader.readAsDataURL(inputFile.files[0]);
+	                        // 파일 읽어들이기 완료됐을 때 실행할 함수 정의
+	                        reader.onload = function(e){
+	                            // e.target.result => 읽어들인 파일의 고유한 url
+	                            // console.log(e.target.result);
+	                            $("#titleImg").attr("src", e.target.result);
+	                        }
+	                        
+	                    } else{ // 파일 취소됐을 경우 => 미리보기된 것도 사라지게
+	                        $("#titleImg").attr("src", null);
+	                    }
+					}
+	            		
 	            </script>
 	            
 	            <br><br><br><br><br><br><br><br><br>

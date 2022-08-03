@@ -97,7 +97,8 @@
             			
             			if( $(this).children().eq(2).text().search("비밀글입니다.") != -1 ){
             				$(this).attr("data-toggle", "modal");
-                               $(this).attr("data-target", "#insert_qnaPwd");
+                            $(this).attr("data-target", "#insert_qnaPwd");
+                            
             			} else{
             				$(this).removeAttr("data-toggle");
                            	$(this).removeAttr("data-target");

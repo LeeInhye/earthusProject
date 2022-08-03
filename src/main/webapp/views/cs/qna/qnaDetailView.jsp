@@ -29,7 +29,19 @@
 		
 	        <div class="container" style="width:80%;">
 	            <br><br>
+	            
+	            <!-- 이미지 미리보기 -->
+	            <!-- 파일이 있는 경우 -->
+                <% if(at != null) { %>
+                	<div class="qna_img">
+                    	<img id="titleImg" style="margin-top: -50px;" src = "<%= contextPath %>/<%= at.getFilePath() + at.getChangeName() %>">
+                	</div>
+                 <table class="table-sm tb_qna_detail table-bordered" style="width: 65%;">
+                <% } else {%>
 	            <table class="table-sm width_hundred tb_qna_detail table-bordered">
+	            <% } %>
+	            
+	            
 	                <tr>
 	                    <th>제목</th>
 	                    <td>
@@ -68,6 +80,8 @@
 	                    </td>
 	                </tr>
 	            </table>
+	            
+	            
 				<br><br><br>
 				
 	            <hr class="my-hr2"></hr>

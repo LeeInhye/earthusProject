@@ -15,7 +15,7 @@
    <div class="container">
         <br><br><br><br><br><br><br><br><br>
         
-        <h2 class="menu_sub_title menu_sub_margin">Q&A 게시판</h1> <br>
+        <h2 class="menu_sub_title menu_sub_margin">Q&A 게시판</h2> <br>
         <h5 class="font_bold_gray menu_sub_margin">
             어스에게 궁금한 점을 물어 보세요. <br>
             상품 문의는 상품 상세 페이지를 확인해 주세요.
@@ -26,7 +26,6 @@
             <button type="button" class="btn btn_light_green go_mypage" onclick="location.href='<%= contextPath %>/myPage.mp';"> > &nbsp;&nbsp;마이페이지</button>    
         </div>
 		<br>
-        </div>
         
         <hr class="my-hr3"> <br>
 
@@ -36,7 +35,18 @@
 			<input type="hidden" name="qno" value="<%= q.getQnaNo() %>" >
 	        <div class="container" style="width:80%;">
 	            <br><br>
+	            
+	            <!-- 이미지 미리보기 -->
+	            <!-- 파일이 있는 경우 -->
+                <% if(at != null) { %>
+                	<div class="qna_img">
+                    	<img id="titleImg" style="margin-top: -50px;" src = "<%= contextPath %>/<%= at.getFilePath() + at.getChangeName() %>">
+                	</div>
+                 <table class="table-sm tb_qna_detail table-bordered" style="width: 65%;">
+                <% } else {%>
 	            <table class="table-sm width_hundred tb_qna_detail table-bordered">
+	            <% } %>
+	            
 	                <tr>
 	                    <th>제목</th>
 	                    <td>
@@ -167,8 +177,7 @@
 	
 	        </div>
 	    </form>
-    </div>
-   
+	</div>
    <%@ include file="/views/common/footerbar.jsp" %>
 
 </body>

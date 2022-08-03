@@ -12522,5 +12522,14 @@ hr {
 .addr{
   margin: 4px 0px;
 }
+.qna_img{
+  float: right;
+  width: 250px;
+  height: 250px;
+}
+.qna_img img{
+	width: 100%;
+	height: 100%;
+}
 
 /* ========================================================================== */
