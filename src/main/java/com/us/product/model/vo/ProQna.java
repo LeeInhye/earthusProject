@@ -17,8 +17,30 @@ public class ProQna {
 	private Date proAEnrollDate;
 	private String proAwriter;
 	private String proAcontent;
+	
+	private String proName;
 
 	public ProQna() {}
+
+	public ProQna(int proQnaNo, String proCode, String proQnaTitle, String proQnaContent, String proQnaPwd,
+			int proQnaWriterNo, String proQnaWriterName, String proQnaEmail, String proQnaPhone, Date proQEnrollDate,
+			Date proAEnrollDate, String proAwriter, String proAcontent, String proName) {
+		super();
+		this.proQnaNo = proQnaNo;
+		this.proCode = proCode;
+		this.proQnaTitle = proQnaTitle;
+		this.proQnaContent = proQnaContent;
+		this.proQnaPwd = proQnaPwd;
+		this.proQnaWriterNo = proQnaWriterNo;
+		this.proQnaWriterName = proQnaWriterName;
+		this.proQnaEmail = proQnaEmail;
+		this.proQnaPhone = proQnaPhone;
+		this.proQEnrollDate = proQEnrollDate;
+		this.proAEnrollDate = proAEnrollDate;
+		this.proAwriter = proAwriter;
+		this.proAcontent = proAcontent;
+		this.proName = proName;
+	}
 
 	public ProQna(int proQnaNo, String proCode, String proQnaTitle, String proQnaContent, String proQnaPwd,
 			int proQnaWriterNo, String proQnaWriterName, String proQnaEmail, String proQnaPhone, Date proQEnrollDate,
@@ -49,6 +71,17 @@ public class ProQna {
 		this.proQnaWriterName = proQnaWriterName;
 		this.proQnaEmail = proQnaEmail;
 		this.proQnaPhone = proQnaPhone;
+	}
+
+	public ProQna(int proQnaNo, String proQnaTitle, String proQnaWriterName, Date proQEnrollDate, Date proAEnrollDate,
+			String proName) {
+		super();
+		this.proQnaNo = proQnaNo;
+		this.proQnaTitle = proQnaTitle;
+		this.proQnaWriterName = proQnaWriterName;
+		this.proQEnrollDate = proQEnrollDate;
+		this.proAEnrollDate = proAEnrollDate;
+		this.proName = proName;
 	}
 
 	public int getProQnaNo() {
@@ -153,6 +186,14 @@ public class ProQna {
 
 	public void setProAcontent(String proAcontent) {
 		this.proAcontent = proAcontent;
+	}
+
+	public String getProName() {
+		return proName;
+	}
+
+	public void setProName(String proName) {
+		this.proName = proName;
 	}
 
 	@Override

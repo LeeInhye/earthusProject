@@ -12084,7 +12084,45 @@ input[type=checkbox] {
 	backgound:#f2f2f2 !important;
 	color:#404040 !important;
 }
+/*=== 슬기 상품 문의 관리 ===*/
+.productQna select {
+     width:100px;
+     height:30px;
+     border:1px solid lightgray;
+     border-radius:5px;
+     margin-bottom:30px;
+}
 
+#pro-qna-tb {
+    font-size:small;
+}
+
+#pro-qna-tb * {
+    border:1px solid lightgray;
+}
+
+#pro-qna-tb tr {
+    height:50px;
+}
+
+.pro-a-btn {
+    width:70px;
+    height:30px;
+    background:#404040;
+    border-radius:5px;
+    color:#f2f2f2;
+    vertical-align:top;
+    font-size:small;
+    font-weight:bold;
+    text-align:center;
+    padding-top:5px 15px;
+    line-height:30px;
+}
+
+.pro-a-btn-end {
+    color:black;
+    background:#f2f2f2;
+}
 /*====================================================*/
 
 

@@ -1,6 +1,7 @@
 package com.us.product.model.dao;
 
 import static com.us.common.JDBCTemplate.close;
+import static com.us.common.JDBCTemplate.getConnection;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -12,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.us.common.model.vo.PageInfo;
+import com.us.product.model.service.adProductService;
+import com.us.product.model.vo.ProQna;
 import com.us.product.model.vo.Product;
 
 public class adProductDao {
@@ -202,5 +205,60 @@ public class adProductDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	public int selectpqlistCount(Connection conn) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectpqlistCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("listCount");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+	
+	public ArrayList<ProQna> selectProQnaList(Connection conn, PageInfo pi){
+		ArrayList<ProQna> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectProQnaList");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()){
+				list.add(new ProQna(rset.getInt("pro_qna_no"),
+									rset.getString("pro_qna_title"),
+									rset.getString("pro_qna_writer_name"),
+									rset.getDate("pro_q_enroll_date"),
+									rset.getDate("pro_a_enroll_date"),
+									rset.getString("pro_name")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 }

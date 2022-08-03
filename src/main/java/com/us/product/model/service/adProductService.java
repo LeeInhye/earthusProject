@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import com.us.common.model.vo.PageInfo;
 import com.us.product.model.dao.adProductDao;
+import com.us.product.model.vo.ProQna;
 import com.us.product.model.vo.Product;
 
 public class adProductService {
@@ -76,5 +77,18 @@ public class adProductService {
 		close(conn);
 		return result;
 	}
+	
+	public ArrayList<ProQna> selectProQnaList(PageInfo pi){
+		Connection conn = getConnection();
+		ArrayList<ProQna> list = new adProductDao().selectProQnaList(conn, pi);
+		close(conn);
+		return list;
+	}
 
+	public int selectpqlistCount() {
+		Connection conn = getConnection();
+		int listCount = new adProductDao().selectpqlistCount(conn);
+		close(conn);
+		return listCount;
+	}
 }
