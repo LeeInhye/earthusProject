@@ -129,6 +129,21 @@ public class ChallengeService {
 		return list;
 	}
 	
+	// 사용자_댓글 등록
+	public int insertCmnt(Comment cmnt) {
+		Connection conn = getConnection();
+		int result = new ChallengeDao().insertCmnt(conn, cmnt);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
 	
 	
 	

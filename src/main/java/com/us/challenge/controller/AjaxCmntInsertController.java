@@ -1,7 +1,6 @@
 package com.us.challenge.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,21 +8,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.us.challenge.model.service.ChallengeService;
 import com.us.challenge.model.vo.Comment;
+import com.us.member.model.vo.Member;
 
 /**
- * Servlet implementation class AjaxCmntListController
+ * Servlet implementation class AjaxCmntInsertController
  */
-@WebServlet("/cmntList.ch")
-public class AjaxCmntListController extends HttpServlet {
+@WebServlet("/cmntInsert.ch")
+public class AjaxCmntInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxCmntListController() {
+    public AjaxCmntInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,13 +31,20 @@ public class AjaxCmntListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		int challNo = Integer.parseInt(request.getParameter("no"));
 		
-		ArrayList<Comment> list = new ChallengeService().selectCmntList(challNo);
-	
-		response.setContentType("application/json; charset=UTF-8");
-		new Gson().toJson(list, response.getWriter());
+		int challNo = Integer.parseInt(request.getParameter("no"));
+		String cmntContent = request.getParameter("content");
+		
+		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		
+		Comment cmnt = new Comment();
+		cmnt.setChallNo(challNo);
+		cmnt.setCmntContent(cmntContent);
+		cmnt.setCmntWriter(String.valueOf(userNo));
+				
+		int result = new ChallengeService().insertCmnt(cmnt);
+		
+		response.getWriter().print(result);
 	
 	}
 
