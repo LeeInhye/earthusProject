@@ -128,13 +128,23 @@
             <form class="form-contact comment_form" action="#" id="commentForm">
                 <table>
                     <tr>
+                    <% if(loginUser == null) { %>
                         <td width="900px">
-                            <textarea class="form-control" name="comment" id="comment" cols="30" rows="4"
+                            <textarea class="form-control" name="comment" id="cmntContent" cols="30" rows="4"
+                            placeholder="로그인 후 이용 가능한 서비스입니다." readonly></textarea>
+                        </td>
+                        <td width="200px" style="padding-left: 40px;">
+                        	<button class="btn_cmnt" disabled>댓글 등록</button>
+                        </td>
+                    <% } else { %>
+                        <td width="900px">
+                            <textarea class="form-control" name="comment" id="cmntContent" cols="30" rows="4"
                             placeholder="댓글 내용을 입력해 주세요."></textarea>
                         </td>
                         <td width="200px" style="padding-left: 40px;">
-                            <a href="#" class="btn_cmnt">댓글 등록</a>
+                        	<button type="button" class="btn_cmnt" onclick="insertCmnt();">댓글 등록</button>
                         </td>
+                    <% } %>
                     </tr>
                 </table>
             </form>
@@ -143,13 +153,11 @@
 
         <!-- 댓글 리스트 시작 -->
         <div class="comments-area">
-            <h4><%= ch.getChallCmnt() %> 개의 댓글</h4>
+            <h4><span id="cmntCount"><%= ch.getChallCmnt() %></span> 개의 댓글</h4>
 
-            <!-- 개별 댓글 -->
             <div id="cmntInsertArea">
-
+            	<!-- 댓글 목록 추가될 자리 -->
             </div>
-            <!-- 개별 댓글 -->
 
 		</div>
         <!-- 댓글 리스트 끝 -->
@@ -168,12 +176,41 @@
     		selectCmntList();
     	})
     	
-    	// ajax로 현재 게시글에 달려 있는 댓글 목록 조회용 function
+    	// 댓글 등록
+    	function insertCmnt(){
+    		
+    		console.log($("#cmntContent").val());
+    		
+    		if($("#cmntContent").val() == ''){
+    			alert("내용을 입력해 주세요");
+    		}else {
+				$.ajax({
+					url:"<%=contextPath%>/cmntInsert.ch",
+					data:{
+						no:<%=ch.getChallNo()%>,
+						content:$("#cmntContent").val(),
+					},
+					type:"post",
+					success:function(result){
+						if(result > 0){ // 댓글 등록 성공 => 갱신된 댓글 리스트 조회, 댓글 개수 +1
+							selectCmntList();
+							$("#cmntContent").val(""); // textarea 초기화
+                    		$("#cmntCount").text(Number($("#cmntCount").text()) + 1);
+						}
+						
+					}, error:function(){
+	    				console.log("댓글 작성용 ajax 통신 실패");
+					}
+				})
+    		}
+    	}
+    	
+    	// 현재 게시글에 달려 있는 댓글 목록 조회
     	function selectCmntList(){
     		
     		$.ajax({
-    			url:"<%=contextPath%>/cmntList.co",
-    			data:{"no":<%= ch.getChallNo() %>},
+    			url:"<%=contextPath%>/cmntList.ch",
+    			data:{no:<%= ch.getChallNo() %>},
     			success:function(list){
     				
     				let value = "";

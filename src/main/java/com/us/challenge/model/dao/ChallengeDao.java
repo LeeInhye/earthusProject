@@ -30,7 +30,7 @@ public class ChallengeDao {
 	
 	// 페이징바_현재 총 게시글 갯수
 	public int selectListCount(Connection conn) {
-		// select문 => ResultSet(숫자 한 개) => listCount
+		// select => ResultSet(숫자 한 개) => listCount
 		int listCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -336,7 +336,7 @@ public class ChallengeDao {
 
 	// 사용자_댓글 리스트 조회
 	public ArrayList<Comment> selectCmntList(Connection conn, int challNo) {
-		// select문 => ResultSet(여러 행) => ArrayList<Comment>
+		// select => ResultSet(여러 행) => ArrayList<Comment>
 		ArrayList<Comment> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -364,6 +364,30 @@ public class ChallengeDao {
 		}
 		
 		return list;
+	}
+	
+	// 사용자_댓글 등록
+	public int insertCmnt(Connection conn, Comment cmnt) {
+		// insert => 처리된 행 수(한 행)
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertCmnt");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cmnt.getChallNo());
+			pstmt.setString(2, cmnt.getCmntWriter());
+			pstmt.setString(3, cmnt.getCmntContent());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+	
+		return result;
 	}
 	
 }
