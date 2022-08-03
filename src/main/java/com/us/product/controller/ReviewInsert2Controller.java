@@ -68,10 +68,12 @@ public class ReviewInsert2Controller extends HttpServlet {
 			int result = new ReviewService().insertReview(r, at);
 			
 			if(result > 0) {
-				request.getRequestDispatcher(request.getContextPath()/* + "result.re" */);
-				// 결과 페이지 만들기!
+				session.setAttribute("resultMsg", "리뷰 등록에 성공하였습니다.");
+				request.getRequestDispatcher("views/product/reviewInsertResultView.jsp");
+			}else {
+				session.setAttribute("resultMsg", "리뷰 등록에 실패하였습니다.");
+				request.getRequestDispatcher("views/product/reviewInsertResultView.jsp");
 			}
-			
 		}
 		
 		

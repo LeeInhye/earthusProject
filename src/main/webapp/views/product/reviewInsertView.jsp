@@ -3,6 +3,7 @@
 <%
 	Review r = (Review)request.getAttribute("r");
 	String contextPath = request.getContextPath();
+	String resultMsg = request.getParameter("resultMsg");
 %>
 <!DOCTYPE html>
 <html>
