@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.us.product.model.vo.Review"%>
+<%
+	Review r = (Review)request.getAttribute("r");
+%>
  <!DOCTYPE html>
  <html lang="en">
  <head>
@@ -57,6 +60,17 @@
          height:50px;
          box-sizing: border-box;
       }
+      	#rate-star{
+	  display:inline-block;
+	  border:0px;
+	  padding-left:10px;
+	}
+	#rate-star input[type=radio]{
+	  display:none;
+	}
+	.review-rate{
+	  color:#fbd600;
+	}
     </style>
    
    <!-- FontAwesome CDN -->
@@ -92,9 +106,9 @@
 	            <tbody>
 	              <tr>
 	                <td width="150px;" height="100px" style="padding-left:50px; padding-right:20px">
-	                    <img src="img/product/product_4.png" style="height:90%; width:100%;">
+	                    <img src="<%= r.getProImgPath() %>" style="height:90%; width:100%;">
 	                </td>
-	                <td> 상품명</td>
+	                <td><%= r.getProName() %></td>
 	              </tr>
 	            </tbody>
 			</table>
@@ -102,25 +116,56 @@
 
 		<br><br><br>
 
-		<form action="" method="post">
+		<form action="updateResult.re" method="post" enctype="multipart/form-data">
 	         <div class="rate-area">
 	            <span style="font-weight:bold;">당신의 별점은 : </span>
+	            <fieldset id="rate-star">
+	                  <input type="radio" name="rate" value="1" id="rate1">
+	                  <label for="rate1"><i class="fa fa-star review-rate"></i></label>
+	                  <input type="radio" name="rate" value="2" id="rate2">
+	                  <label for="rate2"><i class="fa fa-star review-rate"></i></label>
+	                  <input type="radio" name="rate" value="3" id="rate3">
+	                  <label for="rate3"><i class="fa fa-star review-rate"></i></label>
+	                  <input type="radio" name="rate" value="4" id="rate4">
+	                  <label for="rate4"><i class="fa fa-star review-rate"></i></label>
+	                  <input type="radio" name="rate" value="5" id="rate5">
+	                  <label for="rate5"><i class="fa fa-star review-rate"></i></label>
+                </fieldset>
+	                
+	                <script>
+	                	// 기존 revRate와 같은 값을 가진 라디오버튼에 checked속성 부여하는 함수
+	                	$(function(){
+	                		$("input[name]rate").each(function(){
+		                		if( $(this).val() == <%= r.getRevRate() %> ){
+		                			$(this).prop("checked", true);
+		                		}	                			
+	                		})
+	                	})
+	                
+	                    // 별점 checked속성에 대한 function (클릭하면 유지되도록)
+	                  $(function(){
+	                    $("input[name=rate]").change(function(){
+	                      $(this).next().children().css("color", "#fbd600");
+	                      $(this).prevAll("label").children().css("color", "#fbd600");
+	                      $(this).next().nextAll("label").children().css("color", "#F2F2F2");
+	                    })
+	                  })                      
+	                </script>
 	         </div>
 	         <br>
 	         <div class="content-area">
-	            <textarea name="review-content" id="edit-review-content" rows="10">기존에 입력했던 사용자의 글을 출력</textarea>
-	            <!-- 미리보기 사진 첨부 & input:file은 hidden으로 (썸네일 클릭으로 첨부할 수 있도록) -->
+	            <textarea name="content" id="edit-review-content" rows="10"><%= r.getRevContent() %></textarea>
 	         </div>
 	         <br>
 	         <div class="file-area">
 	            <span style="font-weight:bold;">이미지 첨부 :</span> <br>
-	            <input type="file" name="review-image" style="display:none;">
+	            <input type="file" name="review-image" onchange="loadThumbnail(this);" style="display:none;">
 	            <div onclick="uploadFile();"><i class="fa fa-camera fa-2x"></i></div>
-	            <div></div>
+	            <div id="thumbnail"><img src="<%= r.getRevImgPath() %>"></div>
 	         </div>
 	         <br>
 	         <div class="button-area" align="right">
-	            <button type="button" class="btn-review-edit">리뷰 삭제</button>
+	         	<input type="hidden" name="revNo" value="<%= r.getRevNo() %>">
 	            <button type="submit" class="btn-review-edit" style="background-color:#778C79;">리뷰 수정</button>
 	         </div>
 		</form>
@@ -128,11 +173,38 @@
 
 
    <!-- ***** SCRIPT AREA START ***** -->
-   <script>
-      function uploadFile(){
-         $("input[name=review-image]").click();
-      }
-   </script>
+	<script>
+		// div영역 누르면 파일 업로드 버튼에 클릭 이벤트 부여
+		function uploadFile(){
+			$("input[name=review-image]").click();
+		}
+		
+		// 파일 업로드 시 썸네일에 보이도록
+		function loadThumbnail(inputFile){
+			if(inputFile.files.length == 1){
+				const reader = new FileReader();
+				reader.readAsDataURL(inputFile.files[0]);
+				reader.onload = function(e){
+					$("#thumbnail").children().attr("src", e.target.result);
+				}
+			}else{
+				$("#thumbnail").children().attr("src", null);
+			}
+		}
+		
+		// 글자수에 대한 조건처리
+		$("textarea[name=content]").change(function(){
+			if( $(this).val().length < 20 ){
+				alert("최소 20자 이상을 입력해 주세요.");
+				$("#submit-btn").attr("disabled", true);
+			}else{
+				$("#submit-btn").removeAttr("disabled");
+			}
+		})
+      
+		
+      
+	</script>
    <!-- ***** SCRIPT AREA END ***** -->
    
    

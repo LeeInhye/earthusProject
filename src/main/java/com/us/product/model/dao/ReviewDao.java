@@ -34,8 +34,6 @@ public class ReviewDao {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("selectList");
 		
-		System.out.println(userNo);
-		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userNo);
@@ -55,8 +53,6 @@ public class ReviewDao {
 							rset.getString("REV_TYPE")
 						));
 			}
-			
-			System.out.println(list);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -144,16 +140,17 @@ public class ReviewDao {
 	}
 	
 	
-	public int insertAttachment(Connection conn, Attachment at) {
+	public int insertAttachment(Connection conn, Review r, Attachment at) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertAttachment");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, at.getOriginName());
-			pstmt.setString(2, at.getChangeName());
-			pstmt.setString(3, at.getFilePath());
+			pstmt.setInt(1, r.getRevNo());
+			pstmt.setString(2, at.getOriginName());
+			pstmt.setString(3, at.getChangeName());
+			pstmt.setString(4, at.getFilePath());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -161,6 +158,111 @@ public class ReviewDao {
 		}
 		return result;
 	}
+	
+	
+	public Review selectReview(Connection conn, int userNo, String proCode) {
+		Review r = null;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectReview");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setString(2, proCode);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				r = new Review();
+				r.setRevNo(rset.getInt("REV_NO"));
+				r.setUserNo(userNo);
+				r.setProCode(proCode);
+				r.setProName(rset.getString("PRO_NAME"));
+				r.setProImgPath(rset.getString("PRO_IMG_PATH"));
+				r.setRevRate(rset.getInt("REV_RATE"));
+				r.setRevContent(rset.getString("REV_CONTENT"));
+				r.setRevType(rset.getString("REV_TYPE"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return r;
+		
+	}
+	
+	public Attachment selectAttachment(Connection conn, int revNo) {
+		Attachment at = null;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, revNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				at = new Attachment();
+				at.setFileNo(rset.getInt("FILE_NO"));
+				at.setRefBNo(revNo);
+				at.setOriginName(rset.getString("ORIGIN_NAME"));
+				at.setChangeName(rset.getString("CHANGE_NAME"));
+				at.setFilePath(rset.getString("FILE_PATH"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return at;
+	}
+	
+	
+	public int updateReview(Connection conn, Review r) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateReview");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, r.getRevRate());
+			pstmt.setString(2, r.getRevContent());
+			pstmt.setString(3, r.getRevType());
+			pstmt.setInt(4, r.getRevNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// 리뷰 이미지 사진이 변경되었을 때, 기존 이미지의 STATUS를 'N'로 만드는 메소드
+	public int updateAttachment(Connection conn, Review r, Attachment at) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, r.getRevNo());
+			pstmt.setString(2, at.getChangeName());
+				
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	
 
 }
