@@ -185,7 +185,7 @@
                             
                             // 체크박스 체크/체크해제시 선택삭제 버튼의 모달 속성 변경
                             var checkCnt = "";
-							$("input:checkbox[name=check]").change(function(){
+							$("input:checkbox").change(function(){
 								checkCnt = "";
 								$("input:checkbox[name=check]:checked").each(function(){
 	                                checkCnt += ($(this).val()) + ","; // 체크된 것만 게시글번호 뽑기 "2,3,4,"
