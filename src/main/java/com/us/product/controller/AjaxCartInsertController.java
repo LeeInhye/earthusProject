@@ -17,13 +17,13 @@ import com.us.product.model.vo.Cart;
  * Servlet implementation class CartInsertController
  */
 @WebServlet("/insert.ca")
-public class CartInsertController extends HttpServlet {
+public class AjaxCartInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CartInsertController() {
+    public AjaxCartInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
