@@ -37,8 +37,8 @@
                                     <th width="2%"><input type="checkbox" onclick="checkAll(this);" id="checkAll"></th>
                                     <th width="5%">번호</th>
                                     <th width="10%">처리상태</th>
-                                    <th width="30%">제목</th>
-                                    <th width="7%">작성일</th>
+                                    <th width="25%">제목</th>
+                                    <th width="10%">작성일</th>
                                     <th width="5%">상태</th>
                                     <th width="8%">답변</th>
                                 </tr>
@@ -187,7 +187,7 @@
 	                		// 삭제
                             var checkCnt = "";
 
-                            $("input:checkbox[name=checkQna]").change(function(){
+                            $("input:checkbox").change(function(){
                             	checkCnt = "";
                             	$("input:checkbox[name=checkQna]:checked").each(function(){
 	                                checkCnt += ($(this).val()) + ","; // 체크된 것만 게시글번호 뽑기 "2,3,4,"

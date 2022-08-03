@@ -299,7 +299,7 @@
 	                		// 회원 삭제
                             var checkCnt = "";
 
-                            $("input:checkbox[name=checkMember]").change(function(){
+                            $("input:checkbox").change(function(){
                             	checkCnt = "";
                             	$("input:checkbox[name=checkMember]:checked").each(function(){
 	                                checkCnt += ($(this).val()) + ","; // 체크된 것만 게시글번호 뽑기 "2,3,4,"
