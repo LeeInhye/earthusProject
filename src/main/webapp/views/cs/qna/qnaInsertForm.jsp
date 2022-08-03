@@ -34,12 +34,23 @@
 				
 	            <input type="checkbox" id="pwdCheck" style="vertical-align:bottom;">&nbsp; 
 	            <b> &nbsp; 비밀글 &nbsp; </b> 
-	            <input type="password" id="qnaPwd" name="qnaPwd" placeholder="비밀번호 숫자 네자리 입력">
+	            <input type="password" id="qnaPwd" name="qnaPwd" placeholder="비밀번호 숫자 네자리 입력" disabled>
 	            <div id="outputPwd"></div>
 	            <br><br>
 	            
 	            <script>
 	            	$(document).ready(function(){
+	            		// 체크박스 체크하면 input 비활성화 해제
+						$("#pwdCheck").change(function(){
+							if( $("#qnaPwd").is(":disabled") ) {
+								$("#qnaPwd").prop("disabled", false);
+							} else {
+								$("#qnaPwd").prop("disabled", true);
+							}
+							
+						})
+	            		
+	            		
 	            		// 비밀글을 체크하고 비밀번호 네자리 입력해야함
 	            		if( $("#pwdCheck").is(":checked") ){
 	            			$("#qnaPwd").focusout(function(){
@@ -52,7 +63,8 @@
 	            					$("#outputPwd").empty();
 	            				}
 	            			});
-	            		}
+	            		} 
+	            		
 	            	})
 	            
 	            </script>
@@ -94,7 +106,7 @@
 	            <script>
 	            	$(document).ready(function(){
 	            		
-		            		var length = $("#qnaContent").val().length;
+		            	var length = $("#qnaContent").val().length;
 		            		
 	            		$("#qnaContent").focusout(function(){
 	            			length = $(this).val().length;
@@ -104,13 +116,17 @@
 		            	});
 	            		
 						$("#insertQnaBtn").click(function(){
-							// 연락처를 남기지 않았을 경우
-							if( ($("#qnaEmail").val() == "") && ($("#qnaPhone").val() == "") ){
+							console.log(($("#qnaTitle").val().length) * ($("#qnaContent").val().length));
+							// 제목, 내용 미입력시 뜨는 모달
+							if( ($("#qnaTitle").val().length) * ($("#qnaContent").val().length) == 0){
+								$("#insertQnaBtn").attr("data-toggle", "modal");
+                                $("#insertQnaBtn").attr("data-target", "#noContent");
+							} else if( ($("#qnaEmail").val() == "") && ($("#qnaPhone").val() == "") ){
+								// 연락처를 남기지 않았을 경우
 								$("#insertQnaBtn").attr("data-toggle", "modal");
                                 $("#insertQnaBtn").attr("data-target", "#nowrite_pe");
-
-							} else if(length >= 20 && length <= 150 && ($("#outputPwd").text() == "") &&
-                                       ($("#qnaTitle").val() != "") && ($("#qnaContent").val() != "")  ){ // 문의 내용 글자수 제한과 비밀글 조건 지키기
+                                $("#insertQnaBtn").click();
+							} else if(length >= 20 && length <= 150 && ($("#outputPwd").text() == "") ){ // 문의 내용 글자수 제한과 비밀글 조건 지키기
 										$("#insertQnaBtn").removeAttr("data-toggle");
                             			$("#insertQnaBtn").removeAttr("data-target");
 										$("#qnaInsertForm").submit();
@@ -154,7 +170,8 @@
         </form>
         
     </div>
-
+	
+	<!-- 연락처 미입력 모달 -->
 	<div class="modal fade" id="nowrite_pe" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered cascading-modal modal-avatar" role="document">
 			<!--Content-->
@@ -164,6 +181,25 @@
 				<div class="modal-body text-center modal_alert_child">
 	
 					<h4 class="mt-1 mb-2">연락처를 입력해주세요.</h4>
+					<br>
+					<div class="text-center mt-4"> 
+						<button class="btn btn_green btn_medium" data-dismiss="modal">확인</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 제목, 내용 미입력 모달 -->
+	<div class="modal fade" id="noContent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered cascading-modal modal-avatar" role="document">
+			<!--Content-->
+			<div class="modal-content modal_alert">
+	
+				<!--Body-->
+				<div class="modal-body text-center modal_alert_child">
+	
+					<h4 class="mt-1 mb-2">제목, 내용을 입력해주세요.</h4>
 					<br>
 					<div class="text-center mt-4"> 
 						<button class="btn btn_green btn_medium" data-dismiss="modal">확인</button>

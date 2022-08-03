@@ -93,11 +93,38 @@
             	$(function(){
             		$(".list-area>tbody>tr").click(function(){
             			// 비밀글일 경우
-            			console.log($(this).children().eq(2).text());
+            			let qqq = $(this).children().eq(0).text();
+            			console.log($(this).children().eq(0).text());
             			
             			if( $(this).children().eq(2).text().search("비밀글입니다.") != -1 ){
             				$(this).attr("data-toggle", "modal");
                             $(this).attr("data-target", "#insert_qnaPwd");
+                            
+                            
+                            $("#checkQnaPwd").click(function(){
+	                            <!-- 비밀글 비밀번호 체크 -->
+	                            $.ajax({
+	                            	url:"<%= contextPath %>/checkPwd.qa",
+	                            	data:{
+	                            		"inputPwd":$("#inputpwd").val(),
+	                            		"qNo":qqq
+	                            		},
+	                            	success:function(result){
+	                            		if(result == "YYY"){	// 비밀번호 일치
+	                            			$("#outputResult").empty();
+	                            			location.href = "<%= contextPath %>/detail.qa?qno=" + qqq;
+	                            		} else{
+	                            			console.log("뭐야;;");
+	                            			$("#outputResult").html("<span class='tb_enroll_star'>비밀번호가 틀립니다.</span>");
+	                            		}
+	                            		
+	                            	}, error:function(){
+	                            		console.log("ajax Q&A 비밀번호 통신 실패");
+	                            	}
+	                            });
+                            	
+                            });
+ 		                   
                             
             			} else{
             				$(this).removeAttr("data-toggle");
@@ -124,6 +151,7 @@
 		                   <div class="md-form ml-0 mr-0">
 		                       <input type="password" id="inputpwd"
 		                           class="form-control form-control-sm validate ml-0">
+		                       <div id="outputResult"></div>
 		                   </div>
 		
 		                   <div class="text-center mt-4">
@@ -131,14 +159,6 @@
 		                       <button type="button" class="btn btn_gray btn_medium" data-dismiss="modal">취소</button>
 		                   </div>
 		                   
-		                   <!-- 비밀글 비밀번호 체크 -->
-		                   <script>
-		                   		$(document).ready(function(){
-		                   			$("#checkQnaPwd").click(function(){
-		                   				if( $("#inputpwd").val() == () )
-		                   			});
-		                   		})
-		                   </script>
 		                   
 		                   
 		               </div>
