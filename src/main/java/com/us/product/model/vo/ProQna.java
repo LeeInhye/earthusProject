@@ -15,8 +15,8 @@ public class ProQna {
 	private String proQnaPhone;
 	private Date proQEnrollDate;
 	private Date proAEnrollDate;
-	private String proAwriter;
-	private String proAcontent;
+	private String proAWriter;
+	private String proAContent;
 	
 	private String proName;
 
@@ -24,7 +24,7 @@ public class ProQna {
 
 	public ProQna(int proQnaNo, String proCode, String proQnaTitle, String proQnaContent, String proQnaPwd,
 			int proQnaWriterNo, String proQnaWriterName, String proQnaEmail, String proQnaPhone, Date proQEnrollDate,
-			Date proAEnrollDate, String proAwriter, String proAcontent, String proName) {
+			Date proAEnrollDate, String proAWriter, String proAcontent, String proName) {
 		super();
 		this.proQnaNo = proQnaNo;
 		this.proCode = proCode;
@@ -37,14 +37,14 @@ public class ProQna {
 		this.proQnaPhone = proQnaPhone;
 		this.proQEnrollDate = proQEnrollDate;
 		this.proAEnrollDate = proAEnrollDate;
-		this.proAwriter = proAwriter;
-		this.proAcontent = proAcontent;
+		this.proAWriter = proAWriter;
+		this.proAContent = proAContent;
 		this.proName = proName;
 	}
 
 	public ProQna(int proQnaNo, String proCode, String proQnaTitle, String proQnaContent, String proQnaPwd,
 			int proQnaWriterNo, String proQnaWriterName, String proQnaEmail, String proQnaPhone, Date proQEnrollDate,
-			Date proAEnrollDate, String proAwriter, String proAcontent) {
+			Date proAEnrollDate, String proAWriter, String proAContent) {
 		super();
 		this.proQnaNo = proQnaNo;
 		this.proCode = proCode;
@@ -57,8 +57,8 @@ public class ProQna {
 		this.proQnaPhone = proQnaPhone;
 		this.proQEnrollDate = proQEnrollDate;
 		this.proAEnrollDate = proAEnrollDate;
-		this.proAwriter = proAwriter;
-		this.proAcontent = proAcontent;
+		this.proAWriter = proAWriter;
+		this.proAContent = proAContent;
 	}
 	
 	public ProQna(String proCode, String proQnaTitle, String proQnaContent, String proQnaPwd, String proQnaWriterName,
@@ -172,20 +172,20 @@ public class ProQna {
 		this.proAEnrollDate = proAEnrollDate;
 	}
 
-	public String getProAwriter() {
-		return proAwriter;
+	public String getProAWriter() {
+		return proAWriter;
 	}
 
-	public void setProAwriter(String proAwriter) {
-		this.proAwriter = proAwriter;
+	public void setProAWriter(String proAWriter) {
+		this.proAWriter = proAWriter;
 	}
 
-	public String getProAcontent() {
-		return proAcontent;
+	public String getProAContent() {
+		return proAContent;
 	}
 
-	public void setProAcontent(String proAcontent) {
-		this.proAcontent = proAcontent;
+	public void setProAContent(String proAContent) {
+		this.proAContent = proAContent;
 	}
 
 	public String getProName() {
@@ -202,6 +202,6 @@ public class ProQna {
 				+ ", proQnaContent=" + proQnaContent + ", proQnaPwd=" + proQnaPwd + ", proQnaWriterNo=" + proQnaWriterNo
 				+ ", proQnaWriterName=" + proQnaWriterName + ", proQnaEmail=" + proQnaEmail + ", proQnaPhone="
 				+ proQnaPhone + ", proQEnrollDate=" + proQEnrollDate + ", proAEnrollDate=" + proAEnrollDate
-				+ ", proAwriter=" + proAwriter + ", proAcontent=" + proAcontent + "]";
+				+ ", proAWriter=" + proAWriter + ", proAContent=" + proAContent + "]";
 	}
 }

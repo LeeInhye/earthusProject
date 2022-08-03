@@ -262,15 +262,60 @@ public class adProductDao {
 		return list;
 	}
 	
-	public int updateProQna(Connection conn, int proQnaNo) {
+	public ProQna selectProQna(Connection conn, int proQnaNo) {
+		ProQna pq = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectProQna");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, proQnaNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				pq = new ProQna(rset.getInt("pro_qna_no"),
+								rset.getString("pro_code"),
+								rset.getString("pro_qna_title"),
+								rset.getString("pro_qna_content"),
+								rset.getString("pro_qna_pwd"),
+								rset.getInt("pro_qna_writer_no"),
+								rset.getString("pro_qna_writer_name"),
+								rset.getString("pro_qna_email"),
+								rset.getString("pro_qna_phone"),
+								rset.getDate("pro_q_enroll_date"),
+								rset.getDate("pro_a_enroll_date"),
+								rset.getString("pro_a_writer"),
+								rset.getString("pro_a_content"),
+								rset.getString("pro_name")
+								);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		return pq;
+	}
+	
+	public int updateProQna(Connection conn, int userNo, String proAContent, int proQnaNo) {
 		int result = 0;
 		PreparedStatement pstmt =null;
 		String sql = prop.getProperty("updateProQna");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setString(2, proAContent);
+			pstmt.setInt(3, proQnaNo);
+			
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close(pstmt);
 		}
+		return result;
 	}
 }

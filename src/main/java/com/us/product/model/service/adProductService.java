@@ -92,9 +92,16 @@ public class adProductService {
 		return listCount;
 	}
 	
-	public int updateProQna(int proQnaNo) {
+	public ProQna selectProQna(int proQnaNo) {
 		Connection conn = getConnection();
-		int result = new adProductDao().updateProQna(conn, proQnaNo);
+		ProQna pq = new adProductDao().selectProQna(conn, proQnaNo);
+		close(conn);
+		return pq;
+	}
+	
+	public int updateProQna(int userNo, String proAContent, int proQnaNo) {
+		Connection conn = getConnection();
+		int result = new adProductDao().updateProQna(conn, userNo, proAContent, proQnaNo);
 		close(conn);
 		return result;
 	}
