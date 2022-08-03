@@ -5,8 +5,8 @@
 				 com.us.product.model.vo.ProQna"
 %>
 <%
-	Product p = (Product)session.getAttribute("p");
-	ArrayList<ProQna> qlist = (ArrayList<ProQna>)session.getAttribute("list");
+	Product p = (Product)session.getAttribute("p"); // 상품 정보
+	ArrayList<ProQna> qlist = (ArrayList<ProQna>)session.getAttribute("list"); // 상품 문의 개시글 리스트
 	int qnaCount = 0; // 상품 문의 게시글 수를 담을 변수
 	for(int i=0; i<qlist.size(); i++){
 		qnaCount++;
@@ -178,15 +178,34 @@
             <!------- 바로결제/장바구니/찜 시작 ------->
             <div class="card_area d-flex justify-content-between align-items-center">
               <a href="<%=contextPath%>/order/orderHistoryView.jsp" class="btn_3 font_bold_gray">바로결제</a>
-              <a href="#" class="btn_3" style="background:#A8BFAA;" data-toggle="modal" data-target="#myModal1">장바구니</a>
+              <% if(loginUser != null){ %>
+              	<button type="button" onclick="insertCart()" class="btn_3" style="background:#A8BFAA;">장바구니</button>
+              <%}else{ %>
+              	<button type="button" onclick="$('#insertCartModal2').modal('show');" class="btn_3" style="background:#A8BFAA;">장바구니</button>
+              <%} %>
                 <script>
-                	function cart(){
-                      	
-                      	
-                    }
+                
+                	function insertCart(){
+                		$.ajax({
+                			url:"<%=contextPath%>/insert.ca",
+                			data:{ proCode:<%=p.getProCode()%>,
+               					   proName:"<%=p.getProName()%>",
+               					   price:<%=p.getPrice()%>,
+               					   proQty:$('#qty').val()},
+                			type:"post",
+                			success: function(result){
+                				// 장바구니 추가 성공 시 성공 완료 modal
+                				if(result > 0){
+	                				$('#insertCartModal').modal('show');
+                				}
+                			},error: function(){
+                				console.log("장바구니 추가 ajax 통신 실패");
+                			}
+	                		})
+                	}
                 </script>
                 <!------- 장바구니 이동 확인 Modal ------->
-                <div class="modal" id="myModal1">
+                <div class="modal" id="insertCartModal">
                   <div class="modal-dialog">
                     <div class="modal-content">
 
@@ -198,22 +217,15 @@
                       
                       <!-- Modal footer -->
                       <div class="modal-footer" style="display:inline-block; text-align:center;">
-                        <button type="button" class="btn btn_2" id="goToCart" data-dismiss="modal">확인</button>
+                        <button type="button" class="btn btn_2" onclick="location.href='<%=contextPath%>/list.ct'">확인</button>
                         <button type="button" class="btn btn_2" data-dismiss="modal">취소</button>
                       </div>
                    </div>
           		</div>
         	</div>
-                <script>
-                  $(function(){ // 장바구니로 이동
-                    $('#goToCart').click(function(){
-						location.href = "#";
-                    })
-                  })
-                </script>
                       
                <!------- 장바구니 담기 실패 Modal ------->
-                <div class="modal" id="addCartModal2">
+                <div class="modal" id="insertCartModal2">
                   <div class="modal-dialog">
                     <div class="modal-content">
 
@@ -224,30 +236,26 @@
                       
                       <!-- Modal footer -->
                       <div class="modal-footer" style="display:inline-block; text-align:center;">
-                        <button type="button" class="btn btn_2" id="goToCart" data-dismiss="modal">확인</button>
+                        <button type="button" class="btn btn_2" onclick="location.href='<%=contextPath%>/views/member/goLogin.jsp'">확인</button>
                         <button type="button" class="btn btn_2" data-dismiss="modal">취소</button>
                       </div>
-                      <script>
-                        $(function(){ // 장바구니로 이동
-                          $('#goToCart').click(function(){
-							location.href = "#";
-                          })
-                        })
-                      </script>
-             		<!------- 장바구니 Modal 끝 ------->
-             		
              		
                     </div>
                   </div>
                 </div>
+             		<!------- 장바구니 Modal 끝 ------->
                 <!------- 장바구니 끝 ------->
 
 			  <!------------- 찜 버튼 시작 -------------->
-              <a href="#" class="like_us" onclick="likeUs();"><i class="fa fa-heart-o" style="font-size:large;"></i></a>
+			  <% if(loginUser != null) { %>
+              <a href="#" class="like_us" onclick="insertWishlist();"><i class="fa fa-heart-o" style="font-size:large;"></i></a>
+              <% }else { %>
+              <a href="#" class="like_us" onclick="$('#wishModal').modal('show');"><i class="fa fa-heart-o" style="font-size:large;"></i></a>
+              <% } %>
               <script>
-                function likeUs(){
-                  	if(<%=loginUser%> != null){ // 로그인 한 회원만 찜 가능
-                  		
+                function insertWishlist(){
+                	
+                }
                   // 상품이 위시리스트에 담겨 있지 않을 때
                     $('.like_us i').css('color',"#f2f2f2");
                     $('.like_us i').parent().css('background',"#778C79"); 
@@ -255,16 +263,29 @@
                   // 상품이 위시리스트에 이미 담겨 있을 때
                   // 위시리스트에 해당 상품 delete 후 스타일 원상복구
                   //   $('.like_us i').css('color', "");
-                  //   $('.like_us i').parent().css('background', ""); 
-                  		
-                  	}else{
-                  		alert("로그인된 회원만 이용 가능합니다.");
-                  		location.href="<%=contextPath%>/views/member/goLogin.jsp";
-                  	}
-                  	
-                }
+                  //   $('.like_us i').parent().css('background', "");
                   
               </script>
+              
+              <!------- 찜 실패 Modal ------->
+                <div class="modal" id="wishModal">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+
+                      <!-- Modal body -->
+                      <div class="modal-body" style="text-align:center; padding:50px 0px; line-height:30px;">
+                        로그인된 회원만 이용 가능합니다.
+                      </div>
+                      
+                      <!-- Modal footer -->
+                      <div class="modal-footer" style="display:inline-block; text-align:center;">
+                        <button type="button" class="btn btn_2" onclick="location.href='<%=contextPath%>/views/member/goLogin.jsp'">확인</button>
+                        <button type="button" class="btn btn_2" data-dismiss="modal">취소</button>
+                      </div>
+             		
+                    </div>
+                  </div>
+                </div>
               <!------------- 찜 버튼 끝 -------------->
               <!--바로결제/장바구니/찜 끝-->
               
@@ -369,7 +390,10 @@
           				</li>
           				<% } %>	
           				
-          				<li class="col4"><%=q.getProQnaWriterName()%></li>
+          				<% int length = q.getProQnaWriterName().length();
+          				   String name= q.getProQnaWriterName().substring(0,length-2)+"*"; 
+          				%>
+          				<li class="col4"><%=name%></li>
           				<li class="col5"><%=q.getProQEnrollDate()%></li>
           			</ul>
           			<!-- 목록 -->

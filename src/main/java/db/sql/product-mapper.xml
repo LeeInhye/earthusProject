@@ -183,6 +183,17 @@ UPDATE PRODUCT
 	       )
 </entry>
 
+<entry key="insertCart">
+	INSERT
+	  INTO CART 
+	VALUES (
+	         ?
+	       , ?
+	       , ?
+	       , DEFAULT
+	       )
+</entry>
+
 <entry key="priceDesc">
 	SELECT *
 	  FROM (
