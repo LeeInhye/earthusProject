@@ -483,5 +483,11 @@
 		 WHERE REF_TYPE = 1
 	</entry>
 	
+	<entry key="adQnaUpdate">
+		UPDATE QNA
+		   SET QNA_ANS_WRITER = ?
+		     , QNA_ANSWER = ?
+		 WHERE QNA_NO = ?
+	</entry>
 
 </properties>

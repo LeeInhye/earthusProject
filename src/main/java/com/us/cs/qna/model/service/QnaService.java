@@ -165,7 +165,17 @@ public class QnaService {
 		return result1 * result2;
 	}
 	
-	
+	// 답변 등록/수정
+	public int adQnaUpdate(Qna q) {
+		Connection conn = getConnection();
+		int result = new QnaDao().adQnaUpdate(conn, q);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result;
+	}
 	
 	
 	

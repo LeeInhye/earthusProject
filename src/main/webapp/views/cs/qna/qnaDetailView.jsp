@@ -82,14 +82,12 @@
 	            <br>
 				
 				<% if( q.getQnaAnswer() != null) { %>
-					<table>
-	                	<tr>
-		                    <th style="width:30%; text-align:center;">Earth.Us</th>
+					<table class="width_hundred">
+	                	<tr class="qna_ans">
+		                    <th style="width:25%; text-align:center;">Earth.Us</th>
 		                    <td>
 		                        <div>
-		                        <p style="white-space: pre-line; width: 80%;">
-									<%= q.getQnaAnswer() %>
-								</p>
+		                        <p style="white-space: pre-line; width: 80%; padding: 15px;"><%= q.getQnaAnswer() %></p>
 		                        </div>
 		                    </td>
 		                </tr>

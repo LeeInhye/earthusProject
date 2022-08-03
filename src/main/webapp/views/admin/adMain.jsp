@@ -109,7 +109,7 @@
                             <div>
                                 <h5>고객센터</h5>
                                 <hr>
-                                <a href="<%= contextPath %>/adList.no?npage=1">공지사항</a> <br>
+                                <a href="<%= contextPath %>/adList.no?npage=1">공지사항 관리자</a> <br>
                                 <a href="<%= contextPath %>/adList.fq?fpage=1">자주 묻는 질문 관리</a> <br>
                                 <a href="<%= contextPath %>/adList.qa?qpage=1">Q&A 관리</a>
                             </div>

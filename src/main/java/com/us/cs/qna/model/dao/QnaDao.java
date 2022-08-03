@@ -556,5 +556,26 @@ public class QnaDao {
 
 	}
 	
-
+	// 답변 등록/수정
+	public int adQnaUpdate(Connection conn, Qna q) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("adQnaUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, q.getQnaWriter());
+			pstmt.setString(2, q.getQnaAnswer());
+			pstmt.setInt(3, q.getQnaNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

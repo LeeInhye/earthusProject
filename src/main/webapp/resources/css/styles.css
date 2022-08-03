@@ -12135,6 +12135,7 @@ hr {
   color: white !important;
   border: 1px solid #404040;
   text-align: center;
+  border: 0;
 }
 .btn_black:hover{
   color: black !important;
@@ -12181,6 +12182,12 @@ hr {
 }
 .btn_center *{
 	font-size: 18px !important;
+}
+.btn_qna{
+  font-size: 20px !important;
+  width: 150px;
+  height: 40px;
+  vertical-align:middle;
 }
 
 
@@ -12440,6 +12447,7 @@ hr {
   align-items: center;
   width: 100%;
   margin:auto;
+  font-size: 19px;
 }
 .M_qna_table th{
   width: 30%;
