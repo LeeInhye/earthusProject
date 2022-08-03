@@ -11,9 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import org.apache.tomcat.websocket.PojoClassHolder;
-
 import com.us.common.model.vo.PageInfo;
+import com.us.product.model.vo.Cart;
 import com.us.product.model.vo.Category;
 import com.us.product.model.vo.ProQna;
 import com.us.product.model.vo.Product;
@@ -413,6 +412,26 @@ public class ProductDao {
 			pstmt.setString(5, pq.getProQnaWriterName());
 			pstmt.setString(6, pq.getProQnaEmail());
 			pstmt.setString(7, pq.getProQnaPhone());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int insertCart(Connection conn, Cart c) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertCart");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, c.getUserNo());
+			pstmt.setString(2, c.getProCode());
+			pstmt.setInt(3, c.getProQty());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

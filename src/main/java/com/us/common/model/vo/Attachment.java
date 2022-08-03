@@ -35,6 +35,13 @@ public class Attachment {
 		this.changeName = changeName;
 		this.filePath = filePath;
 	}
+	
+	public Attachment(int refBNo, String changeName, String filePath) {
+		super();
+		this.refBNo = refBNo;
+		this.changeName = changeName;
+		this.filePath = filePath;
+	}
 
 	public int getFileNo() {
 		return fileNo;

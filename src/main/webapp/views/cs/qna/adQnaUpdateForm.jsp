@@ -57,8 +57,21 @@
 	                                <th>내용</th>
 	                                <td>
 	                                    <div style="height:200px; overflow: auto; padding: 10px;">
-	                                        <p style="white-space: pre;"><%= q.getQnaContent() %>
-	                                        </p>
+	                                    
+		                                    <!-- 이미지 미리보기 -->
+								            <!-- 파일이 있는 경우 -->
+							                <% if(at != null) { %>
+							                	<p style="white-space: pre;"><%= q.getQnaContent() %>
+	                                        	</p>
+	                                        	
+							                	<div class="qna_img">
+							                    	<img id="titleImg" src = "<%= contextPath %>/<%= at.getFilePath() + at.getChangeName() %>">
+							                	</div>
+								            <% } else {%>
+								            	<p style="white-space: pre;"><%= q.getQnaContent() %>
+	                                        	</p>
+								            <% } %>
+							            
 	                                    </div>
 	                                </td>
 	                            </tr>

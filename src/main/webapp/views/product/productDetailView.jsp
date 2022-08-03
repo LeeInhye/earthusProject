@@ -5,8 +5,8 @@
 				 com.us.product.model.vo.ProQna"
 %>
 <%
-	Product p = (Product)session.getAttribute("p");
-	ArrayList<ProQna> qlist = (ArrayList<ProQna>)session.getAttribute("list");
+	Product p = (Product)session.getAttribute("p"); // 상품 정보
+	ArrayList<ProQna> qlist = (ArrayList<ProQna>)session.getAttribute("list"); // 상품 문의 개시글 리스트
 	int qnaCount = 0; // 상품 문의 게시글 수를 담을 변수
 	for(int i=0; i<qlist.size(); i++){
 		qnaCount++;
@@ -178,15 +178,34 @@
             <!------- 바로결제/장바구니/찜 시작 ------->
             <div class="card_area d-flex justify-content-between align-items-center">
               <a href="<%=contextPath%>/order/orderHistoryView.jsp" class="btn_3 font_bold_gray">바로결제</a>
-              <a href="#" class="btn_3" style="background:#A8BFAA;" data-toggle="modal" data-target="#myModal1">장바구니</a>
+              <% if(loginUser != null){ %>
+              	<button type="button" onclick="insertCart()" class="btn_3" style="background:#A8BFAA;">장바구니</button>
+              <%}else{ %>
+              	<button type="button" onclick="$('#insertCartModal2').modal('show');" class="btn_3" style="background:#A8BFAA;">장바구니</button>
+              <%} %>
                 <script>
-                	function cart(){
-                      	
-                      	
-                    }
+                
+                	function insertCart(){
+                		$.ajax({
+                			url:"<%=contextPath%>/insert.ca",
+                			data:{ proCode:<%=p.getProCode()%>,
+               					   proName:"<%=p.getProName()%>",
+               					   price:<%=p.getPrice()%>,
+               					   proQty:$('#qty').val()},
+                			type:"post",
+                			success: function(result){
+                				// 장바구니 추가 성공 시 성공 완료 modal
+                				if(result > 0){
+	                				$('#insertCartModal').modal('show');
+                				}
+                			},error: function(){
+                				console.log("장바구니 추가 ajax 통신 실패");
+                			}
+	                		})
+                	}
                 </script>
                 <!------- 장바구니 이동 확인 Modal ------->
-                <div class="modal" id="myModal1">
+                <div class="modal" id="insertCartModal">
                   <div class="modal-dialog">
                     <div class="modal-content">
 
@@ -198,22 +217,15 @@
                       
                       <!-- Modal footer -->
                       <div class="modal-footer" style="display:inline-block; text-align:center;">
-                        <button type="button" class="btn btn_2" id="goToCart" data-dismiss="modal">확인</button>
+                        <button type="button" class="btn btn_2" onclick="location.href='<%=contextPath%>/list.ct'">확인</button>
                         <button type="button" class="btn btn_2" data-dismiss="modal">취소</button>
                       </div>
                    </div>
           		</div>
         	</div>
-                <script>
-                  $(function(){ // 장바구니로 이동
-                    $('#goToCart').click(function(){
-						location.href = "#";
-                    })
-                  })
-                </script>
                       
                <!------- 장바구니 담기 실패 Modal ------->
-                <div class="modal" id="addCartModal2">
+                <div class="modal" id="insertCartModal2">
                   <div class="modal-dialog">
                     <div class="modal-content">
 
@@ -224,30 +236,26 @@
                       
                       <!-- Modal footer -->
                       <div class="modal-footer" style="display:inline-block; text-align:center;">
-                        <button type="button" class="btn btn_2" id="goToCart" data-dismiss="modal">확인</button>
+                        <button type="button" class="btn btn_2" onclick="location.href='<%=contextPath%>/views/member/goLogin.jsp'">확인</button>
                         <button type="button" class="btn btn_2" data-dismiss="modal">취소</button>
                       </div>
-                      <script>
-                        $(function(){ // 장바구니로 이동
-                          $('#goToCart').click(function(){
-							location.href = "#";
-                          })
-                        })
-                      </script>
-             		<!------- 장바구니 Modal 끝 ------->
-             		
              		
                     </div>
                   </div>
                 </div>
+             		<!------- 장바구니 Modal 끝 ------->
                 <!------- 장바구니 끝 ------->
 
 			  <!------------- 찜 버튼 시작 -------------->
-              <a href="#" class="like_us" onclick="likeUs();"><i class="fa fa-heart-o" style="font-size:large;"></i></a>
+			  <% if(loginUser != null) { %>
+              <a href="#" class="like_us" onclick="insertWishlist();"><i class="fa fa-heart-o" style="font-size:large;"></i></a>
+              <% }else { %>
+              <a href="#" class="like_us" onclick="$('#wishModal').modal('show');"><i class="fa fa-heart-o" style="font-size:large;"></i></a>
+              <% } %>
               <script>
-                function likeUs(){
-                  	if(<%=loginUser%> != null){ // 로그인 한 회원만 찜 가능
-                  		
+                function insertWishlist(){
+                	
+                }
                   // 상품이 위시리스트에 담겨 있지 않을 때
                     $('.like_us i').css('color',"#f2f2f2");
                     $('.like_us i').parent().css('background',"#778C79"); 
@@ -255,16 +263,29 @@
                   // 상품이 위시리스트에 이미 담겨 있을 때
                   // 위시리스트에 해당 상품 delete 후 스타일 원상복구
                   //   $('.like_us i').css('color', "");
-                  //   $('.like_us i').parent().css('background', ""); 
-                  		
-                  	}else{
-                  		alert("로그인된 회원만 이용 가능합니다.");
-                  		location.href="<%=contextPath%>/views/member/goLogin.jsp";
-                  	}
-                  	
-                }
+                  //   $('.like_us i').parent().css('background', "");
                   
               </script>
+              
+              <!------- 찜 실패 Modal ------->
+                <div class="modal" id="wishModal">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+
+                      <!-- Modal body -->
+                      <div class="modal-body" style="text-align:center; padding:50px 0px; line-height:30px;">
+                        로그인된 회원만 이용 가능합니다.
+                      </div>
+                      
+                      <!-- Modal footer -->
+                      <div class="modal-footer" style="display:inline-block; text-align:center;">
+                        <button type="button" class="btn btn_2" onclick="location.href='<%=contextPath%>/views/member/goLogin.jsp'">확인</button>
+                        <button type="button" class="btn btn_2" data-dismiss="modal">취소</button>
+                      </div>
+             		
+                    </div>
+                  </div>
+                </div>
               <!------------- 찜 버튼 끝 -------------->
               <!--바로결제/장바구니/찜 끝-->
               
@@ -369,7 +390,10 @@
           				</li>
           				<% } %>	
           				
-          				<li class="col4"><%=q.getProQnaWriterName()%></li>
+          				<% int length = q.getProQnaWriterName().length();
+          				   String name= q.getProQnaWriterName().substring(0,length-2)+"*"; 
+          				%>
+          				<li class="col4"><%=name%></li>
           				<li class="col5"><%=q.getProQEnrollDate()%></li>
           			</ul>
           			<!-- 목록 -->
@@ -478,17 +502,17 @@
         <!-- 아래부터 Review 영역!! -->
         <!-- 아래부터 Review 영역!! -->
         <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="row total_rate">
-                <div class="col-6">
+          <div class="row" style="width:800px; margin:auto;">
+            <div class="col-lg-12">
+              <div class="row total_rate" style="padding-bottom:0px; padding-top:100px;">
+                <div class="col-6" style="margin:auto;">
                   <div class="box_total"  style="background-color: #F2F2F2;">
                     <h5>평점</h5>
                     <h4 style="color:#778C79;">4.0</h4>
                     <h6>(03명의 후기)</h6>
                   </div>
                 </div>
-                <div class="col-6">
+                <div class="col-3" style="margin:auto;">
                   <div class="rating_list">
                     <h3>3개의 리뷰</h3>
                     <ul class="list">
@@ -551,8 +575,13 @@
                   </div>
                 </div>
               </div>
+	              <div class="col-lg-12" align="center">
+	              	<button class="btn_4 btn-insert" style="width:90%; height:45px; margin-top:10px; border:none; color:#778C79;">리뷰 작성</button>
+	              </div>
+              
               <br><br>
               <div class="review_list">
+              
                 <div class="review_item">
                   <div class="media">
                     <table id="member-info">
@@ -569,45 +598,20 @@
                       <i class="fa fa-star"></i>
                     </div>
                   </div>
-                  <div class="review-content" style="height:200px;">
-                    <p class="review-content-text" style="width:60%; height:100%; float:left; box-sizing:border-box; word-break:break-all;">
+                  <div class="review-content" style="height:100px;">
+                    <p class="review-content-text" style="width:70%; height:150px; float:left; box-sizing:border-box; word-break:break-all;">
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit,
                       sed do eiusmod tempor incididunt ut labore et dolore magna
                       aliqua. Ut enim ad minim veniam, quis nostrud exercitation
                       ullamco laboris nisi ut aliquip ex ea commodo
                     </p>
-                    <div class="review-content-photo" style="width:40%; height:100%; padding-left:20px; padding-top:20px; float:left; box-sizing:border-box;">
-                      
-                      <a href="" id="activate-modal" data-toggle="modal" data-target="#myModal">
-                        <img src="img/product/b3.jpg" id="review-img">
+                    <div class="review-content-photo" style="width:30%; height:100px; padding-left:20px; float:left;">
+                      <a href="" data-toggle="modal" data-target="#originalImage">
+                        <img src="img/product/b3.jpg" id="review-img" style="width:100%; height:100%;">
                       </a>
                     </div>
                   </div>
                   <br><br>
-                </div>
-
-                <div class="review_item">
-                  <div class="media">
-                    <table id="member-info">
-                      <tr>
-                        <td width="50px">김지*</td>
-                        <td width="100px;">2022-07-26</td>
-                      </tr>
-                    </table>
-                    <div class="media-body">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                    </div>
-                  </div>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo
-                  </p>
                 </div>
                 
               </div>
@@ -616,6 +620,41 @@
         </div>
         <!-- 리뷰 영역 끝!!! -->
         
+        <!-- 리뷰 조회 - 이미지 크게 조회하는 모달 -->
+        <!-- Modal Start -->
+		<div id="originalImage" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+		
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <h4 class="modal-title">Modal Header</h4>
+		      </div>
+		      <div class="modal-body">
+		        <p>Some text in the modal.</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		
+		  </div>
+		</div>
+		<!-- Modal End -->
+		
+		<script>
+		<!-- 리뷰 작성 버튼 누르면 팝업 띄우는 함수 -->
+			$(function(){
+				// 새로운 리뷰 등록 버튼 누르면 팝업페이지 (리뷰등록 페이지) 띄우는 함수
+				$(".btn-insert").click(function(){
+					var popupX = screen.width/2 - 250;
+					var popupY = screen.height/2 - 300; 
+					const option = "scrollbars=no, location=no, toolbar=no, resizable=no, status=no, width=500px, height=600px, left=" + popupX + ", top=" + popupY;
+					window.open("<%= contextPath %>/insert.re", "리뷰 등록", option);
+				})
+			})
+		</script>
       </div>
     </div>
   </section>

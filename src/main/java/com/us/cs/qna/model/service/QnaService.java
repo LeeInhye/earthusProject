@@ -178,11 +178,5 @@ public class QnaService {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
 
 }

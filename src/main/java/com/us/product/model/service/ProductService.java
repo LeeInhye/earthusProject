@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import com.us.common.model.vo.PageInfo;
 import com.us.product.model.dao.ProductDao;
+import com.us.product.model.vo.Cart;
 import com.us.product.model.vo.Category;
 import com.us.product.model.vo.ProQna;
 import com.us.product.model.vo.Product;
@@ -122,4 +123,16 @@ public class ProductService {
 		}
 		return result;
 	}
+	
+	public int insertCart(Cart c) {
+		Connection conn = getConnection();
+		int result = new ProductDao().insertCart(conn, c);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+	
 }

@@ -1,31 +1,29 @@
 package com.us.product.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.us.common.model.vo.Attachment;
 import com.us.member.model.vo.Member;
-import com.us.product.model.service.ReviewService;
-import com.us.product.model.vo.Review;
+import com.us.product.model.service.ProductService;
+import com.us.product.model.vo.Cart;
 
 /**
- * Servlet implementation class ReviewListController
+ * Servlet implementation class CartInsertController
  */
-@WebServlet("/myList.re")
-public class ReviewListController extends HttpServlet {
+@WebServlet("/insert.ca")
+public class CartInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
-     * 마이페이지의 내 리뷰 리스트를 조회
      */
-    public ReviewListController() {
+    public CartInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,18 +32,26 @@ public class ReviewListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// session에 저장되어있는 loginUser 객체를 이용해서 
-		// 1) REVIEW 테이블로부터 USER_NO = loginUser.userNo()인 ArrayList<Review> 를 조회해옴
-		// 2) (첨부파일 있는 경우 대비) ATTACHMENT 테이블로부터 REVIEW+ATTACHMENT를 글 번호로 조인해서 ArrayList<Attachment> 조회해옴
-		Member m = (Member)request.getSession().getAttribute("loginUser");
-		int userNo = m.getUserNo();
 		
-		ArrayList<Review> list = new ReviewService().selectList(userNo);
+		request.setCharacterEncoding("utf-8");
 		
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/product/mypageReviewListView.jsp").forward(request, response);
-
+		HttpSession session = request.getSession();
+		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+		String proCode = request.getParameter("proCode");
+		String proName = request.getParameter("proName");
+		int price = Integer.parseInt(request.getParameter("price"));
+		int proQty = Integer.parseInt(request.getParameter("proQty"));
 		
+		Cart c = new Cart();
+		c.setUserNo(userNo);
+		c.setProCode(proCode);
+		c.setProName(proName);
+		c.setPrice(price);
+		c.setProQty(proQty);
+		
+		int result = new ProductService().insertCart(c);
+		
+		response.getWriter().print(result);
 	}
 
 	/**

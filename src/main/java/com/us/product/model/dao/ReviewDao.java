@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.us.common.model.vo.Attachment;
 import com.us.product.model.vo.Review;
 
 public class ReviewDao {
@@ -54,6 +55,8 @@ public class ReviewDao {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("selectList");
 		
+		System.out.println(userNo);
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userNo);
@@ -64,12 +67,17 @@ public class ReviewDao {
 							rset.getInt("REV_NO"),
 							rset.getInt("USER_NO"),
 							rset.getString("PRO_CODE"),
+							rset.getString("PRO_NAME"),
+							rset.getString("PRO_IMG_PATH"),
 							rset.getDate("REV_DATE"),
 							rset.getInt("REV_RATE"),
 							rset.getString("REV_CONTENT"),
+							rset.getString("REV_IMG_PATH"),
 							rset.getString("REV_TYPE")
 						));
 			}
+			
+			System.out.println(list);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -77,9 +85,57 @@ public class ReviewDao {
 			close(pstmt);
 		}
 		return list;
+	}
+	
+	
+	public ArrayList<Attachment> selectAttachmentList(Connection conn, int userNo){
+		ArrayList<Attachment> list = new ArrayList<>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectAttachmentList");
 		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Attachment(
+							rset.getInt("REF_BNO"),
+							rset.getString("CHANGE_NAME"),
+							rset.getString("FILE_PATH")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	
+	public Review checkPurchase(Connection conn, int userNo, String proCode) {
+		Review r = null;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("checkPurchase");
 		
-		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				r = new Review();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return r;
 		
 	}
 	
