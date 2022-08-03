@@ -14,7 +14,7 @@ import com.us.product.model.vo.Review;
 /**
  * Servlet implementation class AjaxReviewInsertController
  */
-@WebServlet("/insert.re")
+@WebServlet("/버릴거야")
 public class AjaxReviewInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
