@@ -21,13 +21,13 @@ import com.us.product.model.vo.Review;
  * Servlet implementation class ReviewInsert2Controller
  */
 @WebServlet("/insertResult.re")
-public class ReviewInsert2Controller extends HttpServlet {
+public class ReviewInsertResultController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReviewInsert2Controller() {
+    public ReviewInsertResultController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -55,10 +55,10 @@ public class ReviewInsert2Controller extends HttpServlet {
 			r.setRevContent( multiRequest.getParameter("content") );
 			
 			Attachment at = null;
-			if(multiRequest.getOriginalFileName("photo") != null) { // 넘어온 첨부파일이 있을경우
+			if(multiRequest.getOriginalFileName("review-image") != null) { // 넘어온 첨부파일이 있을경우
 				at = new Attachment();
-				at.setOriginName(multiRequest.getOriginalFileName("photo"));
-				at.setChangeName(multiRequest.getFilesystemName("photo"));
+				at.setOriginName(multiRequest.getOriginalFileName("review-image"));
+				at.setChangeName(multiRequest.getFilesystemName("review-image"));
 				at.setFilePath("resources/img/product/review/");
 				r.setRevType("P");
 			}else {

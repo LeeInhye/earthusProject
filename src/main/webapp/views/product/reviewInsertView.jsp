@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.us.product.model.vo.Review" %>
 <%
-	Review r = (Review)request.getAttribute("r");
 	String contextPath = request.getContextPath();
-	String resultMsg = request.getParameter("resultMsg");
+	int userNo = (int)request.getAttribute("userNo");
+	String proCode = (String)request.getAttribute("proCode");
 %>
 <!DOCTYPE html>
 <html>
@@ -85,10 +85,8 @@
 		<div class="insert-review-content">
 	        <form action="<%= contextPath %>insertResult/.re" method="post">
 	        <!-- 현재 Review r 객체에 (USER_NO, PRO_CODE, PRO_NAME, PRO_IMG_PATH 담겨있음) -->
-	        <input type="hidden" name="userNo" value="<%= r.getUserNo() %>">
-	        <input type="hidden" name="proCode" value="<%= r.getProCode()%>">
-	        <input type="hidden" name="proName" value="<%= r.getProName() %>">
-	        <input type="hidden" name="proImgPath" value="<%= r.getProImgPath() %>">
+	        <input type="hidden" name="userNo" value="<%= userNo %>">
+	        <input type="hidden" name="proCode" value="<%= proCode %>">
 	        
 	            
 				<h3>리뷰 작성하기</h3>
