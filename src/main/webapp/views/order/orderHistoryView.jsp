@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.us.order.model.vo.*"%>
+    pageEncoding="UTF-8" import="com.us.common.model.vo.PageInfo, java.util.ArrayList, com.us.order.model.vo.*"%>
 <% 
-ArrayList<Order> list = (ArrayList<Order>)session.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	ArrayList<Order> list = (ArrayList<Order>)session.getAttribute("list");
+	
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
 %>
 <!DOCTYPE html>
 <html>
@@ -23,6 +29,14 @@ ArrayList<Order> list = (ArrayList<Order>)session.getAttribute("list");
         }
         .table{
           text-align:center;
+        }
+        .paging-area>button{
+        	background-color:rgb(168,191,170);
+        	border:0;
+        	width:30px;
+        	height:30px;
+        	color:white;
+        	border-radius:3px;
         }
     </style>
 </head>
@@ -102,10 +116,20 @@ ArrayList<Order> list = (ArrayList<Order>)session.getAttribute("list");
 		                    <td>
 		                      <% if(or.getDelStatus() == 1){ %>
 		                      	<h5>상품준비중</h5>
-		                      	<%} %>
+		                      <%}else if(or.getDelStatus() == 2){ %>
+		                      	<h5>배송중</h5>
+		                      <%}else if(or.getDelStatus() == 3){ %>
+		                      	<h5>배송완료</h5>
+		                      <%}else if(or.getDelStatus() == 4){ %>
+		                      	<h5>주문취소</h5>
+		                      <%}else if(or.getDelStatus() == 5){ %>
+		                      	<h5>교환</h5>
+		                      <%}else{%>
+		                      	<h5>반품</h5>
+		                      <%}%>
 		                    </td>
 		                  </tr>
-                  	<%} %>
+                  	 <%} %>
                   <%} %>
                 </tbody>
               </table>
@@ -122,6 +146,28 @@ ArrayList<Order> list = (ArrayList<Order>)session.getAttribute("list");
   			
   		});
       </script>
+      
+      <!-- 페이징바 영역 -->
+      <div class="paging-area" align="center">
+      	<% if(currentPage != 1){ %>
+            	<button onclick="location.href='<%=contextPath%>/history.or?opage=<%=currentPage-1%>';">&lt;</button>
+			<% } %>
+			<% for(int p=startPage; p<=endPage; p++){ %>
+			
+				<% if(p == currentPage){ %>
+	            	<button disabled><%= p %></button>
+            	<%}else{ %>
+            		<button onclick="location.href='<%=contextPath%>/history.or?opage=<%= p %>';"><%= p %></button>
+            	<% } %>
+            <% } %>
+			
+			<% if(currentPage != maxPage){ %>
+            	<button onclick="location.href='<%=contextPath%>/history.or?opage=<%=currentPage+1%>';">&gt;</button>
+            <% } %>
+      
+      </div>
+      
+      
 		<br><br><br><br><br><br><br><br><br><br>
 	<%@ include file="../common/footerbar.jsp" %>
 </body>
