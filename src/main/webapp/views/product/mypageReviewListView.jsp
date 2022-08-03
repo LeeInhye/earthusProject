@@ -115,8 +115,8 @@
 						<p style="margin-top:20px;"><%= r.getRevContent() %></p>
 					</td>
 					<td align="center">
-						
-						<button id="submit-review">수정</button>
+						<button id="edit-review">수정</button>
+						<input type="hidden" value="<%= r.getProCode() %>">
 					</td>
 				</tr>
 			<% } %> 
@@ -167,43 +167,17 @@
 				})
 			})
 
-			// 리뷰 내용 영역을 누르면 리뷰수정 페이지로 이동하는 함수
-			$("#submit-review").click(function(){
-				$("input[type=hidden]").val( $(this).parent().siblings("#proCode").children().text() );
+			// 리뷰 수정 버튼을 누르면 리뷰 수정 페이지로 이동하는 함수
+			$("#edit-review").click(function(){
+				$("input[name=proCode]").val( $(this).next().val() );
 				$("#btn-submit").click();
 			})
 			
 		})
 	</script>
-	<!-- ============ End Script Area ==============-->
+	
+	   <%@ include file="../common/footerbar.jsp" %>
 	
 
-	<!-- jquery plugins here-->
-	<!-- jquery -->
-	<script src="js/jquery-1.12.1.min.js"></script>
-	<!-- popper js -->
-	<script src="js/popper.min.js"></script>
-	<!-- bootstrap js -->
-	<script src="js/bootstrap.min.js"></script>
-	<!-- easing js -->
-	<script src="js/jquery.magnific-popup.js"></script>
-	<!-- swiper js -->
-	<script src="js/swiper.min.js"></script>
-	<!-- swiper js -->
-	<script src="js/masonry.pkgd.js"></script>
-	<!-- particles js -->
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/jquery.nice-select.min.js"></script>
-	<!-- slick js -->
-	<script src="js/slick.min.js"></script>
-	<script src="js/jquery.counterup.min.js"></script>
-	<script src="js/waypoints.min.js"></script>
-	<script src="js/contact.js"></script>
-	<script src="js/jquery.ajaxchimp.min.js"></script>
-	<script src="js/jquery.form.js"></script>
-	<script src="js/jquery.validate.min.js"></script>
-	<script src="js/mail-script.js"></script>
-	<!-- custom js -->
-	<script src="js/custom.js"></script>
 </body>
 </html>

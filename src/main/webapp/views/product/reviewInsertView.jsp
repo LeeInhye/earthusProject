@@ -83,7 +83,7 @@
 	
 	<div class="insert-review-outer">
 		<div class="insert-review-content">
-	        <form action="<%= contextPath %>insert2/.re" method="post">
+	        <form action="<%= contextPath %>insertResult/.re" method="post">
 	        <!-- 현재 Review r 객체에 (USER_NO, PRO_CODE, PRO_NAME, PRO_IMG_PATH 담겨있음) -->
 	        <input type="hidden" name="userNo" value="<%= r.getUserNo() %>">
 	        <input type="hidden" name="proCode" value="<%= r.getProCode()%>">
@@ -121,9 +121,7 @@
 	         	
 	         	<div class="content-area">
 					<textarea name="content" rows="4" placeholder="최소 20자 이상 입력해주세요." style="width:100%; border:1px solid gainsboro; resize:none;"></textarea>
-					<input type="file" name="photo">
-					
-					<br><br>
+					<input type="file" name="review-image">
 					
 					<div class="button-area" align="right">
 						<button type="submit" id="submit-btn" disabled>제출하기</button>	         	

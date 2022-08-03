@@ -1,7 +1,6 @@
 package com.us.product.model.service;
 
-import static com.us.common.JDBCTemplate.close;
-import static com.us.common.JDBCTemplate.getConnection;
+import static com.us.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -45,13 +44,61 @@ public class ReviewService {
 		result1 = new ReviewDao().insertReview(conn, r);
 		
 		if(at != null) {
-			// 첨부파일 없을 때
-			result2 = new ReviewDao().insertAttachment(conn, at);
+			// 새로 올릴 첨부파일 있을 때
+			result2 = new ReviewDao().insertAttachment(conn, r, at);
 		}
+		if(result1 * result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
 		return result1 * result2;
 	}
 	
 	
+	public Review selectReview(int userNo, String proCode) {
+		Connection conn = getConnection();
+		
+		Review r = null;
+		Attachment at = null;
+		r = new ReviewDao().selectReview(conn, userNo, proCode);
+		
+		if(r.getRevType() == "P") {
+			at = new ReviewDao().selectAttachment(conn, r.getRevNo());
+			if(at != null) {
+				r.setRevImgPath( at.getFilePath() + at.getChangeName() );
+			}
+		}
+
+		close(conn);
+		return r;
+	}
+	
+	
+	public int updateReview(Review r, Attachment at) {
+		Connection conn = getConnection();
+		
+		int result1 = 0;
+		int result2 = 1;
+		
+		result1 = new ReviewDao().updateReview(conn, r);	
+		
+		if(at != null) {
+			result2 = new ReviewDao().updateAttachment(conn, r, at);
+		}
+		
+		if(result1 * result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result1 * result2;
+		
+	}
 	
 	
 }

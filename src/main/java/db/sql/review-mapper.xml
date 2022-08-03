@@ -56,7 +56,7 @@
 		     (
 		       SEQ_FILENO.NEXTVAL
 		     , 4
-		     , SEQ_REVIEW.CURRVAL
+		     , ?
 		     , ?
 		     , ?
 		     , ?
@@ -64,6 +64,50 @@
 		     , 'Y'
 		     )
 	</entry>
+	
+	<entry key="selectReview">
+		SELECT REV_NO
+		     , PRO_NAME
+		     , PRO_IMG_PATH
+		     , REV_RATE
+		     , REV_CONTENT
+		     , REV_TYPE
+		  FROM REVIEW
+		  JOIN PRODUCT USING (PRO_CODE)
+		 WHERE USER_NO = ?
+		   AND PRO_CODE = ?
+	</entry>
+	
+	<entry key="selectAttachment">
+		SELECT FILE_NO
+		     , REF_BNO
+		     , ORIGIN_NAME
+		     , CHANGE_NAME
+		     , FILE_PATH
+		  FROM ATTACHMENT
+		 WHERE REF_TYPE = 4
+		   AND REF_BNO = ?
+		   AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="updateReview">
+		UPDATE REVIEW
+		   SET REV_RATE = ?
+		     , REV_CONTENT = ?
+		     , REV_TYPE = ?
+		 WHERE REV_NO = ?
+	</entry>
+	
+	<entry key="updateAttachment">
+		UPDATE ATTACHMENT
+		   SET STATUS = 'N'
+		 WHERE REF_TYPE = 4
+		   AND REF_BNO = ?
+		   AND ORIGIN_NAME != ?
+	</entry>
+	
+	
+	
 	
 
 </properties>
