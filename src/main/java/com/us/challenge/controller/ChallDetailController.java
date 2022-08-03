@@ -59,7 +59,7 @@ public class ChallDetailController extends HttpServlet {
 			request.getRequestDispatcher("views/challenge/challDetailView.jsp").forward(request, response);
 			
 		}else { // 실패 => 유효한 글번호가 아니거나 삭제될 글번호 => 조회 불가능
-			request.setAttribute("modalMsg", "유효한 글이 아닙니다.");
+			request.getSession().setAttribute("modalMsg", "유효한 글이 아닙니다.");
 			request.getRequestDispatcher("views/common/errorModal.jsp").forward(request, response);
 		}
 	
