@@ -151,6 +151,7 @@
       $(".input-number-increment").click(function(){
         if( Number($(this).siblings("input").val()) < 50 ){
           $(this).siblings("input").val( Number($(this).siblings("input").val()) + 1 )
+          $(".input-number").change();
         }
       })
 
@@ -158,6 +159,7 @@
       $(".input-number-decrement").click(function(){
         if( Number($(this).siblings("input").val()) > 1 ){
           $(this).siblings("input").val( Number($(this).siblings("input").val()) - 1 )
+          $(".input-number").change();
         }
       })
 
@@ -174,6 +176,8 @@
 	// 2) 바로 DB에 반영되도록 하는 AJAX 구문
 	$(function(){
 		$(".input-number").change(function(){
+			console.log("change이벤트 발생");
+			
 			// 상품의 총 금액을 가격 * 금액으로 변경
 			$(this).parent().parent().siblings("#multipliedPrice").children().text( Number($(this).parent().parent().siblings("#price").text()) * Number($(this).val()) );
 			
