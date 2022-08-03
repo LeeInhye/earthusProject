@@ -91,4 +91,11 @@ public class adProductService {
 		close(conn);
 		return listCount;
 	}
+	
+	public int updateProQna(int proQnaNo) {
+		Connection conn = getConnection();
+		int result = new adProductDao().updateProQna(conn, proQnaNo);
+		close(conn);
+		return result;
+	}
 }

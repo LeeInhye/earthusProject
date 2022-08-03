@@ -261,4 +261,16 @@ public class adProductDao {
 		}
 		return list;
 	}
+	
+	public int updateProQna(Connection conn, int proQnaNo) {
+		int result = 0;
+		PreparedStatement pstmt =null;
+		String sql = prop.getProperty("updateProQna");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

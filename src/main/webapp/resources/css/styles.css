@@ -12123,6 +12123,14 @@ input[type=checkbox] {
     color:black;
     background:#f2f2f2;
 }
+/*상품 문의 답변 등록*/
+.pro-qna-ans-area>table * {
+    margin:10px;
+}
+
+.pro-qna-ans-area>table td {
+    text-align:right;
+}
 /*====================================================*/
 
 
