@@ -34,5 +34,36 @@
 		  AND USER_NO = ?
 	</entry>
 	
+	<entry key="insertReview">
+		INSERT
+		  INTO REVIEW
+		VALUES
+			 (
+			   SEQ_REVIEW.NEXTVAL
+			 , ?
+			 , ?
+			 , SYSDATE
+			 , ?
+			 , ?
+			 , ?
+			 )
+	</entry>
+	
+	<entry key="insertAttachment">
+		INSERT
+		  INTO ATTACHMENT
+		VALUES
+		     (
+		       SEQ_FILENO.NEXTVAL
+		     , 4
+		     , SEQ_REVIEW.CURRVAL
+		     , ?
+		     , ?
+		     , ?
+		     , SYSDATE
+		     , 'Y'
+		     )
+	</entry>
+	
 
 </properties>

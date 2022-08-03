@@ -27,27 +27,6 @@ public class ReviewDao {
 	}
 	
 	
-	// 첨부파일이 없을 때의 insertReview 메소드
-	public int insertReview(Connection conn, Review r) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertReview");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, r.getUserNo());
-			pstmt.setString(2, r.getProCode());
-			pstmt.setInt(3, r.getRevRate());
-			pstmt.setString(4, r.getRevContent());
-			pstmt.setString(5, r.getRevType());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
-	
 	// 마이페이지의 리뷰 리스트를 조회해오는 selectList 메소드
 	public ArrayList<Review> selectList(Connection conn, int userNo){
 		ArrayList<Review> list = new ArrayList<>();
@@ -123,7 +102,8 @@ public class ReviewDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, userNo);
+			pstmt.setString(1, proCode);
+			pstmt.setInt(2, userNo);
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
 				r = new Review();
@@ -139,6 +119,48 @@ public class ReviewDao {
 		
 	}
 	
+	
+	public int insertReview(Connection conn, Review r) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertReview");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, r.getUserNo());
+			pstmt.setString(2, r.getProCode());
+			pstmt.setInt(3, r.getRevRate());
+			pstmt.setString(4, r.getRevContent());
+			pstmt.setString(5, r.getRevType());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
+	public int insertAttachment(Connection conn, Attachment at) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 
 }

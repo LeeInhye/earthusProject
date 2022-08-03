@@ -1,6 +1,6 @@
 package com.us.order.model.dao;
 
-import static com.us.common.JDBCTemplate.*;
+import static com.us.common.JDBCTemplate.close;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.us.common.model.vo.PageInfo;
 import com.us.order.model.vo.Order;
 import com.us.product.model.dao.ProductDao;
 
@@ -27,8 +28,32 @@ public class OrderDao {
 		}
 	}
 	
+	// 주문내역 갯수
+	public int selectListCount(Connection conn) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectListCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return listCount;
+	}
+	
 	// 주문내역 조회
-	public ArrayList<Order> selectOrderList(Connection conn, int userNo) {
+	public ArrayList<Order> selectOrderList(Connection conn, PageInfo pi, int userNo) {
 		ArrayList<Order> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -36,7 +61,12 @@ public class OrderDao {
 		String sql = prop.getProperty("selectOrderList");
 		try {
 			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
 			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -181,5 +211,28 @@ public class OrderDao {
 			close(pstmt);
 		}
 		return o;
+	}
+	
+	// 교환 or 반품 신청
+	public int updateExrtr(Connection conn, int orderNo, int selectEr) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateExrtr");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, selectEr);
+			pstmt.setInt(2, orderNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
 	}
 }

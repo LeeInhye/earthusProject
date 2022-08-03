@@ -19,7 +19,7 @@
         <br><br><br><br>
         
         <div class="myPage_main">
-            <div class="mpBlock" onclick="location.href='<%= contextPath %>/history.or';">
+            <div class="mpBlock" onclick="location.href='<%= contextPath %>/history.or?opage=1';">
                 <div class="mp_top">
                     <h3>ORDER</h3>
                     <br>
