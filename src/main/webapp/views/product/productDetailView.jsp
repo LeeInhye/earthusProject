@@ -21,7 +21,10 @@
 
 <style>
     .green {
-    	background:#778C79;
+    	background:#778C79 !important;
+    }
+    .white {
+    	background:white !important;
     }
     .input-number {
 		border:none;
@@ -81,6 +84,8 @@
 <script src="https://use.fontawesome.com/e3cb36acfb.js"></script>
 <!-- swiper CSS -->
  <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/price_rangs.css">
+ 
+
  
  <!--================상품 상세 조회 영역=================-->
   <div class="product_image_area section_padding" style="padding-top:250px;">
@@ -248,23 +253,76 @@
 
 			  <!------------- 찜 버튼 시작 -------------->
 			  <% if(loginUser != null) { %>
-              <a href="#" class="like_us" onclick="insertWishlist();"><i class="fa fa-heart-o" style="font-size:large;"></i></a>
+              <a href="#" class="like_us white" onclick="checkWishlist();"><i class="fa fa-heart-o" style="font-size:large;"></i></a>
               <% }else { %>
-              <a href="#" class="like_us" onclick="$('#wishModal').modal('show');"><i class="fa fa-heart-o" style="font-size:large;"></i></a>
+              <a href="#" class="like_us white" onclick="$('#wishModal').modal('show');"><i class="fa fa-heart-o" style="font-size:large;"></i></a>
               <% } %>
               <script>
-                function insertWishlist(){
+                function checkWishlist(){
                 	
-                }
+                
                   // 상품이 위시리스트에 담겨 있지 않을 때
-                    $('.like_us i').css('color',"#f2f2f2");
-                    $('.like_us i').parent().css('background',"#778C79"); 
+                    //$('.like_us i').css('color',"#f2f2f2");
+                    //$('.like_us i').parent().css('background',"#778C79"); 
 
                   // 상품이 위시리스트에 이미 담겨 있을 때
                   // 위시리스트에 해당 상품 delete 후 스타일 원상복구
                   //   $('.like_us i').css('color', "");
                   //   $('.like_us i').parent().css('background', "");
                   
+                   <!-- 찜 여부 확인 -->
+			 		$.ajax({
+			 			url:"<%=contextPath%>/checkWish.pr",
+			 			data:{
+			 				proCode:'<%=p.getProCode()%>'
+			 				},
+			 			type:"post",
+			 			success:function(wish){
+			 				
+				 				console.log("담겨 있음");
+			 				if(wish == null){
+				 				insertWish();
+			 				}else{
+			 					deleteWish();
+			 				}
+			 				
+			 			},error:function(){
+			 				console.log("찜 여부 확인용 ajax 통신 실패");
+			 			}
+			 		})
+                }
+                
+                function insertWish(){
+                	$.ajax({
+                		url:"<%=contextPath%>/insertWish.pr",
+                		data:{proCode:'<%=p.getProCode()%>'},
+                		type:"post",
+                		success:function(){
+                			console.log("추가 성공");
+                			$('.like_us i').css('color', '#f2f2f2');
+                			$('.like_us').removeClass('white').addClass('green');
+                		},
+                		error:function(){
+                			console.log("위시리스트 추가용 ajax 통신 실패");
+                		}
+                	})
+                }
+                
+                function deleteWish(){
+                	$.ajax({
+                		url:"<%=contextPath%>/proDetailDelWish.pr",
+                		data:{proCode:'<%=p.getProCode()%>'},
+                		type:"post",
+                		success:function(){
+                			console.log("삭제 성공");
+                			$('.like_us i').css('color', '#778c79');
+                			$('.like_us').removeClass('green').addClass('white');
+                		},
+                		error:function(){
+                			console.log("위시리스트 삭제용 ajax 통신 실패");
+                		}
+                	})
+                }
               </script>
               
               <!------- 찜 실패 Modal ------->
@@ -404,7 +462,7 @@
           			<% if(q.getProAEnrollDate() != null) { %> <!-- 답변 등록 상태면 -->
 	          			<div class="pro-answer">
 	          				<p><b>관리자</b>&nbsp;&nbsp;<%=q.getProAEnrollDate()%></p> 
-	          				<%=q.getProAcontent()%>
+	          				<%=q.getProAContent()%>
 	          			</div>
 	          		<% } %>
 	          		</div>

@@ -135,4 +135,29 @@ public class ProductService {
 		return result;
 	}
 	
+	public WishList checkWish(int userNo, String proCode) {
+		Connection conn = getConnection();
+		WishList w = new ProductDao().checkWish(conn, userNo, proCode);
+		close(conn);
+		return w;
+	}
+	
+	public int insertWish(int userNo, String proCode) {
+		Connection conn = getConnection();
+		int result = new ProductDao().insertWish(conn, userNo, proCode);
+		close(conn);
+		return result;
+	}
+	
+	public int proDetailDelWish(int userNo, String proCode) {
+		Connection conn = getConnection();
+		int result = new ProductDao().proDetailDelWish(conn, userNo, proCode);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 }
