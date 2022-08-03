@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.us.common.model.vo.Attachment;
 import com.us.member.model.vo.Member;
 import com.us.product.model.service.ReviewService;
 import com.us.product.model.vo.Review;
@@ -34,17 +35,16 @@ public class ReviewListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// session에 저장되어있는 loginUser 객체를 이용해서 
-		// REVIEW 테이블로부터 USER_NO = loginUser.userNo()인 ArrayList<Review> 를 조회해옴
+		// 1) REVIEW 테이블로부터 USER_NO = loginUser.userNo()인 ArrayList<Review> 를 조회해옴
+		// 2) (첨부파일 있는 경우 대비) ATTACHMENT 테이블로부터 REVIEW+ATTACHMENT를 글 번호로 조인해서 ArrayList<Attachment> 조회해옴
 		Member m = (Member)request.getSession().getAttribute("loginUser");
 		int userNo = m.getUserNo();
+		
 		ArrayList<Review> list = new ReviewService().selectList(userNo);
 		
-		if(!list.isEmpty()) {
-			request.setAttribute("list", list);
-			request.getRequestDispatcher("views/product/mypageReviewListView.jsp").forward(request, response);
-		}else {
-			response.sendRedirect(request.getContextPath());
-		}
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("views/product/mypageReviewListView.jsp").forward(request, response);
+
 		
 	}
 

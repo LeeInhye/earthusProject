@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.us.product.model.vo.Review" %>
+<%
+	ArrayList<Review> list = (ArrayList<Review>)request.getAttribute("list");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,37 +86,28 @@
 		<table class="table">
 			<thead>
 			  <tr align="center">
-				<th class="review-pic" width="5%;"><input type="checkbox" id="check-all"  onclick="checkAll();"></th>
+				<th width="5%" class="review-pic" width="5%;"><input type="checkbox" id="check-all"  onclick="checkAll();"></th>
 				<th width="20%;">상품 사진</th>
-				<th width="25%">상품 정보</th>
-				<th width="45%">리뷰</th>
+				<th width="25%">상품명</th>
+				<th width="50%">리뷰 내용</th>
 			  </tr>
 			</thead>
 			<tbody>
+			<% for(Review r : list) { %> 
 			  <tr style="line-height:50px;">
 				<td align="center"><input type="checkbox" class="check-review"></td>
-				<td class="clickable" height="150px;"><img src="img/b1.jpg" width="80%"></td>
-				<td class="clickable">강아지 냄새가 나는 비누</td>
+				<td align="center" class="clickable" height="150px;">
+					<img src="<%= r.getProImgPath() %>" width="80%">
+				</td>
+				<td align="center" class="clickable"> <%= r.getProName() %> </td>
 				<td class="clickable">
-					<p>정말 비누에서 강아지 냄새가 나네요? 너무너무 신기해요. 제 몸에서 개냄새가 납니다. 강아지 꼬순내 너무 좋네요. 강아지도 제가 개인 줄 알고 좋아해요.</p>
+					<div class="revPic" style="float:left; padding-right:20px;">
+						<img src="<%= r.getRevImgPath() %>" style="width:150px; height:150px;">
+					</div>
+					<p><%= r.getRevContent() %></p>
 				</td>
 			  </tr>
-			  <tr style="line-height:50px;">
-				<td align="center"><input type="checkbox" class="check-review"></td>
-				<td class="clickable" height="150px;"><img src="img/b1.jpg" width="80%"></td>
-				<td class="clickable">강아지 냄새가 나는 비누</td>
-				<td class="clickable">
-					<p>정말 비누에서 강아지 냄새가 나네요? 너무너무 신기해요. 제 몸에서 개냄새가 납니다. 강아지 꼬순내 너무 좋네요. 강아지도 제가 개인 줄 알고 좋아해요.</p>
-				</td>
-			  </tr>
-			  <tr style="line-height:50px;">
-				<td align="center"><input type="checkbox" class="check-review"></td>
-				<td class="clickable" height="150px;"><img src="img/b1.jpg" width="80%"></td>
-				<td class="clickable">강아지 냄새가 나는 비누</td>
-				<td class="clickable">
-					<p>정말 비누에서 강아지 냄새가 나네요? 너무너무 신기해요. 제 몸에서 개냄새가 납니다. 강아지 꼬순내 너무 좋네요. 강아지도 제가 개인 줄 알고 좋아해요.</p>
-				</td>
-			</tr>
+			<% } %> 
 			</tbody>
 			<tfoot>
 				<tr>
@@ -162,15 +158,6 @@
 				var popupY = screen.height/2 - 300; 
 				const option = "scrollbars=no, location=no, toolbar=no, resizable=no, status=no, width=500px, height=600px, left=" + popupX + ", top=" + popupY;
 				window.open("<%= contextPath %>/views/member/mypageReviewEditView.jsp", "리뷰 수정", option);
-			})
-			
-			
-			// 새로운 리뷰 등록 버튼 누르면 팝업페이지 (리뷰등록 페이지) 띄우는 함수
-			$(".btn-insert").click(function(){
-				var popupX = screen.width/2 - 250;
-				var popupY = screen.height/2 - 300; 
-				const option = "scrollbars=no, location=no, toolbar=no, resizable=no, status=no, width=500px, height=600px, left=" + popupX + ", top=" + popupY;
-				window.open("<%= contextPath %>/insert.re", "리뷰 등록", option);
 			})
 			
 		})

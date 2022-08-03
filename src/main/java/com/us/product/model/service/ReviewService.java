@@ -1,9 +1,12 @@
 package com.us.product.model.service;
 
+import static com.us.common.JDBCTemplate.close;
+import static com.us.common.JDBCTemplate.getConnection;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import static com.us.common.JDBCTemplate.*;
+import com.us.common.model.vo.Attachment;
 import com.us.product.model.dao.ReviewDao;
 import com.us.product.model.vo.Review;
 
@@ -22,6 +25,15 @@ public class ReviewService {
 		
 		close(conn);
 		return list;
+	}
+	
+	
+	public Review checkPurchase(int userNo, String proCode) {
+		Connection conn = getConnection();
+		Review r = new ReviewDao().checkPurchase(conn, userNo, proCode);
+		
+		close(conn);
+		return r;
 	}
 	
 	
