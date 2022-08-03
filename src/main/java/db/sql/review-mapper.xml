@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+	<entry key="insertReview">
+		INSERT
+		  INTO REVIEW
+		VALUES
+		     (
+		       SEQ_REVIEW.NEXTVAL
+		     , ?
+		     , ?
+		     , SYSDATE
+		     , ?
+		     , ?
+		     , ?
+		     )
+	</entry>
+	
+	<entry key="selectList">
+		SELECT REV_NO
+			 , PRO_CODE
+			 , REV_DATE
+			 , REV_RATE
+			 , REV_CONTENT
+			 , REV_TYPE
+		  FROM REVIEW
+		 WHERE USER_NO = ?
+	</entry>
+
+</properties>

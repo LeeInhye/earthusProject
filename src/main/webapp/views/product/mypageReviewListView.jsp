@@ -170,7 +170,7 @@
 				var popupX = screen.width/2 - 250;
 				var popupY = screen.height/2 - 300; 
 				const option = "scrollbars=no, location=no, toolbar=no, resizable=no, status=no, width=500px, height=600px, left=" + popupX + ", top=" + popupY;
-				window.open("<%= contextPath %>/views/member/mypageReviewInsertView.jsp", "리뷰 등록", option);
+				window.open("<%= contextPath %>/insert.re", "리뷰 등록", option);
 			})
 			
 		})

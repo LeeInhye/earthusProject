@@ -1,27 +1,30 @@
-package com.us.cs.homepage.controller;
+package com.us.product.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.us.cs.homepage.model.service.AdCompanyService;
+import com.us.member.model.vo.Member;
+import com.us.product.model.service.ReviewService;
+import com.us.product.model.vo.Review;
 
 /**
- * Servlet implementation class AdCompanyInfoViewController
+ * Servlet implementation class ReviewListController
  */
-@WebServlet("/insertInfo.hm")
-public class AdCompanyInsertController extends HttpServlet {
+@WebServlet("/myList.re")
+public class ReviewListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
+     * 마이페이지의 내 리뷰 리스트를 조회
      */
-    public AdCompanyInsertController() {
+    public ReviewListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,23 +33,19 @@ public class AdCompanyInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
+		// session에 저장되어있는 loginUser 객체를 이용해서 
+		// REVIEW 테이블로부터 USER_NO = loginUser.userNo()인 ArrayList<Review> 를 조회해옴
+		Member m = (Member)request.getSession().getAttribute("loginUser");
+		int userNo = m.getUserNo();
+		ArrayList<Review> list = new ReviewService().selectList(userNo);
 		
-		System.out.println(request);
-		
-		String html = request.getParameter("comInfo");
-		
-		int result = new AdCompanyService().insertPost(html, 1);
-		
-		if(result > 0) {
-			request.setAttribute("html", html);
-			request.getRequestDispatcher("views/cs/homepage/companyInfo.jsp").forward(request, response);
-			session.setAttribute("successMsg", "성공적으로 등록하였습니다.");
+		if(!list.isEmpty()) {
+			request.setAttribute("list", list);
+			request.getRequestDispatcher("views/product/mypageReviewListView.jsp").forward(request, response);
 		}else {
-			session.setAttribute("errorMsg", "등록에 실패하였습니다.");
 			response.sendRedirect(request.getContextPath());
 		}
+		
 	}
 
 	/**

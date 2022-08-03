@@ -1,13 +1,16 @@
 package com.us.product.model.dao;
 
+import static com.us.common.JDBCTemplate.close;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
-import static com.us.common.JDBCTemplate.*;
 import com.us.product.model.vo.Review;
 
 public class ReviewDao {
@@ -42,6 +45,42 @@ public class ReviewDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	// 마이페이지의 리뷰 리스트를 조회해오는 selectList 메소드
+	public ArrayList<Review> selectList(Connection conn, int userNo){
+		ArrayList<Review> list = new ArrayList<>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Review(
+							rset.getInt("REV_NO"),
+							rset.getInt("USER_NO"),
+							rset.getString("PRO_CODE"),
+							rset.getDate("REV_DATE"),
+							rset.getInt("REV_RATE"),
+							rset.getString("REV_CONTENT"),
+							rset.getString("REV_TYPE")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+		
+		
+		
+		
 	}
 	
 	

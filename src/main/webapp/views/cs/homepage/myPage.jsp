@@ -97,7 +97,7 @@
                 </div>
             </div>
 
-            <div class="mpBlock" onclick="location.href='<%= contextPath %>';">
+            <div class="mpBlock" onclick="location.href='<%= contextPath %>/myList.re';">
                 <div class="mp_top">
                     <h3>REVIEW</h3>
                     <br>

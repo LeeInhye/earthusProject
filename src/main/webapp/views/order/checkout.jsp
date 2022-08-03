@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="../common/menubar.jsp"%>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -44,6 +43,8 @@
 
 <body>
 
+	<%@ include file="../common/menubar.jsp"%>
+
 	<!--================Home Banner Area =================-->
 	<!-- breadcrumb start-->
 	<section class="breadcrumb breadcrumb_bg">
@@ -53,14 +54,14 @@
 					<div class="breadcrumb_iner">
 						<div class="breadcrumb_iner_item">
 							<h2>주문하기</h2>
-							<p>주문...뭐라그러냐...</p>
+							<p>주문해 주셔서 감사합니다.</p>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-	<!-- breadcrumb start-->
+	<!-- breadcrumb end -->
 
 
 	<!--================Checkout Area =================-->
@@ -69,31 +70,7 @@
 			<form class="billing_details">
 				<div class="row">
 					<div class="col-lg-8">
-						<h3 style="padding: 0px; margin-bottom: 15px; font-weight: bold;">주문
-							상품 정보</h3>
-
-						<table id="product-info">
-							<tbody>
-								<tr>
-									<td rowspan="3" width="30%"><img
-										src="img/product/single-product/cart-1.jpg"
-										style="border-radius: 15px;"></td>
-									<td colspan="3" height="10px" style="font-size: large;">상품명</td>
-								</tr>
-								<tr>
-									<td colspan="3" height="10px"
-										style="color: lightslategrey; font-size: small">개수</td>
-								</tr>
-								<tr>
-									<td colspan="3" height="10px" style="font-weight: bold">가격</td>
-								</tr>
-							</tbody>
-						</table>
-
-						<br> <br> <br>
-
-						<h3 style="padding: 0px; margin-bottom: 15px; font-weight: bold;">주문자
-							정보</h3>
+						<h3 style="padding: 0px; margin-bottom: 15px; font-weight: bold;">주문자 정보</h3>
 						<div class="same-as-user">
 							<input type="checkbox" name="same-as-user" /> <span>주문자
 								정보와 동일</span>
@@ -104,7 +81,7 @@
 								placeholder="이름 입력 *" required>
 						</div>
 						<div class="col-md-12 form-group p_star">
-							<input type="phone" class="form-control" id="last" name="phone"
+							<input type="tel" class="form-control" id="last" name="phone"
 								placeholder="휴대폰 번호 입력 *" required>
 							<!-- 정규표현식으로 올바른 휴대폰 번호 형식 지정 (010으로 시작, 11자리 숫자만) -->
 						</div>
@@ -190,8 +167,7 @@
 							<div class="creat_account">
 								<input type="checkbox" id="f-option4" name="selector" required />
 								<a href="#" style="color: #778C79;">이용 약관*</a> <label
-									for="f-option4" style="padding: 0px;">을 읽고 확인하였으며
-									동의합니다.</label>
+									for="f-option4" style="padding: 0px;">을 읽고 확인하였으며 동의합니다.</label>
 							</div>
 							<a class="btn" href="#" align="right">결제 진행하기</a>
 						</div>
