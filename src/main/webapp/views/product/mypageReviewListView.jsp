@@ -51,6 +51,13 @@
 			margin: auto auto;
 			margin-top:10px;
 		}
+		#submit-review{
+			width:50px; 
+			height:150px; 
+			border:1px solid gray; 
+			background:none; 
+			border-radius:10px;
+		}
 	</style>
 
 </head>
@@ -87,37 +94,45 @@
 			<thead>
 			  <tr align="center">
 				<th width="5%" class="review-pic" width="5%;"><input type="checkbox" id="check-all"  onclick="checkAll();"></th>
-				<th width="20%;">상품 사진</th>
-				<th width="25%">상품명</th>
-				<th width="50%">리뷰 내용</th>
+				<th width="10%;">상품 사진</th>
+				<th width="15%">상품명</th>
+				<th width="60%">리뷰 내용</th>
+				<th width="10%">리뷰 수정</th>
 			  </tr>
 			</thead>
 			<tbody>
 			<% for(Review r : list) { %> 
-			  <tr style="line-height:50px;">
-				<td align="center"><input type="checkbox" class="check-review"></td>
-				<td align="center" class="clickable" height="150px;">
-					<img src="<%= r.getProImgPath() %>" width="80%">
-				</td>
-				<td align="center" class="clickable"> <%= r.getProName() %> </td>
-				<td class="clickable">
-					<div class="revPic" style="float:left; padding-right:20px;">
-						<img src="<%= r.getRevImgPath() %>" style="width:150px; height:150px;">
-					</div>
-					<p><%= r.getRevContent() %></p>
-				</td>
-			  </tr>
+				<tr style="line-height:50px;">
+					<td align="center"><input type="checkbox" class="check-review"></td>
+					<td align="center" class="clickable" height="150px;">
+						<img src="<%= r.getProImgPath() %>" width="90%">
+					</td>
+					<td align="center" class="clickable"> <%= r.getProName() %> </td>
+					<td class="clickable">
+						<div class="revPic" style="float:left; padding-right:10px;">
+							<img src="<%= r.getRevImgPath() %>" style="width:150px; height:150px;">
+						</div>
+						<p style="margin-top:20px;"><%= r.getRevContent() %></p>
+					</td>
+					<td align="center">
+						
+						<button id="submit-review">수정</button>
+					</td>
+				</tr>
 			<% } %> 
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="3"><button type="button" class="btn-bottom btn-delete" onclick="deleteChecked();">삭제</button></td>
-					<td align="right"><button type="button" class="btn-bottom btn-insert">새로운 리뷰 등록</button></td>
+					<td colspan="5"><button type="button" class="btn-bottom btn-delete" onclick="deleteChecked();">삭제</button></td>
 				</tr>
 			</tfoot>
 		</table>		
 	</div>
 	
+	<form action="<%= contextPath %>/update.re" method="get" id="hidden-form" style="display:none;">
+		<input type="hidden" name="proCode" value="">
+		<button type="submit" id="btn-submit"></button>
+	</form>
 	
 	<!-- ============ Start Script Area ==============-->
 	<script>
@@ -152,12 +167,10 @@
 				})
 			})
 
-			// 리뷰 내용 영역을 누르면 팝업페이지(리뷰수정 페이지) 띄우는 함수
-			$(".clickable").click(function(){
-				var popupX = screen.width/2 - 250;
-				var popupY = screen.height/2 - 300; 
-				const option = "scrollbars=no, location=no, toolbar=no, resizable=no, status=no, width=500px, height=600px, left=" + popupX + ", top=" + popupY;
-				window.open("<%= contextPath %>/views/member/mypageReviewEditView.jsp", "리뷰 수정", option);
+			// 리뷰 내용 영역을 누르면 리뷰수정 페이지로 이동하는 함수
+			$("#submit-review").click(function(){
+				$("input[type=hidden]").val( $(this).parent().siblings("#proCode").children().text() );
+				$("#btn-submit").click();
 			})
 			
 		})
