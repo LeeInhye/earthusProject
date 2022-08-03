@@ -159,8 +159,12 @@
                             	<a id="myPageIcon" href="<%= contextPath %>/goLogin.me">
 	                            	<i class="ti-user"></i>
 	                            </a>
-	                        <% } else {	// 로그인 된 상태일 때 %>
-	                            <a id="myPageIcon" href="<%= contextPath %>/myPage.mp">
+	                        <% } else if(loginUser.getUserStatus().equals("M")){	// 관리자일 때 %>
+	                            <a id="myPageIcon" href="<%= contextPath %>/main.ad">
+	                            	<i class="ti-user"></i>
+	                            </a> 
+	                        <% } else{%>
+	                        	<a id="myPageIcon" href="<%= contextPath %>/myPage.mp">
 	                            	<i class="ti-user"></i>
 	                            </a> 
 	                        <% } %>
