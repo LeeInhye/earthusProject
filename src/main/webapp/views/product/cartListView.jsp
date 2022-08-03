@@ -59,78 +59,81 @@
   <section class="cart_area padding_top">
     <div class="container">
       <div class="cart_inner">
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-              <tr>
-                <th width="100px" style="width:50px;"> <input type="checkbox" id="check-all" onclick="checkAll();"></th>
-                <th width="500px">상품</th>
-                <th width="200px">가격</th>
-                <th width="200px">수량</th>
-                <th width="150px">총 금액</th>
-              </tr>
-            </thead>
-
-            <tbody>
-            	<% for(Cart c : list) { %>
-					<tr class="product" class="check-item">
-				  		<td id="proCode">
-					  		<input type="checkbox" name="check" value="<%=c.getProCode()%>">
-					  	</td>
-						<td>
-						  	<div class="media">
-							    <div class="d-flex">
-					      			<img src="img/product/single-product/cart-1.jpg">
-							    </div>
-							    <div class="media-body">
-						      		<p><%= c.getProName() %></p>
-							    </div>
-						  </div>
-						</td>
-						<td id="price">
-					  		<h5><%= c.getPrice() %></h5>
-						</td>
-						<td id="quantity">
-					  		<div class="product_count">
-							    <span class="input-number-decrement"> <i class="ti-angle-down"></i></span>
-							    <input class="input-number" type="text" value="<%= c.getProQty() %>">
-							    <span class="input-number-increment"> <i class="ti-angle-up"></i></span>
-					  		</div>
-						</td>
-					 	<td id="multipliedPrice">
-							<h5><%= c.getPrice() * c.getProQty() %></h5>
-					  	</td>
-					</tr>
-              <% } %>
-             
-              <tr class="bottom_button">
-                <td colspan="2">
-                  <button class="btn" id="delete-checked" onclick="deleteChecked();">삭제</button>
-                </td>
-                <td colspan="4" align="right" style="color:gray; font-size:small">포인트를 적용한 실제 결제 금액은 결제페이지에서 확인할 수 있습니다.</td>
-              </tr>
-            </tbody>
-            <tfoot id="display-price" align="right" style="font-size:15px;">
-              <tr>
-                <td colspan="4">총 상품 금액</td>
-                <td id="totalPrice"></td>
-              </tr>
-              <tr>
-                <td colspan="4">배송비</td>
-                <td>3000원</td>
-              </tr>
-              <tr style="font-size:20px;">
-                <td colspan="4">총 주문 금액</td>
-                <td id="totalPriceWithDelivery"></td>
-              </tr>
-            </tfoot>
-          </table>
-          <div class="checkout_btn_inner float-right">
-          	<input type="hidden" id="userNo" value="<%= list.get(0).getUserNo() %>">
-            <a class="btn" href="<%=contextPath%>">계속 쇼핑하기</a>
-            <a class="btn" id="checkout_btn" href="<%=contextPath%>/order.or">주문하기</a>
-          </div>
-        </div>
+      	<form action="<%= contextPath %>/checkout.or" method="post">
+      		<input type="hidden" name="fromCart" value="T">
+	        <div class="table-responsive">
+	          <table class="table">
+	            <thead>
+	              <tr>
+	                <th width="100px" style="width:50px;"> <input type="checkbox" id="check-all" onclick="checkAll();"></th>
+	                <th width="500px">상품</th>
+	                <th width="200px">가격</th>
+	                <th width="200px">수량</th>
+	                <th width="150px">총 금액</th>
+	              </tr>
+	            </thead>
+	
+	            <tbody>
+	            	<% for(Cart c : list) { %>
+						<tr class="product" class="check-item">
+					  		<td id="proCode">
+						  		<input type="checkbox" name="check" value="<%=c.getProCode()%>">
+						  	</td>
+							<td>
+							  	<div class="media">
+								    <div class="d-flex">
+						      			<img src="img/product/single-product/cart-1.jpg">
+								    </div>
+								    <div class="media-body">
+							      		<p><%= c.getProName() %></p>
+								    </div>
+							  </div>
+							</td>
+							<td id="price">
+						  		<h5><%= c.getPrice() %></h5>
+							</td>
+							<td id="quantity">
+						  		<div class="product_count">
+								    <span class="input-number-decrement"> <i class="ti-angle-down"></i></span>
+								    <input class="input-number" type="text" value="<%= c.getProQty() %>">
+								    <span class="input-number-increment"> <i class="ti-angle-up"></i></span>
+						  		</div>
+							</td>
+						 	<td id="multipliedPrice">
+								<h5><%= c.getPrice() * c.getProQty() %></h5>
+						  	</td>
+						</tr>
+	              <% } %>
+	             
+	              <tr class="bottom_button">
+	                <td colspan="2">
+	                  <button class="btn" id="delete-checked" onclick="deleteChecked();">삭제</button>
+	                </td>
+	                <td colspan="4" align="right" style="color:gray; font-size:small">포인트를 적용한 실제 결제 금액은 결제페이지에서 확인할 수 있습니다.</td>
+	              </tr>
+	            </tbody>
+	            <tfoot id="display-price" align="right" style="font-size:15px;">
+	              <tr>
+	                <td colspan="4">총 상품 금액</td>
+	                <td id="totalPrice"></td>
+	              </tr>
+	              <tr>
+	                <td colspan="4">배송비</td>
+	                <td>3000원</td>
+	              </tr>
+	              <tr style="font-size:20px;">
+	                <td colspan="4">총 주문 금액</td>
+	                <td id="totalPriceWithDelivery"></td>
+	              </tr>
+	            </tfoot>
+	          </table>
+	          <div class="checkout_btn_inner float-right">
+	          	<input type="hidden" id="userNo" value="<%= list.get(0).getUserNo() %>">
+	            <a class="btn" href="<%=contextPath%>">계속 쇼핑하기</a>
+	            <button type="submit" class="btn" id="checkout_btn">주문하기</button>
+	          </div>
+	        </div>
+        </form> 
       </div>
      </div>
   </section>

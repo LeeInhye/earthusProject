@@ -51,10 +51,10 @@
 			margin: auto auto;
 			margin-top:10px;
 		}
-		#submit-review{
+		#edit-review{
 			width:50px; 
 			height:150px; 
-			border:1px solid gray; 
+			border:1px solid #F2F2F2  ; 
 			background:none; 
 			border-radius:10px;
 		}

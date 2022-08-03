@@ -290,16 +290,21 @@ public class ReviewDao {
 		String sql = prop.getProperty("deleteReview");
 		String sql2 = prop.getProperty("deleteAttachment");
 		
+		
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, revNo);
 			result1 = pstmt.executeUpdate();
 			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} try {
 			pstmt = conn.prepareStatement(sql2);
 			pstmt.setInt(1, revNo);
 			result2 = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
