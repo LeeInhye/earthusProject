@@ -45,7 +45,7 @@ public class ReviewInsertController extends HttpServlet {
 			// 상품 구입 여부 -> TRUE -> Review 객체에 값이 담겨 옴
 			// => 필요한 값 (USER_NO, PRO_CODE, PRO_NAME, PRO_IMG_PATH 담아 넘기기)
 			request.getSession().setAttribute("r", r);
-			request.getRequestDispatcher("views/product/reviewInsertView.jsp");	
+			request.getRequestDispatcher("views/product/reviewInsertView.jsp").forward(request, response);
 		} else {
 			response.sendRedirect(request.getContextPath() + "/detail.pro?proCode=" + proCode);
 		}

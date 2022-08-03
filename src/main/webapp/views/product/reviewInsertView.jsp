@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.us.product.model.vo.Review" %>
+<%
+	Review r = (Review)request.getAttribute("r");
+	String contextPath = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,13 +50,31 @@
          color:#404040 ;
          transition: 500ms;
       }
-	
-	
 </style>
+
+<!-- jQUery -->
+<script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
 
 <!-- font awesome -->
 <script src="https://use.fontawesome.com/e3cb36acfb.js"></script>
 
+<link rel="icon" href="img/favicon.png">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<!-- animate CSS -->
+<link rel="stylesheet" href="css/animate.css">
+<!-- owl carousel CSS -->
+<link rel="stylesheet" href="css/owl.carousel.min.css">
+<link rel="stylesheet" href="css/lightslider.min.css">
+<!-- font awesome CSS -->
+<link rel="stylesheet" href="css/all.css">
+<!-- flaticon CSS -->
+<link rel="stylesheet" href="css/flaticon.css">
+<link rel="stylesheet" href="css/themify-icons.css">
+<!-- font awesome CSS -->
+<link rel="stylesheet" href="css/magnific-popup.css">
+<!-- style CSS -->
+<link rel="stylesheet" href="css/style.css">
 
 </head>
 <body>
@@ -60,7 +82,13 @@
 	
 	<div class="insert-review-outer">
 		<div class="insert-review-content">
-	        <form action="" method="post">
+	        <form action="<%= contextPath %>insert2/.re" method="post">
+	        <!-- 현재 Review r 객체에 (USER_NO, PRO_CODE, PRO_NAME, PRO_IMG_PATH 담겨있음) -->
+	        <input type="hidden" name="userNo" value="<%= r.getUserNo() %>">
+	        <input type="hidden" name="proCode" value="<%= r.getProCode()%>">
+	        <input type="hidden" name="proName" value="<%= r.getProName() %>">
+	        <input type="hidden" name="proImgPath" value="<%= r.getProImgPath() %>">
+	        
 	            
 				<h3>리뷰 작성하기</h3>
 				<div class="rate-area">
@@ -85,7 +113,7 @@
 						$("input[name=rate]").change(function(){
 							$(this).next().children().css("color", "#fbd600");
 							$(this).prevAll("label").children().css("color", "#fbd600");
-							$(this).next().nextAll("label").children().css("color", "#F2F2F2");
+							$(this).next().nextAll("label").children().css("color", "gainsboro");
 						})
 					})                      
 				</script>
@@ -93,17 +121,14 @@
 	         	<div class="content-area">
 					<textarea name="content" rows="4" placeholder="최소 20자 이상 입력해주세요." style="width:100%; border:1px solid gainsboro; resize:none;"></textarea>
 					<input type="file" name="photo">
-					<%-- <input type="hidden" name="userNo" value="<%= loginUser.getUserNo()%>"> --%>
-					<%-- <input type="hidden" name="proCode" value="<%= p.getProCode()%>"> --%>
 					
 					<br><br>
 					
 					<div class="button-area" align="right">
-						<button type="submit" id="submit-btn">제출하기</button>	         	
+						<button type="submit" id="submit-btn" disabled>제출하기</button>	         	
 					</div>
 	         	</div>
 	        </form>
-			
 		</div>
 	</div>
 	
@@ -117,8 +142,38 @@
 				$("#submit-btn").removeAttr("disabled");
 			}
 		})
-        	
 	</script>
+	
+  <!-- jquery plugins here-->
+  <!-- jquery -->
+  <script src="js/jquery-1.12.1.min.js"></script>
+  <!-- popper js -->
+  <script src="js/popper.min.js"></script>
+  <!-- bootstrap js -->
+  <script src="js/bootstrap.min.js"></script>
+  <!-- easing js -->
+  <script src="js/jquery.magnific-popup.js"></script>
+  <!-- swiper js -->
+  <script src="js/lightslider.min.js"></script>
+  <!-- swiper js -->
+  <script src="js/masonry.pkgd.js"></script>
+  <!-- particles js -->
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.nice-select.min.js"></script>
+  <!-- slick js -->
+  <script src="js/slick.min.js"></script>
+  <script src="js/swiper.jquery.js"></script>
+  <script src="js/jquery.counterup.min.js"></script>
+  <script src="js/waypoints.min.js"></script>
+  <script src="js/contact.js"></script>
+  <script src="js/jquery.ajaxchimp.min.js"></script>
+  <script src="js/jquery.form.js"></script>
+  <script src="js/jquery.validate.min.js"></script>
+  <script src="js/mail-script.js"></script>
+  <script src="js/stellar.js"></script>
+  <!-- custom js -->
+  <script src="js/theme.js"></script>
+  <script src="js/custom.js"></script>
          
 </body>
 </html>

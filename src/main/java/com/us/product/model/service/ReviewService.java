@@ -37,6 +37,21 @@ public class ReviewService {
 	}
 	
 	
+	public int insertReview(Review r, Attachment at) {
+		Connection conn = getConnection();
+		int result1 = 0;
+		int result2 = 1;
+		
+		result1 = new ReviewDao().insertReview(conn, r);
+		
+		if(at != null) {
+			// 첨부파일 없을 때
+			result2 = new ReviewDao().insertAttachment(conn, at);
+		}
+		return result1 * result2;
+	}
+	
+	
 	
 	
 }
