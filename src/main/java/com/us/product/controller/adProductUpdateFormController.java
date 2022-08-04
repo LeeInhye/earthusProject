@@ -15,13 +15,13 @@ import com.us.product.model.vo.Product;
  * Servlet implementation class UpdateProductController
  */
 @WebServlet("/updateForm.pr")
-public class updateProductFormController extends HttpServlet {
+public class adProductUpdateFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public updateProductFormController() {
+    public adProductUpdateFormController() {
         super();
         // TODO Auto-generated constructor stub
     }

@@ -16,13 +16,13 @@ import com.us.product.model.vo.Product;
  * Servlet implementation class updateProductController
  */
 @WebServlet("/update.pr")
-public class updateProductController extends HttpServlet {
+public class adProductUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public updateProductController() {
+    public adProductUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,9 +42,9 @@ public class updateProductController extends HttpServlet {
 		String detailImgPath;
 		String reqInfoImgPath;
 		
-		if(request.getParameter("proImg") != "") { // 썸네일 파일 업로드했을 경우 -> 새 파일 변수에 담기
+		if(request.getParameter("proImg") != "") { // 썸네일 파일 수정했을 경우 -> 새 파일을 변수에 담기
 			proImgPath = request.getParameter("proImg");
-		}else { // 아닐 경우 -> 기존에 있는 파일 변수에 담기
+		}else { // 수정 안 했을 경우 -> 기존에 있는 파일을 변수에 담기
 			proImgPath = request.getParameter("existProImg");
 		}
 		
@@ -74,9 +74,9 @@ public class updateProductController extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		if(result > 0) {
-			session.setAttribute("modalId", "updateProModal");
-			session.setAttribute("modalMsg", "상품 정보가 수정되었습니다.");
-			session.setAttribute("url", request.getContextPath() + "/adlist.pr?cpage=1");
+			request.setAttribute("modalId", "updateProModal");
+			request.setAttribute("modalMsg", "상품 정보가 수정되었습니다.");
+			request.setAttribute("url", request.getContextPath() + "/adlist.pr?cpage=1");
 			request.getRequestDispatcher("/views/common/adSuccessPage.jsp").forward(request, response);
 			
 		}
