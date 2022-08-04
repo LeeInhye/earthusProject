@@ -30,10 +30,12 @@
 		border:none;
 		text-align:center;
 	}
+	
 	.btn_2 {
-		background : #778C79 !important;
-		color:#f2f2f2 !important;
+	background : #778C79 !important;
+	color:#f2f2f2 !important;
 	}
+	
 	.fa fa-heart-o {
 		font-size:large;
 	}
@@ -279,7 +281,8 @@
 			 			type:"post",
 			 			success:function(wish){
 			 				
-				 				console.log("담겨 있음");
+				 			console.log("담겨 있음");
+				 			
 			 				if(wish == null){
 				 				insertWish();
 			 				}else{
