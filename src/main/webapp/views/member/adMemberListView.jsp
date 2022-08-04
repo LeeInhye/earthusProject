@@ -235,18 +235,6 @@
 		                    회원삭제</button>
 		                </div>
 		                
-		                
-                        <script>
-			            	$(function(){
-			            		$(".M_member_table>tbody>tr").on("click", "td:last-child", function() {
-			            			console.log( $(this).parent().children().eq(1).text() );
-			            			location.href = "<%= contextPath %>/adUpdateForm.me?mNo=" + $(this).parent().children().eq(1).text();
-			            			})
-			            			
-			            		});
-			         	</script>    
-                        
-		                
 		            </div>
 		            
 		            <br><br>
@@ -281,10 +269,8 @@
 							checkboxes.forEach((checkbox) => {
 								checkbox.checked = checkAll.checked;
 							})
-						}
-					</script>
-
-					<script>
+						};
+					
 						// 체크박스 전체 선택되면 맨 위의 체크박스도 자동 체크
 						$(document).ready(function(){
 							$("input[name='checkMember']").click(function(){
@@ -298,6 +284,61 @@
 			        			}
 							});
 						})
+						
+						// 수정버튼 클릭시 수정 페이지로 이동
+		            	$(function(){
+		            		$(".M_member_table>tbody>tr").on("click", "td:last-child", function() {
+		            			console.log( $(this).parent().children().eq(1).text() );
+		            			location.href = "<%= contextPath %>/adUpdateForm.me?mNo=" + $(this).parent().children().eq(1).text();
+		            		})
+		            			
+		            		
+		            		// 회원 삭제
+                            var checkCnt = "";
+		            		
+		            		$("input:checkbox").change(function(){
+                            	checkCnt = "";
+                            	$("input:checkbox[name=checkMember]:checked").each(function(){
+	                                checkCnt += ($(this).val()) + ","; // 체크된 것만 게시글번호 뽑기 "2,3,4,"
+	                            })
+	                            
+	                            checkCnt = checkCnt.substring(0,checkCnt.lastIndexOf(",")); // 맨 뒤 콤마 삭제 "2,3,4"
+	                            console.log(checkCnt);
+	                            
+	                            // 선택된 체크박스 없이 삭제 버튼 누른 경우
+	                            if(checkCnt == ''){
+	                            	$("#deleteBtn").attr("data-bs-target", "#nocheck");
+	                            }
+
+	                            else {
+	                            	$("#deleteBtn").attr("data-bs-target", "#adDeleteMember");
+	                            }
+                            });
+
+                            // 모달에서 삭제 확인 클릭시 DB에서 삭제
+                            $("#realDelete").click(function(){
+                            	
+                                $.ajax({
+                                    url:"<%= contextPath %>/adDelete.me",
+                                    data:{"checkCnt":checkCnt},
+                                    success:function(result){
+                                    	if(result > 0){
+                                    		location.reload();
+                                    	} else{
+                                    		alert("회원 삭제에 실패하였습니다.");
+                                    	}
+                                    },
+                                    error:function(){
+                                        console.log("ajax 게시글 삭제 실패")
+                                    }
+                                });
+                        	});
+
+                        })
+		            		
+		            		
+		            	});
+						
 
 					</script>
 					
@@ -344,63 +385,8 @@
 	                        </div>
 	                    </div>
 	                </div>
-	                
-	                
-	                <script>
-	               		$(function(){
-	                	
-	                		// 회원 삭제
-                            var checkCnt = "";
-
-                            $("input:checkbox").change(function(){
-                            	checkCnt = "";
-                            	$("input:checkbox[name=checkMember]:checked").each(function(){
-	                                checkCnt += ($(this).val()) + ","; // 체크된 것만 게시글번호 뽑기 "2,3,4,"
-	                            })
-	                            
-	                            checkCnt = checkCnt.substring(0,checkCnt.lastIndexOf(",")); // 맨 뒤 콤마 삭제 "2,3,4"
-	                            console.log(checkCnt);
-	                            
-	                            // 선택된 체크박스 없이 삭제 버튼 누른 경우
-	                            if(checkCnt == ''){
-	                            	$("#deleteBtn").attr("data-bs-target", "#nocheck");
-	                            }
-
-	                            else {
-	                            	$("#deleteBtn").attr("data-bs-target", "#adDeleteMember");
-	                            }
-                            })
-
-                            
-                            $("#realDelete").click(function(){
-                            	
-                                $.ajax({
-                                    url:"<%= contextPath %>/adDelete.me",
-                                    data:{"checkCnt":checkCnt},
-                                    success:function(result){
-                                    	if(result > 0){
-                                    		location.reload();
-                                    	} else{
-                                    		alert("회원 삭제에 실패하였습니다.");
-                                    	}
-                                    },
-                                    error:function(){
-                                        console.log("ajax 게시글 삭제 실패")
-                                    }
-                                });
-                        	});
-
-                        })
-	                	
-	                	
-                    
-		            </script>
-		            
-		            
-		            
-		
-		
-		
+					<!-- 모달창 끝 -->	
+					                
 		        </div>
 		    </main>
 		</div>
