@@ -11786,6 +11786,14 @@ body {
     height:350px;
     margin:auto;
 }
+.list3-ih table{
+	border:2px solid lightgray;
+    font-size:small;
+    text-align:center;
+    width:90%;
+    height:350px;
+    margin:auto;
+}
 .list3-ih th, .list3-ih td{border:1px solid lightgray;}
 .list3-ih th{background-color:rgba(211, 211, 211,0.5)}
 #list1-ih, #list2-ih{padding-left:5%;}
@@ -11816,6 +11824,13 @@ body {
     background-color:rgb(13,13,13);
     color:white; 
     height:100%;
+    width:100%;
+}
+#dis-btn-ih{
+	background-color:rgb(242,242,242);
+	color:black; 
+	height:100%;
+	width:100%;
 }
 .btn2-ih{
     background-color:rgba(211, 211, 211,0.5);

@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.us.order.model.vo.*"%>
+<%
+	ArrayList<Order> list = (ArrayList<Order>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,127 +40,54 @@
                         &nbsp;&nbsp;&nbsp;<input type="text" id="text-ih"><button id="s-icon-ih"><i class="bi bi-search"></i></button>
                     </div>
                     <div class="list3-ih" id="ex">
-                        <table>
-                            <tr>
-                                <th>No.</th>
-                                <th>주문 번호</th>
-                                <th>상품 코드</th>
-                                <th>결제일</th>
-                                <th>결제ID</th>
-                                <th>주문 처리 상태</th>
-                                <th width="70">운송장</th>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td>22072611</td>
-                                <td>pro_01</td>
-                                <td>2022.07.26</td>
-                                <td>user01</td>
-                                <td>상품준비중</td>
-                                <td>
-                                    <button  id="wb-btn-ih" data-bs-toggle="modal" data-bs-target="#wbModal-ih">발급하기</button>
-                                    <button  id="df-btn-ih" style="display:none;">배송완료</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>9</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><button class="btn1-ih">배송완료</button></td>
-                            </tr>
-                            <tr>
-                                <td>8</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><button class="btn2-ih" disabled>배송완료</button></td>
-                            </tr>
-                            <tr>
-                                <td>7</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </table>
+                    	<form action="adUpdateDel.or">
+	                        <table>
+	                            <tr>
+	                                <th>No.</th>
+	                                <th>주문 번호</th>
+	                                <th>결제일</th>
+	                                <th>결제ID</th>
+	                                <th>주문 처리 상태</th>
+	                                <th width="70">운송장</th>
+	                            </tr>
+	                            <%for(Order or : list) { %>
+	                            <tr>
+		                            <input type="hidden" name="orderNo" value="<%=or.getOrderNo()%>">
+	                                <td><%=or.getOrderNo() %></td>
+	                                <td><%=or.getOrderNo() %></td>
+	                                <td><%=or.getOrderDate() %></td>
+	                                <td><%=or.getUserId() %></td>
+	                                <td><%=or.getDelStatus() %></td>
+	                                <td>
+	                                	<%if(or.getDelStatus() == 1) {%>
+	                                    <button  type="button" id="wb-btn-ih" data-bs-toggle="modal" data-bs-target="#wbModal-ih">발급하기</button>
+	                                    <%}else if(or.getDelStatus() == 2) {%>
+	                                    <button  id="df-btn-ih">배송완료</button>
+	                                    <%}else {%>
+	                                    <button id="dis-btn-ih" style="height:100%;" disabled>배송완료</button>
+	                                    <%} %>
+	                                </td>
+	                            </tr>
+	                            <%} %>
+	                            
+	                        </table>
+		                    <div class="modal" id="wbModal-ih">
+		                        <div class="modal-dialog">
+		                            <div class="modal-content">
+		                                
+		                                <div class="modal-body" align="center">
+	                                        <h5 class="modal-title"><b>운송장 번호 입력</b></h5> <br>
+	                                        <input type="text" style="width:300px;" name="delNo">
+	                                        <br><br>
+	                                        <button type="submit" id="mo-btn-ih">확인</button>
+		                                    
+		                                </div>
+		                            </div>
+		                        </div>
+		                    </div>
+                    	</form>
                     </div>
                     
-                    <div class="modal" id="wbModal-ih">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                
-                                <div class="modal-body" align="center">
-                                    <form action="">
-                                        <h5 class="modal-title"><b>운송장 번호 입력</b></h5> <br>
-                                        <input type="text" style="width:300px;">
-                                        <br><br>
-                                        <button type="submit" id="mo-btn-ih">확인</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     
                 </div>
             </main>
