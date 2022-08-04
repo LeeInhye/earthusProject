@@ -79,7 +79,7 @@
 								$(document).ready(function(){
 									
 									// 비밀번호 유효성검사
-									$("#inputPwd").focusout(function(){
+									$("#inputPwd").keyup(function(){
 										regExpPwd = /^[a-zA-Z](?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?=[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{7,15}$/;
 										
 										if(!regExpPwd.test($("#inputPwd").val())){
@@ -117,7 +117,7 @@
 									$(document).ready(function(){
 										
 										// 이름 유효성 검사
-										$("#userName").focusout(function(){
+										$("#userName").keyup(function(){
 											regExpName = /^[가-힣]{2,8}$/;
 											if( !regExpName.test($("#userName").val()) ){
 												$("#outputName").html("<span class='tb_enroll_star'>부적합한 이름입니다.</span>");
@@ -154,7 +154,7 @@
 									$(document).ready(function(){
 										
 										// 이메일 유효성 검사
-			                        	$("#inputEmail").focusout(function(){
+			                        	$("#inputEmail").keyup(function(){
 			                        		regExpEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/ig;
 			                        		
 			                        		if(!regExpEmail.test($("#inputEmail").val())){	// 유효한 이메일이 아닐 때
@@ -230,7 +230,7 @@
 				                <script>
 		                        $(document).ready(function(){
 		                        	// 전화번호 유효성검사
-		                        	$("#inputPhone").focusout(function(){
+		                        	$("#inputPhone").keyup(function(){
 		                        		regExpPhone = /^\d{11}$/;
 		                        		
 		                        		if(!regExpPhone.test($("#inputPhone").val())){	// 유효한 전화번호가 아닐 때
