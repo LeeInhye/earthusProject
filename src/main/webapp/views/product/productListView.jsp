@@ -231,7 +231,7 @@
 	                    			url:"<%=contextPath%>/insert.ca",
 	                    			data:{ proCode:$(this).siblings("input[name=proCode]").val(),
 	                   					   proName:$(this).siblings("h4").text(),
-	                   					   price:($(this).siblings("p").text())<%.substring()%>,
+	                   					   price:($(this).siblings("p").text()),
 	                   					   proQty:$('#qty').val()},
 	                    			type:"post",
 	                    			success: function(result){
