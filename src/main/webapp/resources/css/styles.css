@@ -12085,18 +12085,18 @@ input[type=checkbox] {
 }
 /*상품 삭제*/ 
 .btn-ok-modal {
-	width:50% !important;
+	width:45% !important;
 	height:40px !important;
 	display:inline-block !important;
-	background:#778c79 !important;
+	background-color:#778c79 !important;
 	color:#f2f2f2 !important;
 }
 
 .btn-no-modal {
-	width:50% !important;
+	width:45% !important;
 	height:40px !important;
 	display:inline-block !important;
-	backgound:#f2f2f2 !important;
+	background-color:#f2f2f2 !important;
 	color:#404040 !important;
 }
 /*=== 슬기 상품 문의 관리 ===*/

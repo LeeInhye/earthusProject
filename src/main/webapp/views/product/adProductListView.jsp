@@ -36,7 +36,7 @@
 	height:40px;
 }
 .modal-content {
-	background:lightgray !important;
+	background-color:lightgray !important;
 	line-height: 100px;
 }
 .btn-update:hover {
@@ -175,8 +175,8 @@
 							        
 							        <!-- Modal footer -->
 							        <div class="modal-footer">
-							          <button type="button" onclick="deletePro();" class="btn btn-no-modal" style="display:inline-block;width:45%;background:#778c79;color:#f2f2f2;">삭제</button>
-							          <button type="button" class="btn btn-ok-modal" style="display:inline-block;width:45%;background:#f2f2f2;color:#404040;" data-bs-dismiss="modal">취소</button>
+							          <button type="button" onclick="deletePro();" class="btn btn-no-modal" >삭제</button>
+							          <button type="button" class="btn btn-ok-modal" data-bs-dismiss="modal">취소</button>
 							        </div>
 							        
 							      </div>
@@ -235,7 +235,7 @@
                 
             }
             
-            // ---------- 전체 체크 체크박스 jQuery ----------- 동작!
+            // ---------- 전체 체크 체크박스 jQuery ----------- 동작 o
             $('#selectAll').click(function(){
             	
 	            if( $('#selectAll').is(":checked") ){
