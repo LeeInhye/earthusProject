@@ -128,6 +128,7 @@
 		       DISTINCT ORDER_NO
 		     , DECODE(PAYMENT, 'CARD', CARD_APPROVAL_DATE, 'CASH', CASH_APPROVAL_DATE) "ORDER_DATE"
 		     , USER_ID
+		     , DEL_NO
 		     , DEL_STATUS
 		  FROM "ORDER"
 		  LEFT JOIN PAY_CARD USING (ORDER_NO)
@@ -136,6 +137,12 @@
 		  JOIN MEMBER USING (USER_NO)
 		  ORDER
 		     BY ORDER_NO DESC
+	</entry>
+	
+	<entry key="updateDelNo">
+		UPDATE "ORDER"
+		   SET DEL_NO = ?
+		 WHERE ORDER_NO = ?
 	</entry>
 
 

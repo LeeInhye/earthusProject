@@ -1,7 +1,6 @@
 package com.us.order.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,19 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.us.order.model.service.OrderService;
-import com.us.order.model.vo.Order;
 
 /**
- * Servlet implementation class adDeliveryManagementController
+ * Servlet implementation class adDelStatusUpdateController
  */
-@WebServlet("/adDel.or")
-public class adDeliveryManagementController extends HttpServlet {
+@WebServlet("/adUpdateDel.or")
+public class adDelStatusUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adDeliveryManagementController() {
+    public adDelStatusUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,12 +29,12 @@ public class adDeliveryManagementController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+		int orderNo = Integer.parseInt(request.getParameter("orderNo"));
+		int delNo = Integer.parseInt(request.getParameter("delNo"));
 		
-		ArrayList<Order> list = new OrderService().selectOrderListAd();
+		int result = new OrderService().updateDelNo(orderNo, delNo);
 		
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/order/adDeliveryManagementView.jsp").forward(request, response);
+		response.sendRedirect(request.getContextPath() + "/adDel.or");
 		
 	}
 
