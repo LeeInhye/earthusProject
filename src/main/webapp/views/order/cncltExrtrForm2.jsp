@@ -73,7 +73,10 @@
 	<section class="cart_area padding_top">
 		  <div class="cart_inner">
 			<div class="table-responsive">
-			  <table class="table" style="width:70%" align="center">
+			
+			<!--  테이블 아이디 추가 -->
+			
+			  <table id="cncltTb" class="table" style="width:70%" align="center">
 				<thead>
 				  <tr>
 					<th scope="col">주문번호 / 주문일자</th>
@@ -87,7 +90,9 @@
 					<%for(Order or : celist){ %>
 					  <tr>
 						<td class="on">
-							<input type="hidden" name="orderNo" value="<%=or.getOrderNo() %> ">
+						
+						<!-- input 삭제 -->
+						
 							<h5><%=or.getOrderNo() %></h5>
 							<p style="font-size:small"><%=or.getOrderDate() %></p>
 						</td>
@@ -142,7 +147,25 @@
 		        	<br><br>
 		        	<span style="font-size:large;">정말 취소하시겠습니까?</span> <br><br><br>
 		        	
-		        	<button type="button" class="btn" id="y-btn" name="can" value="4" onclick="location.href='<%=contextPath%>/cancel.or';">확인</button> &nbsp;&nbsp;
+		        	<!--  script 추가 -->
+		        	<script>
+		        	$(function(){
+	            		$("#cncltTb>tbody>tr").on("click", "td:last-child", function() {
+	            			console.log( $(this).parent().children().eq(1).text() );
+	            			// 확인버튼 클릭시 컨트롤러로
+	            			$("#y_btn").click(function(){
+	            				console.log( $(this).parent().children().eq(1).children("h5").text() );
+		            			// location.href="<%=contextPath%>/cancel.or?can=4&orderNo=" + $(this).parent().children().eq(1).children('h5').text();
+	            				
+	            			});
+	            			})
+	            			
+	            		});
+		        	</script>
+		        	
+		        	
+		        	<!-- 버튼 name value 지움 -->
+		        	<button type="button" class="btn" id="y-btn">확인</button> &nbsp;&nbsp;
 		        	<button type="button" class="btn" id="n-btn" data-dismiss="modal">취소</button>
 		        	
 		      </div>
