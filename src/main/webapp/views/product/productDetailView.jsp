@@ -192,14 +192,22 @@
             
             <!------- 바로결제/장바구니/찜 시작 ------->
             <div class="card_area d-flex justify-content-between align-items-center">
-              <a href="<%=contextPath%>/checkout.or" class="btn_3 font_bold_gray">바로결제</a>
+            
               <% if(loginUser != null){ %>
+              
               	<button type="button" onclick="insertCart()" class="btn_3" style="background:#A8BFAA;">장바구니</button>
+              	<a href="<%=contextPath%>/checkout.or" class="btn_3 font_bold_gray">바로결제</a>
+              	
               <%}else{ %>
-              	<button type="button" onclick="$('#insertCartModal2').modal('show');" class="btn_3" style="background:#A8BFAA;">장바구니</button>
+              
+              	<button type="button" onclick="$('#unavailable').modal('show');" class="btn_3" style="background:#A8BFAA;">장바구니</button>
+              	<a href="#" onclick="$('#unavailable').modal('show');" class="btn_3 font_bold_gray">바로결제</a>
+              
               <%} %>
+              
                 <script>
-                
+                	
+                	// 장바구니 추가 함수
                 	function insertCart(){
                 		$.ajax({
                 			url:"<%=contextPath%>/insert.ca",
@@ -238,8 +246,8 @@
           		</div>
         	</div>
                       
-               <!------- 장바구니 담기 실패 Modal ------->
-                <div class="modal" id="insertCartModal2">
+               <!------- 로그인 안 했을 때 바로결제,장바구니,찜 실패 Modal ------->
+                <div class="modal" id="unavailable">
                   <div class="modal-dialog">
                     <div class="modal-content">
 
