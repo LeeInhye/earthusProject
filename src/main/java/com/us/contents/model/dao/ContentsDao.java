@@ -29,7 +29,7 @@ public class ContentsDao {
 	
 	// 페이징바_현재 총 게시글 갯수
 	public int selectListCount(Connection conn) {
-		// select문 => ResultSet(숫자 한 개) => listCount
+		// select => ResultSet(숫자 한 개) => listCount
 		int listCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;

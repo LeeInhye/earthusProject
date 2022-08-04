@@ -112,7 +112,7 @@
                  </div>
                  <script>
                  	function goLogin(){ // 로그인 하지 않고 좋아요 클릭 시
-                 		alert("로그인 후 이용가능합니다.");
+                 		alert("로그인 후 이용 가능한 서비스입니다.");
                  		if(confirm("로그인 페이지로 이동하시겠습니까?")){
                  			location.href = "<%=contextPath%>/goLogin.me";
                  		}
@@ -185,7 +185,7 @@
                     data:{"cntNo":<%= c.getCntNo() %>
                     	 },
                     success:function(result){ 
-                    	if(result > 0) { // delete 성공 => 빈 하트로 변경
+                    	if(result > 0) { // delete 성공 => 빈 하트로 변경, 좋아요 수-1
                     		$likeIcon.removeClass("fas");
                     		$likeIcon.addClass("far");
                     		$("#likeCount").text(Number($("#likeCount").text()) - 1);
@@ -201,7 +201,7 @@
                     data:{"cntNo":<%= c.getCntNo() %>
                     	 },
                     success:function(result){ 
-                    	if(result > 0) { // insert 성공 => 채워진 하트로 변경
+                    	if(result > 0) { // insert 성공 => 채워진 하트로 변경, 좋아요 수+1
                     		$likeIcon.removeClass("far");
                     		$likeIcon.addClass("fas");
                     		$("#likeCount").text(Number($("#likeCount").text()) + 1);
