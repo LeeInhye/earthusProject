@@ -81,4 +81,12 @@ public class OrderService {
 		close(conn);
 		return result;
 	}
+	
+	// 관_구매내역조회
+	public ArrayList<Order> selectOrderListAd(){
+		Connection conn = getConnection();
+		ArrayList<Order> list = new OrderDao().selectOrderListAd(conn);
+		close(conn);
+		return list;
+	}
 }

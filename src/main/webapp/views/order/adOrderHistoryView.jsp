@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.us.order.model.vo.*"%>
+<%
+	ArrayList<Order> list = (ArrayList<Order>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,14 +48,15 @@
                                 <th>결제ID</th>
                                 <th>주문 처리 상태</th>
                             </tr>
+                        	<%for(Order or : list){ %>
                             <tr>
-                                <td>10</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td><%=or.getOrderNo() %></td>
+                                <td><%=or.getOrderNo() %></td>
+                                <td><%=or.getOrderDate() %></td>
+                                <td><%=or.getUserId() %></td>
+                                <td><%=or.getDelStatus() %></td>
                             </tr>
-                            
+                            <%} %>
                         </table>
                     </div>
                     

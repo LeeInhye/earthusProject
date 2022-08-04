@@ -1,11 +1,16 @@
 package com.us.order.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.us.order.model.service.OrderService;
+import com.us.order.model.vo.Order;
 
 /**
  * Servlet implementation class adOrderHistoryController
@@ -26,7 +31,11 @@ public class adOrderHistoryController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 구현 아직 안함
+		request.setCharacterEncoding("UTF-8");
+		
+		ArrayList<Order> list = new OrderService().selectOrderListAd();
+		
+		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/order/adOrderHistoryView.jsp").forward(request, response);
 	}
 

@@ -31,8 +31,19 @@ public class Order {
 	private String phone;
 	private String address;
 	private String addrDetail;
+	private String userId;
 	
 	
+	public String getUserId() {
+		return userId;
+	}
+
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+
 	public Order(int orderNo, int delStatus, String proName, Date orderDate, String proImgPath, int price,
 			int quantity, String proCode) {
 		super();

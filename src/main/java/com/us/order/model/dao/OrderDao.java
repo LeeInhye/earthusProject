@@ -239,7 +239,7 @@ public class OrderDao {
 	public int updateCan(Connection conn, int orderNo, int status) {
 		int result = 0;
 		
-PreparedStatement pstmt = null;
+		PreparedStatement pstmt = null;
 		
 		String sql = prop.getProperty("updateExrtr");
 		
@@ -256,5 +256,34 @@ PreparedStatement pstmt = null;
 		}
 		
 		return result;
+	}
+	
+	public ArrayList<Order> selectOrderListAd(Connection conn){
+		ArrayList<Order> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectOrderListAd");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Order ol = new Order();
+				ol.setOrderNo(rset.getInt("order_no"));
+				ol.setOrderDate(rset.getDate("order_date"));
+				ol.setUserId(rset.getString("user_id"));
+				ol.setDelStatus(rset.getInt("del_status"));
+				list.add(ol);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
 	}
 }
