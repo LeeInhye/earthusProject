@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import org.apache.tomcat.websocket.PojoClassHolder;
+
 import com.us.common.model.vo.PageInfo;
 import com.us.product.model.service.adProductService;
 import com.us.product.model.vo.ProQna;
@@ -317,5 +319,56 @@ public class adProductDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	public ArrayList<ProQna> selectSortProQnaList(Connection conn , PageInfo pi , String option){
+		ArrayList<ProQna> list = new ArrayList<ProQna>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectSortProQnaList");
+		
+		// 페이징에 필요한 변수
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		// 전체, 답변대기중, 답변완료 각각의 경우에 sql문에 들어갈 where문
+		String where = "";
+		
+		switch(option) {
+		case "all": break;
+		case "waiting": where = "WHERE PRO_A_ENROLL_DATE IS NULL ";
+			break;
+		case "complete": where = "WHERE PRO_A_ENROLL_DATE IS NOT NULL ";
+			break;
+		}
+		
+		sql += where + "ORDER BY PRO_Q_ENROLL_DATE DESC ) A ) WHERE RNUM BETWEEN ? AND ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new ProQna(rset.getInt("pro_qna_no"),
+									rset.getString("pro_qna_title"),
+									rset.getString("pro_qna_writer_name"),
+									rset.getDate("pro_q_enroll_date"),
+									rset.getDate("pro_a_enroll_date"),
+									rset.getString("pro_name")
+									));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+		
+		
 	}
 }

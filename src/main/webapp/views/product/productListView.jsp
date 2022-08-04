@@ -233,9 +233,9 @@
 	                                  <h4><%= p.getProName() %></h4>
 	                                  <p><%= p.getPrice() %>원</p>&nbsp;&nbsp;&nbsp;<i class="fa fa-heart color-gray"></i>
 	                                  <% if(loginUser != null) {%>
-	                                  <a href="#" class="add_cart">+ 장바구니 추가</a>
+	                                  <a class="add_cart" onclick="cart('<%= p.getProCode() %>');">+ 장바구니 추가</a>
 	                                  <% }else { %>
-	                                  <a href="#" class="add_cart" onclick="$('#insertCartModal2').modal('show')">+ 장바구니 추가</a>
+	                                  <a class="add_cart" onclick="$('#insertCartModal2').modal('show')">+ 장바구니 추가</a>
 	                                  <% } %>
 	                                  <input type="hidden" name="proCode" value="<%= p.getProCode() %>">
 	                              </div>
@@ -246,7 +246,7 @@
 	                    <!------- 장바구니 추가 ajax ------->
 	                    <script>
 	                    	
-	                    	$('.add_cart').click(function(){
+	                    	function cart(proCode){
 	                    		
 	                    		//let proCode = $(this).siblings("input[name=proCode]").val();
 	                    		//let proName = $(this).siblings("h4").text(),
@@ -256,10 +256,8 @@
 	                    	
 	                    		$.ajax({
 	                    			url:"<%=contextPath%>/insert.ca",
-	                    			data:{ proCode:$(this).siblings("input[name=proCode]").val(),
-	                   					   proName:$(this).siblings("h4").text(),
-	                   					   price:($(this).siblings("p").text()),
-	                   					   proQty:$('#qty').val()},
+	                    			data:{ proCode:proCode,
+	                   					   proQty:1},
 	                    			type:"post",
 	                    			success: function(result){
 	                    				// 장바구니 추가 성공 시 성공 완료 modal
@@ -273,7 +271,7 @@
 	                    		
 	                    	})
 	                    	
-	                    
+	                    	}
 	                    </script>
                       	
 		                <!------- 장바구니 이동 확인 Modal ------->

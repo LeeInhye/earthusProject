@@ -94,4 +94,48 @@ SELECT LAST_NUMBER "maxProCode"
        )
  WHERE RNUM BETWEEN 1 AND 10
 </entry>
+
+<entry key="selectProQnaList">
+	SELECT *
+	  FROM (
+	    SELECT ROWNUM RNUM, A.*
+	      FROM (
+	        SELECT 
+	               PRO_QNA_NO
+	             , PRO_NAME
+	             , PRO_QNA_TITLE
+	             , PRO_QNA_WRITER_NAME
+	             , PRO_Q_ENROLL_DATE
+	             , PRO_A_ENROLL_DATE
+	          FROM PRO_QNA
+	          JOIN PRODUCT USING(PRO_CODE)
+	         ORDER
+	            BY PRO_ENROLL_DATE DESC
+	           ) A
+	       )
+	 WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+<entry key="selectpqlistCount">
+SELECT COUNT(PRO_QNA_NO) "listCount"
+  FROM PRO_QNA
+</entry>
+
+<entry key="selectSortProQnaList">
+	SELECT *
+	  FROM (
+	    SELECT ROWNUM RNUM, A.*
+	      FROM (
+	        SELECT 
+	               PRO_QNA_NO
+	             , PRO_NAME
+	             , PRO_QNA_TITLE
+	             , PRO_QNA_WRITER_NAME
+	             , PRO_Q_ENROLL_DATE
+	             , PRO_A_ENROLL_DATE
+	          FROM PRO_QNA
+	          JOIN PRODUCT USING(PRO_CODE) 
+	          
+</entry>
 </properties>
+	        
