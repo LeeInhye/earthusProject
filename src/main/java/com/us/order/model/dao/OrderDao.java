@@ -360,4 +360,48 @@ public class OrderDao {
 		
 	}
 	
+	// 교환/반품 상세내역 조회
+	public ArrayList<Order> selectErDetail(Connection conn, int orderNo, String proCode){
+		ArrayList<Order> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectOrderProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, orderNo);
+			pstmt.setString(2, proCode);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Order ol = new Order();
+				ol.setOrderNo(rset.getInt("order_no"));
+				ol.setOrderDate(rset.getDate("order_date"));
+				ol.setProName(rset.getString("pro_name"));
+				ol.setPrice(rset.getInt("price"));
+				ol.setQuantity(rset.getInt("quantity"));
+				ol.setDelStatus(rset.getInt("del_status"));
+				ol.setDelName(rset.getString("del_name"));
+				ol.setDelPhone(rset.getString("del_phone"));
+				ol.setDelZoneCode(rset.getString("del_zonecode"));
+				ol.setDelAddress(rset.getString("del_address"));
+				ol.setDelAddrDetail(rset.getString("del_addr_detail"));
+				ol.setPaymentAmount(rset.getInt("payment_amount"));
+				ol.setPointsUsed(rset.getInt("points_used"));
+				list.add(ol);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+		
+		
+	}
+	
 }

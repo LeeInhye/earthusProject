@@ -111,4 +111,12 @@ public class OrderService {
 		close(conn);
 		return list;
 	}
+	
+	// 교환/반품 상세내역 조회
+	public ArrayList<Order> selectErDetail(int orderNo, String proCode){
+		Connection conn = getConnection();
+		ArrayList<Order> list = new OrderDao().selectErDetail(conn, orderNo, proCode);
+		close(conn);
+		return list;
+	}
 }
