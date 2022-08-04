@@ -95,7 +95,7 @@
 							<td id="quantity">
 						  		<div class="product_count">
 								    <span class="input-number-decrement"> <i class="ti-angle-down"></i></span>
-								    <input class="input-number" type="text" value="<%= c.getProQty() %>">
+								    <input class="input-number"  name="proQty" type="text" value="<%= c.getProQty() %>">
 								    <span class="input-number-increment"> <i class="ti-angle-up"></i></span>
 						  		</div>
 							</td>
@@ -128,7 +128,7 @@
 	            </tfoot>
 	          </table>
 	          <div class="checkout_btn_inner float-right">
-	          	<input type="hidden" id="userNo" value="<%= list.get(0).getUserNo() %>">
+	          	<input type="hidden" id="userNo" name="userNo" value="<%= list.get(0).getUserNo() %>">
 	            <a class="btn" href="<%=contextPath%>">계속 쇼핑하기</a>
 	            <button type="submit" class="btn" id="checkout_btn">주문하기</button>
 	          </div>
@@ -244,14 +244,14 @@
 		deleteElement = deleteElement.substring(0, deleteElement.lastIndexOf(","));
 				
 		$.ajax({
-			url:"<%=contextPath%>/delete.ct",
+			url:"<%=contextPath%>/delete.ct", // 서블릿주소
 			data:{
 				userNo:$("#userNo").val(),
-				proCode:deleteElement
+				proCode:deleteElement // 삭제할 요소들 (3, 4, 5, ... 번호)
 				},
 			success:function(result){
 				alert("선택한 상품 삭제에 성공하였습니다.");
-				location.reload();
+				location.reload(); // = url재요청
 			}, 
 			error:function(){
 				alert("선택한 상품 삭제에 실패하였습니다.");

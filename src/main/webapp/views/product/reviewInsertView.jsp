@@ -83,7 +83,7 @@
 	
 	<div class="insert-review-outer">
 		<div class="insert-review-content">
-	        <form action="<%= contextPath %>insertResult/.re" method="post">
+	        <form action="<%= contextPath %>/insertResult.re" method="post" enctype="multipart/form-data">
 	        <!-- 현재 Review r 객체에 (USER_NO, PRO_CODE, PRO_NAME, PRO_IMG_PATH 담겨있음) -->
 	        <input type="hidden" name="userNo" value="<%= userNo %>">
 	        <input type="hidden" name="proCode" value="<%= proCode %>">
