@@ -244,8 +244,8 @@ public class adProductDao {
 		
 		switch(option) {
 		case "add" : break;
-		case "waiting" : where = "WHERE PRO_A_ENROLL_DATE IS NULL "; break;
-		case "complete" : where = "WHERE PRO_A_ENROLL_DATE IS NOT NULL "; break;
+		case "waiting" : where = " WHERE PRO_A_ENROLL_DATE IS NULL "; break;
+		case "complete" : where = " WHERE PRO_A_ENROLL_DATE IS NOT NULL "; break;
 		}
 		
 		sql += where;

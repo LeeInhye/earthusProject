@@ -33,6 +33,7 @@ public class adProQnaListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+		
 		int listCount = new adProductService().selectpqlistCount();
 		int currentPage = Integer.parseInt(request.getParameter("cpage"));
 		int pageLimit = 5;
@@ -42,8 +43,8 @@ public class adProQnaListController extends HttpServlet {
 		int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 		int endPage = startPage + pageLimit - 1;
 		
-		if(maxPage > endPage) {
-			maxPage = endPage;
+		if(endPage > maxPage) {
+			endPage = maxPage;
 		}
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);

@@ -54,8 +54,8 @@ public class AjaxAdProQnaListSortController extends HttpServlet {
 		int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 		int endPage = startPage + pageLimit - 1;
 		
-		if(maxPage > endPage) {
-			maxPage = endPage;
+		if(endPage > maxPage) {
+			endPage = maxPage;
 		}
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
