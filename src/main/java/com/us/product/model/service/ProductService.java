@@ -26,6 +26,13 @@ public class ProductService {
 		return listCount;
 	}
 	
+	public int selectListCountSM(int categoryNo) {
+		Connection conn = getConnection();
+		int listCount = new ProductDao().selectListCountSM(conn, categoryNo);
+		close(conn);
+		return listCount;
+	}
+	
 	public ArrayList<Category> selectCategoryList() {
 		Connection conn = getConnection();
 		ArrayList<Category> cList = new ProductDao().selectCategoryList(conn);
@@ -47,9 +54,23 @@ public class ProductService {
 		return list;
 	}
 	
+	public ArrayList<Product> selectProductListSM(PageInfo pi, int categoryNo){
+		Connection conn = getConnection();
+		ArrayList<Product> list = new ProductDao().selectProductListSM(conn, pi, categoryNo);
+		close(conn);
+		return list;
+	}
+	
 	public ArrayList<Product> selectBestProductList(int categoryNo){
 		Connection conn = getConnection();
 		ArrayList<Product> list = new ProductDao().selectBestProductList(conn, categoryNo);
+		close(conn);
+		return list;
+	}
+	
+	public ArrayList<Product> selectBestProductListSM(int categoryNo){
+		Connection conn = getConnection();
+		ArrayList<Product> list = new ProductDao().selectBestProductListSM(conn, categoryNo);
 		close(conn);
 		return list;
 	}

@@ -22,7 +22,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title><%=cList.get(categoryNo-1).getCategoryName() %> - Earth.Us</title>
+<%-- <title><%=cList.get(categoryNo-1).getCategoryName() %> - Earth.Us</title> --%>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Earth.Us</title>
 
@@ -54,21 +54,24 @@
  	<link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/price_rangs.css">
 	<link rel="stylesheet" href="<%= contextPath %>/resources/js/custom.js">
 	
-<!-- banner part start-->
-<section class="breadcrumb contents_bg">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="breadcrumb_iner">
-                    <div class="breadcrumb_iner_item">
-                        <img src="<%=contextPath%>/<%=cList.get(categoryNo-1).getCategoryImgPath()%>">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- banner part end -->
+	
+	<% if(categoryNo != 0){ %>
+		<!-- banner part start-->
+		<section class="breadcrumb contents_bg">
+		    <div class="container">
+		        <div class="row justify-content-center">
+		            <div class="col-lg-8">
+		                <div class="breadcrumb_iner">
+		                    <div class="breadcrumb_iner_item">
+		                        <img src="<%=contextPath%>/<%=cList.get(categoryNo-1).getCategoryImgPath()%>">
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</section>
+		<!-- banner part end -->
+	<% } %>
     <script>
     	$(document).ready(function(){
     		$('.cat_product_area .row').removeAttr('align-items');
@@ -86,24 +89,48 @@
                                 <h3>상품 카테고리</h3>
                             </div>
                             <div class="widgets_inner"> <!--카테고리 분류-->
-                                <ul class="list"></span>
-                                    </li>
+                                <ul class="list">
+
                                     <li>
-                                        <a href="<%=contextPath%>/list.pro?categoryNo=1&cpage=1" class="category-1" style="font-weight:bold">Hair</a>
-                                        <span style="font-weight:bold">(<%= pcList.get(0).getProductCount() %>)</span>
+                                    	<% if(categoryNo == 1) { %>
+                                    		<a href="<%=contextPath%>/list.pro?categoryNo=1&cpage=1" class="category-1" style="font-weight:bold">Hair</a>
+                                        	<span style="font-weight:bold">(<%= pcList.get(0).getProductCount() %>)</span>
+                                    	<% } else { %>
+                                    		<a href="<%=contextPath%>/list.pro?categoryNo=1&cpage=1" class="category-1">Hair</a>
+                                        	<span>(<%= pcList.get(0).getProductCount() %>)</span>
+                                    	<% } %>
                                     </li>
+                                    
                                     <li>
-                                        <a href="<%=contextPath%>/list.pro?categoryNo=2&cpage=1" class="category-2">Body</a>
-                                        <span>(<%= pcList.get(1).getProductCount() %>)</span>
+                                    	<% if(categoryNo == 2) { %>
+                                    		<a href="<%=contextPath%>/list.pro?categoryNo=2&cpage=1" class="category-2" style="font-weight: bold">Body</a>
+                                        	<span style="font-weight: bold;">(<%= pcList.get(1).getProductCount() %>)</span>
+                                    	<% } else { %>
+                                    		<a href="<%=contextPath%>/list.pro?categoryNo=2&cpage=1" class="category-2">Body</a>
+                                        	<span>(<%= pcList.get(1).getProductCount() %>)</span>
+                                    	<% } %>
                                     </li>
+                                    
                                     <li>
-                                        <a href="<%=contextPath%>/list.pro?categoryNo=3&cpage=1" class="category-3">Kitchen</a>
-                                        <span>(<%= pcList.get(2).getProductCount() %>)</span>
+                                    	<% if(categoryNo == 3) { %>
+                                    		<a href="<%=contextPath%>/list.pro?categoryNo=3&cpage=1" class="category-3" style="font-weight: bold">Kitchen</a>
+	                                        <span style="font-weight: bold">(<%= pcList.get(2).getProductCount() %>)</span>
+                                    	<% } else { %>
+	                                        <a href="<%=contextPath%>/list.pro?categoryNo=3&cpage=1" class="category-3">Kitchen</a>
+	                                        <span>(<%= pcList.get(2).getProductCount() %>)</span>
+                                    	<% } %>
                                     </li>
+                                    
                                     <li>
-                                        <a href="<%=contextPath%>/list.pro?categoryNo=4&cpage=1" class="category-4">Bathroom</a>
-                                        <span>(<%= pcList.get(3).getProductCount() %>)</span>
+                                    	<% if(categoryNo == 4) { %>
+                                    		<a href="<%=contextPath%>/list.pro?categoryNo=4&cpage=1" class="category-4" style="font-weight: bold">Bathroom</a>
+                                        	<span style="font-weight: bold">(<%= pcList.get(3).getProductCount() %>)</span>
+                                    	<% } else { %>
+                                    		<a href="<%=contextPath%>/list.pro?categoryNo=4&cpage=1" class="category-4">Bathroom</a>
+                                        	<span>(<%= pcList.get(3).getProductCount() %>)</span>
+                                    	<% } %>
                                     </li>
+                                    
                                 </ul>
                             </div>
                         </aside>

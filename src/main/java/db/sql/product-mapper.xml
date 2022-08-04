@@ -9,6 +9,12 @@
 	 WHERE CATEGORY_NO = ?
 </entry>
 
+<entry key="selectListCountSM">
+	SELECT 
+       	   COUNT(PRO_CODE) AS "listCount"
+	  FROM PRODUCT
+</entry>
+
 <entry key="selectCategoryList">
 	SELECT 
 	       PRO_CATEGORY_NO
@@ -52,6 +58,23 @@
 		WHERE RNUM BETWEEN ? AND ?
 </entry>
 
+<entry key="selectProductListSM">
+	SELECT *
+		 FROM (
+		   SELECT ROWNUM RNUM, A.*
+		     FROM (
+		       SELECT 
+		              PRO_CODE
+		            , PRO_CATEGORY_NAME
+		            , PRO_NAME
+		            , TO_CHAR(PRICE, '99,999') AS "PRICE"
+		            , PRO_ENROLL_DATE
+		            , PRO_IMG_PATH
+		            , PRO_COUNT
+		         FROM PRODUCT
+		         JOIN PRO_CATEGORY ON (CATEGORY_NO = PRO_CATEGORY_NO)
+</entry>
+
 <entry key="selectBestProductList">
 	SELECT *
 	  FROM (
@@ -73,6 +96,23 @@
 	           ) A
 	       )
 	 WHERE ROWNUM BETWEEN 1 AND 5
+</entry>
+
+<entry key="selectBestProductListSM">
+	SELECT *
+	  FROM (
+	    SELECT ROWNUM "RNUM", A.*
+	      FROM (
+	        SELECT 
+	               PRO_CODE
+	             , PRO_CATEGORY_NAME
+	             , PRO_NAME
+	             , TO_CHAR(PRICE, '99,999') "PRICE"
+	             , PRO_ENROLL_DATE
+	             , PRO_IMG_PATH
+	             , PRO_COUNT
+	          FROM PRODUCT
+	          JOIN PRO_CATEGORY ON (CATEGORY_NO = PRO_CATEGORY_NO)
 </entry>
 
 <entry key="selectProductList2">
