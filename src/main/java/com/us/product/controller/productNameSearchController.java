@@ -33,7 +33,13 @@ public class productNameSearchController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// 인코딩
 		request.setCharacterEncoding("UTF-8");
+		
+		// 전달값
+		String keyword = request.getParameter("keyword");
+		
+		
 	}
 
 	/**

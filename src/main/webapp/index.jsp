@@ -176,13 +176,30 @@
         <div class="search_input" id="search_input_box">
             <div class="container">
                 <form class="d-flex justify-content-between search-inner">
-                    <input type="text" class="form-control" id="search_input" placeholder="Search Here">
-                    <button type="submit" class="btn"></button>
+                    <input type="text" class="form-control" id="search_input" placeholder="Search Here" onkeyup="enterkey();">
+                    <!-- 상품검색 -->
+				    <script>
+				    	// 엔터키 이벤트 제거
+				        function enterkey(){
+				        	$('input[type="text"]').keydown(function() {
+				        		  if (event.keyCode === 13) {
+				        		    event.preventDefault();
+				        		  };
+				        		});
+				        	
+				        	if(window.event.keyCode == 13){
+				        		var keyword = $("#search_input").val();
+				        		location.href="<%= contextPath %>/list.pro?&cpage=1&categoryNo=5&keyword=" + keyword;
+				        	}
+				        }
+				    </script>
+                    <button type="submit" class="btn" id="searchPro"></button>
                     <span class="ti-close" id="close_search" title="Close Search"></span>
                 </form>
             </div>
         </div>
     </header>
+    
 
     <!-- Header part end-->
     <!-- 메뉴바 끝 -->

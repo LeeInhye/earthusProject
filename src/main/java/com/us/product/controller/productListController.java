@@ -37,7 +37,10 @@ public class productListController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		int categoryNo = Integer.parseInt(request.getParameter("categoryNo"));
+		String keyword = request.getParameter("keyword");
 		
+		System.out.println(categoryNo);
+		System.out.println(keyword);
 		// -------- 페이징 처리 ---------
 		int listCount; // 현재 총 게시글 개수
 		int currentPage; // 사용자가 보게 될 페이지
@@ -48,7 +51,7 @@ public class productListController extends HttpServlet {
 		int startPage; // 페이징바의 시작 수
 		int endPage; // 페이징바의 끝 수
 		
-		listCount = new ProductService().selectListCountSM(categoryNo);
+		listCount = new ProductService().selectListCountSM(categoryNo, keyword);
 		currentPage = Integer.parseInt(request.getParameter("cpage"));
 		pageLimit = 5;
 		boardLimit = 9;
@@ -72,10 +75,10 @@ public class productListController extends HttpServlet {
 		ArrayList<Product> pcList = new ProductService().selectProductCountList();
 		
 		// 카테고리별 상품 목록 조회 + 전체
-		ArrayList<Product> pList = new ProductService().selectProductListSM(pi, categoryNo);
+		ArrayList<Product> pList = new ProductService().selectProductListSM(pi, categoryNo, keyword);
 		
 		// 카테고리별 베스트 상품 5개 조회 + 전체
-		ArrayList<Product> bList = new ProductService().selectBestProductListSM(categoryNo);
+		ArrayList<Product> bList = new ProductService().selectBestProductListSM(categoryNo, keyword);
 		
 		// 포워딩
 		request.setAttribute("pi", pi);

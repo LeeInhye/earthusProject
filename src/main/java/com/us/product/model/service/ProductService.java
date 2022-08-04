@@ -26,9 +26,9 @@ public class ProductService {
 		return listCount;
 	}
 	
-	public int selectListCountSM(int categoryNo) {
+	public int selectListCountSM(int categoryNo, String keyword) {
 		Connection conn = getConnection();
-		int listCount = new ProductDao().selectListCountSM(conn, categoryNo);
+		int listCount = new ProductDao().selectListCountSM(conn, categoryNo, keyword);
 		close(conn);
 		return listCount;
 	}
@@ -54,9 +54,9 @@ public class ProductService {
 		return list;
 	}
 	
-	public ArrayList<Product> selectProductListSM(PageInfo pi, int categoryNo){
+	public ArrayList<Product> selectProductListSM(PageInfo pi, int categoryNo, String keyword){
 		Connection conn = getConnection();
-		ArrayList<Product> list = new ProductDao().selectProductListSM(conn, pi, categoryNo);
+		ArrayList<Product> list = new ProductDao().selectProductListSM(conn, pi, categoryNo, keyword);
 		close(conn);
 		return list;
 	}
@@ -68,9 +68,9 @@ public class ProductService {
 		return list;
 	}
 	
-	public ArrayList<Product> selectBestProductListSM(int categoryNo){
+	public ArrayList<Product> selectBestProductListSM(int categoryNo, String keyword){
 		Connection conn = getConnection();
-		ArrayList<Product> list = new ProductDao().selectBestProductListSM(conn, categoryNo);
+		ArrayList<Product> list = new ProductDao().selectBestProductListSM(conn, categoryNo, keyword);
 		close(conn);
 		return list;
 	}

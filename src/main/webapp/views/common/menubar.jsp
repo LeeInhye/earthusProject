@@ -37,6 +37,8 @@
     <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/font-pretendard.css">
     <link rel="stylesheet" href="<%=contextPath%>/resources/css/u_css_sumin/font-awesome.min.css">
     <%-- <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/nice-select.css"> --%>
+    <!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -172,13 +174,33 @@
         <div class="search_input" id="search_input_box">
             <div class="container">
                 <form class="d-flex justify-content-between search-inner">
-                    <input type="text" class="form-control" id="search_input" placeholder="Search Here">
+                    <input type="text" class="form-control" id="search_input" placeholder="Search Here" onkeyup="enterkey();">
                     <button type="submit" class="btn"></button>
                     <span class="ti-close" id="close_search" title="Close Search"></span>
                 </form>
             </div>
         </div>
     </header>
+    
+    
+
+    <!-- 상품 검색 -->
+    <script>
+    	// 엔터키 이벤트 제거
+        function enterkey(){
+        	$('input[type="text"]').keydown(function() {
+        		  if (event.keyCode === 13) {
+        		    event.preventDefault();
+        		  };
+        		});
+        	
+        	if(window.event.keyCode == 13){
+        		var keyword = $("#search_input").val();
+        		location.href="<%= contextPath %>/list.pro?&cpage=1&categoryNo=5&keyword=" + keyword;
+        	}
+        }
+    </script>
+                    
 
     <!-- Header part end-->
     <!-- 메뉴바 끝 -->
@@ -186,7 +208,7 @@
     <!-- jquery plugins here-->
     <script src="<%= contextPath %>/resources/js/jquery-1.12.1.min.js"></script>
      <!--  jquery -->
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>]
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- popper js -->
     <script src="<%= contextPath %>/resources/js/popper.min.js"></script>
     <!-- bootstrap js -->

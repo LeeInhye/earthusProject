@@ -57,13 +57,19 @@ public class ProductDao {
 	}
 	
 	// 상품 개수 조회 (카테고리별 + 전체) _ 수민
-	public int selectListCountSM(Connection conn, int categoryNo) {
+	public int selectListCountSM(Connection conn, int categoryNo, String keyword) {
 		int listCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectListCountSM");
 		
-		if(categoryNo != 5) {	// 카테고리가 있을 때
+		// 동적 sql문
+		if(categoryNo == 5) {	// 카테고리가 있을 때
+			if(keyword != null) {
+				sql += "WHERE PRO_NAME LIKE ";
+				sql += "'%" + keyword + "%'";
+			}
+		} else {
 			sql += "WHERE CATEGORY_NO = ";
 			sql += categoryNo;
 		}
@@ -176,7 +182,7 @@ public class ProductDao {
 	}
 	
 	// 한 페이지에 나타날 상품들 조회 + 전체 리스트
-		public ArrayList<Product> selectProductListSM(Connection conn, PageInfo pi, int categoryNo){
+		public ArrayList<Product> selectProductListSM(Connection conn, PageInfo pi, int categoryNo, String keyword){
 			ArrayList<Product> list = new ArrayList<>();
 			PreparedStatement pstmt = null;
 			ResultSet rset = null;
@@ -186,7 +192,11 @@ public class ProductDao {
 			int endRow = startRow + pi.getBoardLimit() - 1; // 끝값
 			
 			// 동적 sql문
-			if(categoryNo != 5) {	// 카테고리가 있을 때
+			if(categoryNo == 5) {	// 카테고리가 있을 때
+				if(keyword != null) {
+					sql += "WHERE PRO_NAME LIKE '%" + keyword + "%' ";
+				}
+			} else {
 				sql += "WHERE CATEGORY_NO = ";
 				sql += categoryNo;
 			}
@@ -252,19 +262,24 @@ public class ProductDao {
 	}
 	
 	// 베스트 상품 5 조회 (조회수 기준) + 전체
-		public ArrayList<Product> selectBestProductListSM(Connection conn, int categoryNo){
+		public ArrayList<Product> selectBestProductListSM(Connection conn, int categoryNo, String keyword){
 			ArrayList<Product> list = new ArrayList<>();
 			PreparedStatement pstmt = null;
 			ResultSet rset = null;
 			String sql = prop.getProperty("selectBestProductListSM");
 			
-			if(categoryNo != 5) {	// 카테고리가 있을 때
+			// 동적 sql문
+			if(categoryNo == 5) {	// 카테고리가 있을 때
+				if(keyword != null) {
+					sql += "WHERE PRO_NAME LIKE '%" + keyword + "%' ";
+				}
+			} else {
 				sql += "WHERE CATEGORY_NO = ";
 				sql += categoryNo;
 			}
 			
 			sql += " ORDER BY PRO_COUNT DESC, PRO_NAME ASC) A";
-			sql += ")  WHERE ROWNUM BETWEEN 1 AND 5";
+			sql += ")  WHERE RNUM BETWEEN 1 AND 5";
 			
 			try {
 				pstmt = conn.prepareStatement(sql);
