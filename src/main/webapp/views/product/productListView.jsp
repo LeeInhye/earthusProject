@@ -17,6 +17,7 @@
 	ArrayList<Product> pcList = (ArrayList<Product>)request.getAttribute("pcList"); // 카테고리별 상품 개수를 담은 ArrayList
 	ArrayList<Product> pList = (ArrayList<Product>)request.getAttribute("pList");   // 카테고리, 페이지 별 상품 정보를 담은 ArrayList
 	ArrayList<Product> bList = (ArrayList<Product>)request.getAttribute("bList");   // 카테고리별 베스트 상품을 담은 ArrayList
+	ArrayList<WishList> wList = (ArrayList<WishList>)request.getAttribute("wList"); // 로그인 한 회원의 모든 상품 찜 여부를 담은 ArrayList
 %>
 <!DOCTYPE html>
 <html>
@@ -221,8 +222,15 @@
                                             <img src="<%= contextPath %>/<%= p.getProImgPath() %>">
                                             <div class="single_product_text">
                                                 <h4><%= p.getProName() %></h4>
-                                                <p><%= p.getPrice() %>원</p>&nbsp;&nbsp;&nbsp;<i class="fa fa-heart color-gray""></i>
-                                                <input type="hidden" name="proCode" value="<%= p.getProCode() %>">
+                                                <p><%= p.getPrice() %>원</p>&nbsp;&nbsp;&nbsp;
+                                                
+		                                 <% if( loginUser != null ) {  // 로그인 o %> 
+			                              		<i class="fa fa-heart" onclick="checkWish()"></i>
+		                                 <%	} else { // 로그인 x %> 
+		                                      	<i class="fa fa-heart" onclick="$('#unavailable').modal('show');" ></i>
+		                                 <% } %>
+		                                 
+                                              <input type="hidden" name="proCode" value="<%= p.getProCode() %>">
                                             </div>
                                         </div>
                                         <% } %>
@@ -231,6 +239,7 @@
                             </div>
                         </div>
                     </section>
+                  
                     <!----- 베스트 상품 영역 끝 -----> 
 					<hr><br><br>
 					
@@ -244,9 +253,9 @@
 	                                  <h4><%= p.getProName() %></h4>
 	                                  <p><%= p.getPrice() %>원</p>&nbsp;&nbsp;&nbsp;<i class="fa fa-heart color-gray"></i>
 	                                  <% if(loginUser != null) {%>
-	                                  <a class="add_cart" onclick="cart('<%= p.getProCode() %>');">+ 장바구니 추가</a>
+	                                  <a class="add_cart" onclick="insertCart('<%= p.getProCode() %>');">+ 장바구니 추가</a>
 	                                  <% }else { %>
-	                                  <a class="add_cart" onclick="$('#insertCartModal2').modal('show')">+ 장바구니 추가</a>
+	                                  <a class="add_cart" onclick="$('#unavailable').modal('show')">+ 장바구니 추가</a>
 	                                  <% } %>
 	                                  <input type="hidden" name="proCode" value="<%= p.getProCode() %>">
 	                              </div>
@@ -254,17 +263,11 @@
 	                      </div>
 	                    <% } %>
 	                    
-	                    <!------- 장바구니 추가 ajax ------->
+	                    <!------- 장바구니 추가 ajax (o) ------->
 	                    <script>
 	                    	
-	                    	function cart(proCode){
+	                    	function insertCart(proCode){
 	                    		
-	                    		//let proCode = $(this).siblings("input[name=proCode]").val();
-	                    		//let proName = $(this).siblings("h4").text(),
-	                    		//let price
-	                    		//let pricelength = $(this).sblings("p").text().length;
-	                    		//let price = $(this).siblings('p').text()
-	                    	
 	                    		$.ajax({
 	                    			url:"<%=contextPath%>/insert.ca",
 	                    			data:{ proCode:proCode,
@@ -306,13 +309,13 @@
 		        	</div>
 		                      
 		               <!------- 장바구니 담기 실패 Modal ------->
-		                <div class="modal" id="insertCartModal2">
+		                <div class="modal" id="unavailable">
 		                  <div class="modal-dialog">
 		                    <div class="modal-content">
 		
 		                      <!-- Modal body -->
 		                      <div class="modal-body" style="text-align:center; padding:50px 0px; line-height:30px;">
-		                        로그인된 회원만 이용 가능합니다.
+		                        로그인 된 회원만 이용 가능합니다.
 		                      </div>
 		                      
 		                      <!-- Modal footer -->
@@ -324,7 +327,7 @@
 		                    </div>
 		                  </div>
 		                </div>
-		             		<!------- 장바구니 Modal 끝 ------->
+		             	<!------- 장바구니 Modal 끝 ------->
                       
                       
                       
@@ -370,6 +373,7 @@
         </div>
     </section>
 
+	<!---------------- 스크립트 시작 --------------->
     <script>
 
         $(function(){
@@ -377,7 +381,6 @@
         	// ---------------- 찜 버튼 -----------------
             $('.single_product_text>i').click(function(){ 
 
-            	
                     
                     
                 if( $(this).hasClass("color-gray") ){ 
@@ -389,35 +392,16 @@
             })
             // ----------------------------------------
             
-
-        	// ----------- 상품명 키워드로 상품 검색 ----------
-            <%-- $(".ti-search").click(function(){
-                
-	            $.AJAX({
-	          		url:"<%= contextPath %>/search.pro",
-	          		data: {
-	          				categoryNo : <%= categoryNo %>,
-			          		proNameKeyword : $('#pNameKeyword').val()
-	          			  },
-	          		type:"POST",
-	          		success:function(){
-	          		
-	          		},fail:function(){
-	          		
-	          		}
-	            })
-	            
-            }) --%>
-            // ---------------------------------------
             
-            // 상품 이미지나 상품명, 가격 클릭 시 상품 상세 페이지로 이동
+            // ------- 상품 이미지나 상품명, 가격 클릭 시 상품 상세 페이지로 이동 -------
             $(".single_product_item img").click(function(){
             	
             	const proCode = $(this).siblings('.single_product_text').children('input[type=hidden]').val(); // 해당 상품의 상품코드
-            	location.href = "<%=contextPath%>/detail.pro?proCode=" + proCode;
+            	location.href = "<%=contextPath%>/detail.pro?proCode=" + proCode + "&cpage=1";
             	
             })
-            // ---------------------------------------
+            // ---------------------------------------------------------
+            
             
             // 상품 정렬
 			
@@ -425,9 +409,11 @@
                                             
 
     </script>
+    
     <!--상품 목록 영역 끝-->
     <!--================상품 카테고리 영역 끝=================-->
     
+    <!----- owl carousel 사용 시 필요한 링크와 구문 ----->
 	<script src="<%= contextPath %>/resources/js/owl.carousel.min.js"></script>
 	<script>
 		$(function(){
@@ -442,6 +428,7 @@
 			})
 		})
 	</script>
+	
 	<%@ include file = "../common/footerbar.jsp" %>
 </body>
 </html>

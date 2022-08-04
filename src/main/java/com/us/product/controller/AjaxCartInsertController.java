@@ -38,15 +38,11 @@ public class AjaxCartInsertController extends HttpServlet {
 		HttpSession session = request.getSession();
 		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
 		String proCode = request.getParameter("proCode");
-		String proName = request.getParameter("proName");
-		int price = Integer.parseInt(request.getParameter("price"));
 		int proQty = Integer.parseInt(request.getParameter("proQty"));
 		
 		Cart c = new Cart();
 		c.setUserNo(userNo);
 		c.setProCode(proCode);
-		c.setProName(proName);
-		c.setPrice(price);
 		c.setProQty(proQty);
 		
 		int result = new ProductService().insertCart(c);

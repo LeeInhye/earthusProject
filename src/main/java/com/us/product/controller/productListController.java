@@ -8,11 +8,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.us.common.model.vo.PageInfo;
+import com.us.member.model.vo.Member;
 import com.us.product.model.service.ProductService;
 import com.us.product.model.vo.Category;
 import com.us.product.model.vo.Product;
+import com.us.product.model.vo.WishList;
 
 /**
  * Servlet implementation class HairListController
@@ -79,6 +82,16 @@ public class productListController extends HttpServlet {
 		ArrayList<Product> bList = new ProductService().selectBestProductListSM(categoryNo, keyword);
 		System.out.println(categoryNo);
 		System.out.println(bList);
+		
+		// 로그인 한 회원일 때 모든 상품 찜 여부 조회
+		HttpSession session = request.getSession();
+		if( (Member)session.getAttribute("loginUser") != null ) {
+			int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+			ArrayList<WishList> wList = new ProductService().selectWishList(userNo);
+			request.setAttribute("wList", wList);
+		}
+			
+		
 		// 포워딩
 		request.setAttribute("pi", pi);
 		request.setAttribute("cList", cList);
