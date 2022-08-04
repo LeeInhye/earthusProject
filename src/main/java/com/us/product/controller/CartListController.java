@@ -42,10 +42,8 @@ public class CartListController extends HttpServlet {
 		
 		ArrayList<Cart> list = new CartService().selectList(userNo);
 		
-		HttpSession session = request.getSession();
-		
 		if(list != null) {
-			session.setAttribute("list", list);
+			request.setAttribute("list", list);
 			request.getRequestDispatcher("views/product/cartListView.jsp").forward(request, response);			
 		}else {
 			response.sendRedirect(request.getContextPath());

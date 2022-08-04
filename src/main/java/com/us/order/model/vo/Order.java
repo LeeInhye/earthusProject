@@ -75,6 +75,27 @@ public class Order {
 		this.price = price;
 		this.quantity = quantity;
 	}
+	
+	
+
+
+	public Order(int userNo, String payment, int pointsUsed, String shpMemo, int paymentAmount, String ordrrName,
+			String ordrrPhone, String delName, String delPhone, String delZoneCode, String delAddress,
+			String delAddrDetail) {
+		super();
+		this.userNo = userNo;
+		this.payment = payment;
+		this.pointsUsed = pointsUsed;
+		this.shpMemo = shpMemo;
+		this.paymentAmount = paymentAmount;
+		this.ordrrName = ordrrName;
+		this.ordrrPhone = ordrrPhone;
+		this.delName = delName;
+		this.delPhone = delPhone;
+		this.delZoneCode = delZoneCode;
+		this.delAddress = delAddress;
+		this.delAddrDetail = delAddrDetail;
+	}
 
 
 	public int getDelStatus() {

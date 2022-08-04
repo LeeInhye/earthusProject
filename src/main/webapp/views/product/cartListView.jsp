@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.us.product.model.vo.Cart, java.util.ArrayList" %>
 <%
-	ArrayList<Cart> list = (ArrayList<Cart>)request.getSession().getAttribute("list");
+	ArrayList<Cart> list = (ArrayList<Cart>)request.getAttribute("list");
 %>
 <!doctype html>
 <html lang="zxx">

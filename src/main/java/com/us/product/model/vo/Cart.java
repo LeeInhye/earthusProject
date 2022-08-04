@@ -24,6 +24,17 @@ public class Cart {
 		this.proQty = proQty;
 		this.addDate = addDate;
 	}
+	
+	
+
+	public Cart(int userNo, String proCode, String proName, int price, int proQty) {
+		super();
+		this.userNo = userNo;
+		this.proCode = proCode;
+		this.proName = proName;
+		this.price = price;
+		this.proQty = proQty;
+	}
 
 	public int getUserNo() {
 		return userNo;

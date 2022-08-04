@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.us.product.model.vo.Cart, java.util.ArrayList, java.text.SimpleDateFormat, java.util.Date"%>
 <%
-	ArrayList<Cart> list = (ArrayList<Cart>)request.getSession().getAttribute("list");
+	ArrayList<Cart> orderList = (ArrayList<Cart>)request.getAttribute("orderList");
 %>
 
 <!DOCTYPE html>
@@ -106,7 +106,7 @@
 						</div>
 						<div class="col-md-12 form-group">
 							<select class="custom-select shipping-memo" name="shippingMemo">
-								<option selected>배송 메모를 선택해주세요.</option>
+								<option selected value="0">배송 메모를 선택해주세요.</option>
 								<option value="1">경비실에 맡겨주세요.</option>
 								<option value="2">현관문 앞에 놓아주세요.</option>
 								<option value="3">배송 전에 미리 연락 바랍니다.</option>
@@ -115,7 +115,7 @@
 							<br><br><br>
 							<h3 style="padding: 0px; margin-bottom: 15px; font-weight: bold;">포인트 적용</h3>
 							<div class="col-md-12 form-group p_star">
-								<input type="number" class="form-control" name="point" placeholder="사용할 포인트를 입력해주세요.">
+								<input type="number" class="form-control" name="point" value="0" placeholder="사용할 포인트를 입력해주세요.">
 							</div>
 						</div>
 					</div>
@@ -125,7 +125,7 @@
 							<h2 style="font-weight: bold;">주문서</h2>
 									<ul class="list">
 									
-								<% for(Cart c : list) { %> 
+								<% for(Cart c : orderList) { %> 
 										<!-- 결제상품 목록 조회 -->
 										<li><a href="#"><%= c.getProName() %> <span class="last" class="price"><%= c.getPrice() * c.getProQty() %></span></a></li>
 									</ul>
@@ -138,21 +138,23 @@
 							
 							<div class="payment_item">
 								<div class="radion_btn">
-									<input type="radio" id="f-option5" name="selector" value="cash"/> <label for="f-option5">무통장 입금</label>
+									<input type="radio" id="f-option5" name="payment" value="cash"/> <label for="f-option5">무통장 입금</label>
 									<div class="check"></div>
 								</div>
 							</div>
 							<div class="payment_item active">
 								<div class="radion_btn">
-									<input type="radio" id="f-option6" name="selector" checked="checked" value="card"> <label for="f-option6">카드 결제</label>
+									<input type="radio" id="f-option6" name="payment" checked="checked" value="card"> <label for="f-option6">카드 결제</label>
 									<div class="check"></div>
 								</div>
 							</div>
 							<br>
 							<div class="creat_account">
-								<input type="checkbox" id="f-option4" name="selector" required />
+								<input type="checkbox" id="f-option4" required />
 								<a style="color: #778C79;">이용 약관*</a> <label for="f-option4" style="padding:0px;">을 읽고 확인하였으며 동의합니다.</label>
 							</div>
+							<input type="hidden" name="cardUid" value="">
+							<input type="hidden" name="totalPrice" value="">
 							<button type="button" onclick="requestPay();" id="submit-btn" class="btn_3">결제 진행하기</button>
 						</div>
 					</div>
@@ -247,7 +249,7 @@
 			
 			$(".price").each(function(){
 				// class=price인 요소들에 순차적으로 접근, 주문하려는 모든 (상품*개수)를 더해준다
-				totalPrice += Number($("#price").text());
+				totalPrice += Number($(this).text());
 			})
 			
 			// 마지막으로 배송비 3000원 더해줌
@@ -255,6 +257,7 @@
 			
 			// 더해진 최종 가격을 #totalPrice 안에 넣어주기
 			$("#totalPrice").text(totalPrice);
+			$("input[name=totalPrice]").val(totalPrice);
 		})
 		
 		
@@ -270,7 +273,7 @@
 				pg: "nice",
 				pay_method: "card",
 				merchant_uid: "ORD" + <%= new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + Math.random() + (int)(Math.random() * 90000 + 10000) %> ,
-				name: $("#proName").text(),
+				name: $("#proName").text() + "외 " + <%= orderList.size() - 1 %> + "건",
 				amount: $("#totalPrice").text(),
 				buyer_email: $("input[name=email]").val(),
 				buyer_name: $("input[name=name]").val(),
@@ -280,6 +283,7 @@
 			}, function (rsp) { // callback
 			    if (rsp.success) { 
 			  	  // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
+			  	  $("input[name=cartUid]").val( rsp.merchant_uid );
 			  	  $("#order-form").submit();
 			
 			    } else {

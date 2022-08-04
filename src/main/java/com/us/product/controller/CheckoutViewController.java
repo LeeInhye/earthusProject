@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.us.member.model.vo.Member;
+import com.us.product.model.service.CheckoutService;
 import com.us.product.model.vo.Cart;
 import com.us.product.model.vo.Product;
 
@@ -43,14 +44,19 @@ public class CheckoutViewController extends HttpServlet {
 		// ==> 결제페이지에서 쓸 list 전달 (하나여도 list로 전달해서 해야 간편할듯)
 		
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		
+		System.out.println(userNo);
+		
 		Cart c = null;
 		ArrayList<Cart> list = new ArrayList<>();
-		
-		if(request.getParameter("fromCart").equals("T") ) {
+		if(request.getParameter("fromCart") != null ) {
 			// 장바구니에서 이동한 경우,
 			// 결제 페이지에 checked된 Cart(회원번호, 상품코드, 상품명, 수량) 모아서 전달
-			System.out.println(request.getParameter("orderProCode"));
-			list = (ArrayList<Cart>)request.getAttribute("list");
+			String orderProCode = request.getParameter("orderProCode");
+			System.out.println(orderProCode);
+			list = new CheckoutService().selectProList(userNo, orderProCode);
+			
+			System.out.println(list);
 			
 		}else {
 			// 바로결제에서 이동한 경우
@@ -65,11 +71,12 @@ public class CheckoutViewController extends HttpServlet {
 			list.add(c);			
 		}
 		
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/order/checkoutView.jsp").forward(request, response);
-		
-		
-		
+		if(!list.isEmpty()) {
+			request.setAttribute("orderList", list);
+			request.getRequestDispatcher("views/order/checkoutView.jsp").forward(request, response);
+		}else {
+			response.sendRedirect(request.getContextPath());
+		}
 	}
 
 	/**
