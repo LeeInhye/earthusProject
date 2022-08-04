@@ -25,6 +25,15 @@ public class ChallengeService {
 		return listCount;		
 	}
 	
+	// 페이징바_챌린지 게시글별 총 댓글 갯수
+	public int selectCmntCount(int challNo) {
+		Connection conn = getConnection();
+		int listCount = new ChallengeDao().selectCmntCount(conn, challNo);
+		close(conn);
+		
+		return listCount;		
+	}
+	
 	// 관리자_챌린지 리스트 조회
 	public ArrayList<Challenge> selectAdList(PageInfo pi) {
 		Connection conn = getConnection();
@@ -121,10 +130,10 @@ public class ChallengeService {
 		return ch;
 	}
 
-	// 사용자_댓글 리스트 조회
-	public ArrayList<Comment> selectCmntList(int challNo) {
+	// 사용자_게시글 상세 조회 시 댓글 리스트 조회, 관리자_댓글 관리 시 댓글 리스트 조회
+	public ArrayList<Comment> selectCmntList(int challNo, PageInfo pi) {
 		Connection conn = getConnection();
-		ArrayList<Comment> list = new ChallengeDao().selectCmntList(conn, challNo);
+		ArrayList<Comment> list = new ChallengeDao().selectCmntList(conn, challNo, pi);
 		close(conn);
 		return list;
 	}
@@ -144,7 +153,20 @@ public class ChallengeService {
 		return result;
 	}
 	
-	
-	
+	// 관리자_댓글 선택 삭제
+	public int deleteCmnt(String cmntNo) {
+		Connection conn = getConnection();
+		int result = new ChallengeDao().deleteCmnt(conn, cmntNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}		
+		close(conn);
+
+		return result;
+	}
+
 	
 }

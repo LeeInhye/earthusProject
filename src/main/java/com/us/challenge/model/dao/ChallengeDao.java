@@ -54,7 +54,34 @@ public class ChallengeDao {
 		return listCount;
 	}
 	
-	// 관리자_챌린지 리스트 조회
+	// 페이징바_챌린지 게시글별 총 댓글 갯수
+	public int selectCmntCount(Connection conn, int challNo) {
+		// select => ResultSet(숫자 한 개) => listCount
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectCmntCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, challNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	// 관리자_챌린지 리스트 조회 (+ 챌린지 댓글관리에서 챌린지 리스트 조회)
 	public ArrayList<Challenge> selectAdList(Connection conn, PageInfo pi) {
 		// select => ResultSet(여러 행) => ArrayList<Challenge>
 		ArrayList<Challenge> list = new ArrayList<>();
@@ -252,6 +279,7 @@ public class ChallengeDao {
 				ch = new Challenge(rset.getInt("chall_no"),
 								   rset.getString("chall_title"),
 								   rset.getString("chall_content"),
+								   rset.getInt("chall_point"),
 								   rset.getString("chall_thumbnail"),
 								   rset.getInt("chall_count"),
 								   rset.getDate("chall_enroll_date"),
@@ -335,7 +363,7 @@ public class ChallengeDao {
 	}
 
 	// 사용자_댓글 리스트 조회
-	public ArrayList<Comment> selectCmntList(Connection conn, int challNo) {
+	public ArrayList<Comment> selectCmntList(Connection conn, int challNo, PageInfo pi) {
 		// select => ResultSet(여러 행) => ArrayList<Comment>
 		ArrayList<Comment> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -345,15 +373,19 @@ public class ChallengeDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
 			pstmt.setInt(1, challNo);
-			
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				list.add(new Comment(rset.getInt("cmnt_no"),
 								     rset.getString("user_name"),
 								     rset.getString("cmnt_content"),
-								     rset.getString("enroll_date")
+								     rset.getString("enroll_date"),
+								     rset.getString("cmnt_status")
 						));
 			}
 		} catch (SQLException e) {
@@ -389,5 +421,40 @@ public class ChallengeDao {
 	
 		return result;
 	}
+	
+	// 관리자_댓글 선택 삭제
+	public int deleteCmnt(Connection conn, String cmntNo) {
+		// delete => 처리된 행 수
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteCmnt");
+		
+		// 동적 sql문
+		sql += "WHERE CMNT_NO IN ("; 
+		
+		String[] cmntArr = cmntNo.split(",");  // ["3", "4"]
+		for(int i=0; i<cmntArr.length; i++) {
+			sql += cmntArr[i];
+			if(i != cmntArr.length-1) {
+				sql += ",";
+			}
+		}
+		
+		sql += ")";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println(result);
+		return result;
+	}
+	
 	
 }

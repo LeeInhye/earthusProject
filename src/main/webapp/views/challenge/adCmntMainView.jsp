@@ -100,7 +100,7 @@
 							 $(".list-area").click(function(){
 								 const challNo = $(this).children().eq(0).text(); // 클릭한 글 번호
 								 
-								 location.href = '<%=contextPath%>/adCmntDetail.ch?no='+ challNo;
+								 location.href = '<%=contextPath%>/adCmntDetail.ch?no='+ challNo + '&cpage=1';
 							 })                                                   
 
 						})

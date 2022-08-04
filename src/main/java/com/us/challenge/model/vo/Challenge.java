@@ -51,12 +51,13 @@ public class Challenge {
 		this.challCmnt = challCmnt;
 	}
 
-	public Challenge(int challNo, String challTitle, String challContent, String challThumbnail, int challCount,
-			Date challEnrollDate, int challCmnt, int prevNo, int nextNo) {
+	public Challenge(int challNo, String challTitle, String challContent, int challPoint, String challThumbnail,
+			int challCount, Date challEnrollDate, int challCmnt, int prevNo, int nextNo) {
 		super();
 		this.challNo = challNo;
 		this.challTitle = challTitle;
 		this.challContent = challContent;
+		this.challPoint = challPoint;
 		this.challThumbnail = challThumbnail;
 		this.challCount = challCount;
 		this.challEnrollDate = challEnrollDate;
@@ -64,7 +65,7 @@ public class Challenge {
 		this.prevNo = prevNo;
 		this.nextNo = nextNo;
 	}
-	
+
 	public Challenge(int challNo, String challTitle, String challThumbnail) {
 		super();
 		this.challNo = challNo;

@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.us.challenge.model.vo.Challenge, com.us.common.model.vo.PageInfo" %>
+    pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.us.challenge.model.vo.*, com.us.common.model.vo.PageInfo" %>
 <%
+	Challenge ch = (Challenge)request.getAttribute("ch");
+	ArrayList<Comment> list = (ArrayList<Comment>)request.getAttribute("list");
+
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	ArrayList<Challenge> list = (ArrayList<Challenge>)request.getAttribute("adList");	
-	
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
@@ -29,23 +31,51 @@
     	border:1px solid lightgray;
     	height: 50px;
     }
-    .list-area:hover {
-    	background: #F2F2F2;
-    	cursor:pointer;
+    .bold {
+        font-weight: bold;
+        font-size: 18px;
+    }
+    .flex{
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    #btn_point {
+        font-size: 12px;
+        background: #778C79;
     }
 </style>
 </head>
 <body>
 
-	<%@ include file="/views/common/adminMenubar.jsp" %>
+    <%@ include file="/views/common/adminMenubar.jsp" %>
 
 	<div id="layoutSidenav">
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid px-4">
 					<br>
-					<h3 class="mt-4" style="font-weight:bold;">챌린지 관리</h3>
+					<h3 class="mt-4" style="font-weight:bold;">챌린지 댓글 관리</h3>
 					<hr><br><br>
+                    
+                    <div style="display: flex" class="flex">
+                        <div>
+                            <label class="bold">챌린지명 : </label>
+                            <label><%= ch.getChallTitle() %></label>
+                        </div>
+                        <div> 
+                            <label class="bold">지급 포인트 : </label>
+                            <label><%= ch.getChallPoint() %> P</label>
+                        </div>
+                        <div>
+                            <label class="bold">처리 상태 : </label>
+                            <select name="" id="">
+                                <option value="">전체</option>
+                                <option value="">미지급</option>
+                                <option value="">지급완료</option>
+                            </select>
+                        </div>
+                    </div>
+					<br><br>
 					
 					<table>
 						<tr>
@@ -53,51 +83,61 @@
 								<input type="checkbox" id="checkAll">
 							</th>
 							<th width="5%">No.</th>
-							<th width="55%">제목</th>
-							<th width="15%">작성일</th>
-							<th width="10%">지급 포인트</th>
-							<th width="10%">댓글 수</th>
+							<th width="7%">처리 상태</th>
+							<th width="55%">댓글 내용</th>
+							<th width="7%">작성자</th>
+							<th width="12%">작성일</th>
+							<th width="14%">처리</th>
 						</tr>
 						<% if(list.isEmpty()) { %>
 							<tr>
-								<td colspan="6">존재하는 챌린지가 없습니다.</td>
+								<td colspan="6">존재하는 댓글이 없습니다.</td>
 							</tr>  	
 						<% } else { %>
-							   <% for(Challenge cc : list) { %>
+							   <% for(Comment cmnt : list) { %>
 								<tr class="list-area">
-									 <td onclick="event.stopPropagation();"> <!-- 해당 td 클릭 시에는 수정 페이지로 이동하지 않게 함-->
-										<input type="checkbox" name="check" value="<%= cc.getChallNo() %>">
+									 <td>
+										<input type="checkbox" name="check" value="<%= cmnt.getCmntNo() %>">
 									</td>
-									<td><%= cc.getChallNo() %></td>
-									<td><%= cc.getChallTitle() %></td>
-									<td><%= cc.getChallEnrollDate() %></td>
-									<td><%= cc.getChallPoint() %></td>
-									<td><%= cc.getChallCmnt() %></td>
+									<td><%= cmnt.getCmntNo() %></td>
+                                    <td>
+                                        <% if( cmnt.getCmntStatus().equals("Y") ) { %>
+											<label>지급완료</label>
+										<% } else { %>
+											<label>미지급</label>
+										<% } %>
+                                    </td>
+									<td><%= cmnt.getCmntContent() %></td>
+									<td><%= cmnt.getCmntWriter() %></td>
+									<td><%= cmnt.getCmntEnrollDate() %></td>
+									<td>
+                                        <button type="button" class="btn btn-dark" id="btn_point">지급하기</button>
+                                    </td>
 								</tr>
 							<% } %>
 						<% } %>
 					</table>
  
 						<button class="btn_admin" id="btn_delete" style="float: left; margin-left: 10%;" data-bs-toggle="modal" data-bs-target="#jyModal_noCheck">선택 삭제</button>
-						<button class="btn_admin" style="float: right; margin-right: 10%;" id="btn_enroll">새 글 작성</button>
-	 					<br><br><br><br>
+						<a href="<%= contextPath %>/adCmntMain.ch?cpage=1" class="btn_admin" style="float: right; margin-right: 10%; text-decoration:none;">챌린지 목록</a>
+	 					<br><br><br><br><br>
 						
 				       <!-- 페이징바 영역 -->
 				       <div class="paging-area" align="center">
-				        	<% if(currentPage != 1) {%>
-				            	<button onclick="location.href='<%=contextPath%>/adList.ch?cpage=<%= pi.getCurrentPage()-1 %>';" class="btn btn_black">&lt;</button>
+				        	<% if(currentPage != 1) { %>
+				            	<button onclick="location.href='<%=contextPath%>/adCmntDetail.ch?no=<%= ch.getChallNo() %>&cpage=<%= pi.getCurrentPage()-1 %>';" class="btn btn_black">&lt;</button>
 							<% } %>
 							
 							<% for(int p=startPage; p<=endPage; p++) { %>
 					            <% if(p == currentPage){ %>
 					            	<button class="btn btn_gray" disabled><%= p %></button>
 					            <% }else { %>
-					            	<button class="btn btn_black" onclick="location.href='<%=contextPath%>/adList.ch?cpage=<%= p %>';"><%= p %></button>
+					            	<button class="btn btn_black" onclick="location.href='<%=contextPath%>/adCmntDetail.ch?no=<%= ch.getChallNo() %>&cpage=<%= p %>';"><%= p %></button>
 								<% } %>
 							<% } %>
 							
 							<% if(currentPage != maxPage) { %>
-				            <button onclick="location.href='<%=contextPath%>/adList.ch?cpage=<%= pi.getCurrentPage()+1 %>';" class="btn btn_black">&gt;</button>
+				            <button onclick="location.href='<%=contextPath%>/adCmntDetail.ch?no=<%= ch.getChallNo() %>&cpage=<%= pi.getCurrentPage()+1 %>';" class="btn btn_black">&gt;</button>
 				            <% } %>
 				       </div>
 				       <!-- 페이징바 영역 끝 -->
@@ -147,16 +187,9 @@
 				        
 					 <script>
 						 $(function(){
-							 // 새 글 작성
-							 $("#btn_enroll").click(function(){
-								 location.href = '<%=contextPath%>/enrollForm.ch';
-							 })
-								 
-							 // 게시글 클릭시 해당 게시글 수정 페이지로 이동
-							 $(".list-area").click(function(){
-								 const challNo = $(this).children().eq(1).text(); // 클릭한 글 번호
-								 
-								 location.href = '<%=contextPath%>/updateForm.ch?no='+ challNo;
+							 // 목록 버튼
+							 $("#btn_back").click(function(){
+								 location.href = '<%=contextPath%>/adCmntMain.ch';
 							 })
 							 
 							 // 체크박스 전체선택, 전체해제 기능
@@ -184,15 +217,15 @@
 							 })
  
                             // 체크박스 체크/체크해제시 선택삭제 버튼의 모달 속성 변경
-                            var checkChall = "";
+                            var checkCmnt = "";
 							$("input:checkbox").change(function(){
-								checkChall = "";
+								checkCmnt = "";
 								$("input:checkbox[name=check]:checked").each(function(){
-	                                checkChall += ($(this).val()) + ","; // 체크된 것만 게시글번호 뽑기 "2,3,4,"
+									checkCmnt += ($(this).val()) + ","; // 체크된 것만 게시글번호 뽑기 "2,3,4,"
 	                            })
-	                            checkChall = checkChall.substring(0,checkChall.lastIndexOf(",")); // 맨 뒤 콤마 삭제 "2,3,4"
-								
-								if(checkChall == ''){ // 선택된 체크박스 하나도 없을 경우
+	                            checkCmnt = checkCmnt.substring(0,checkCmnt.lastIndexOf(",")); // 맨 뒤 콤마 삭제 "2,3,4"
+								console.log(checkCmnt);
+								if(checkCmnt == ''){ // 선택된 체크박스 하나도 없을 경우
 	                	            $("#btn_delete").attr("data-bs-target", "#jyModal_noCheck");
 	                                
 	                            }else{ // 선택된 체크박스 있을 경우
@@ -204,8 +237,8 @@
 							// 선택한 게시글 삭제
 	                        $("#realDelete").click(function(){
                                 $.ajax({
-                                    url:"<%= contextPath%>/delete.ch",
-                                    data:{"checkChall":checkChall},
+                                    url:"<%= contextPath%>/adCmntDelete.ch",
+                                    data:{"checkCmnt":checkCmnt},
                                     success:function(result){
                         				if(result > 0){ // 게시글 삭제 성공
 	                                        location.reload();
@@ -214,7 +247,7 @@
                         				}
                                     },
                                     error:function(){
-                                        console.log("ajax 게시글 삭제 실패")
+                                        console.log("ajax 게시글 삭제 실패");
                                     }
                                 })
                             })
