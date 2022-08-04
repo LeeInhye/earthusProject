@@ -120,9 +120,9 @@ public class ProductService {
 		return listCount;
 	}
 	
-	public ArrayList<ProQna> selectProQnaList(String proCode){
+	public ArrayList<ProQna> selectProQnaList(PageInfo pi, String proCode){
 		Connection conn = getConnection();
-		ArrayList<ProQna> list = new ProductDao().selectProQnaList(conn, proCode);
+		ArrayList<ProQna> list = new ProductDao().selectProQnaList(conn, pi, proCode);
 		close(conn);
 		return list;
 	}
