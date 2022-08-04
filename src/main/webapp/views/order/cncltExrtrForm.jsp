@@ -131,7 +131,19 @@
 						</td>
 						<td>
 						  <div class="p-btn">
-						  <%if((or.getDelStatus() == 4) || (or.getDelStatus() == 5) || (or.getDelStatus() == 6)) {%>
+						  <%if((or.getDelStatus() == 1)){ %>
+						  	<button id="cancel<%=or.getProCode()%>" class="cancel" type="button" data-toggle="modal" data-target="#cancelModal">취소</button> <br>
+						  	<button id="exchange" class="exchange" type="button" data-toggle="modal" data-target="#impoExrtrModal">교환/반품</button>
+						  	<button id="detail" type="button" data-toggle="modal" data-target="#nopelModal">내역조회</button>
+						  <%}else if((or.getDelStatus() == 2)){ %>
+						  	<button id="cancel<%=or.getProCode()%>" class="cancel" type="button" data-toggle="modal" data-target="#impoCancelModal1">취소</button> <br>
+						  	<button id="exchange" class="exchange" onclick="location.href='<%=contextPath%>/request.or?exNo=<%=or.getOrderNo()%>&pCo=<%=or.getProCode()%>';">교환/반품</button> <br>
+						  	<button id="detail" type="button" data-toggle="modal" data-target="#nopelModal">내역조회</button>
+						  <%}else if((or.getDelStatus() == 3)){ %>
+						  	<button id="cancel<%=or.getProCode()%>" class="cancel" type="button" data-toggle="modal" data-target="#impoCancelModal2">취소</button> <br>
+						  	<button id="exchange" class="exchange" onclick="location.href='<%=contextPath%>/request.or?exNo=<%=or.getOrderNo()%>&pCo=<%=or.getProCode()%>';">교환/반품</button> <br>
+						  	<button id="detail" type="button" data-toggle="modal" data-target="#nopelModal">내역조회</button>
+						  <%}else if((or.getDelStatus() == 4) || (or.getDelStatus() == 5) || (or.getDelStatus() == 6)) {%>
 							<button id="cancel<%=or.getProCode()%>" class="cancel dis-btn" type="button" data-toggle="modal" data-target="#cancelModal" disabled>취소</button> <br>
 							<button id="exchange" class="exchange dis-btn" onclick="location.href='<%=contextPath%>/request.or?exNo=<%=or.getOrderNo()%>&pCo=<%=or.getProCode()%>';" disabled>교환/반품</button> <br>
 							<%if(or.getDelStatus() == 4) {%>
@@ -150,15 +162,68 @@
 		  </div>
 	</section>
 	
+	<div class="modal" id="impoCancelModal1">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-body" align="center">
+		        	<br><br>
+		        	<span style="font-size:large;">배송이 시작되었습니다.<br>교환/반품만 가능합니다.</span> <br><br><br>
+		        	<input type="hidden" value="" id="cancelOrNo">
+		        	<button type="button" class="btn" id="y-btn" data-dismiss="modal">확인</button>
+		        	
+		      </div>
+		    </div>
+		  </div>
+	</div>
+	
+	<div class="modal" id="impoCancelModal2">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-body" align="center">
+		        	<br><br>
+		        	<span style="font-size:large;">배송이 완료되었습니다.<br>교환/반품만 가능합니다.</span> <br><br><br>
+		        	<input type="hidden" value="" id="cancelOrNo">
+		        	<button type="button" class="btn" id="y-btn" data-dismiss="modal">확인</button>
+		        	
+		      </div>
+		    </div>
+		  </div>
+	</div>
+	
+	<div class="modal" id="impoExrtrModal">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-body" align="center">
+		        	<br><br>
+		        	<span style="font-size:large;">배송완료 후 신청 가능합니다.</span> <br><br><br>
+		        	<button type="button" class="btn" id="y-btn" data-dismiss="modal">확인</button>
+		        	
+		      </div>
+		    </div>
+		  </div>
+	</div>
+	
 	<div class="modal" id="cancelModal">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
 		      <div class="modal-body" align="center">
 		        	<br><br>
 		        	<span style="font-size:large;">정말 취소하시겠습니까?</span> <br><br><br>
-		        	<input type="hidden" value="" id="cancelOrNo">
 		        	<button type="button" class="btn" id="y-btn" name="can" value="4" onclick="goCancel(4);">확인</button> &nbsp;&nbsp;
 		        	<button type="button" class="btn" id="n-btn" data-dismiss="modal">취소</button>
+		        	
+		      </div>
+		    </div>
+		  </div>
+	</div>
+	
+	<div class="modal" id="nopeModal">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-body" align="center">
+		        	<br><br>
+		        	<span style="font-size:large;">취소/교환/반품 내역만 조회 가능합니다.</span> <br><br><br>
+		        	<button type="button" class="btn" id="y-btn" data-dismiss="modal">확인</button>
 		        	
 		      </div>
 		    </div>
