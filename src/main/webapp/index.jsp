@@ -54,7 +54,7 @@
                                     <a class="nav-link" href="index.html">aboutUs</a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="<%= contextPath %>/list.pro?categoryNo=0&cpage=1" id="navbarDropdown_1"
+                                    <a class="nav-link dropdown-toggle" href="<%= contextPath %>/list.pro?categoryNo=5&cpage=1" id="navbarDropdown_1"
                                        aria-haspopup="true" aria-expanded="false">
                                         Shop
                                     </a>

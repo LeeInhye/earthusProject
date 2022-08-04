@@ -54,8 +54,6 @@
  	<link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/price_rangs.css">
 	<link rel="stylesheet" href="<%= contextPath %>/resources/js/custom.js">
 	
-	
-	<% if(categoryNo != 0){ %>
 		<!-- banner part start-->
 		<section class="breadcrumb contents_bg">
 		    <div class="container">
@@ -71,7 +69,7 @@
 		    </div>
 		</section>
 		<!-- banner part end -->
-	<% } %>
+
     <script>
     	$(document).ready(function(){
     		$('.cat_product_area .row').removeAttr('align-items');

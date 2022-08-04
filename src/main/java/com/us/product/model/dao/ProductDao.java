@@ -63,7 +63,7 @@ public class ProductDao {
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectListCountSM");
 		
-		if(categoryNo != 0) {	// 카테고리가 있을 때
+		if(categoryNo != 5) {	// 카테고리가 있을 때
 			sql += "WHERE CATEGORY_NO = ";
 			sql += categoryNo;
 		}
@@ -186,7 +186,7 @@ public class ProductDao {
 			int endRow = startRow + pi.getBoardLimit() - 1; // 끝값
 			
 			// 동적 sql문
-			if(categoryNo != 0) {	// 카테고리가 있을 때
+			if(categoryNo != 5) {	// 카테고리가 있을 때
 				sql += "WHERE CATEGORY_NO = ";
 				sql += categoryNo;
 			}
@@ -258,7 +258,7 @@ public class ProductDao {
 			ResultSet rset = null;
 			String sql = prop.getProperty("selectBestProductListSM");
 			
-			if(categoryNo != 0) {	// 카테고리가 있을 때
+			if(categoryNo != 5) {	// 카테고리가 있을 때
 				sql += "WHERE CATEGORY_NO = ";
 				sql += categoryNo;
 			}
