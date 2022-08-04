@@ -48,7 +48,7 @@ public class productListController extends HttpServlet {
 		int startPage; // 페이징바의 시작 수
 		int endPage; // 페이징바의 끝 수
 		
-		listCount = new ProductService().selectListCount(categoryNo);
+		listCount = new ProductService().selectListCountSM(categoryNo);
 		currentPage = Integer.parseInt(request.getParameter("cpage"));
 		pageLimit = 5;
 		boardLimit = 9;
@@ -71,11 +71,11 @@ public class productListController extends HttpServlet {
 		// 카테고리 별 상품 개수 조회
 		ArrayList<Product> pcList = new ProductService().selectProductCountList();
 		
-		// 카테고리별 상품 목록 조회
-		ArrayList<Product> pList = new ProductService().selectProductList(pi, categoryNo);
+		// 카테고리별 상품 목록 조회 + 전체
+		ArrayList<Product> pList = new ProductService().selectProductListSM(pi, categoryNo);
 		
-		// 카테고리별 베스트 상품 5개 조회
-		ArrayList<Product> bList = new ProductService().selectBestProductList(categoryNo);
+		// 카테고리별 베스트 상품 5개 조회 + 전체
+		ArrayList<Product> bList = new ProductService().selectBestProductListSM(categoryNo);
 		
 		// 포워딩
 		request.setAttribute("pi", pi);
@@ -83,6 +83,7 @@ public class productListController extends HttpServlet {
 		request.setAttribute("pcList", pcList);
 		request.setAttribute("pList", pList);
 		request.setAttribute("bList", bList);
+		request.setAttribute("categoryNo", categoryNo);
 		
 		request.getRequestDispatcher("/views/product/productListView.jsp").forward(request,response);
 		
