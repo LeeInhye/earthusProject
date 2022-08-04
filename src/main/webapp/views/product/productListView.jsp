@@ -35,6 +35,13 @@
 	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <!-- swiper CSS -->
 
+<style>
+.btn_2 {
+	background : #778C79 !important;
+	color:#f2f2f2 !important;
+}
+</style>
+
 </head>
 <body>
 	
@@ -49,18 +56,18 @@
 	
 <!-- banner part start-->
 <section class="breadcrumb contents_bg">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="breadcrumb_iner">
-                        <div class="breadcrumb_iner_item">
-                            <img src="<%=contextPath%>/<%=cList.get(categoryNo-1).getCategoryImgPath()%>">
-                        </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="breadcrumb_iner">
+                    <div class="breadcrumb_iner_item">
+                        <img src="<%=contextPath%>/<%=cList.get(categoryNo-1).getCategoryImgPath()%>">
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 <!-- banner part end -->
     <script>
     	$(document).ready(function(){
@@ -188,6 +195,7 @@
                     </section>
                     <!----- 베스트 상품 영역 끝 -----> 
 					<hr><br><br>
+					
  					 <!-- 전체 상품 영역 시작 -->
                     <div class="row align-items-center latest_product_inner">
                     	<% for(Product p : pList) { %>
@@ -197,12 +205,93 @@
 	                              <div class="single_product_text">
 	                                  <h4><%= p.getProName() %></h4>
 	                                  <p><%= p.getPrice() %>원</p>&nbsp;&nbsp;&nbsp;<i class="fa fa-heart color-gray"></i>
+	                                  <% if(loginUser != null) {%>
 	                                  <a href="#" class="add_cart">+ 장바구니 추가</a>
+	                                  <% }else { %>
+	                                  <a href="#" class="add_cart" onclick="$('#insertCartModal2').modal('show')">+ 장바구니 추가</a>
+	                                  <% } %>
 	                                  <input type="hidden" name="proCode" value="<%= p.getProCode() %>">
 	                              </div>
 	                          </div>
 	                      </div>
 	                    <% } %>
+	                    
+	                    <!------- 장바구니 추가 ajax ------->
+	                    <script>
+	                    	
+	                    	$('.add_cart').click(function(){
+	                    		
+	                    		//let proCode = $(this).siblings("input[name=proCode]").val();
+	                    		//let proName = $(this).siblings("h4").text(),
+	                    		//let price
+	                    		//let pricelength = $(this).sblings("p").text().length;
+	                    		//let price = $(this).siblings('p').text()
+	                    	
+	                    		$.ajax({
+	                    			url:"<%=contextPath%>/insert.ca",
+	                    			data:{ proCode:$(this).siblings("input[name=proCode]").val(),
+	                   					   proName:$(this).siblings("h4").text(),
+	                   					   price:($(this).siblings("p").text())<%.substring()%>,
+	                   					   proQty:$('#qty').val()},
+	                    			type:"post",
+	                    			success: function(result){
+	                    				// 장바구니 추가 성공 시 성공 완료 modal
+	                    				if(result > 0){
+	    	                				$('#insertCartModal').modal('show');
+	                    				}
+	                    			},error: function(){
+	                    				console.log("장바구니 추가 ajax 통신 실패");
+	                    			}
+	    	                		})
+	                    		
+	                    	})
+	                    	
+	                    
+	                    </script>
+                      	
+		                <!------- 장바구니 이동 확인 Modal ------->
+		                <div class="modal" id="insertCartModal">
+		                  <div class="modal-dialog">
+		                    <div class="modal-content">
+		
+		                      <!-- Modal body -->
+		                      <div class="modal-body" style="text-align:center; padding:50px 0px; line-height:30px;">
+		                        상품이 장바구니에 담겼습니다.<br>
+		                        장바구니로 이동하시겠습니까?
+		                      </div>
+		                      
+		                      <!-- Modal footer -->
+		                      <div class="modal-footer" style="display:inline-block; text-align:center;">
+		                        <button type="button" class="btn btn_2" onclick="location.href='<%=contextPath%>/list.ct'">확인</button>
+		                        <button type="button" class="btn btn_2" data-dismiss="modal">취소</button>
+		                      </div>
+		                      
+		                   </div>
+		          		</div>
+		        	</div>
+		                      
+		               <!------- 장바구니 담기 실패 Modal ------->
+		                <div class="modal" id="insertCartModal2">
+		                  <div class="modal-dialog">
+		                    <div class="modal-content">
+		
+		                      <!-- Modal body -->
+		                      <div class="modal-body" style="text-align:center; padding:50px 0px; line-height:30px;">
+		                        로그인된 회원만 이용 가능합니다.
+		                      </div>
+		                      
+		                      <!-- Modal footer -->
+		                      <div class="modal-footer" style="display:inline-block; text-align:center;">
+		                        <button type="button" class="btn btn_2" onclick="location.href='<%=contextPath%>/views/member/goLogin.jsp'">확인</button>
+		                        <button type="button" class="btn btn_2" data-dismiss="modal">취소</button>
+		                      </div>
+		             		
+		                    </div>
+		                  </div>
+		                </div>
+		             		<!------- 장바구니 Modal 끝 ------->
+                      
+                      
                       
                         <!------------ 페이징바 영역 ------------>
                         <div class="col-lg-12">
@@ -218,12 +307,12 @@
                                         </li>
                                         <% } %>
                                         
-                                       	<% for(int p=startPage; p<=endPage; p++){ %>
+                                       	<% for(int i=startPage; i<=endPage; i++){ %>
                                        	
-                                       		<% if(p == currentPage){ %>
-	                                       	<li class="page-item"><a disabled class="page-link" href="<%=contextPath%>/list.pro?categoryNo=<%= categoryNo %>&cpage=<%= p %>"><%= p %></a></li>
+                                       		<% if(i == currentPage){ %>
+	                                       	<li class="page-item"><a disabled class="page-link" href="<%=contextPath%>/list.pro?categoryNo=<%= categoryNo %>&cpage=<%= i %>"><%= i %></a></li>
 	                                       	<% }else { %>
-                                       		<li class="page-item"><a class="page-link" href="<%=contextPath%>/list.pro?categoryNo=<%= categoryNo %>&cpage=<%= p %>"><%= p %></a></li>
+                                       		<li class="page-item"><a class="page-link" href="<%=contextPath%>/list.pro?categoryNo=<%= categoryNo %>&cpage=<%= i %>"><%= i %></a></li>
 	                                       	<% } %>
 	                                       	
 	                                    <% } %>
@@ -239,6 +328,7 @@
                                 </nav>
                             </div>
                         </div>
+                        <!-------------------  페이징바 영역 끝 ----------------->
                     </div>
                 </div>
             </div>
