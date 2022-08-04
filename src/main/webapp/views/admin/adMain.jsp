@@ -120,31 +120,7 @@
                                 &nbsp;&nbsp;<a href="">찜 횟수</a>
                         </div>
                     </div>
-                    <br><br>
-                    <div id="table1-ih">
-                        <table>
-                            <tr>
-                                <td>오늘의 주문 수량</td>
-                                <th>20</th>
-                            </tr>
-                        </table>
-                    </div>
-                    <div id="table2-ih">
-                        <table>
-                            <tr>
-                                <td>발송 대기</td>
-                                <th>8</th>
-                            </tr>
-                        </table>
-                    </div>
-                    <div id="table3-ih">
-                        <table>
-                            <tr>
-                                <td>발송</td>
-                                <th>12</th>
-                            </tr>
-                        </table>
-                    </div>
+                    
 
                 </div>
             </main>
