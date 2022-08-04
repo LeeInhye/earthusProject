@@ -86,7 +86,7 @@
 		#re1{accent-color:rgb(119,140,121); font-size:medium;}
 		
 		#re-end{
-		border:0;
+		  border:0;
 		  border-radius:5px;
 		  background-color:rgb(119,140,121);
 		  color:white;

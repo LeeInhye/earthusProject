@@ -66,4 +66,19 @@ public class OrderService {
 		close(conn);
 		return result;
 	}
+	
+	// 취소 신청
+	public int updateCan(int orderNo, int status) {
+		Connection conn = getConnection();
+		int result = new OrderDao().updateCan(conn, orderNo, status);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
 }
