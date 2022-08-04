@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.us.product.model.vo.Cart, java.util.ArrayList, java.text.SimpleDateFormat, java.util.Date"%>
 <%
-	ArrayList<Cart> list = (ArrayList<Cart>)request.getAttribute("list");
+	ArrayList<Cart> list = (ArrayList<Cart>)request.getSession().getAttribute("list");
 %>
 
 <!DOCTYPE html>
@@ -105,7 +105,7 @@
 							<input type="text" class="form-control" id="detailAddr" name="detailAddr" placeholder="상세 주소 *" required>
 						</div>
 						<div class="col-md-12 form-group">
-							<select class="custom-select" name="shippinMemo">
+							<select class="custom-select shipping-memo" name="shippingMemo">
 								<option selected>배송 메모를 선택해주세요.</option>
 								<option value="1">경비실에 맡겨주세요.</option>
 								<option value="2">현관문 앞에 놓아주세요.</option>

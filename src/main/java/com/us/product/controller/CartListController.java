@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.us.member.model.vo.Member;
 import com.us.product.model.service.CartService;
@@ -41,8 +42,10 @@ public class CartListController extends HttpServlet {
 		
 		ArrayList<Cart> list = new CartService().selectList(userNo);
 		
+		HttpSession session = request.getSession();
+		
 		if(list != null) {
-			request.setAttribute("list", list);
+			session.setAttribute("list", list);
 			request.getRequestDispatcher("views/product/cartListView.jsp").forward(request, response);			
 		}else {
 			response.sendRedirect(request.getContextPath());

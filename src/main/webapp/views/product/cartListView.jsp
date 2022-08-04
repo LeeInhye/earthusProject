@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="com.us.product.model.vo.Cart, java.util.ArrayList" %>
+    pageEncoding="UTF-8" import="com.us.product.model.vo.Cart, java.util.ArrayList" %>
 <%
-	ArrayList<Cart> list = (ArrayList<Cart>)request.getAttribute("list");
+	ArrayList<Cart> list = (ArrayList<Cart>)request.getSession().getAttribute("list");
 %>
 <!doctype html>
 <html lang="zxx">
@@ -129,8 +128,9 @@
 	          </table>
 	          <div class="checkout_btn_inner float-right">
 	          	<input type="hidden" id="userNo" name="userNo" value="<%= list.get(0).getUserNo() %>">
+	          	<input type="hidden" name="orderProCode" value="">
 	            <a class="btn" href="<%=contextPath%>">계속 쇼핑하기</a>
-	            <button type="submit" class="btn" id="checkout_btn">주문하기</button>
+	            <button class="btn" id="checkout_btn" onclick="orderChecked();">주문하기</button>
 	          </div>
 	        </div>
         </form> 
@@ -272,6 +272,17 @@
 			})
 		})
     })
+    
+    
+    // #checkout_btn 클릭하면 체크된 상품만 결제창에 넘기도록 체크 여부 검사, 체크된 Cart객체만을 ArrayList에 넣는 함수
+    function orderChecked(){
+    	var orderProCode = "";
+    	$("input[name=check]:checked").each(function(){
+    		orderProCode += $(this).val() + ","
+    	})
+    	orderProCode = orderProCode.substring(0, orderProCode.lastIndexOf(","));
+    	$("input[name=orderProCode]").val( orderProCode );
+    }
     
     
   </script>

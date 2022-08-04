@@ -46,9 +46,10 @@ public class CheckoutViewController extends HttpServlet {
 		Cart c = null;
 		ArrayList<Cart> list = new ArrayList<>();
 		
-		if(request.getParameter("fromCart") == "T" ) {
+		if(request.getParameter("fromCart").equals("T") ) {
 			// 장바구니에서 이동한 경우,
 			// 결제 페이지에 checked된 Cart(회원번호, 상품코드, 상품명, 수량) 모아서 전달
+			System.out.println(request.getParameter("orderProCode"));
 			list = (ArrayList<Cart>)request.getAttribute("list");
 			
 		}else {
