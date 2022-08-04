@@ -27,8 +27,6 @@ public class Order {
 	private int price;
 	private int quantity;
 	private String zoneCode;
-	private String userName;
-	private String phone;
 	private String address;
 	private String addrDetail;
 	private String userId;
@@ -42,7 +40,7 @@ public class Order {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-
+	
 
 	public Order(int orderNo, int delStatus, String proName, Date orderDate, String proImgPath, int price,
 			int quantity, String proCode) {
@@ -151,22 +149,6 @@ public class Order {
 		this.zoneCode = zoneCode;
 	}
 
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
 	public String getAddress() {
 		return address;
 	}
@@ -185,7 +167,7 @@ public class Order {
 
 	public Order(int orderNo, String payment, int pointsUsed, String shpMemo, int paymentAmount, String delName,
 			String delPhone, String delZoneCode, String delAddress, String delAddrDetail, int delStatus, String proName,
-			Date orderDate, String proImgPath, int price, int quantity, String zoneCode, String userName, String phone,
+			Date orderDate, String proImgPath, int price, int quantity, String zoneCode, String ordrrName, String ordrrPhone,
 			String address, String addrDetail) {
 		super();
 		this.orderNo = orderNo;
@@ -205,8 +187,8 @@ public class Order {
 		this.price = price;
 		this.quantity = quantity;
 		this.zoneCode = zoneCode;
-		this.userName = userName;
-		this.phone = phone;
+		this.ordrrName = ordrrName;
+		this.ordrrPhone = ordrrPhone;
 		this.address = address;
 		this.addrDetail = addrDetail;
 	}

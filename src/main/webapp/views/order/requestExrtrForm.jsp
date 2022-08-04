@@ -197,11 +197,11 @@
 					<table border="1">
 					  <tr>
 						<th>이름</th>
-						<td><%=o.getUserName() %></td>
+						<td><%=o.getOrdrrName() %></td>
 					  </tr>
 					  <tr>
 						<th>휴대폰 번호</th>
-						<td><%=o.getPhone() %></td>
+						<td><%=o.getOrdrrPhone() %></td>
 					  </tr>
 					  <tr>
 						<th>회수지 주소</th>

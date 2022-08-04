@@ -89,4 +89,26 @@ public class OrderService {
 		close(conn);
 		return list;
 	}
+	
+	// 관_운송장추가
+	public int updateDelNo(int orderNo, int delNo) {
+		Connection conn = getConnection();
+		int result = new OrderDao().updateDelNo(conn, orderNo, delNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	// 취소 상세내역 조회
+	public ArrayList<Order> selectCanDetail(int orderNo){
+		Connection conn = getConnection();
+		ArrayList<Order> list = new OrderDao().selectCanDetail(conn, orderNo);
+		close(conn);
+		return list;
+	}
 }

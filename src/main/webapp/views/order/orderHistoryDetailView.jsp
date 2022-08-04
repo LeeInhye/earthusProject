@@ -191,11 +191,11 @@
 			</tr>
 			<tr>
 			  <th>주문자</th>
-			  <td><%=olist.get(0).getUserName() %></td>
+			  <td><%=olist.get(0).getOrdrrName() %></td>
 			</tr>
 			<tr>
 			  <th>주문자 휴대폰 번호</th>
-			  <td><%=olist.get(0).getPhone() %></td>
+			  <td><%=olist.get(0).getOrdrrPhone() %></td>
 			</tr>
 			<tr>
 			  <th>주문자 주소</th>
@@ -257,7 +257,7 @@
 			</tr>
 			<tr>
 			  <th>결제금액</th>
-			  <td><%=olist.get(0).getPaymentAmount()+3000 %></td>
+			  <td><%=olist.get(0).getPaymentAmount()+3000-olist.get(0).getPointsUsed() %></td>
 			</tr>
 			<tr>
 			  <th>결제수단</th>

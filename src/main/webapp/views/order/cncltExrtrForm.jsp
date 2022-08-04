@@ -24,7 +24,7 @@
 		.table{
 		  text-align:center;
 		}
-		.cancel, #exchange, #detail{
+		.cancel, .exchange, #detail{
 		  background-color:rgb(168,191,170);
 		  border:0;
 		  color:white;
@@ -48,6 +48,15 @@
 		  color:white;
 		  width:90px;
 		  height:40px;
+		}
+		.dis-btn{
+			background-color:rgb(242,242,242);
+			color:black;
+			border:0;
+			width:80px;
+			height:30px;
+			border-radius:5px;
+			margin:5px;
 		}
 	</style>
 </head>
@@ -85,9 +94,9 @@
 				</thead>
 				<tbody>
 					<%for(Order or : celist){ %>
-					  <tr>
+					  <tr class="tt" myattr="<%=or.getOrderNo() %>">
 						<td class="on">
-							<input type="hidden" name="orderNo" value="<%=or.getOrderNo() %> ">
+							
 							<h5><%=or.getOrderNo() %></h5>
 							<p style="font-size:small"><%=or.getOrderDate() %></p>
 						</td>
@@ -122,9 +131,15 @@
 						</td>
 						<td>
 						  <div class="p-btn">
-							<button id="cancel<%=or.getProCode()%>" class="cancel" type="button" data-toggle="modal" data-target="#cancelModal">취소</button> <br>
-							<button id="exchange" onclick="location.href='<%=contextPath%>/request.or?exNo=<%=or.getOrderNo()%>&pCo=<%=or.getProCode()%>';">교환/반품</button> <br>
-							<button id="detail">내역조회</button>
+						  <%if((or.getDelStatus() == 4) || (or.getDelStatus() == 5) || (or.getDelStatus() == 6)) {%>
+							<button id="cancel<%=or.getProCode()%>" class="cancel dis-btn" type="button" data-toggle="modal" data-target="#cancelModal" disabled>취소</button> <br>
+							<button id="exchange" class="exchange dis-btn" onclick="location.href='<%=contextPath%>/request.or?exNo=<%=or.getOrderNo()%>&pCo=<%=or.getProCode()%>';" disabled>교환/반품</button> <br>
+							<%if(or.getDelStatus() == 4) {%>
+							  <button id="detail" onclick="location.href='<%=contextPath%>/canDetail.or?cNo=<%=or.getOrderNo() %>'">내역조회</button>
+							<%}else{ %>
+							  <button id="detail">내역조회</button>
+							<%} %>
+						  <%} %>
 						  </div>
 						</td>
 					  </tr>
@@ -141,19 +156,26 @@
 		      <div class="modal-body" align="center">
 		        	<br><br>
 		        	<span style="font-size:large;">정말 취소하시겠습니까?</span> <br><br><br>
-		        	
-		        	<button type="button" class="btn" id="y-btn" name="can" value="4" onclick="location.href='<%=contextPath%>/cancel.or';">확인</button> &nbsp;&nbsp;
+		        	<input type="hidden" value="" id="cancelOrNo">
+		        	<button type="button" class="btn" id="y-btn" name="can" value="4" onclick="goCancel(4);">확인</button> &nbsp;&nbsp;
 		        	<button type="button" class="btn" id="n-btn" data-dismiss="modal">취소</button>
 		        	
 		      </div>
-	
 		    </div>
 		  </div>
 	</div>
 	
 	<script>
+		function goCancel(num){
+			location.href= '<%=contextPath%>/cancel.or?orderNo=' + $('#cancelOrNo').val() + '&can=' + num;
+		}
 		
-		  
+		  $(function(){
+			  $(".cancel").click(function(){
+				  //$("#cancelOrNo").val($(this).parents("tr").siblings().eq(0).children(".on").children("h5").text());
+				  $("#cancelOrNo").val($(this).parents(".tt").attr("myattr"));
+			  })
+		  })
 		  
 			$(".on").each(function() {
 			  var rows = $(".on:contains('" + $(this).text() + "')");

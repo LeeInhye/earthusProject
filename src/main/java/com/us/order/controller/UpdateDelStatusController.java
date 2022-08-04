@@ -14,13 +14,13 @@ import com.us.order.model.vo.Order;
  * Servlet implementation class DelStatusUpdateController
  */
 @WebServlet("/dsUpdate.or")
-public class DelStatusUpdateController extends HttpServlet {
+public class UpdateDelStatusController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DelStatusUpdateController() {
+    public UpdateDelStatusController() {
         super();
         // TODO Auto-generated constructor stub
     }

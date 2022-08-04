@@ -121,8 +121,8 @@ public class OrderDao {
 						 		   rset.getInt("price"),
 						 		   rset.getInt("quantity"),
 						 		   rset.getString("zonecode"),
-						 		   rset.getString("user_name"),
-						 		   rset.getString("phone"),
+						 		   rset.getString("ordrr_name"),
+						 		   rset.getString("ordrr_phone"),
 						 		   rset.getString("address"),
 						 		   rset.getString("addr_detail")
 						 		   
@@ -236,6 +236,7 @@ public class OrderDao {
 		
 	}
 	
+	// 취소 신청
 	public int updateCan(Connection conn, int orderNo, int status) {
 		int result = 0;
 		
@@ -258,6 +259,7 @@ public class OrderDao {
 		return result;
 	}
 	
+	// 관_구매내역조회
 	public ArrayList<Order> selectOrderListAd(Connection conn){
 		ArrayList<Order> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -273,6 +275,7 @@ public class OrderDao {
 				ol.setOrderNo(rset.getInt("order_no"));
 				ol.setOrderDate(rset.getDate("order_date"));
 				ol.setUserId(rset.getString("user_id"));
+				ol.setDelNo(rset.getInt("del_no"));
 				ol.setDelStatus(rset.getInt("del_status"));
 				list.add(ol);
 			}
@@ -286,4 +289,75 @@ public class OrderDao {
 		return list;
 		
 	}
+	
+	// 관_운송장추가
+	public int updateDelNo(Connection conn, int orderNo, int delNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateDelNo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, delNo);
+			pstmt.setInt(2, orderNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// 취소 상세내역 조회
+	public ArrayList<Order> selectCanDetail(Connection conn, int orderNo){
+		ArrayList<Order> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectCanDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, orderNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Order ol = new Order();
+				ol.setOrderNo(rset.getInt("order_no"));
+				ol.setOrderDate(rset.getDate("order_date"));
+				ol.setProName(rset.getString("pro_name"));
+				ol.setPrice(rset.getInt("price"));
+				ol.setQuantity(rset.getInt("quantity"));
+				ol.setDelStatus(rset.getInt("del_status"));
+				ol.setDelName(rset.getString("del_name"));
+				ol.setDelPhone(rset.getString("del_phone"));
+				ol.setDelZoneCode(rset.getString("del_zonecode"));
+				ol.setDelAddress(rset.getString("del_address"));
+				ol.setDelAddrDetail(rset.getString("del_addr_detail"));
+				ol.setShpMemo(rset.getString("shp_memo"));
+				ol.setOrdrrName(rset.getString("ordrr_name"));
+				ol.setOrdrrPhone(rset.getString("ordrr_phone"));
+				ol.setZoneCode(rset.getString("zonecode"));
+				ol.setAddress(rset.getString("address"));
+				ol.setAddrDetail(rset.getString("addr_detail"));
+				ol.setPaymentAmount(rset.getInt("payment_amount"));
+				ol.setPointsUsed(rset.getInt("points_used"));
+				ol.setPayment(rset.getString("payment"));
+				list.add(ol);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
+	}
+	
 }

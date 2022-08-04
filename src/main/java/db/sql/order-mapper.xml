@@ -56,8 +56,8 @@
 		     , DEL_ADDRESS
 		     , DEL_ADDR_DETAIL
 		     , SHP_MEMO
-		     , USER_NAME
-		     , PHONE
+		     , ORDRR_NAME
+		     , ORDRR_PHONE
 		     , ZONECODE
 		     , ADDRESS
 		     , ADDR_DETAIL
@@ -135,8 +135,8 @@
 		  LEFT JOIN PAY_CASH USING (ORDER_NO)
 		  JOIN ORDER_PRODUCT USING (ORDER_NO)
 		  JOIN MEMBER USING (USER_NO)
-		  ORDER
-		     BY ORDER_NO DESC
+	     ORDER
+	        BY ORDER_NO DESC
 	</entry>
 	
 	<entry key="updateDelNo">
@@ -145,7 +145,36 @@
 		 WHERE ORDER_NO = ?
 	</entry>
 
-
+	<entry key="selectCanDetail">
+		SELECT
+		       ORDER_NO
+		     , DECODE(PAYMENT, 'CARD', CARD_APPROVAL_DATE, 'CASH', CASH_APPROVAL_DATE)"ORDER_DATE"
+		     , PRO_NAME
+		     , PRICE
+		     , QUANTITY
+		     , DEL_STATUS
+		     , DEL_NAME
+		     , DEL_PHONE
+		     , DEL_ZONECODE
+		     , DEL_ADDRESS
+		     , DEL_ADDR_DETAIL
+		     , SHP_MEMO
+		     , ORDRR_NAME
+		     , ORDRR_PHONE
+		     , ZONECODE
+		     , ADDRESS
+		     , ADDR_DETAIL
+		     , PAYMENT_AMOUNT
+		     , POINTS_USED
+		     , PAYMENT
+		  FROM "ORDER"
+		  JOIN MEMBER USING (USER_NO)
+		LEFT JOIN PAY_CARD USING (ORDER_NO)
+		LEFT JOIN PAY_CASH USING (ORDER_NO)
+		  JOIN ORDER_PRODUCT USING (ORDER_NO)
+		  JOIN PRODUCT USING (PRO_CODE)
+		 WHERE ORDER_NO = ?
+	</entry>
 
 
 
