@@ -63,7 +63,6 @@ public class ProductDao {
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectListCountSM");
 		
-		// 동적 sql문
 		if(categoryNo == 5) {	// 카테고리가 있을 때
 			if(keyword != null) {
 				sql += "WHERE PRO_NAME LIKE ";
@@ -72,6 +71,10 @@ public class ProductDao {
 		} else {
 			sql += "WHERE CATEGORY_NO = ";
 			sql += categoryNo;
+			if(keyword != null) {
+				sql += " AND PRO_NAME LIKE";
+				sql += "'%" + keyword + "%'";
+			}
 		}
 		
 		try {
@@ -191,14 +194,18 @@ public class ProductDao {
 			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1; //시작값
 			int endRow = startRow + pi.getBoardLimit() - 1; // 끝값
 			
-			// 동적 sql문
 			if(categoryNo == 5) {	// 카테고리가 있을 때
 				if(keyword != null) {
-					sql += "WHERE PRO_NAME LIKE '%" + keyword + "%' ";
+					sql += "WHERE PRO_NAME LIKE ";
+					sql += "'%" + keyword + "%'";
 				}
 			} else {
 				sql += "WHERE CATEGORY_NO = ";
 				sql += categoryNo;
+				if(keyword != null) {
+					sql += " AND PRO_NAME LIKE";
+					sql += "'%" + keyword + "%'";
+				}
 			}
 			
 			sql += " ORDER BY PRO_CODE DESC) A";
@@ -268,18 +275,22 @@ public class ProductDao {
 			ResultSet rset = null;
 			String sql = prop.getProperty("selectBestProductListSM");
 			
-			// 동적 sql문
 			if(categoryNo == 5) {	// 카테고리가 있을 때
 				if(keyword != null) {
-					sql += "WHERE PRO_NAME LIKE '%" + keyword + "%' ";
+					sql += "WHERE PRO_NAME LIKE ";
+					sql += "'%" + keyword + "%'";
 				}
 			} else {
 				sql += "WHERE CATEGORY_NO = ";
 				sql += categoryNo;
+				if(keyword != null) {
+					sql += " AND PRO_NAME LIKE";
+					sql += "'%" + keyword + "%'";
+				}
 			}
 			
 			sql += " ORDER BY PRO_COUNT DESC, PRO_NAME ASC) A";
-			sql += ")  WHERE RNUM BETWEEN 1 AND 5";
+			sql += ") WHERE RNUM BETWEEN 1 AND 5";
 			
 			try {
 				pstmt = conn.prepareStatement(sql);

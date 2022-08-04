@@ -176,10 +176,12 @@
                                     <div class="input-group">
                                         <input type="text" id="pNameKeyword" class="form-control" placeholder="상품명 검색"
                                             aria-describedby="inputGroupPrepend">
-                                        <div class="input-group-prepend">
+                                        <div class="input-group-prepend" style="align-items: flex-end;">
                                             <!--상품검색 돋보기아이콘-->
-                                            <span class="input-group-text" id="inputGroupPrepend"><i
-                                                    class="ti-search"></i></span>
+                                            <a style="display: inline-block;" onclick="searchPro();">
+	                                            <span class="input-group-text" id="inputGroupPrepend" style="margin: auto;">
+	                                            <i class="ti-search"></i></span>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -187,6 +189,16 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- 카테고리별 상품 검색 -->
+                    <script>
+                    	function searchPro(){
+							location.href = "<%= contextPath %>/list.pro?categoryNo=" + <%= categoryNo %> + "&cpage=1&keyword=" + $("#pNameKeyword").val();                     		
+                    
+                    	}
+                    </script>
+                    
+                    
 
                   <!--상품 목록 영역 시작-->
                     <!------- 베스트 상품 영역 시작 ------->
@@ -203,6 +215,7 @@
                             <div class="row align-items-center justify-content-between">
                                 <div class="col-lg-12">
                                     <div class="best_product_slider owl-carousel">
+                                    <% System.out.println(bList); %>
                                     	<% for(Product p : bList) { %>
                                         <div class="single_product_item">
                                             <img src="<%= contextPath %>/<%= p.getProImgPath() %>">

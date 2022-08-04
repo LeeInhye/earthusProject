@@ -39,8 +39,6 @@ public class productListController extends HttpServlet {
 		int categoryNo = Integer.parseInt(request.getParameter("categoryNo"));
 		String keyword = request.getParameter("keyword");
 		
-		System.out.println(categoryNo);
-		System.out.println(keyword);
 		// -------- 페이징 처리 ---------
 		int listCount; // 현재 총 게시글 개수
 		int currentPage; // 사용자가 보게 될 페이지
@@ -79,7 +77,8 @@ public class productListController extends HttpServlet {
 		
 		// 카테고리별 베스트 상품 5개 조회 + 전체
 		ArrayList<Product> bList = new ProductService().selectBestProductListSM(categoryNo, keyword);
-		
+		System.out.println(categoryNo);
+		System.out.println(bList);
 		// 포워딩
 		request.setAttribute("pi", pi);
 		request.setAttribute("cList", cList);
