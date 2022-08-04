@@ -92,6 +92,13 @@ public class adProductService {
 		return listCount;
 	}
 	
+	public int selectpqlistCount2(String option) {
+		Connection conn = getConnection();
+		int listCount = new adProductDao().selectpqlistCount2(conn, option);
+		close(conn);
+		return listCount;
+	}
+	
 	public ProQna selectProQna(int proQnaNo) {
 		Connection conn = getConnection();
 		ProQna pq = new adProductDao().selectProQna(conn, proQnaNo);

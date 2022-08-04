@@ -211,6 +211,7 @@
 	                		})
                 	}
                 </script>
+                
                 <!------- 장바구니 이동 확인 Modal ------->
                 <div class="modal" id="insertCartModal">
                   <div class="modal-dialog">

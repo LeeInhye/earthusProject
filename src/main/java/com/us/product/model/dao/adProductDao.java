@@ -209,11 +209,46 @@ public class adProductDao {
 		return result;
 	}
 	
+	// 모든 상품문의글 개수 조회 
 	public int selectpqlistCount(Connection conn) {
 		int listCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectpqlistCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("listCount");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+	
+	// 답변 상태별 상품문의글 개수 조회
+	public int selectpqlistCount2(Connection conn, String option) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectpqlistCount2");
+		
+		// option에 따른 where절 담는 변수
+		String where = "";
+		
+		switch(option) {
+		case "add" : break;
+		case "waiting" : where = "WHERE PRO_A_ENROLL_DATE IS NULL "; break;
+		case "complete" : where = "WHERE PRO_A_ENROLL_DATE IS NOT NULL "; break;
+		}
+		
+		sql += where;
 		
 		try {
 			pstmt = conn.prepareStatement(sql);

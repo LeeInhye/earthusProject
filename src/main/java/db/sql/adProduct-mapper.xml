@@ -116,7 +116,14 @@ SELECT LAST_NUMBER "maxProCode"
 	 WHERE RNUM BETWEEN ? AND ?
 </entry>
 
+<!-- 모든 상품문의글 개수 조회 -->
 <entry key="selectpqlistCount">
+SELECT COUNT(PRO_QNA_NO) "listCount"
+  FROM PRO_QNA
+</entry>
+
+<!-- 답변 상태별 상품문의글 개수 조회 -->
+<entry key="selectpqlistCount2">
 SELECT COUNT(PRO_QNA_NO) "listCount"
   FROM PRO_QNA
 </entry>
