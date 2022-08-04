@@ -68,54 +68,58 @@
                         </div>
                         <div>
                             <label class="bold">처리 상태 : </label>
-                            <select name="" id="">
-                                <option value="">전체</option>
-                                <option value="">미지급</option>
-                                <option value="">지급완료</option>
+                            <select name="filter" class="selectStatus" onchange="selectStatus(1);">
+                                <option value="" selected>전체</option>
+                                <option value="N">미지급</option>
+                                <option value="Y">지급완료</option>
                             </select>
                         </div>
                     </div>
 					<br><br>
 					
 					<table>
-						<tr>
-							<th width="5%" height="50px">
-								<input type="checkbox" id="checkAll">
-							</th>
-							<th width="5%">No.</th>
-							<th width="7%">처리 상태</th>
-							<th width="55%">댓글 내용</th>
-							<th width="7%">작성자</th>
-							<th width="12%">작성일</th>
-							<th width="14%">처리</th>
-						</tr>
-						<% if(list.isEmpty()) { %>
+						<thead>
 							<tr>
-								<td colspan="6">존재하는 댓글이 없습니다.</td>
-							</tr>  	
-						<% } else { %>
-							   <% for(Comment cmnt : list) { %>
-								<tr class="list-area">
-									 <td>
-										<input type="checkbox" name="check" value="<%= cmnt.getCmntNo() %>">
-									</td>
-									<td><%= cmnt.getCmntNo() %></td>
-                                    <td>
-                                        <% if( cmnt.getCmntStatus().equals("Y") ) { %>
-											<label>지급완료</label>
-										<% } else { %>
-											<label>미지급</label>
-										<% } %>
-                                    </td>
-									<td><%= cmnt.getCmntContent() %></td>
-									<td><%= cmnt.getCmntWriter() %></td>
-									<td><%= cmnt.getCmntEnrollDate() %></td>
-									<td>
-                                        <button type="button" class="btn btn-dark" id="btn_point">지급하기</button>
-                                    </td>
-								</tr>
+								<th width="5%" height="50px">
+									<input type="checkbox" id="checkAll">
+								</th>
+								<th width="5%">No.</th>
+								<th width="7%">처리 상태</th>
+								<th width="55%">댓글 내용</th>
+								<th width="7%">작성자</th>
+								<th width="12%">작성일</th>
+								<th width="14%">처리</th>
+							</tr>
+						</thead>
+						<tbody id="cmnt-area">
+							<% if(list.isEmpty()) { %>
+								<tr>
+									<td colspan="6">존재하는 댓글이 없습니다.</td>
+								</tr>  	
+							<% } else { %>
+								   <% for(Comment cmnt : list) { %>
+									<tr class="list-area">
+										 <td>
+											<input type="checkbox" name="check" value="<%= cmnt.getCmntNo() %>">
+										</td>
+										<td><%= cmnt.getCmntNo() %></td>
+	                                    <td>
+	                                        <% if( cmnt.getCmntStatus().equals("Y") ) { %>
+												<label>지급완료</label>
+											<% } else { %>
+												<label>미지급</label>
+											<% } %>
+	                                    </td>
+										<td><%= cmnt.getCmntContent() %></td>
+										<td><%= cmnt.getCmntWriter() %></td>
+										<td><%= cmnt.getCmntEnrollDate() %></td>
+										<td>
+	                                        <button type="button" class="btn btn-dark" id="btn_point">지급하기</button>
+	                                    </td>
+									</tr>
+								<% } %>
 							<% } %>
-						<% } %>
+						</tbody>
 					</table>
  
 						<button class="btn_admin" id="btn_delete" style="float: left; margin-left: 10%;" data-bs-toggle="modal" data-bs-target="#jyModal_noCheck">선택 삭제</button>
@@ -253,6 +257,82 @@
                             })
 
 						})
+						
+						// 처리상태 카테고리로 리스트 조회
+						function selectStatus(page){
+							 
+							 $.ajax({
+								 url:"<%= contextPath%>/filter.ch",
+                                 data:{no:<%= ch.getChallNo() %>,
+                                	   selectSt:$("select[name=filter] option:selected").val(),
+                                	   cpage:page},
+                                 success:function(map){
+	                             	let contextPath = "<%=contextPath%>";
+			        				let pi = map.pi;
+			        				let list = map.list;
+			        				console.log(list[0]);
+			        				console.log(list[1]);
+			        				
+			        				let value = ""; // 댓글 리스트 
+			        				let paging = ""; // 페이징 처리
+			        				if(list.length == 0){
+			        					value += "<tr>"
+			        						   + "<td colspan='6'>존재하는 댓글이 없습니다.</td>"
+			        						   + "</tr>"
+			        				}else {
+			        					// 댓글 리스트
+			        					for(let i=0; i<list.length; i++) {
+			          						switch(list[i].cmntStatus){
+			          						case"N": list[i].cmntStatus = "미지급"; break;
+			          						case"Y": list[i].cmntStatus = "지급완료"; break;
+			          						}
+			        						
+			        						value += "<tr class='list-area'>"
+			        							   + "<td>"
+			        							   + "<input type='checkbox' name='check' value='" + list[i].cmntStatus + "'>'"
+			        							   + "</td>"
+			        							   + "<td>" + list[i].cmntNo + "</td>"
+			        							   + "<td><label>" + list[i].cmntStatus + "</label></td>"
+			        							   + "<td>" + list[i].cmntContent + "</td>"
+			        							   + "<td>" + list[i].cmntWriter + "</td>"
+			        							   + "<td>" + list[i].cmntEnrollDate + "</td>"
+			        							   + "<td>" + "<button type='button' class='btn btn-dark' id='btn_point'>지급하기</button></td>"
+			        							   + "</tr>";
+			        					}
+			        					
+			            				// 페이징바
+			            				if(pi.currentPage != 1) {
+			            					paging += '<button onclick="selectStatus(' + (pi.currentPage-1) + ');" class="btn btn_black">&lt;</button>';
+			            				}
+			            				
+			            				
+			            				for(let p=pi.startPage; p<=pi.endPage; p++){
+			            					
+			            					if(p == pi.currentPage){
+			            						paging += '<button class="btn btn_gray" disabled>' +  p + '</button>';
+			            					}else{
+			            						paging += '<button onclick="selectStatus(' + p + ');" class="btn btn_black">' + p + '</button>';
+			            					}
+			            					
+			            				}
+			            				
+			            				if(pi.currentPage != pi.maxPage) {
+			        						paging += '<button onclick="selectStatus(' + (pi.currentPage+1) + ');" class="btn btn_black">&gt;</button>';
+			            				}
+			        					
+			        				}
+			        				
+                                	$("#cmnt-area").html(value);
+		        				 	$(".paging-area").html(paging); 
+                     					
+                                 },
+                                 error:function(){
+                                     console.log("ajax 댓글 조회 실패")
+                                 }
+							 })
+							 
+						 }
+						
 					 </script>
  
 				</div>

@@ -16,7 +16,7 @@ import com.us.common.model.vo.PageInfo;
 
 public class ChallengeService {
 	
-	// 페이징바_현재 총 게시글 갯수
+	// 페이징바_현재 총 게시글 개수
 	public int selectListCount() {
 		Connection conn = getConnection();
 		int listCount = new ChallengeDao().selectListCount(conn);
@@ -25,10 +25,19 @@ public class ChallengeService {
 		return listCount;		
 	}
 	
-	// 페이징바_챌린지 게시글별 총 댓글 갯수
+	// 페이징바_챌린지 게시글별 총 댓글 개수
 	public int selectCmntCount(int challNo) {
 		Connection conn = getConnection();
 		int listCount = new ChallengeDao().selectCmntCount(conn, challNo);
+		close(conn);
+		
+		return listCount;		
+	}
+	
+	// 페이징바_챌린지 댓글 관리에서 검색 필터별 댓글 개수
+	public int selectCmntCount(int challNo, String selectSt) {
+		Connection conn = getConnection();
+		int listCount = new ChallengeDao().selectCmntFilterCount(conn, challNo, selectSt);
 		close(conn);
 		
 		return listCount;		
@@ -134,6 +143,14 @@ public class ChallengeService {
 	public ArrayList<Comment> selectCmntList(int challNo, PageInfo pi) {
 		Connection conn = getConnection();
 		ArrayList<Comment> list = new ChallengeDao().selectCmntList(conn, challNo, pi);
+		close(conn);
+		return list;
+	}
+	
+	// 관리자_챌린지 댓글 관리에서 검색 필터별 댓글 리스트 조회
+	public ArrayList<Comment> selectCmntList(int challNo, String selectSt, PageInfo pi) {
+		Connection conn = getConnection();
+		ArrayList<Comment> list = new ChallengeDao().selectCmntList(conn, challNo, selectSt, pi);
 		close(conn);
 		return list;
 	}

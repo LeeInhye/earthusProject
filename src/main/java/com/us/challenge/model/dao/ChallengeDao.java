@@ -81,6 +81,33 @@ public class ChallengeDao {
 		return listCount;
 	}
 	
+	// 페이징바_챌린지 댓글관리에서 필터별 댓글 개수
+	public int selectCmntFilterCount(Connection conn, int challNo, String selectSt) {
+		// select => ResultSet(숫자 한 개) => listCount
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectCmntCount") + selectSt;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, challNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
 	// 관리자_챌린지 리스트 조회 (+ 챌린지 댓글관리에서 챌린지 리스트 조회)
 	public ArrayList<Challenge> selectAdList(Connection conn, PageInfo pi) {
 		// select => ResultSet(여러 행) => ArrayList<Challenge>
@@ -362,15 +389,55 @@ public class ChallengeDao {
 		return ch;
 	}
 
-	// 사용자_댓글 리스트 조회
+	// 사용자_게시글 상세 조회 시 댓글 리스트 조회, 관리자_댓글 관리 시 댓글 리스트 조회
 	public ArrayList<Comment> selectCmntList(Connection conn, int challNo, PageInfo pi) {
 		// select => ResultSet(여러 행) => ArrayList<Comment>
 		ArrayList<Comment> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("selectCmntList");
+		String sql = prop.getProperty("selectCmntList1") + prop.getProperty("selectCmntList2");
+
 		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			pstmt.setInt(1, challNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Comment(rset.getInt("cmnt_no"),
+								     rset.getString("user_name"),
+								     rset.getString("cmnt_content"),
+								     rset.getString("enroll_date"),
+								     rset.getString("cmnt_status")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	// 관리자_챌린지 댓글 관리에서 검색 필터별 댓글 리스트 조회
+	public ArrayList<Comment> selectCmntList(Connection conn, int challNo, String selectSt, PageInfo pi) {
+		// select => ResultSet(여러 행) => ArrayList<Comment>
+		ArrayList<Comment> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql1 = prop.getProperty("selectCmntList1");
+		String sql2 = prop.getProperty("selectCmntList2");
+		String sql = sql1 + selectSt + sql2;
+		
+		System.out.println(sql);
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;

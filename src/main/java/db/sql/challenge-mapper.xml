@@ -144,7 +144,7 @@
 	
 	<!-- 사용자 챌린지 게시글 상세 조회 시 댓글리스트 조회, 
 	     관리자 챌린지 댓글 관리 시 댓글리스트 조회 -->
-	<entry key="selectCmntList">
+	<entry key="selectCmntList1">
 		SELECT *
 		  FROM (
 		        SELECT ROWNUM RNUM, A.*
@@ -158,6 +158,11 @@
 		                  FROM CHALLENGE_CMNT
 		                  JOIN MEMBER USING (USER_NO)
 		                 WHERE CHALL_NO = ?
+		                 
+	</entry>
+	
+	<entry key="selectCmntList2">
+		
 		                 ORDER
 		                    BY CMNT_NO DESC
 		                ) A
