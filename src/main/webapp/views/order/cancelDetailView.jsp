@@ -101,7 +101,7 @@
 	
     <section class="explan">
         <span>취소 내역</span>
-        <button id="mybtn">마이페이지&gt;</button>
+        <button type="button" id="mybtn" onclick="location.href='<%=contextPath%>/myPage.mp'">마이페이지&gt;</button>
     
         <hr>
       </section>

@@ -94,7 +94,7 @@
 		  취소/교환/반품은 마이페이지의 취소/교환/반품 메뉴에서 가능합니다.
 	
 		</span>
-		<button id="mybtn">마이페이지&gt;</button>
+		<button type="button" id="mybtn" onclick="location.href='<%=contextPath%>/myPage.mp'">마이페이지&gt;</button>
 	
 		<hr>
 	  </section>

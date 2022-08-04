@@ -109,7 +109,7 @@
 		  문의사항이 있으시면 Q&A게시판을 이용해 주세요.
 	
 		</span>
-		<button id="mybtn">마이페이지&gt;</button>
+		<button type="button" id="mybtn" onclick="location.href='<%=contextPath%>/myPage.mp'">마이페이지&gt;</button>
 	
 		<hr>
 	</section>

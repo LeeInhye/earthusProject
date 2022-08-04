@@ -73,7 +73,7 @@
 		  문의사항이 있으시면 Q&A게시판을 이용해 주세요.
 	
 		</span>
-		<button id="mybtn">마이페이지 &gt;</button>
+		<button type="button" id="mybtn" onclick="location.href='<%=contextPath%>/myPage.mp'">마이페이지&gt;</button>
 	
 		<hr>
 	</section>
@@ -137,7 +137,7 @@
 							<%if(or.getDelStatus() == 4) {%>
 							  <button id="detail" onclick="location.href='<%=contextPath%>/canDetail.or?cNo=<%=or.getOrderNo() %>'">내역조회</button>
 							<%}else{ %>
-							  <button id="detail">내역조회</button>
+							  <button id="detail" onclick="location.href='<%=contextPath%>/exrtrDetail.or?erNo=<%=or.getOrderNo() %>&pNo=<%=or.getProCode()%>'">내역조회</button>
 							<%} %>
 						  <%} %>
 						  </div>
