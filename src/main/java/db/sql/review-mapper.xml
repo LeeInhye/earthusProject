@@ -24,12 +24,9 @@
 		SELECT USER_NO
 		    , PRO_CODE
 		    , PRO_NAME
-		    , PRO_IMG_PATH
 		 FROM "ORDER-PRODUCT"
 		 JOIN "ORDER"
 		USING (ORDER_NO)
-		 JOIN PRODUCT
-		USING (PRO_CODE)
 		WHERE PRO_CODE = ?
 		  AND USER_NO = ?
 	</entry>
@@ -47,6 +44,22 @@
 			 , ?
 			 , ?
 			 )
+	</entry>
+	
+	<entry key="insertNewAttachment">
+	INSERT
+	  INTO ATTACHMENT
+	VALUES
+	     (
+	       SEQ_FILENO.NEXTVAL
+	     , 4
+	     , SEQ_REVIEW.CURRVAL
+	     , ?
+	     , ?
+	     , ?
+	     , SYSDATE
+	     , 'Y'
+	     )
 	</entry>
 	
 	<entry key="insertAttachment">
@@ -103,10 +116,21 @@
 		   SET STATUS = 'N'
 		 WHERE REF_TYPE = 4
 		   AND REF_BNO = ?
-		   AND ORIGIN_NAME != ?
+		   AND CHANGE_NAME != ?
 	</entry>
 	
+	<entry key="deleteReview">
+		DELETE 
+		  FROM REVIEW
+		 WHERE REV_NO = ?
+	</entry>
 	
+	<entry key="deleteAttachment">
+		UPDATE
+		   SET STATUS = 'N'
+		 WHERE REF_TYPE = 4
+		   AND REF_BNO = ?
+	</entry>
 	
 	
 

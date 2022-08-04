@@ -90,8 +90,8 @@ public class ReviewDao {
 	}
 	
 	
-	public Review checkPurchase(Connection conn, int userNo, String proCode) {
-		Review r = null;
+	public int checkPurchase(Connection conn, int userNo, String proCode) {
+		int result = 0;
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("checkPurchase");
@@ -102,7 +102,7 @@ public class ReviewDao {
 			pstmt.setInt(2, userNo);
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
-				r = new Review();
+				result = 1;
 			}
 			
 		} catch (SQLException e) {
@@ -111,7 +111,7 @@ public class ReviewDao {
 			close(rset);
 			close(pstmt);
 		}
-		return r;
+		return result;
 		
 	}
 	
@@ -138,8 +138,27 @@ public class ReviewDao {
 		}
 		return result;
 	}
+
+	// 새로운 리뷰 작성하면서 새로운 파일 첨부했을 때
+	public int insertAttachment(Connection conn, Attachment at) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertNewAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
-	
+	// 기존 리뷰 수정하면서 새로운 파일 첨부했을 때
 	public int insertAttachment(Connection conn, Review r, Attachment at) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -190,7 +209,6 @@ public class ReviewDao {
 			close(pstmt);
 		}
 		return r;
-		
 	}
 	
 	public Attachment selectAttachment(Connection conn, int revNo) {
@@ -265,4 +283,34 @@ public class ReviewDao {
 	
 	
 
+	public int deleteReview(Connection conn, int revNo) {
+		int result1 = 0;
+		int result2 = 1;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteReview");
+		String sql2 = prop.getProperty("deleteAttachment");
+		
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, revNo);
+			result1 = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} try {
+			pstmt = conn.prepareStatement(sql2);
+			pstmt.setInt(1, revNo);
+			result2 = pstmt.executeUpdate();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result1 * result2;
+		
+	}
+	
+	
 }

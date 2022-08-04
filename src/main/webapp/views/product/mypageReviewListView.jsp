@@ -51,10 +51,10 @@
 			margin: auto auto;
 			margin-top:10px;
 		}
-		#submit-review{
+		#edit-review{
 			width:50px; 
 			height:150px; 
-			border:1px solid gray; 
+			border:1px solid #F2F2F2  ; 
 			background:none; 
 			border-radius:10px;
 		}
@@ -103,7 +103,7 @@
 			<tbody>
 			<% for(Review r : list) { %> 
 				<tr style="line-height:50px;">
-					<td align="center"><input type="checkbox" class="check-review"></td>
+					<td align="center"><input type="checkbox" class="check-review" value="<%= r.getRevNo() %>"></td>
 					<td align="center" class="clickable" height="150px;">
 						<img src="<%= r.getProImgPath() %>" width="90%">
 					</td>
@@ -147,9 +147,27 @@
 		
 		// 선택삭제 checkbox에 대한 함수
 		function deleteChecked(){
-		  $(".check-review:checked").each(function(){
-			$(this).parent().parent().remove();
-		  })
+			var deleteElement = "";
+				
+			$(".check-review:checked").each(function(){
+				deleteElement = deleteElement + ($(this).val()) + ",";
+			})
+			
+			deleteElement = deleteElement.substring(0, deleteElement.lastIndexOf(","));
+			
+			$.ajax({
+				url:"<%=contextPath%>/delete.re",
+				data:{
+					revNo:deleteElement
+					},
+				success:function(result){
+					alert("선택한 상품 삭제에 성공하였습니다.");
+					location.reload();
+				}, 
+				error:function(){
+					alert("선택한 상품 삭제에 실패하였습니다.");
+				}
+			})
 		}
 
 		// document-ready-function area

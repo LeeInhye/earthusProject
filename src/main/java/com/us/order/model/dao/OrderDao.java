@@ -235,4 +235,26 @@ public class OrderDao {
 		return result;
 		
 	}
+	
+	public int updateCan(Connection conn, int orderNo, int status) {
+		int result = 0;
+		
+PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateExrtr");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, status);
+			pstmt.setInt(2, orderNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }

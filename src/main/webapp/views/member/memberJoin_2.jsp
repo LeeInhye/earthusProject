@@ -41,6 +41,7 @@
                     </th>
                     <td>
                         <input type="text" id="inputId" name="inputId" required>
+                        
                         &nbsp;
                         <button type="button" class="btn btn-sm btn_gray" id="idCheckBtn">중복 확인</button>
                         <input type="hidden" name="checkId_status" value="">
@@ -55,17 +56,17 @@
 		                        // 나증에 DB넣고 확인하기
 		                        
 		                        // 아이디 유효성 검사
-		                        $("#inputId").on("focusout", function(event){
+		                        $("#inputId").on("keyup", function(event){
 		                        	
-	                        		regExpId = /^[a-z][a-z0-9]{3,11}$/g;
+	                        		regExpId = /^[a-z][a-z0-9]{3,11}$/;
 	                        		
 		                        	if(!regExpId.test($("#inputId").val())){	// 유효한 아이디가 아닐 때
 		                        		$("#outputCheckId").html("<span class='tb_enroll_star'>부적합한 아이디입니다.</span>");
 		                        		$("#outputCheckId").show();
-		                        		$("input[name=outputId_status").val('');
+		                        		$("input[name=outputId_status").val('');	// 유효성 검사 미완
 		                        	} else{ // 유효한 아이디일 때
-	                                    $("#outputCheckId").html("<span class='font_green'>사용 가능한 아이디입니다.</span>");
-	                                    $("input[name=outputId_status").val('Y');
+	                                    $("#outputCheckId").html("<span class='font_green'>적합한 아이디입니다.</span>");
+	                                    $("input[name=outputId_status").val('Y'); // 유효성 검사 완료 상태
                                         $("#againCheckId").empty();
 	                                }
 	                            });
@@ -87,7 +88,7 @@
                                                 	$("#outputCheckId").html("<span class='font_green'>사용 가능한 아이디입니다.</span>");
                                                 }
                                             } else{
-                                            	$("input[name=checkId_status").val(''); 
+                                            	$("input[name=checkId_status").val('');  // 중복된 상태일 때
                                                 $("#outputCheckId").html("<span class='tb_enroll_star'>이미 존재하는 아이디입니다.</span>");
                                             }
                                         }, error:function(){
@@ -130,13 +131,13 @@
                 <script>
                     $(document).ready(function(){
                         // 비번 유효성 검사
-                        $("#inputPwd").focusout(function(){
+                        $("#inputPwd").keyup(function(){
                         	regExpPwd = /^[a-zA-Z](?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?=[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{7,15}$/;
                         	
                         	if(!regExpPwd.test($("#inputPwd").val())){
                         		$("#outputPwd").html("<span class='tb_enroll_star'>부적합한 비밀번호입니다.</span>");
                         	} else{
-                        		$("#outputPwd").html("<span class='font_green'>사용 가능한 비밀번호입니다.</span>");
+                        		$("#outputPwd").html("<span class='font_green'>적합한 비밀번호입니다.</span>");
                         	}
                         	
                         });
@@ -168,7 +169,7 @@
                         $(document).ready(function(){
                             
                             // 이름 유효성 검사
-                            $("#inputName").focusout(function(){
+                            $("#inputName").keyup(function(){
                                 regExpName = /^[가-힣]{2,8}$/;
                                 if( !regExpName.test($("#inputName").val()) ){
                                     $("#outputName").html("<span class='tb_enroll_star'>부적합한 이름입니다.</span>");
@@ -199,7 +200,7 @@
                     <script>
                         $(document).ready(function(){
                         	// 이메일 유효성 검사
-                        	$("#inputEmail").focusout(function(){
+                        	$("#inputEmail").keyup(function(){
                         		regExpEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/ig;
                         		
                         		if(!regExpEmail.test($("#inputEmail").val())){	// 유효한 이메일이 아닐 때
@@ -207,7 +208,7 @@
 	                        		$("#outputCheckEmail").show();
 	                        		$("input[name=outputEmail_status").val('');
 	                        	} else{ // 유효한 이메일일 때
-                                    $("#outputCheckEmail").html("<span class='font_green'>사용 가능한 이메일입니다.</span>");
+                                    $("#outputCheckEmail").html("<span class='font_green'>적합한 이메일입니다.</span>");
                                     $("input[name=outputEmail_status").val('Y');
                                     $("#againCheckEmail").empty();
 
@@ -263,7 +264,7 @@
                     <script>
                         $(document).ready(function(){
                         	// 전화번호 유효성검사
-                        	$("#inputPhone").focusout(function(){
+                        	$("#inputPhone").keyup(function(){
                         		regExpPhone = /^\d{11}$/;
                         		
                         		if(!regExpPhone.test($("#inputPhone").val())){	// 유효한 전화번호가 아닐 때
@@ -271,7 +272,7 @@
 	                        		$("#outputCheckPhone").show();
 	                        		$("input[name=outputPhone_status").val('');
 	                        	} else{ // 유효한 전화번호일 때
-                                    $("#outputCheckPhone").html("<span class='font_green'>사용 가능한 전화번호입니다.</span>");
+                                    $("#outputCheckPhone").html("<span class='font_green'>적합한 전화번호입니다.</span>");
                                     $("input[name=outputPhone_status").val('Y');
                                     $("#againCheckPhone").empty();
                                 }

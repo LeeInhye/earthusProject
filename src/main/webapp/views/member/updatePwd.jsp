@@ -47,7 +47,7 @@
 	                	$(document).ready(function(){
 							
 	                		// 새로운 비밀번호 유효성 검사
-	                		$("#newInputPwd").focusout(function(){
+	                		$("#newInputPwd").keyup(function(){
 	                			regExpPwd = /^[a-zA-Z](?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?=[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{7,15}$/;
 	                			
 	                			if( !regExpPwd.test($("#newInputPwd").val()) ){		// 적합하지 않은 경우

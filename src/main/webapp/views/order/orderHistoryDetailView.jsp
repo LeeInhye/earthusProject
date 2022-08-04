@@ -141,8 +141,12 @@
 						  <h5>배송중</h5>
 						<%}else if(or.getDelStatus() == 3) {%>
 						  <h5>배송완료</h5>
-						<%}else {%>
+						  <%}else if(or.getDelStatus() == 4) {%>
 						  <h5>주문취소</h5>
+						  <%}else if(or.getDelStatus() == 5) {%>
+						  <h5>교환</h5>
+						<%}else {%>
+						  <h5>반품</h5>
 						<%} %>
 					</td>
 					<td>

@@ -27,12 +27,12 @@ public class ReviewService {
 	}
 	
 	
-	public Review checkPurchase(int userNo, String proCode) {
+	public int checkPurchase(int userNo, String proCode) {
 		Connection conn = getConnection();
-		Review r = new ReviewDao().checkPurchase(conn, userNo, proCode);
+		int result = new ReviewDao().checkPurchase(conn, userNo, proCode);
 		
 		close(conn);
-		return r;
+		return result;
 	}
 	
 	
@@ -45,7 +45,7 @@ public class ReviewService {
 		
 		if(at != null) {
 			// 새로 올릴 첨부파일 있을 때
-			result2 = new ReviewDao().insertAttachment(conn, r, at);
+			result2 = new ReviewDao().insertAttachment(conn, at);
 		}
 		if(result1 * result2 > 0) {
 			commit(conn);
@@ -86,7 +86,7 @@ public class ReviewService {
 		result1 = new ReviewDao().updateReview(conn, r);	
 		
 		if(at != null) {
-			result2 = new ReviewDao().updateAttachment(conn, r, at);
+			result2 = new ReviewDao().insertAttachment(conn, r, at) * new ReviewDao().updateAttachment(conn, r, at);
 		}
 		
 		if(result1 * result2 > 0) {
@@ -97,6 +97,24 @@ public class ReviewService {
 		
 		close(conn);
 		return result1 * result2;
+		
+	}
+	
+	
+	public int deleteReview(int revNo) {
+		Connection conn = getConnection();
+		
+		int result = 0;
+		result = new ReviewDao().deleteReview(conn, revNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
 		
 	}
 	

@@ -182,7 +182,7 @@
             
             <!------- 바로결제/장바구니/찜 시작 ------->
             <div class="card_area d-flex justify-content-between align-items-center">
-              <a href="<%=contextPath%>/order/orderHistoryView.jsp" class="btn_3 font_bold_gray">바로결제</a>
+              <a href="<%=contextPath%>/checkout.or" class="btn_3 font_bold_gray">바로결제</a>
               <% if(loginUser != null){ %>
               	<button type="button" onclick="insertCart()" class="btn_3" style="background:#A8BFAA;">장바구니</button>
               <%}else{ %>
@@ -708,7 +708,7 @@
 				$(".btn-insert").click(function(){
 					var popupX = screen.width/2 - 250;
 					var popupY = screen.height/2 - 300; 
-					const option = "scrollbars=no, location=no, toolbar=no, resizable=no, status=no, width=500px, height=600px, left=" + popupX + ", top=" + popupY;
+					const option = "scrollbars=no, location=no, toolbar=no, resizable=no, status=no, width=700px, height=600px, left=" + popupX + ", top=" + popupY;
 					window.open("<%= contextPath %>/insert.re", "리뷰 등록", option);
 				})
 			})
