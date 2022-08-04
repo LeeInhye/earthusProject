@@ -135,17 +135,27 @@
 		   AND CHALL_STATUS = 'Y'
 	</entry>
 	
+	<!-- 사용자 챌린지 게시글 상세 조회 시 댓글리스트 조회, 
+	   관리자 챌린지 댓글 관리 시 댓글리스트 조회 -->
 	<entry key="selectCmntList">
-		SELECT
-		       CMNT_NO
-		     , USER_NAME
-		     , CMNT_CONTENT
-		     , TO_CHAR(CMNT_ENROLL_DATE, 'YYYY-MM-DD HH:MI') AS ENROLL_DATE
-		  FROM CHALLENGE_CMNT
-		  JOIN MEMBER USING (USER_NO)
-		 WHERE CHALL_NO = ?
-		 ORDER
-		    BY CMNT_NO DESC
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM (
+		                SELECT
+		                       CMNT_NO
+		                     , USER_NAME
+		                     , CMNT_CONTENT
+		                     , TO_CHAR(CMNT_ENROLL_DATE, 'YYYY-MM-DD HH:MI') AS ENROLL_DATE
+		                     , CMNT_STATUS
+		                  FROM CHALLENGE_CMNT
+		                  JOIN MEMBER USING (USER_NO)
+		                 WHERE CHALL_NO = ?
+		                 ORDER
+		                    BY CMNT_NO DESC
+		                ) A
+		               )
+		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
 	<entry key="insertCmnt">

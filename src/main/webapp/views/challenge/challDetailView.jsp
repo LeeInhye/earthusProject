@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.us.challenge.model.vo.Challenge, com.us.common.model.vo.Attachment" %>
+    pageEncoding="UTF-8"%>
+<%@ page import="com.us.challenge.model.vo.Challenge, com.us.common.model.vo.Attachment" %>
 <%
 	Challenge ch = (Challenge)request.getAttribute("ch");
 	Attachment at = (Attachment)request.getAttribute("at");
@@ -156,24 +157,32 @@
             <h4><span id="cmntCount"><%= ch.getChallCmnt() %></span> 개의 댓글</h4>
 
             <div id="cmntInsertArea">
-            	<!-- 댓글 목록 추가될 자리 -->
+            	<!-- ajax로 댓글 목록 추가될 자리 -->
             </div>
+        
+			<!-- 페이징바 영역 -->
+			<nav class="blog-pagination justify-content-center d-flex">
+			    <ul class="pagination">
+			    <!-- ajax로 페이징바 추가될 자리 -->
+			    </ul>
+			</nav>
+			<!-- 페이징바 영역 끝 -->
 
 		</div>
         <!-- 댓글 리스트 끝 -->
-    		
-    		<hr>
-            <br>
-            <div style="width:1140px" align="right">
-                <a href="<%= contextPath %>/list.ch?cpage=1" class="btn_list">목록</a>
-            </div>
+
+   		<hr>
+        <br>
+        <div style="width:1140px" align="right">
+            <a href="<%= contextPath %>/list.ch?cpage=1" class="btn_list">목록</a>
+        </div>
             
         </div>
-     </section>
+    </section>
     
     <script>
     	$(function(){ // 현재 이 페이지 상의 모든 요소가 다 로딩되자마자 곧바로 실행
-    		selectCmntList();
+    		selectCmntList(1);
     	})
     	
     	// 댓글 등록
@@ -193,7 +202,8 @@
 					type:"post",
 					success:function(result){
 						if(result > 0){ // 댓글 등록 성공 => 갱신된 댓글 리스트 조회, 댓글 개수 +1
-							selectCmntList();
+							selectCmntList(1
+									);
 							$("#cmntContent").val(""); // textarea 초기화
                     		$("#cmntCount").text(Number($("#cmntCount").text()) + 1);
 						}
@@ -206,13 +216,18 @@
     	}
     	
     	// 현재 게시글에 달려 있는 댓글 목록 조회
-    	function selectCmntList(){
+    	function selectCmntList(page){
     		
     		$.ajax({
     			url:"<%=contextPath%>/cmntList.ch",
-    			data:{no:<%= ch.getChallNo() %>},
-    			success:function(list){
+    			data:{no:<%= ch.getChallNo() %>, cpage:page},
+    			success:function(map){
     				
+    				console.log(map);
+    				const list = map.list;
+    				const pi = map.pi; // {currentPage: , listCount : }
+    				
+    				// 댓글
     				let value = "";
     				for(let i=0; i<list.length; i++) {
     					value += "<div class='comment-list'>"
@@ -232,6 +247,40 @@
     				
     				$("#cmntInsertArea").html(value);
     				
+    				// 페이징바
+    				var paging = "";
+    				if(pi.currentPage != 1) {
+    					paging += '<li class="page-item">'
+    							+	'<button onclick="selectCmntList(' + (pi.currentPage-1) + ');"  class="page-link" aria-label="Previous">'
+    							+		'<i class="ti-angle-left"></i>'
+    							+	'</button>'
+    							+ '</li>';
+    				}
+    				
+    				for(let p=pi.startPage; p<=pi.endPage; p++){
+    					
+    					if(p == pi.currentPage){
+    						paging += '<li class="page-item active">'
+    								+	'<button class="page-link" disabled>' + p + '</button>';
+    					}else{
+    						paging += '<li class="page-item">'
+    								+	'<button onclick="selectCmntList(' + p + ');" class="page-link">' + p + '</button>';
+    					}
+    					
+    					paging += '</li>';
+    				}
+    				
+    				if(pi.currentPage != pi.maxPage) {
+    					paging += '<li class="page-item">'
+	    						+	'<button onclick="selectCmntList(' + (pi.currentPage+1) + ');"  class="page-link" aria-label="Next">'
+								+		'<i class="ti-angle-right"></i>'
+								+	'</button>'
+								+ '</li>';
+    							
+    				}
+	
+    				$(".pagination").html(paging);
+    				
     			},error:function(){
     				console.log("댓글목록 조회용 ajax 통신 실패");
     			}
@@ -239,7 +288,7 @@
     		});
     		
     	}
-    
+    	
     </script>
     
      <br><br><br><br><br><br><br>

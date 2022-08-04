@@ -1,7 +1,5 @@
 package com.us.challenge.model.vo;
 
-import java.sql.Date;
-
 public class Comment {
 	
 	private int cmntNo;
@@ -22,13 +20,14 @@ public class Comment {
 		this.cmntEnrollDate = cmntEnrollDate;
 		this.cmntStatus = cmntStatus;
 	}
-	
-	public Comment(int cmntNo, String cmntWriter, String cmntContent, String cmntEnrollDate) {
+
+	public Comment(int cmntNo, String cmntWriter, String cmntContent, String cmntEnrollDate, String cmntStatus) {
 		super();
 		this.cmntNo = cmntNo;
 		this.cmntWriter = cmntWriter;
 		this.cmntContent = cmntContent;
 		this.cmntEnrollDate = cmntEnrollDate;
+		this.cmntStatus = cmntStatus;
 	}
 
 	public int getCmntNo() {
