@@ -154,6 +154,12 @@ public class ContentsService {
 	public int insertLike(int cntNo, int userNo) {
 		Connection conn = getConnection();
 		int result = new ContentsDao().insertLike(conn, cntNo, userNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
 		close(conn);
 		
 		return result;
