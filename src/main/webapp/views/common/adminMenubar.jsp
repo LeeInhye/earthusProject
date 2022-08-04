@@ -147,7 +147,7 @@
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="<%= contextPath %>/adList.co?cpage=1">콘텐츠 관리</a>
                                 <a class="nav-link" href="<%= contextPath %>/adList.ch?cpage=1">챌린지 관리</a>
-                                <a class="nav-link" href="">챌린지 댓글 관리</a>
+                                <a class="nav-link" href="<%= contextPath %>/adCmntList.ch?cpage=1">챌린지 댓글 관리</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#qaCollapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
