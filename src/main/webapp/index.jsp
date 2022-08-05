@@ -9,8 +9,8 @@
 <head>
 
 <!-- 파일 경로 contextPath 앞에 넣기 -->
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>Earth.Us</title>
     <link rel="icon" href="<%= contextPath %>/resources/img/sub_logo.png">
     <!-- Bootstrap CSS -->
@@ -35,7 +35,12 @@
     <link rel="stylesheet" href="<%= contextPath %>/resources/css/u_css_sumin/font-pretendard.css">
     <!--  jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        
+    </style>
+    
 </head>
+
 
 <body>
 
