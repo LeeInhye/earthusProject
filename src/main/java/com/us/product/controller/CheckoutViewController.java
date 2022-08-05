@@ -34,51 +34,25 @@ public class CheckoutViewController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 장바구니에서 이동 -> DB에서 input[name=check]:check인 proCode만 모아서 결제 : ArrayList<Cart>를 전달
-		// 바로결제에서 이동 -> DB에서 해당 상품 하나만 결제 : Product(proCode, proName, price)를 전달
+		/// 바로결제에서 이동 -> DB에서 해당 상품 하나만 결제 : Product(proCode, proName, price)를 전달
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		// 장바구니에서 이동하면 FORM요소로 넘어옴 		  => input[name=fromCart]의 value가 'T'
-		// 바로결제에서 이동하면 FROM요소로 넘어오지 않음 => input요소가 있을 수 없음
-		// ==> request.getParameter("fromCart") 가 NULL인지 조건검사해서 넘기면 되지않냐??
-		// ==> 결제페이지에서 쓸 list 전달 (하나여도 list로 전달해서 해야 간편할듯)
-		
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-		
-		System.out.println(userNo);
-		
 		Cart c = null;
-		ArrayList<Cart> list = new ArrayList<>();
-		if(request.getParameter("fromCart") != null ) {
-			// 장바구니에서 이동한 경우,
-			// 결제 페이지에 checked된 Cart(회원번호, 상품코드, 상품명, 수량) 모아서 전달
-			String orderProCode = request.getParameter("orderProCode");
-			System.out.println(orderProCode);
-			list = new CheckoutService().selectProList(userNo, orderProCode);
-			
-			System.out.println(list);
-			
-		}else {
-			// 바로결제에서 이동한 경우
-			// 결제 페이지에 회원번호, 상품코드, 상품명 전달 => 얘도 그냥 Cart로 전달해볼까?
-			//Product p = (Product)request.getSession().getAttribute("p");
-			Product p = new ProductService().selectProduct(request.getParameter("proCode"));
-			c = new Cart();
-			c.setUserNo(userNo);
-			c.setProCode( p.getProCode() );
-			c.setProName( p.getProName() );
-			c.setPrice( Integer.parseInt(p.getPrice()) );
-			c.setProQty(1);
-			list.add(c);			
-		}
 		
-		if(!list.isEmpty()) {
-			request.setAttribute("orderList", list);
-			request.getRequestDispatcher("views/order/checkoutView.jsp").forward(request, response);
-		}else {
-			response.sendRedirect(request.getContextPath());
-		}
+		// 바로결제에서 이동한 경우
+		// 결제 페이지에 회원번호, 상품코드, 상품명 전달 => 얘도 그냥 Cart로 전달해볼까?
+		c = new Cart();
+		c.setUserNo(userNo);
+		c.setProCode( request.getParameter("proCode") );
+		c.setProName( request.getParameter("proName") );
+		c.setPrice( Integer.parseInt(request.getParameter("price")) );
+		c.setProQty( Integer.parseInt(request.getParameter("proQty")) );
+	
+		request.setAttribute("orderProduct", c);
+		request.getRequestDispatcher("views/order/checkoutView.jsp").forward(request, response);
+		
 	}
 
 	/**

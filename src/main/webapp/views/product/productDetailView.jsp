@@ -205,7 +205,7 @@
 	              	<input type="hidden" name="proCode" value="<%= p.getProCode() %>">
 	              	<input type="hidden" name="proName" value="<%= p.getProName() %>">
 	              	<input type="hidden" name="price" value="<%= p.getPrice() %>">
-					<input type="hidden" id="proQty" name="proQty" value="">	              	
+					<input type="hidden" id="proQty" name="proQty" value="1">	              	
               	</form>
               	
               <%}else{ %>

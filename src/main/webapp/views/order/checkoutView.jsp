@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.us.product.model.vo.Cart, java.util.ArrayList, java.text.SimpleDateFormat, java.util.Date"%>
 <%
-	ArrayList<Cart> orderList = (ArrayList<Cart>)request.getAttribute("orderList");
+	Cart orderProduct = (Cart)request.getAttribute("orderProduct");
 %>
 
 <!DOCTYPE html>
@@ -123,18 +123,15 @@
 					<div class="col-lg-4">
 						<div class="order_box" style="background-color:#F2F2F2">
 							<h2 style="font-weight: bold;">주문서</h2>
-									<ul class="list">
-									
-								<% for(Cart c : orderList) { %> 
-										<!-- 결제상품 목록 조회 -->
-										<li><a href="#"><%= c.getProName() %> <span class="last" class="price"><%= c.getPrice() * c.getProQty() %></span></a></li>
-									</ul>
-								<% } %>
-									<ul class="list list_2">
-										<li><a>배송비 <span>3000</span></a></li>
-										<li><a>포인트사용 <span id="usedPoint">0</span></a></li>
-										<li><a>총 결제 가격 <span id="totalPrice"></span></a></li>
-									</ul>
+								<ul class="list">
+									<!-- 결제상품 목록 조회 -->
+									<li><a href="#"><%= orderProduct.getProName() %> <span class="last" class="price"><%= orderProduct.getPrice() * orderProduct.getProQty() + 3000 %></span></a></li>
+								</ul>
+								<ul class="list list_2">
+									<li><a>배송비 <span>3000</span></a></li>
+									<li><a>포인트사용 <span id="usedPoint">0</span></a></li>
+									<li><a>총 결제 가격 <span id="totalPrice"><%= orderProduct.getPrice() * orderProduct.getProQty() %></span></a></li>
+								</ul>
 							
 							<div class="payment_item">
 								<div class="radion_btn">
@@ -180,6 +177,7 @@
 	<!-- iamport.payment.js -->
   	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 	<script>
+	
 		// 다음 주소 API 관련 function
 		function execDaumPostCode() {
 			new daum.Postcode({
@@ -226,7 +224,8 @@
 					$(this).val("");
 					alert("보유한 포인트를 초과하는 금액은 사용할 수 없습니다.");
 				}else{
-					$("#usedPoint").text( $(this).val() );					
+					$("#usedPoint").text( $(this).val() );			
+					$("#totalPrice").text( <%= orderProduct.getPrice() * orderProduct.getProQty() %> - 3000 +  $(this).val() );
 				}
 			})
 		})
@@ -273,7 +272,7 @@
 				pg: "nice",
 				pay_method: "card",
 				merchant_uid: "ORD" + <%= new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + Math.random() + (int)(Math.random() * 90000 + 10000) %> ,
-				name: $("#proName").text() + "외 " + <%= orderList.size() - 1 %> + "건",
+				name: <%= orderProduct.getProName() %>
 				amount: $("#totalPrice").text(),
 				buyer_email: $("input[name=email]").val(),
 				buyer_name: $("input[name=name]").val(),
