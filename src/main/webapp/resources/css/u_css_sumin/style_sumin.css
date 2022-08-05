@@ -1180,6 +1180,10 @@ textarea {
   /* color:#f2f2f2; */
 }
 
+.add_cart {
+	cursor:pointer;
+}
+
 .form-group h5 {
   font-weight:bold;
 }
