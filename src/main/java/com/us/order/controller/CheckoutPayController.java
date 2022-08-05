@@ -41,9 +41,13 @@ public class CheckoutPayController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		Member m = (Member)request.getSession().getAttribute("loginUser");
-		ArrayList<Cart> orderList = (ArrayList<Cart>)request.getAttribute("orderList");
+		Order o = null;
+		int result = 0;
 		
-		Order o = new Order(
+		String proQty = request.getParameter("proQty");
+		String proCode = request.getParameter("proCode");
+		
+		o = new Order(
 					m.getUserNo(),
 					request.getParameter("payment"),
 					Integer.parseInt(request.getParameter("point")),
@@ -58,14 +62,7 @@ public class CheckoutPayController extends HttpServlet {
 					request.getParameter("detailAddr")
 				);
 		
-		String proCodes = "";
-		for(int i=0; i<orderList.size(); i++) {
-			proCodes += orderList.get(i).getProCode() + ",";
-		}
-		proCodes += proCodes.substring(0, proCodes.lastIndexOf(","));
-		
-		int result = 0;
-		result = new CheckoutService().processPayment(o, orderList, proCodes);
+		result = new CheckoutService().processPayment(o, proQty, proCode);
 		
 	}
 

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.us.member.model.vo.Member;
 import com.us.product.model.service.CheckoutService;
+import com.us.product.model.service.ProductService;
 import com.us.product.model.vo.Cart;
 import com.us.product.model.vo.Product;
 
@@ -48,6 +49,7 @@ public class CheckoutViewController extends HttpServlet {
 		c.setProName( request.getParameter("proName") );
 		c.setPrice( Integer.parseInt(request.getParameter("price")) );
 		c.setProQty( Integer.parseInt(request.getParameter("proQty")) );
+		System.out.println(request.getParameter("proQty"));
 	
 		request.setAttribute("orderProduct", c);
 		request.getRequestDispatcher("views/order/checkoutView.jsp").forward(request, response);

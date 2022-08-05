@@ -86,28 +86,26 @@ public class CheckoutDao {
 		return result;
 	}
 
-	public int insertOrderProduct(Connection conn, ArrayList<Cart> orderList) {
+	public int insertOrderProduct(Connection conn, Order o, String proQty) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertOrderProduct");
 
-		for (int i = 0; i < orderList.size(); i++) {
-			try {
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, orderList.get(i).getProCode());
-				pstmt.setInt(2, orderList.get(i).getProQty());
-				result += pstmt.executeUpdate();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, o.getProCode());
+			pstmt.setString(2, proQty); 		// 자동형변환 되니까
+			result += pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+		close(pstmt);
 		}
-		if (pstmt != null) {
-			close(pstmt);
-		}
+		
 		return result;
 	}
 
-	public int deleteCart(Connection conn, Order o, String proCodes) {
+	public int deleteCart(Connection conn, Order o, String proCode) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("deleteCart");
@@ -115,7 +113,7 @@ public class CheckoutDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, o.getUserNo());
-			pstmt.setString(2, "(" + proCodes + ")");
+			pstmt.setString(2, proCode);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -126,12 +124,11 @@ public class CheckoutDao {
 	}
 
 	
-	public int insertPoint(Connection conn, Order o) { 
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("selectCurrPoint");
-		pstmt = conn.prepareStatement(sql);
-	}
+	/*
+	 * public int insertPoint(Connection conn, Order o) { int result = 0;
+	 * PreparedStatement pstmt = null; String sql =
+	 * prop.getProperty("selectCurrPoint"); pstmt = conn.prepareStatement(sql); }
+	 */
 	
 	
 	

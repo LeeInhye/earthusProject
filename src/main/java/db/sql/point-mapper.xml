@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="selectListCount">
+		SELECT COUNT(*) AS COUNT
+		  FROM POINT
+	</entry>
+
+	<entry key="selectHistory">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM (
+		                SELECT 
+		                       POINT_NO
+		                     , USER_ID
+		                     , POINT_TYPE
+		                     , POINT_REASON
+		                     , USER_NAME
+		                     , POINT_AMOUNT
+		                     , POINT_BALANCE
+		                     , POINT_DATE
+		                  FROM POINT
+		                  JOIN MEMBER USING (USER_NO)
+		                 ORDER
+		                    BY POINT_NO DESC
+		                ) A
+		        )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+
+	<entry key="searchListCount">
+		SELECT COUNT(*) AS "COUNT"
+		  FROM POINT
+     LEFT JOIN MEMBER USING (USER_NO)
+		 WHERE USER_ID LIKE ?
+		    OR USER_NAME LIKE ?
+	</entry>
+	
+	<entry key="searchHistory">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM (
+		                SELECT 
+		                       POINT_NO
+		                     , POINT_TYPE
+		                     , POINT_REASON
+		                     , POINT_AMOUNT
+                             , POINT_BALANCE
+		                     , POINT_DATE
+		                     , USER_ID
+		                     , USER_NAME
+		                  FROM POINT P
+		                  JOIN MEMBER M USING (USER_NO)
+                         WHERE M.USER_ID LIKE ?
+                            OR M.USER_NAME LIKE ?
+		                 ORDER
+		                    BY POINT_NO DESC
+		                ) A
+		        )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+
+
+</properties>

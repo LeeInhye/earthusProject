@@ -9,8 +9,7 @@
 
 <head>
 
-	<!-- jQuery CDN -->
-	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
 	
 	
 	<!-- ********** 내가 만든 스타일!!! 지우면 안돼!!! ********** -->
@@ -125,12 +124,14 @@
 							<h2 style="font-weight: bold;">주문서</h2>
 								<ul class="list">
 									<!-- 결제상품 목록 조회 -->
-									<li><a href="#"><%= orderProduct.getProName() %> <span class="last" class="price"><%= orderProduct.getPrice() * orderProduct.getProQty() + 3000 %></span></a></li>
+									<li>
+									<a href="#"><%= orderProduct.getProName() %> <span class="last" class="price"><%= orderProduct.getPrice() * orderProduct.getProQty() %></span></a>
+									</li>
 								</ul>
 								<ul class="list list_2">
 									<li><a>배송비 <span>3000</span></a></li>
 									<li><a>포인트사용 <span id="usedPoint">0</span></a></li>
-									<li><a>총 결제 가격 <span id="totalPrice"><%= orderProduct.getPrice() * orderProduct.getProQty() %></span></a></li>
+									<li><a>총 결제 가격 <span id="totalPrice"><%= orderProduct.getPrice()*orderProduct.getProQty() + 3000%></span></a></li>
 								</ul>
 							
 							<div class="payment_item">
@@ -151,7 +152,9 @@
 								<a style="color: #778C79;">이용 약관*</a> <label for="f-option4" style="padding:0px;">을 읽고 확인하였으며 동의합니다.</label>
 							</div>
 							<input type="hidden" name="cardUid" value="">
-							<input type="hidden" name="totalPrice" value="">
+							<input type="hidden" name="totalPrice" value="<%= orderProduct.getProQty() * orderProduct.getPrice() %>">
+							<input type="hidden" name="proQty" value="<%= orderProduct.getProQty() %>">
+							<input type="hidden" name="proCode" value="<%= orderProduct.getProCode() %>">
 							<button type="button" onclick="requestPay();" id="submit-btn" class="btn_3">결제 진행하기</button>
 						</div>
 					</div>
@@ -172,6 +175,8 @@
 
 	<!-- ========== Start Script Area ========== -->
 
+	<!-- jQuery CDN -->
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 	<!-- Daum Post Code API -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<!-- iamport.payment.js -->
@@ -225,7 +230,8 @@
 					alert("보유한 포인트를 초과하는 금액은 사용할 수 없습니다.");
 				}else{
 					$("#usedPoint").text( $(this).val() );			
-					$("#totalPrice").text( <%= orderProduct.getPrice() * orderProduct.getProQty() %> - 3000 +  $(this).val() );
+					$("#totalPrice").text( <%= orderProduct.getPrice() * orderProduct.getProQty() %> - 3000 -  $(this).val() );
+					$("input[name=totalPrice]").val( <%= orderProduct.getPrice() * orderProduct.getProQty() %> - 3000 -  $(this).val() );
 				}
 			})
 		})
@@ -243,7 +249,7 @@
 		})
 		
 		// 총 결제 가격을 계산하는 함수
-		$(function(){
+		/* $(function(){
 			var totalPrice = 0;
 			
 			$(".price").each(function(){
@@ -257,7 +263,7 @@
 			// 더해진 최종 가격을 #totalPrice 안에 넣어주기
 			$("#totalPrice").text(totalPrice);
 			$("input[name=totalPrice]").val(totalPrice);
-		})
+		}) */
 		
 		
 		//============================================================
@@ -272,7 +278,7 @@
 				pg: "nice",
 				pay_method: "card",
 				merchant_uid: "ORD" + <%= new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + Math.random() + (int)(Math.random() * 90000 + 10000) %> ,
-				name: <%= orderProduct.getProName() %>
+				name: '<%= orderProduct.getProName() %>',
 				amount: $("#totalPrice").text(),
 				buyer_email: $("input[name=email]").val(),
 				buyer_name: $("input[name=name]").val(),
