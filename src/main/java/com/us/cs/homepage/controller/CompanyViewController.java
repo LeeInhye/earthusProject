@@ -9,19 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.us.cs.homepage.model.service.AdCompanyService;
-import com.us.cs.homepage.model.vo.Company;
 
 /**
- * Servlet implementation class AdCompanyViewController
+ * Servlet implementation class CompanyViewController
  */
-@WebServlet("/editor1.hm")
-public class AdCompanyViewController extends HttpServlet {
+@WebServlet("/info.hm")
+public class CompanyViewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdCompanyViewController() {
+    public CompanyViewController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,13 +29,12 @@ public class AdCompanyViewController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Company info = new AdCompanyService().selectPost(1);
-		if(info == null) {
-			request.getRequestDispatcher("views/cs/homepage/adCompanyView.jsp").forward(request, response);			
-		}else {
-			request.setAttribute("html", info.getComContent());
-			request.getRequestDispatcher("views/cs/homepage/adCompanyView.jsp").forward(request, response);
-		}
+		// 회사 소개에 대한 html태그를 String으로 넘겨줘야함
+		String html = new AdCompanyService().selectInfo();
+		System.out.println(html);
+		
+		request.setAttribute("html", html);
+		request.getRequestDispatcher("views/cs/homepage/companyInfo.jsp").forward(request, response);
 	}
 
 	/**

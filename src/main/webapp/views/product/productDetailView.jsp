@@ -18,8 +18,9 @@
 	
 	int qnaCount = 0; // 상품 문의 게시글 수를 담을 변수
 	for(int i=0; i<qlist.size(); i++){
-		qnaCount++;
+		qnaCount++;		
 	}
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -163,6 +164,7 @@
                			}
                			
                			$('#qty').val(this_qty);
+               			$("#order-qty").val(this_qty);
                			
                			
                			var num = <%= Integer.parseInt(p.getPrice()) %>; // 상품 개당 가격
@@ -194,9 +196,11 @@
             <div class="card_area d-flex justify-content-between align-items-center">
             
               <% if(loginUser != null){ %>
-              
-              	<button type="button" onclick="insertCart()" class="btn_3" style="background:#A8BFAA;">장바구니</button>
-              	<a href="<%=contextPath%>/checkout.or?proCode=<%=p.getProCode() %>" class="btn_3 font_bold_gray">바로결제</a>
+              	<form action="<%=contextPath%>/checkout.or" method="post">
+	              	<button type="button" onclick="insertCart()" class="btn_3" style="background:#A8BFAA;">장바구니</button>
+	              	<button class="btn_3 font_bold_gray">바로결제</button>
+	              	<input type="hidden" id="order-qty" name="proQty" value="">
+              	</form>
               	
               <%}else{ %>
               

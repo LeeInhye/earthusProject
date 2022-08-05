@@ -33,5 +33,13 @@ public class AdCompanyService {
 		close(conn);
 		return post;
 	}
+	
+	public String selectInfo() {
+		Connection conn = getConnection();
+		String result = new AdCompanyDao().selectInfo(conn);
+		
+		close(conn);
+		return result;
+	}
 
 }

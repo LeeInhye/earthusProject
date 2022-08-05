@@ -33,9 +33,11 @@ public class AdCompanyInsertController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		
-		System.out.println(request);
+		/* System.out.println(request); */
 		
 		String html = request.getParameter("comInfo");
+		
+		System.out.println(html);
 		
 		int result = new AdCompanyService().insertPost(html, 1);
 		
