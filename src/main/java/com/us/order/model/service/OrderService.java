@@ -20,6 +20,14 @@ public class OrderService {
 		return listCount;
 	}
 	
+	// 페이징용
+	public int selectListCount(String status) {
+		Connection conn = getConnection();
+		int listCount = new OrderDao().selectListCount(conn, status);
+		close(conn);
+		return listCount;
+	}
+	
 	// 주문내역 조회
 	public ArrayList<Order> selectOrderList(PageInfo pi, int userNo){
 		Connection conn = getConnection();
@@ -37,9 +45,9 @@ public class OrderService {
 	}
 	
 	// 취소/교환/반품 페이지
-	public ArrayList<Order> selectCeList(int userNo){
+	public ArrayList<Order> selectCeList(int userNo, PageInfo pi){
 		Connection conn = getConnection();
-		ArrayList<Order> celist = new OrderDao().selectCeList(conn, userNo);
+		ArrayList<Order> celist = new OrderDao().selectCeList(conn, userNo, pi);
 		close(conn);
 		return celist;
 	}
@@ -116,6 +124,22 @@ public class OrderService {
 	public ArrayList<Order> selectErDetail(int orderNo, String proCode){
 		Connection conn = getConnection();
 		ArrayList<Order> list = new OrderDao().selectErDetail(conn, orderNo, proCode);
+		close(conn);
+		return list;
+	}
+	
+	// 관_취소/교환/반품 조회
+	public ArrayList<Order> selectCerListAd(String status, PageInfo pi){
+		Connection conn = getConnection();
+		ArrayList<Order> list = new OrderDao().selectCerListAd(conn, status, pi);
+		close(conn);
+		return list;
+	}
+	
+	// 관_취교반 메인
+	public ArrayList<Order> selectCncltList(PageInfo pi){
+		Connection conn = getConnection();
+		ArrayList<Order> list = new OrderDao().selectCncltList(pi, conn);
 		close(conn);
 		return list;
 	}

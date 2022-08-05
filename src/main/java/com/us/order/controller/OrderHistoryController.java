@@ -46,7 +46,7 @@ public class OrderHistoryController extends HttpServlet {
 		
 		listCount = new OrderService().selectListCount();
 		
-		currentPage = Integer.parseInt(request.getParameter("opage"));
+		currentPage = Integer.parseInt(request.getParameter("cpage"));
 		
 		pageLimit = 5;
 		boardLimit = 5;

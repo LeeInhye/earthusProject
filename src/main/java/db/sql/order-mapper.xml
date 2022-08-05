@@ -74,22 +74,31 @@
 	</entry>
 	
 	<entry key="selectCeList">
-		SELECT 
-		       ORDER_NO
-		     , DECODE(PAYMENT, 'CARD', CARD_APPROVAL_DATE, 'CASH', CASH_APPROVAL_DATE)"ORDER_DATE"
-		     , PRO_IMG_PATH
-		     , PRO_NAME
-		     , PRICE
-		     , PRO_CODE
-		     , QUANTITY
-		     , DEL_STATUS
-		  FROM "ORDER"
-		LEFT JOIN PAY_CARD USING (ORDER_NO)
-		LEFT JOIN PAY_CASH USING (ORDER_NO)
-		  JOIN ORDER_PRODUCT USING (ORDER_NO)
-		  JOIN PRODUCT USING (PRO_CODE)
-		 WHERE USER_NO = ?
-		 ORDER BY ORDER_NO DESC
+	
+	 SELECT *
+	  FROM (
+	  		SELECT ROWNUM RNUM, A.*
+	  		  FROM (SELECT 
+					       ORDER_NO
+					     , DECODE(PAYMENT, 'CARD', CARD_APPROVAL_DATE, 'CASH', CASH_APPROVAL_DATE)"ORDER_DATE"
+					     , PRO_IMG_PATH
+					     , PRO_NAME
+					     , PRICE
+					     , PRO_CODE
+					     , QUANTITY
+					     , DEL_STATUS
+					  FROM "ORDER"
+					LEFT JOIN PAY_CARD USING (ORDER_NO)
+					LEFT JOIN PAY_CASH USING (ORDER_NO)
+					  JOIN ORDER_PRODUCT USING (ORDER_NO)
+					  JOIN PRODUCT USING (PRO_CODE)
+					 WHERE USER_NO = ?
+					 ORDER BY ORDER_NO DESC	  
+					     
+	                
+	  		  		) A
+	       )
+	 WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
 	<entry key="selectOrderProduct">
@@ -174,6 +183,53 @@
 		  JOIN ORDER_PRODUCT USING (ORDER_NO)
 		  JOIN PRODUCT USING (PRO_CODE)
 		 WHERE ORDER_NO = ?
+	</entry>
+	
+	<entry key="selectCerListAd1">
+		  SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		  		  FROM (
+					  		SELECT 
+					       ORDER_NO
+					     , PRO_CODE
+					     , DECODE(PAYMENT, 'CARD', CARD_APPROVAL_DATE, 'CASH', CASH_APPROVAL_DATE) "ORDER_DATE"
+					     , USER_ID
+					     , DEL_STATUS
+					  FROM "ORDER"
+					  JOIN ORDER_PRODUCT USING (ORDER_NO)
+					LEFT JOIN PAY_CARD USING (ORDER_NO)
+					LEFT JOIN PAY_CASH USING (ORDER_NO)
+					  JOIN MEMBER USING (USER_NO)
+
+	</entry>
+	<entry key="selectCerListAd2">
+								      
+		  		  		) A
+		       )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectCListAd">
+		 SELECT *
+		  FROM (
+		  		SELECT ROWNUM RNUM, A.*
+		  		  FROM (SELECT 
+				       ORDER_NO
+				     , PRO_CODE
+				     , DECODE(PAYMENT, 'CARD', CARD_APPROVAL_DATE, 'CASH', CASH_APPROVAL_DATE) "ORDER_DATE"
+				     , USER_ID
+				     , DEL_STATUS
+				  FROM "ORDER"
+				  JOIN ORDER_PRODUCT USING (ORDER_NO)
+				LEFT JOIN PAY_CARD USING (ORDER_NO)
+				LEFT JOIN PAY_CASH USING (ORDER_NO)
+				  JOIN MEMBER USING (USER_NO)
+				 WHERE DEL_STATUS = 4
+						      
+		  		  		) A
+		       )
+		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
 
 

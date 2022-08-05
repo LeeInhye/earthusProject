@@ -1,7 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.us.order.model.vo.*"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.us.order.model.vo.*, com.us.common.model.vo.PageInfo"%>
 <%
 	ArrayList<Order> celist = (ArrayList<Order>)request.getAttribute("celist");
+
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
 %>
 <!DOCTYPE html>
 <html>
@@ -229,6 +236,40 @@
 		    </div>
 		  </div>
 	</div>
+	
+	<!-- 페이징바 영역 -->
+    <nav class="blog-pagination justify-content-center d-flex">
+        <ul class="pagination">
+        	<% if(currentPage != 1) {%>
+                <li class="page-item">
+                    <button onclick="location.href='<%=contextPath%>/CncltExrtr.or?cpage=<%= pi.getCurrentPage()-1 %>';" class="page-link" aria-label="Previous">
+                        <i class="ti-angle-left"></i>
+                    </button>
+                </li>
+            <% } %>
+            
+            <% for(int p=startPage; p<=endPage; p++) { %>
+ 			<% if(p == currentPage){ %>
+                    <li class="page-item active">
+                        <button class="page-link" disabled><%= p %></button>
+                    </li>
+ 			<% }else { %>
+                    <li class="page-item">
+                        <button class="page-link" onclick="location.href='<%=contextPath%>/CncltExrtr.or?cpage=<%= p %>';"><%= p %></button>
+                    </li>
+			<% } %>
+			<% } %>
+
+            <% if(currentPage != maxPage) { %>
+                <li class="page-item">
+                    <button onclick="location.href='<%=contextPath%>/CncltExrtr.or?cpage=<%= pi.getCurrentPage()+1 %>';" class="page-link" aria-label="Next">
+                        <i class="ti-angle-right"></i>
+                    </button>
+                </li>
+            <% } %>
+        </ul>
+    </nav>
+    <!-- 페이징바 영역 끝 -->
 	
 	<script>
 		function goCancel(num){
