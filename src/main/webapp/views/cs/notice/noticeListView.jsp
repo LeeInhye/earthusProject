@@ -73,7 +73,7 @@
                     <tr class="CS_hide tbAll" id="notice_content_1">
                         <td colspan="3">
                             <div class="CS_content">
-                                <p><%= n.getNoticeContent() %></p>
+                                <p style="width: 100%;"><%= n.getNoticeContent() %></p>
                             </div>
                         </td>
                     </tr>
