@@ -50,7 +50,7 @@
         <br><br>
             
 
-        <table class="table table-hover CS_table">
+        <table class="table table-hover CS_table tb_CS_centered">
             <thead>
                 <tr>
                     <th style="width:15%;">카테고리</th>

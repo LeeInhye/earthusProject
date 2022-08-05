@@ -90,7 +90,7 @@
                         </td>
                     </tr>
                     
-                    <tr class="CS_hide tbNo" id="notice_content_1">
+                    <tr class="CS_hide tbAll" id="notice_content_1">
                         <td colspan="3">
                             <div class="CS_content">
                                 <p><%= n.getNoticeContent() %></p>
@@ -110,7 +110,7 @@
                         </td>
                     </tr>
                     
-                    <tr class="CS_hide tbDe" id="notice_content_1">
+                    <tr class="CS_hide tbAll" id="notice_content_1">
                         <td colspan="3">
                             <div class="CS_content">
                                 <p><%= n.getNoticeContent() %></p>
@@ -130,7 +130,7 @@
                         </td>
                     </tr>
                     
-                    <tr class="CS_hide tbEv" id="notice_content_1">
+                    <tr class="CS_hide tbAll" id="notice_content_1">
                         <td colspan="3">
                             <div class="CS_content">
                                 <p><%= n.getNoticeContent() %></p>
@@ -150,7 +150,7 @@
                         </td>
                     </tr>
                     
-                    <tr class="CS_hide tbHi" id="notice_content_1">
+                    <tr class="CS_hide tbAll" id="notice_content_1">
                         <td colspan="3">
                             <div class="CS_content">
                                 <p><%= n.getNoticeContent() %></p>
@@ -160,24 +160,24 @@
                 <% } %>
                 
                 
-                <script> 
-			        $(document).ready(function(){
-			          $(".CS_table>tbody>tr").click(function(e){ 
-			            e.preventDefault();
-			
-			            var targetRow = $(this).closest("tr").next(".CS_hide");
-			            targetRow.show().find('div').slideToggle("fast", function(){
-			                if(!$(this).is(":visible")){
-			                    targetRow.hide();
-			                }
-			            });
-			          });
-			        });
-			    </script>
+               
+			         
 			    
 			    
                 <script>
                     $(document).ready(function(){
+                    	// 슬라이드 보이게
+                    	 $(".CS_table>tbody>tr").click(function(e){ 
+				            e.preventDefault();
+				
+				            var targetRow = $(this).closest("tr").next(".CS_hide");
+				            targetRow.show().find('div').slideToggle("fast", function(){
+				                if(!$(this).is(":visible")){
+				                    targetRow.hide();
+				                }
+				            });
+			         	 });
+			      
                     	
                     	// 전체 공지 클릭시
                     	$("#noAll").click(function(){
