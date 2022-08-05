@@ -74,4 +74,26 @@ public class AdCompanyDao {
 		
 	}
 	
+	public String selectInfo(Connection conn) {
+		String result = "";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectInfo");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getString("COM_CONTENT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+		
+		
+	}
+	
 }

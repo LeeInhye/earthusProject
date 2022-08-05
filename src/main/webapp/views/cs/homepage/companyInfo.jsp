@@ -2,8 +2,6 @@
     pageEncoding="UTF-8"%>
 <%
 	String html = (String)request.getAttribute("html");
-	String successMsg = (String)request.getAttribute("successMsg");
-
 %>
     <!doctype html>
 <html lang="zxx">
