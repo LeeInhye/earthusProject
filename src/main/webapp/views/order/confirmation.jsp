@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.text.SimpleDateFormat, java.util.Date" %>
+    
+<% 
+	String totalPrice = (String)request.getAttribute("totalPrice");
+
+%>
     
 <!DOCTYPE html>
 <html lang="zxx">
@@ -17,6 +22,7 @@
       background-color: #A8BFAA;
       color: #F2F2F2;
       border:none;
+      line-height:40px;
     }
     .btn-conf:hover{
       color:black;
@@ -61,6 +67,7 @@
             <br>
             <span style="color:#778C79">배송은 평균 공휴일 제외 2~3일 이내에 시작됩니다.
               <br>(택배사 사정에 따라 달라질 수 있습니다.)</span>
+              <br><br>
           </div>
         </div>
         <div class="col-lg-6 col-lx-4" align="center" style="margin:auto;">
@@ -68,21 +75,22 @@
             <h4 style="font-weight: bold;">주문 정보</h4>
             <table>
               <tr>
-                <td width="100px;">주문 번호 </td>
-                <td>12340567</td>
+                <td width="100px;">주문 금액 </td>
+                <td><%= totalPrice %></td>
               </tr>
               <tr>
                 <td>주문 일시 </td>
-                <td>2022-07-26 11:08</td>
+                <td><%= new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date()) %></td>
               </tr>
             </table>
             <br>
-         	<button type="button" class="btn-conf">고객센터</button>
+         	<a href="<%=contextPath%>/list.qa?qpage=1" type="button" class="btn-conf">고객센터</a>
          	&nbsp;&nbsp;
-         	<button type="button" class="btn-conf" style="background-color:#778C79;">마이 페이지</button>
+         	<a href="<%=contextPath%>/myPage.mp" type="button" class="btn-conf" style="background-color:#778C79;">마이 페이지</a>
           </div>
         </div>
        </div>
+       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     </div>
   </section>
 
