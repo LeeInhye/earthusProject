@@ -151,6 +151,8 @@
 	  JOIN PRODUCT USING (PRO_CODE)
 	  JOIN MEMBER USING (USER_NO)
 	 WHERE USER_NO = ?
+	 ORDER
+	    BY WISH_DATE DESC
 </entry>
 
 <entry key="increaseProCount">

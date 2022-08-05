@@ -144,7 +144,11 @@
                             <!-- 검색 -->
                             <a id="search_1" href="javascript:void(0)"><i class="ti-search"></i></a>
                             <!-- 위시리스트-->
-                            <a href=""><i class="ti-heart"></i></a>
+                            <% if(loginUser == null) { // 로그인 전 %>
+                            	<a href="<%=contextPath%>/goLogin.me"><i class="ti-heart"></i></a>
+                            <% } else { // 로그인 후 %>
+                            	<a href="<%=contextPath%>/wish.pr" id="lsuccess"><i class="ti-heart"></i></a>
+                            <% } %>
                             <!-- 장바구니 -->
                                 <a href="<%=contextPath%>/list.ct">
                                     <i class="ti-shopping-cart"></i>

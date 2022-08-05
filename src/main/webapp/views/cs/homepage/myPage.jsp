@@ -71,7 +71,7 @@
                 </div>
             </div>
 
-            <div class="mpBlock" onclick="location.href='<%= contextPath %>';">
+            <div class="mpBlock" onclick="location.href='<%=contextPath%>/wish.pr';">
                 <div class="mp_top">
                     <h3>WISHLIST</h3>
                     <br>

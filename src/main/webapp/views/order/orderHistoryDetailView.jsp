@@ -123,7 +123,7 @@
 					<td>
 					  <div class="media">
 						<div class="d-flex">
-						  <img src="<%=or.getProImgPath() %>" alt="" />
+						  <img src="<%=contextPath %>/<%=or.getProImgPath() %>" />
 						</div>
 						<div class="media-body">
 						  <h5><%=or.getProName() %></h5>
