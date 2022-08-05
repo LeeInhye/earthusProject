@@ -464,10 +464,18 @@
 		                    		// toISOString() -> ISO Standard 형식은 시간을 'yyyy-MM-ddThh:mm:ss.sssZ'로 표현
 		                    		document.getElementById("birthday").value = new Date().toISOString().substring(0,10);
 		                    	} else {
-		                    	    $("#birthday").val( $("#userbirth").val() );
+		                    		console.log($("#userbirth").val());
+		                    		let birthArr = [];
+		                    		birthArr = $("#userbirth").val().split("/");
+		                    		const birthYear = birthArr[2];
+		                    		const birthMonth = birthArr[0];
+		                    		const birthDay = birthArr[1];
+		                    		
+		                    		document.getElementById("birthday").value = birthYear + "-" + birthMonth + "-" + birthDay;
+		                    		console.log($("#birthday").val());
 		                    	}
 		                   	</script>
-		                    
+		                   	
 		                </td>
 		            </tr>
 		            <tr>
