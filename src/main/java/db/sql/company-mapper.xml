@@ -23,5 +23,14 @@
 		   			       WHERE COM_CATEGORY = ?
 		  				)
 	</entry>
+	
+	<entry key="selectInfo">
+		SELECT COM_CONTENT
+		  FROM COMPANY
+		 WHERE COM_NO = (SELECT MAX(COM_NO)
+		 				   FROM COMPANY
+		 				  WHERE COM_CATEGORY = 1
+		 				)
+	</entry>
 
 </properties>

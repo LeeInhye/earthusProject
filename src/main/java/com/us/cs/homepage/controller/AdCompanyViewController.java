@@ -34,7 +34,6 @@ public class AdCompanyViewController extends HttpServlet {
 		if(info == null) {
 			request.getRequestDispatcher("views/cs/homepage/adCompanyView.jsp").forward(request, response);			
 		}else {
-			System.out.println(info);
 			request.setAttribute("html", info.getComContent());
 			request.getRequestDispatcher("views/cs/homepage/adCompanyView.jsp").forward(request, response);
 		}
