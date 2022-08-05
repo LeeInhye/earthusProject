@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.us.member.model.vo.Member;
 import com.us.product.model.service.CheckoutService;
+import com.us.product.model.service.ProductService;
 import com.us.product.model.vo.Cart;
 import com.us.product.model.vo.Product;
 
@@ -61,7 +62,8 @@ public class CheckoutViewController extends HttpServlet {
 		}else {
 			// 바로결제에서 이동한 경우
 			// 결제 페이지에 회원번호, 상품코드, 상품명 전달 => 얘도 그냥 Cart로 전달해볼까?
-			Product p = (Product)request.getSession().getAttribute("p");
+			//Product p = (Product)request.getSession().getAttribute("p");
+			Product p = new ProductService().selectProduct(request.getParameter("proCode"));
 			c = new Cart();
 			c.setUserNo(userNo);
 			c.setProCode( p.getProCode() );

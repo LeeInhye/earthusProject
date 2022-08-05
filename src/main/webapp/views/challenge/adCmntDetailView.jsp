@@ -270,8 +270,6 @@
 	                             	let contextPath = "<%=contextPath%>";
 			        				let pi = map.pi;
 			        				let list = map.list;
-			        				console.log(list[0]);
-			        				console.log(list[1]);
 			        				
 			        				let value = ""; // 댓글 리스트 
 			        				let paging = ""; // 페이징 처리
