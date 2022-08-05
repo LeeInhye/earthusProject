@@ -23,7 +23,7 @@ public class CheckoutService {
 	
 	
 	// 결제 페이지에서 조회한 값을 DB에 넘기기 위한 메소드
-	public int processPayment(Order o, ArrayList<Cart> orderList, String proCodes) {
+	public int processPayment(Order o) {
 		// 이 메소드에서는
 		// 1) ORDER : INSERT
 		// 2) ORDER-PRODUT : INSERT
@@ -42,10 +42,10 @@ public class CheckoutService {
 		result1 = dao.insertOrder(conn, o);
 		
 		// 2) ORDER-PRODUCT 테이블에 INSERT문 실행
-		result2 = dao.insertOrderProduct(conn, orderList);
+		result2 = dao.insertOrderProduct(conn, o);
 		
 		// 3) CART 테이블에 DELETE문 실행
-		result3 = dao.deleteCart(conn, o, proCodes);
+		result3 = dao.deleteCart(conn, o);
 		
 		// 4) POINT 테이블에 INSERT문 실행
 		/*

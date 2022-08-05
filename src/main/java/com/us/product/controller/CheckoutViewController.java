@@ -49,6 +49,7 @@ public class CheckoutViewController extends HttpServlet {
 		c.setProName( request.getParameter("proName") );
 		c.setPrice( Integer.parseInt(request.getParameter("price")) );
 		c.setProQty( Integer.parseInt(request.getParameter("proQty")) );
+		System.out.println(request.getParameter("proQty"));
 	
 		request.setAttribute("orderProduct", c);
 		request.getRequestDispatcher("views/order/checkoutView.jsp").forward(request, response);
