@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,8 +16,8 @@
 
                     <div class="company_link_part">
                         <div>
-                            <span class="list-unstyled"><a href="">회사소개</a></span>
-                            <span class="list-unstyled"><a href="">이용약관</a></span>
+                            <span class="list-unstyled"><a href="<%= contextPath%>/views/cs/homepage/companyInfo.jsp">회사소개</a></span>
+                            <span class="list-unstyled"><a href="<%= contextPath %>/views/cs/homepage/termsView.jsp">이용약관</a></span>
                             <span class="list-unstyled"><a href="">개인정보처리방침</a></span>
                         </div>
                        

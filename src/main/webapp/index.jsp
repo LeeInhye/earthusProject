@@ -51,7 +51,7 @@
                             <!-- *************메뉴바 들어가는 데에 class menubar-style 부여하기*************** -->
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="index.html">aboutUs</a>
+                                    <a class="nav-link" href="<%= contextPath%>/views/cs/homepage/companyInfo.jsp">aboutUs</a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="<%= contextPath %>/list.pro?categoryNo=5&cpage=1" id="navbarDropdown_1"

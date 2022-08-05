@@ -15,39 +15,35 @@ import com.us.order.model.vo.Order;
 import com.us.product.model.vo.Cart;
 
 public class CheckoutDao {
-	
+
 	private Properties prop = new Properties();
-	
+
 	public CheckoutDao() {
 		try {
-			prop.loadFromXML(new FileInputStream(CheckoutDao.class.getResource("/db/sql/checkout-mapper.xml").getPath()));
+			prop.loadFromXML(
+					new FileInputStream(CheckoutDao.class.getResource("/db/sql/checkout-mapper.xml").getPath()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public ArrayList<Cart> selectProList(Connection conn, int userNo, String orderProCode){
+
+	public ArrayList<Cart> selectProList(Connection conn, int userNo, String orderProCode) {
 		ArrayList<Cart> list = new ArrayList<>();
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("selectProList");
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userNo);
 			pstmt.setString(2, "(" + orderProCode + ")");
 			rset = pstmt.executeQuery();
-			
+
 			System.out.println(rset);
-			
-			while(rset.next()) {
-				list.add(new Cart(
-							rset.getInt("USER_NO"),
-							rset.getString("PRO_CODE"),
-							rset.getString("PRO_NAME"),
-							rset.getInt("PRICE"),
-							rset.getInt("PRO_QTY")
-						));
+
+			while (rset.next()) {
+				list.add(new Cart(rset.getInt("USER_NO"), rset.getString("PRO_CODE"), rset.getString("PRO_NAME"),
+						rset.getInt("PRICE"), rset.getInt("PRO_QTY")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -58,17 +54,15 @@ public class CheckoutDao {
 		System.out.println(list);
 		return list;
 	}
-	
-	
-	
+
 	public int insertOrder(Connection conn, Order o) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertOrder");
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setInt(1, o.getUserNo());
 			pstmt.setString(2, o.getPayment());
 			pstmt.setInt(3, o.getPointsUsed());
@@ -81,24 +75,23 @@ public class CheckoutDao {
 			pstmt.setString(10, o.getDelZoneCode());
 			pstmt.setString(11, o.getDelAddress());
 			pstmt.setString(12, o.getDelAddrDetail());
-			
+
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-		
+
 		return result;
 	}
-	
-	
+
 	public int insertOrderProduct(Connection conn, ArrayList<Cart> orderList) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertOrderProduct");
-		
-		for(int i=0; i<orderList.size(); i++) {
+
+		for (int i = 0; i < orderList.size(); i++) {
 			try {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, orderList.get(i).getProCode());
@@ -108,18 +101,17 @@ public class CheckoutDao {
 				e.printStackTrace();
 			}
 		}
-		if(pstmt != null) {
-			close(pstmt);			
+		if (pstmt != null) {
+			close(pstmt);
 		}
 		return result;
 	}
-	
-	
+
 	public int deleteCart(Connection conn, Order o, String proCodes) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("deleteCart");
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, o.getUserNo());
@@ -130,15 +122,17 @@ public class CheckoutDao {
 			close(pstmt);
 		}
 		return result;
-		
+
+	}
+
+	
+	public int insertPoint(Connection conn, Order o) { 
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectCurrPoint");
+		pstmt = conn.prepareStatement(sql);
 	}
 	
 	
-	/*
-	 * public int insertPoint(Connection conn, Order o) { int result = 0;
-	 * PreparedStatement pstmt = null; String sql = prop.getProperty("insertPoint");
-	 * }
-	 */
 	
-
 }

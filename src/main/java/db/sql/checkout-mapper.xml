@@ -56,6 +56,10 @@
 		   AND PRO_CODE IN ?
 	</entry>
 	
+	<entry key="selectCurrPoint">
+		SELECT 
+	</entry>
+	
 	<entry key="insertPoint">
 		INSERT
 		  INTO POINT
