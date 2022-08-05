@@ -44,6 +44,9 @@ public class CheckoutPayController extends HttpServlet {
 		Order o = null;
 		int result = 0;
 		
+		String proQty = request.getParameter("proQty");
+		String proCode = request.getParameter("proCode");
+		
 		o = new Order(
 					m.getUserNo(),
 					request.getParameter("payment"),
@@ -59,7 +62,7 @@ public class CheckoutPayController extends HttpServlet {
 					request.getParameter("detailAddr")
 				);
 		
-		result = new CheckoutService().processPayment(o);
+		result = new CheckoutService().processPayment(o, proQty, proCode);
 		
 	}
 

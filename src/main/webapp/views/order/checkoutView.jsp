@@ -152,7 +152,9 @@
 								<a style="color: #778C79;">이용 약관*</a> <label for="f-option4" style="padding:0px;">을 읽고 확인하였으며 동의합니다.</label>
 							</div>
 							<input type="hidden" name="cardUid" value="">
-							<input type="hidden" name="totalPrice" value="">
+							<input type="hidden" name="totalPrice" value="<%= orderProduct.getProQty() * orderProduct.getPrice() %>">
+							<input type="hidden" name="proQty" value="<%= orderProduct.getProQty() %>">
+							<input type="hidden" name="proCode" value="<%= orderProduct.getProCode() %>">
 							<button type="button" onclick="requestPay();" id="submit-btn" class="btn_3">결제 진행하기</button>
 						</div>
 					</div>
@@ -228,7 +230,8 @@
 					alert("보유한 포인트를 초과하는 금액은 사용할 수 없습니다.");
 				}else{
 					$("#usedPoint").text( $(this).val() );			
-					$("#totalPrice").text( <%= orderProduct.getPrice() * orderProduct.getProQty() %> - 3000 +  $(this).val() );
+					$("#totalPrice").text( <%= orderProduct.getPrice() * orderProduct.getProQty() %> - 3000 -  $(this).val() );
+					$("input[name=totalPrice]").val( <%= orderProduct.getPrice() * orderProduct.getProQty() %> - 3000 -  $(this).val() );
 				}
 			})
 		})

@@ -34,7 +34,7 @@
 			 , ?
 			 , ?
 			 , NULL
-			 , NULL
+			 , 1
 			 )
 	</entry>
 	
@@ -53,11 +53,7 @@
 		DELETE
 		  FROM CART
 		 WHERE USER_NO = ?
-		   AND PRO_CODE IN ?
-	</entry>
-	
-	<entry key="selectCurrPoint">
-		SELECT 
+		   AND PRO_CODE = ?
 	</entry>
 	
 	<entry key="insertPoint">
