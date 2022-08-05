@@ -45,7 +45,7 @@
 							if( $("#qnaPwd").is(":disabled") ) {
 								$("#qnaPwd").prop("disabled", false);
 							} else {
-								
+								$("#qnaPwd").val("");
 								$("#qnaPwd").prop("disabled", true);
 							}
 							

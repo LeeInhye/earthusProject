@@ -42,11 +42,11 @@
 	            	<% q.setQnaPwd(""); %>
 	            	<input type="checkbox" id="pwdCheck" style="vertical-align:bottom;">&nbsp; 
 	            	<b> &nbsp; 비밀글 &nbsp; </b> 
-	            	<input type="text" id="qnaPwd" name="qnaPwd" placeholder="비밀번호 숫자 네자리 입력">
+	            	<input type="password" id="qnaPwd" name="qnaPwd" placeholder="비밀번호 숫자 네자리 입력" disabled>
 	            <% } else { %>
 	            	<input type="checkbox" id="pwdCheck" style="vertical-align:bottom;" checked>&nbsp; 
 	            	<b> &nbsp; 비밀글 &nbsp; </b> 
-	            	<input type="text" id="qnaPwd" name="qnaPwd" placeholder="비밀번호 숫자 네자리 입력" value="<%= q.getQnaPwd() %>">
+	            	<input type="password" id="qnaPwd" name="qnaPwd" placeholder="비밀번호 숫자 네자리 입력" value="<%= q.getQnaPwd() %>">
 	            <% } %>
 	            
 	            
@@ -57,7 +57,7 @@
 	            	$(document).ready(function(){
 	            		// 체크박스 체크하면 input 비활성화 해제
 						$("#pwdCheck").change(function(){
-							if( $("#qnaPwd").is(":disabled") ) {
+							if( $("#pwdCheck").is(":checked") ) {
 								$("#qnaPwd").prop("disabled", false);
 							} else {
 								$("#qnaPwd").val("");
