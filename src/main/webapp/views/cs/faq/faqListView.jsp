@@ -321,7 +321,7 @@
         <div class="moveToQna" style="text-align:center;">
             <span>찾으시는 질문이 없다면?</span>
             <!-- QNA 게시판 이동 -->
-            <a href="<%= contextPath %>/list.qa">> Q&A 게시판 바로가기</a>
+            <a href="<%= contextPath %>/list.qa?qpage=1">> Q&A 게시판 바로가기</a>
             
         </div>
         <br><br><br><br><br><br><br><br><br>
