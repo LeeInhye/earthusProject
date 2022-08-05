@@ -140,7 +140,7 @@
         }
     } 
 
-    function validate(){ // 등록 버튼 클릭 시 유효성 검사 (안됨)
+    function validate(){ // 등록 버튼 클릭 시 유효성 검사 (됨)
 
 		let proQnaTitle = $('input[name=proQnaTitle]').val();  // 제목
         let proQnaContent = $('textarea[name=proQnaContent]').val(); // 문의 사항
@@ -149,10 +149,6 @@
         let proQnaEmail = $('input[name=proQnaEmail]').val();  // 이메일
         let proQnaPhone = $('input[name=proQnaPhone]').val();  // 휴대폰 번호
   
-        let regExpContent = /^.{20,150}$/; // 20자 이상, 150자 이하
-        let regExpPwd = /^[0-9]{4}$/; // 숫자 4글자 입력
-        let regExpName = /^[가-힣]{2,8}$/; // 한글 2~8글자 입력
-        let 
         //const reqExp3 = ""
         // proQnaContent.length < 20 || proQnaContent.length > 150
         
@@ -168,7 +164,9 @@
         	$('#errorModal').modal('show');
         	return false;
         }
-        if( !regExp.test(proQnaContent) ) { // 문의 사항 글자수 유효 x
+        
+        let regExpContent = /^.{20,150}$/; // 20자 이상, 150자 이하
+        if( !regExpContent.test(proQnaContent) ) { // 문의 사항 글자수 유효 x
 
         	$('.modal-body').text("문의 사항을 20자 이상 150자 이하로 작성해 주세요.");
         	$('#errorModal').modal('show');
@@ -176,13 +174,13 @@
         }
 		if( $('input[name=private]').is(":checked") ){ // 비밀글 체크됐을때
         	
+   	        let regExpPwd = /^[0-9]{4}$/; // 숫자 4글자 입력
         	if(proQnaPwd == ""){ // 비밀번호 미입력
         		
         		$('.modal-body').text("비밀번호를 입력해 주세요.");
             	$('#errorModal').modal('show');
             	return false;
-            	
-        	}else if( !regExp2.test(proQnaPwd) ){ // 비밀번호 형식 유효 x
+        	} else if( !regExpPwd.test(proQnaPwd) ){ // 비밀번호 형식 유효 x
         		
         		$('.modal-body').text("비밀번호를 숫자 네자리로 입력해 주세요.");
             	$('#errorModal').modal('show');
@@ -195,18 +193,26 @@
            	$('#errorModal').modal('show');
            	return false;  
        	}
+		
+        let regExpName = /^[가-힣]{2,8}$/; // 한글 2~8글자 입력
+		if( !regExpName.test(ProQnaWriterName) ){ // 작성자명 형식 유효 x
+			
+			$('model-body').text("유효하지 않은 이름 형식입니다.");
+			$('#errorModal').modal('show');
+		}
 		if( proQnaEmail == "" && proQnaPhone == "" ){ // 연락처 미입력
                 	
            	$('.modal-body').text("연락처를 입력해 주세요.");
            	$('#errorModal').modal('show');
            	return false;
         }
-		if( proQnaEmail != null){ // 이메일 입력 시 중복검사
-			
-			$.ajax({
-				url:"<%=contextPath%>/checkEmail.pq"
-			})
-			
+		
+		let regExpEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/ig;  // 이메일 유효성검사
+		if( !regExpEmail.test(ProQnaEmail) ){ // 이메일 형식 유효 x
+
+			$('.modal-body').text("유효하지 않은 이메일 형식입니다.");
+           	$('#errorModal').modal('show');
+           	return false;
 		}
         	
 		return true;
