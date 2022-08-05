@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8" import="com.us.product.model.vo.Cart, java.util.ArrayList, java.text.SimpleDateFormat, java.util.Date"%>
 <%
 	Cart orderProduct = (Cart)request.getAttribute("orderProduct");
+
 %>
 
 <!DOCTYPE html>
@@ -151,8 +152,12 @@
 								<input type="checkbox" id="f-option4" required />
 								<a style="color: #778C79;">이용 약관*</a> <label for="f-option4" style="padding:0px;">을 읽고 확인하였으며 동의합니다.</label>
 							</div>
+							
+							<input type="hidden" name="userNo" value="<%= loginUser.getUserNo() %>">
+							<input type="hidden" name="userName" value="<%= loginUser.getUserName() %>">
+							<input type="hidden" name="cardUid" value="<%= loginUser.getPhone() %>">
 							<input type="hidden" name="cardUid" value="">
-							<input type="hidden" name="totalPrice" value="<%= orderProduct.getProQty() * orderProduct.getPrice() %>">
+							<input type="hidden" name="totalPrice" value="<%= orderProduct.getProQty() * orderProduct.getPrice() + 3000%>">
 							<input type="hidden" name="proQty" value="<%= orderProduct.getProQty() %>">
 							<input type="hidden" name="proCode" value="<%= orderProduct.getProCode() %>">
 							<button type="button" onclick="requestPay();" id="submit-btn" class="btn_3">결제 진행하기</button>
@@ -288,7 +293,7 @@
 			}, function (rsp) { // callback
 			    if (rsp.success) { 
 			  	  // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
-			  	  $("input[name=cartUid]").val( rsp.merchant_uid );
+			  	  $("input[name=cardUid]").val( rsp.merchant_uid );
 			  	  $("#order-form").submit();
 			
 			    } else {

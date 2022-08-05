@@ -40,21 +40,22 @@ public class CheckoutPayController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		Member m = (Member)request.getSession().getAttribute("loginUser");
 		Order o = null;
 		int result = 0;
 		
 		String proQty = request.getParameter("proQty");
 		String proCode = request.getParameter("proCode");
 		
+		System.out.println(request.getParameter("cardUid"));
+		
 		o = new Order(
-					m.getUserNo(),
+					Integer.parseInt(request.getParameter("userNo")),
 					request.getParameter("payment"),
 					Integer.parseInt(request.getParameter("point")),
 					request.getParameter("shippingMemo"),
 					Integer.parseInt(request.getParameter("totalPrice")),
-					request.getParameter(m.getUserName()),
-					request.getParameter(m.getPhone()),
+					request.getParameter(request.getParameter("userName")),
+					request.getParameter(request.getParameter("userPhone")),
 					request.getParameter("name"),
 					request.getParameter("phone"),
 					request.getParameter("postCode"),
@@ -63,8 +64,16 @@ public class CheckoutPayController extends HttpServlet {
 				);
 		
 		result = new CheckoutService().processPayment(o, proQty, proCode);
+	
+		if(result > 0) {
+			request.getRequestDispatcher("views/order/confirmation.jsp").forward(request, response);
+		}else {
+			request.setAttribute("errorMsg", "결제에 실패하였습니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp");
+		}
 		
 	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
