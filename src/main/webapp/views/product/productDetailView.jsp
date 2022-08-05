@@ -196,7 +196,7 @@
               <% if(loginUser != null){ %>
               
               	<button type="button" onclick="insertCart()" class="btn_3" style="background:#A8BFAA;">장바구니</button>
-              	<a href="<%=contextPath%>/checkout.or" class="btn_3 font_bold_gray">바로결제</a>
+              	<a href="<%=contextPath%>/checkout.or?proCode=<%=p.getProCode() %>" class="btn_3 font_bold_gray">바로결제</a>
               	
               <%}else{ %>
               
