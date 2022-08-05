@@ -18,6 +18,8 @@ import com.us.product.model.vo.ProQna;
 import com.us.product.model.vo.Product;
 import com.us.product.model.vo.WishList;
 
+import oracle.jdbc.oracore.PickleOutputStream;
+
 public class ProductDao {
 	
 	private Properties prop = new Properties();
@@ -461,16 +463,22 @@ public class ProductDao {
 		return listCount;
 	}
 	
-	public ArrayList<ProQna> selectProQnaList(Connection conn, String proCode){
+	public ArrayList<ProQna> selectProQnaList(Connection conn, PageInfo pi, String proCode){
 		ArrayList<ProQna> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectProQnaList");
 		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1; //시작값
+		int endRow = startRow + pi.getBoardLimit() - 1; // 끝값
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 					
 			pstmt.setString(1, proCode);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {

@@ -50,7 +50,7 @@
 	            <a type="button" class="pro-qna-btn btn-green" style="color:#f2f2f2;">상품 페이지로</a>
 	            <script>
 	              $('.product_qna_area a').click(function(){
-	                location.href = "<%=contextPath%>/detail.pro?proCode=<%=proCode%>";
+	                location.href = "<%=contextPath%>/detail.pro?proCode=<%=proCode%>&cpage=1";
 	              })
 	            </script>
 	          </div>

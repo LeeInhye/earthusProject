@@ -20,8 +20,10 @@
   }
 
   .btn-green {
-    background:#778C79;
-    color:#f2f2f2;
+    background:#778C79 !important;
+    color:#f2f2f2 !important;
+    width:50% !important;
+    height:50px !important;
   }
 
   .modal-content {
@@ -147,84 +149,90 @@
         let proQnaEmail = $('input[name=proQnaEmail]').val();  // 이메일
         let proQnaPhone = $('input[name=proQnaPhone]').val();  // 휴대폰 번호
   
-        let regExp = /^.{20,150}$/; // 20자 이상, 150자 이하
-        let regExp2 = /^[0-9]{4}$/; // 숫자 4글자만 입력
+        let regExpContent = /^.{20,150}$/; // 20자 이상, 150자 이하
+        let regExpPwd = /^[0-9]{4}$/; // 숫자 4글자 입력
+        let regExpName = /^[가-힣]{2,8}$/; // 한글 2~8글자 입력
+        let 
         //const reqExp3 = ""
         // proQnaContent.length < 20 || proQnaContent.length > 150
-		
+        
         if(proQnaTitle == ""){ // 제목 미입력
         	
-        	alert("제목을 입력해 주세요."); return false;
+        	$('.modal-body').text("제목을 입력해 주세요.");
+        	$('#errorModal').modal('show');
+        	return false;
+        }
+        if(proQnaContent == ""){ // 문의사항 미입력
         	
-        }else if(proQnaContent == ""){ // 문의사항 미입력
-        	
-        	alert("문의 사항을 입력해 주세요."); return false;
-        	
-        }else if( !regExp.test(proQnaContent) ) { // 문의 사항 글자수 유효 x
+        	$('.modal-body').text("문의 사항을 입력해 주세요.");
+        	$('#errorModal').modal('show');
+        	return false;
+        }
+        if( !regExp.test(proQnaContent) ) { // 문의 사항 글자수 유효 x
 
-            alert("문의 사항을 20자 이상 150자 이하로 작성해 주세요."); return false;
-            
-        }else if( $('input[name=private]').is(":checked") ){ // 비밀글 체크됐을때
+        	$('.modal-body').text("문의 사항을 20자 이상 150자 이하로 작성해 주세요.");
+        	$('#errorModal').modal('show');
+        	return false;
+        }
+		if( $('input[name=private]').is(":checked") ){ // 비밀글 체크됐을때
         	
         	if(proQnaPwd == ""){ // 비밀번호 미입력
         		
-        		alert("비밀번호를 입력해 주세요."); return false;
-        		
+        		$('.modal-body').text("비밀번호를 입력해 주세요.");
+            	$('#errorModal').modal('show');
+            	return false;
+            	
         	}else if( !regExp2.test(proQnaPwd) ){ // 비밀번호 형식 유효 x
         		
-        		alert("비밀번호를 숫자 네자리로 입력해 주세요."); return false;
+        		$('.modal-body').text("비밀번호를 숫자 네자리로 입력해 주세요.");
+            	$('#errorModal').modal('show');
+            	return false;
+        	}	
+       	}
+		if( proQnaWriterName == "" ){ // 작성자명 미입력
         		
-        	}else if( proQnaWriterName == "" ){ // 작성자명 미입력
-            	
-               	alert("성함을 입력해 주세요."); return false;
-               	
-            }else if( proQnaEmail == "" && proQnaPhone == "" ){ // 연락처 미입력
+       		$('.modal-body').text("성함을 입력해 주세요.");
+           	$('#errorModal').modal('show');
+           	return false;  
+       	}
+		if( proQnaEmail == "" && proQnaPhone == "" ){ // 연락처 미입력
                 	
-               	alert("연락처를 입력해 주세요."); return false;
-               	
-            }else{
-            	
-    			return true;	
-            }
-        		
-        }else if( proQnaWriterName == "" ){ // 작성자명 미입력
-            	
-           	alert("성함을 입력해 주세요."); return false;
-           	
-        }else if( proQnaEmail == "" && proQnaPhone == "" ){ // 연락처 미입력
-            	
-           	alert("연락처를 입력해 주세요."); return false;
-           	
-        }else{
-        	
-			return true;	
+           	$('.modal-body').text("연락처를 입력해 주세요.");
+           	$('#errorModal').modal('show');
+           	return false;
         }
+		if( proQnaEmail != null){ // 이메일 입력 시 중복검사
+			
+			$.ajax({
+				url:"<%=contextPath%>/checkEmail.pq"
+			})
+			
+		}
+        	
+		return true;
         
     }
     
 </script>
 
-<!----------------- 모달 모음 ------------------->
-<!------- 제목 null Modal ------->
-<div class="modal" id="proQnaTitleModal">
+<!----------------- 모달 ------------------->
+<div class="modal fade" id="errorModal">
   <div class="modal-dialog">
     <div class="modal-content">
 
       <!-- Modal body -->
-     <div class="modal-body" style="text-align:center; padding:50px 0px; line-height:30px;">
-       로그인된 회원만 이용 가능합니다.
+     <div class="modal-body" id="modal-body" style="text-align:center; padding:50px 0px; line-height:30px;">
+       
      </div>
      
      <!-- Modal footer -->
      <div class="modal-footer" style="display:inline-block; text-align:center;">
-       <button type="button" class="btn btn_2" id="goToCart" data-dismiss="modal">확인</button>
-       <button type="button" class="btn btn_2" data-dismiss="modal">취소</button>
+       <button type="button" class="btn btn-green" data-dismiss="modal">확인</button>
      </div>
      
     </div>
   </div>
 </div>
-<!------- 장바구니 끝 ------->
 
 <!----------------- 모달 모음 끝 ----------------->
 

@@ -191,10 +191,17 @@ UPDATE PRODUCT
 
 <entry key="selectProQnaList">
 	SELECT *
-	  FROM PRO_QNA
-	 WHERE PRO_CODE = ?
-	 ORDER 
-	    BY PRO_Q_ENROLL_DATE
+	  FROM (
+	    SELECT ROWNUM "RNUM", A.*
+	      FROM (
+	        SELECT *
+	          FROM PRO_QNA
+	         WHERE PRO_CODE = ?
+	         ORDER 
+	            BY PRO_Q_ENROLL_DATE DESC
+	            ) A
+	        )
+	 WHERE RNUM BETWEEN ? AND ?
 </entry>
 
 <entry key="insertProQna">
@@ -233,6 +240,35 @@ UPDATE PRODUCT
 	       , ?
 	       , DEFAULT
 	       )
+</entry>
+
+<entry key="checkWish">
+	SELECT *
+	  FROM WISHLIST
+	 WHERE USER_NO IN (SELECT USER_NO FROM MEMBER WHERE USER_NO = ?)
+	   AND PRO_CODE IN (SELECT PRO_CODE FROM PRODUCT WHERE PRO_CODE = ?)
+</entry>
+
+<entry key="insertWish">
+	INSERT
+	  INTO WISHLIST
+	     (
+	       USER_NO
+	     , PRO_CODE
+	     , WISH_DATE
+	     )
+	VALUES
+	    (
+	      ?
+	    , ?
+	    , DEFAULT
+	    )
+</entry>
+
+<entry key="proDetailDelWish">
+	DELETE WISHLIST
+	 WHERE USER_NO = ?
+	   AND PRO_CODE = ?
 </entry>
 
 <entry key="priceDesc">

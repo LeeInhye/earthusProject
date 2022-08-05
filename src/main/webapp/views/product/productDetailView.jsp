@@ -2,16 +2,24 @@
     pageEncoding="UTF-8"%>
 <%@
 	page import="java.util.ArrayList, com.us.product.model.vo.Product, com.us.common.model.vo.PageInfo,
-				 com.us.product.model.vo.ProQna"
+				 com.us.product.model.vo.ProQna, com.us.product.model.vo.WishList"
 %>
 <%
-	Product p = (Product)session.getAttribute("p"); // 상품 정보
-	ArrayList<ProQna> qlist = (ArrayList<ProQna>)session.getAttribute("list"); // 상품 문의 개시글 리스트
+	Product p = (Product)request.getAttribute("p"); // 상품 정보
+	
+	PageInfo pi = (PageInfo)request.getAttribute("pi"); // 상품 문의 페이징 정보 객체
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getCurrentPage();
+	int endPage = pi.getEndPage();
+			
+	ArrayList<ProQna> qlist = (ArrayList<ProQna>)request.getAttribute("list"); // 상품 문의 게시글 리스트
+	WishList w = (WishList)request.getAttribute("w"); // 해당 상품 찜 여부
+	
 	int qnaCount = 0; // 상품 문의 게시글 수를 담을 변수
 	for(int i=0; i<qlist.size(); i++){
 		qnaCount++;
 	}
-	
 %>
 <!DOCTYPE html>
 <html>
@@ -184,20 +192,26 @@
             
             <!------- 바로결제/장바구니/찜 시작 ------->
             <div class="card_area d-flex justify-content-between align-items-center">
-              <a href="<%=contextPath%>/checkout.or" class="btn_3 font_bold_gray">바로결제</a>
+            
               <% if(loginUser != null){ %>
+              
               	<button type="button" onclick="insertCart()" class="btn_3" style="background:#A8BFAA;">장바구니</button>
+              	<a href="<%=contextPath%>/checkout.or" class="btn_3 font_bold_gray">바로결제</a>
+              	
               <%}else{ %>
-              	<button type="button" onclick="$('#insertCartModal2').modal('show');" class="btn_3" style="background:#A8BFAA;">장바구니</button>
+              
+              	<button type="button" onclick="$('#unavailable').modal('show');" class="btn_3" style="background:#A8BFAA;">장바구니</button>
+              	<a href="#" onclick="$('#unavailable').modal('show');" class="btn_3 font_bold_gray">바로결제</a>
+              
               <%} %>
+              
                 <script>
-                
+                	
+                	// 장바구니 추가 함수
                 	function insertCart(){
                 		$.ajax({
                 			url:"<%=contextPath%>/insert.ca",
                 			data:{ proCode:<%=p.getProCode()%>,
-               					   proName:"<%=p.getProName()%>",
-               					   price:<%=p.getPrice()%>,
                					   proQty:$('#qty').val()},
                 			type:"post",
                 			success: function(result){
@@ -232,8 +246,8 @@
           		</div>
         	</div>
                       
-               <!------- 장바구니 담기 실패 Modal ------->
-                <div class="modal" id="insertCartModal2">
+               <!------- 로그인 안 했을 때 바로결제,장바구니,찜 실패 Modal ------->
+                <div class="modal" id="unavailable">
                   <div class="modal-dialog">
                     <div class="modal-content">
 
@@ -255,24 +269,32 @@
                 <!------- 장바구니 끝 ------->
 
 			  <!------------- 찜 버튼 시작 -------------->
-			  <% if(loginUser != null) { %>
-              <a href="#" class="like_us white" onclick="checkWishlist();"><i class="fa fa-heart-o" style="font-size:large;"></i></a>
+			  			
+			  <% if(loginUser != null) { %> <!-- 로그인된 회원만 찜 가능 -->
+			  
+			  	<% if(w != null) { %> <!-- 이미 찜 되어있는 상품은 초록색 찜 버튼 보이게 -->
+              		<a href="#" class="like_us green" onclick="checkWishlist();"><i class="fa fa-heart-o" style="font-size:large; color:#f2f2f2;"></i></a>
+              	<% }else { %>
+              		<a href="#" class="like_us white" onclick="checkWishlist();"><i class="fa fa-heart-o" style="font-size:large; color:#778c79;"></i></a>
+              	<% } %>
+              	
               <% }else { %>
               <a href="#" class="like_us white" onclick="$('#wishModal').modal('show');"><i class="fa fa-heart-o" style="font-size:large;"></i></a>
               <% } %>
+              
               <script>
+              	$.ready(function(){
+              		if(<%=w%> != null){ // 이미 찜 되어 있는 상품일 때
+              			$('.like_us i').css('color', '#f2f2f2');
+            			$('.like_us').removeClass('white').addClass('green');
+              		}else{
+              			$('.like_us i').css('color', '#778c79');
+            			$('.like_us').removeClass('green').addClass('white');
+              		}
+              	})
+              
                 function checkWishlist(){
                 	
-                
-                  // 상품이 위시리스트에 담겨 있지 않을 때
-                    //$('.like_us i').css('color',"#f2f2f2");
-                    //$('.like_us i').parent().css('background',"#778C79"); 
-
-                  // 상품이 위시리스트에 이미 담겨 있을 때
-                  // 위시리스트에 해당 상품 delete 후 스타일 원상복구
-                  //   $('.like_us i').css('color', "");
-                  //   $('.like_us i').parent().css('background', "");
-                  
                    <!-- 찜 여부 확인 -->
 			 		$.ajax({
 			 			url:"<%=contextPath%>/checkWish.pr",
@@ -490,20 +512,27 @@
                   <nav aria-label="Page navigation example">
                       <ul class="pagination justify-content-center" id="pro-qna-page" style="margin:10px;">
                           <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
+                          
+                          <% if( currentPage != 1 ){ %>
+                            <a class="page-link" href="<%=contextPath%>/detail.pro?proCode=<%=p.getProCode()%>&cpage=<%=currentPage-1%>" aria-label="Previous">
                                 <i class="ti-angle-double-left"></i>
                             </a>
+                          <% } %>
+                          
+                         <% for(int i=startPage; i<=endPage; i++) { %>
+                         <% if( i == currentPage ){ %>
                           </li>
-                          <li class="page-item"><a class="page-link" href="#">1</a></li>
-                          <li class="page-item"><a class="page-link" href="#">2</a></li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                          <li class="page-item"><a class="page-link" href="#">4</a></li>
-                          <li class="page-item"><a class="page-link" href="#">5</a></li>
+                          <li class="page-item"><a class="page-link" href="<%=contextPath%>/detail.pro?proCode=<%=p.getProCode()%>&cpage=<%=i%>">i</a></li>
+                          <% } %>
+                         <% } %>
+                         
+                         <% if( currentPage != maxPage ) { %>
                           <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
+                            <a class="page-link" href="<%=contextPath%>/detail.pro?proCode=<%=p.getProCode()%>&cpage=<%=currentPage+1%>" aria-label="Next">
                                 <i class="ti-angle-double-right"></i>
                             </a>
                           </li>
+                          <% } %>
                           <li><a href="<%=contextPath%>/insertForm.pq?code=<%=p.getProCode()%>&name=<%=p.getProName()%>" class="btn-submit" id="z2"
                             style="display:inline-block; text-align:right;">상품 문의하기</a></li>
                       </ul>
