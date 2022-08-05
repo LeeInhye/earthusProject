@@ -51,6 +51,10 @@ public class QnaUpdateController extends HttpServlet {
 			String qnaEmail = multiRequest.getParameter("qnaEmail");
 			String qnaPhone = multiRequest.getParameter("qnaPhone");
 			
+			if(qnaPwd == "null") {
+				qnaPwd = "";
+			}
+			
 			Qna q = new Qna();
 			q.setQnaNo(qNo);
 			q.setQnaTitle(title);
@@ -58,6 +62,7 @@ public class QnaUpdateController extends HttpServlet {
 			q.setQnaPwd(qnaPwd);
 			q.setQnaEmail(qnaEmail);
 			q.setQnaPhone(qnaPhone);
+			System.out.println(qnaPwd);
 			
 			Attachment at = null;
 			if(multiRequest.getOriginalFileName("upfile") != null) {

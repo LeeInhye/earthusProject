@@ -38,20 +38,40 @@
 	            <br>
 	            <hr class="my-hr2">
 				
-	            <input type="checkbox" id="pwdCheck" style="vertical-align:bottom;">&nbsp; 
-	            <b> &nbsp; 비밀글 &nbsp; </b> 
-	            <input type="password" id="qnaPwd" name="qnaPwd" placeholder="비밀번호 숫자 네자리 입력" value="<%= q.getQnaPwd() %>">
+	            <% if( q.getQnaPwd() == null){ %>
+	            	<% q.setQnaPwd(""); %>
+	            	<input type="checkbox" id="pwdCheck" style="vertical-align:bottom;">&nbsp; 
+	            	<b> &nbsp; 비밀글 &nbsp; </b> 
+	            	<input type="text" id="qnaPwd" name="qnaPwd" placeholder="비밀번호 숫자 네자리 입력">
+	            <% } else { %>
+	            	<input type="checkbox" id="pwdCheck" style="vertical-align:bottom;" checked>&nbsp; 
+	            	<b> &nbsp; 비밀글 &nbsp; </b> 
+	            	<input type="text" id="qnaPwd" name="qnaPwd" placeholder="비밀번호 숫자 네자리 입력" value="<%= q.getQnaPwd() %>">
+	            <% } %>
+	            
+	            
 	            <div id="outputPwd"></div>
 	            <br><br>
 	            
 	            <script>
 	            	$(document).ready(function(){
-	            		// 비밀번호가 걸려있으면 자동 체크
+	            		// 체크박스 체크하면 input 비활성화 해제
+						$("#pwdCheck").change(function(){
+							if( $("#qnaPwd").is(":disabled") ) {
+								$("#qnaPwd").prop("disabled", false);
+							} else {
+								$("#qnaPwd").val("");
+								$("#qnaPwd").prop("disabled", true);
+							}
+							
+						})
+						
+	            		// 비밀번호를 없애면 자동 체크 해제
 	            		if(q.getQnaPwd() == null){
 	            			q.setQnaOwd("");
-	            		} else{
-	            			$("#pwdCheck").prop("checked");
+	            			$("#pwdCheck").removeAttr("checked");
 	            		}
+	            		
 	            		
 	            		// 비밀글을 체크하고 비밀번호 네자리 입력해야함
 	            		if( $("#pwdCheck").is(":checked") ){

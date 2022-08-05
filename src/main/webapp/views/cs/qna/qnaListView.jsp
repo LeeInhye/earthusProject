@@ -75,8 +75,8 @@
                         
                         <td>
                         	<% String qnaId = q.getQnaWriter(); %>
-                        	<% int end = qnaId.length() - 2; %>
-                        	<%= qnaId.substring(0, end) + "****" %>
+                        	<% int end = qnaId.length(); %>
+                        	<%= "***" + qnaId.substring(3, end) %>
                         </td>
                         
                         <td>
