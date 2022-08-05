@@ -61,6 +61,9 @@
 		font-weight:bold;
 	}
 	
+	.col3 {
+		text-align:center;
+	}
 	.section_padding {
     padding-top: 200px !important;
 	}
@@ -418,7 +421,7 @@
           <h4>상세정보</h4>
           <br><hr><br>
           <p>
-            <img src="<%= contextPath %>/<%= p.getProImgPath() %>">
+            <img src="<%= contextPath %>/<%= p.getDetailImgPath() %>">
           </p>
         </div>
 
@@ -457,7 +460,7 @@
           				<li class="col1"><%=q.getProQnaNo()%></li>
           				
           				<!-- 답변 미등록 상태면 -->
-          				<% if(q.getProAEnrollDate() == null) { %> 
+          				<% if(q.getProAEnrollDate() == null && q.getProAEnrollDate().equals("")) { %> 
           				<li class="col2 waiting">답변대기중</li>
           				<% }else { %>
           				<li class="col2 completion">답변완료</li>
@@ -479,7 +482,7 @@
           				<% } %>	
           				
           				<% int length = q.getProQnaWriterName().length();
-          				   String name= q.getProQnaWriterName().substring(0,length-2)+"*"; 
+          				   String name= q.getProQnaWriterName().substring(0,length-1)+"*"; 
           				%>
           				<li class="col4"><%=name%></li>
           				<li class="col5"><%=q.getProQEnrollDate()%></li>
@@ -526,7 +529,7 @@
                          <% for(int i=startPage; i<=endPage; i++) { %>
                          <% if( i == currentPage ){ %>
                           </li>
-                          <li class="page-item"><a class="page-link" href="<%=contextPath%>/detail.pro?proCode=<%=p.getProCode()%>&cpage=<%=i%>">i</a></li>
+                          <li class="page-item"><a class="page-link" href="<%=contextPath%>/detail.pro?proCode=<%=p.getProCode()%>&cpage=<%=i%>"><%=i%></a></li>
                           <% } %>
                          <% } %>
                          
