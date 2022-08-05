@@ -70,9 +70,9 @@ public class adPointSearchControlloer extends HttpServlet {
 		
 		// 페이징바에 필요한 객체
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-
 		
-		// 현재 요청한 페이지에 보여질 검색에 해당하는 멤버 리스트 조회
+		
+		// 검색 결과로 포인트 내역 조회
 		// Service 단계 없이 바로 Dao쪽 호출
 		Connection conn = JDBCTemplate.getConnection();
 		ArrayList<Point> list = new PointDao().searchHistory(conn, pi, keyword);
