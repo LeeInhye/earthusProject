@@ -240,6 +240,7 @@
 	                                        	
 	                                            if(result == "EMNY"){	// 중복된 이메일이 없을 경우
 	                                                $("input[name=checkEmail_status").val('Y'); 
+	                                            	$("inputEmail").focus();
 	                                            
 	                                             // 두가지 검사가 끝나고 사용가능한 이메일이면
 	                                                if( ($("input[name=checkEmail_status").val() == 'Y') && ($("input[name=outputEmail_status").val() == 'Y') ){
@@ -295,7 +296,7 @@
                         	
 							// 전화번호 변경안했으면 중복확인 안해도 통과
 							if( $("input[name=changePhone_status]").val() == "N" ){
-								$("iput[name=checkPhone_status]").val("Y");
+								$("input[name=checkPhone_status]").val("Y");
 							}
                         	
                         	$("#inputPhone").change(function(){		// 전화번호를 변경했다면
@@ -471,7 +472,7 @@
 		                    		const birthMonth = birthArr[0];
 		                    		const birthDay = birthArr[1];
 		                    		
-		                    		document.getElementById("birthday").value = birthYear + "-" + birthMonth + "-" + birthDay;
+		                    		document.getElementById("birthday").value = $("#userbirth").val();
 		                    		console.log($("#birthday").val());
 		                    	}
 		                   	</script>

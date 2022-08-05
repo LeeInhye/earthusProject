@@ -289,28 +289,20 @@ public class MemberDao {
 		
 		String sql = prop.getProperty("updateMember");
 		
-		// 새 비밀번호 입력했을 때와 안했을 때 구별
-		if(m.getUserPwd() == null) {
-			sql += "SET USER_NAME = " + m.getUserName();
-			
-		} else {
-			sql += "SET USER_PWD = " + m.getUserPwd();
-			sql += ", USER_NAME = " + m.getUserName();
-		}
-		
-		sql += ", EMAIL = " + m.getEmail();
-		sql += ", PHONE = " + m.getPhone();
-		sql += ", ZONECODE = " + m.getZonecode();
-		sql += ", ADDRESS = " + m.getAddress();
-		sql += ", ADDR_EXTRA = " + m.getAddrExtra();
-		sql += ", ADDR_DETAIL = " + m.getAddrDetail();
-		sql += ", USER_BIRTH = " + m.getUserBirth();
-		sql += ", GENDER = " + m.getGender();
-		sql += ", USER_MODYFI_DATE = SYSDATE";
-		sql += " WHERE USER_ID  = " + m.getUserId();
-		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, m.getUserPwd());
+			pstmt.setString(2, m.getUserName());
+			pstmt.setString(3, m.getEmail());
+			pstmt.setString(4, m.getPhone());
+			pstmt.setString(5, m.getZonecode());
+			pstmt.setString(6, m.getAddress());
+			pstmt.setString(7, m.getAddrExtra());
+			pstmt.setString(8, m.getAddrDetail());
+			pstmt.setString(9, m.getUserBirth());
+			pstmt.setString(10, m.getGender());
+			pstmt.setString(11, m.getUserId());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

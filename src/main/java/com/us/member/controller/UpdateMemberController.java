@@ -37,6 +37,7 @@ public class UpdateMemberController extends HttpServlet {
 		
 		// 전달값 가져오기
 		String userId = request.getParameter("userId");
+		String userPwd = request.getParameter("userPwd");
 		String newPwd = request.getParameter("inputNewPwd");
 		String userName = request.getParameter("userName");
 		String email = request.getParameter("inputEmail");
@@ -48,14 +49,27 @@ public class UpdateMemberController extends HttpServlet {
 		String userBirth = request.getParameter("birthday");
 		String gender = request.getParameter("gender");
 		
+		Member m = null;
 		// Member 객체에 전달값 담기
-		Member m = new Member(userId, newPwd, userName, email, phone, zonecode, address, addrExtra, addrDetail, userBirth, gender);
+		if(newPwd.equals("")) {
+			m = new Member(userId, userPwd, userName, email, phone, zonecode, address, addrExtra, addrDetail, userBirth, gender);
+		} else {
+			m = new Member(userId, newPwd, userName, email, phone, zonecode, address, addrExtra, addrDetail, userBirth, gender);
+		}
 		
+		
+		System.out.println(newPwd);
 		// 회원정보가 수정됐는지 확인
 		int result = new MemberService().updateMember(m);
 		
+		Member newM = null;
 		// 수정된 회원 정보 조회
-		Member newM = new MemberService().loginMember(userId, newPwd);
+		if(newPwd.equals("")) {
+			newM = new MemberService().loginMember(userId, userPwd);
+		} else {
+			newM = new MemberService().loginMember(userId, newPwd);
+		}
+		
 		
 		HttpSession session = request.getSession();
 		
