@@ -40,7 +40,7 @@
 	
 	<entry key="insertOrderProduct">
 		INSERT
-		  INTO "ORDER-PRODUCT"
+		  INTO "ORDER_PRODUCT"
 		VALUES
 		     (
 		       SEQ_ODRNO.CURRVAL

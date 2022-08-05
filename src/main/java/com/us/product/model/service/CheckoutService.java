@@ -42,24 +42,24 @@ public class CheckoutService {
 		result1 = dao.insertOrder(conn, o);
 		
 		// 2) ORDER-PRODUCT 테이블에 INSERT문 실행
-		result2 = dao.insertOrderProduct(conn, o, proQty);
+		result2 = dao.insertOrderProduct(conn, proCode, proQty);
 		
 		// 3) CART 테이블에 DELETE문 실행
-		result3 = dao.deleteCart(conn, o, proCode);
+		/* result3 = dao.deleteCart(conn, o, proCode); */
 		
 		// 4) POINT 테이블에 INSERT문 실행
 		/*
 		 * if(o.getPointsUsed() != 0) { result4 = dao.insertPoint(conn, o); }
 		 */
 		
-		if(result1*result2*result3*result4 > 0) {
+		if(result1*result2 > 0) {
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
 		
 		close(conn);
-		return result1*result2*result3*result4;
+		return result1*result2;
 	}
 	
 	

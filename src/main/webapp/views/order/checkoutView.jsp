@@ -137,13 +137,13 @@
 							
 							<div class="payment_item">
 								<div class="radion_btn">
-									<input type="radio" id="f-option5" name="payment" value="cash"/> <label for="f-option5">무통장 입금</label>
+									<input type="radio" id="f-option5" name="payment" value="CASH"> <label for="f-option5">무통장 입금</label>
 									<div class="check"></div>
 								</div>
 							</div>
 							<div class="payment_item active">
 								<div class="radion_btn">
-									<input type="radio" id="f-option6" name="payment" checked="checked" value="card"> <label for="f-option6">카드 결제</label>
+									<input type="radio" id="f-option6" name="payment" checked="checked" value="CARD"> <label for="f-option6">카드 결제</label>
 									<div class="check"></div>
 								</div>
 							</div>
@@ -155,7 +155,7 @@
 							
 							<input type="hidden" name="userNo" value="<%= loginUser.getUserNo() %>">
 							<input type="hidden" name="userName" value="<%= loginUser.getUserName() %>">
-							<input type="hidden" name="cardUid" value="<%= loginUser.getPhone() %>">
+							<input type="hidden" name="userPhone" value="<%= loginUser.getPhone() %>">
 							<input type="hidden" name="cardUid" value="">
 							<input type="hidden" name="totalPrice" value="<%= orderProduct.getProQty() * orderProduct.getPrice() + 3000%>">
 							<input type="hidden" name="proQty" value="<%= orderProduct.getProQty() %>">
@@ -282,9 +282,9 @@
 			IMP.request_pay({ // param
 				pg: "nice",
 				pay_method: "card",
-				merchant_uid: "ORD" + <%= new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + Math.random() + (int)(Math.random() * 90000 + 10000) %> ,
+				merchant_uid: "ORD" + <%= new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + (int)(Math.random() * 90000 + 10000) %> ,
 				name: '<%= orderProduct.getProName() %>',
-				amount: $("#totalPrice").text(),
+				amount: /* $("#totalPrice").text() */ 100,
 				buyer_email: $("input[name=email]").val(),
 				buyer_name: $("input[name=name]").val(),
 				buyer_tel: $("input[name=phone]").val(),

@@ -1,36 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../common/menubar.jsp" %>
     
 <!DOCTYPE html>
 <html lang="zxx">
 
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>confirmation</title>
-  <link rel="icon" href="img/favicon.png">
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <!-- animate CSS -->
-  <link rel="stylesheet" href="css/animate.css">
-  <!-- owl carousel CSS -->
-  <link rel="stylesheet" href="css/owl.carousel.min.css">
-  <!-- nice select CSS -->
-  <link rel="stylesheet" href="css/nice-select.css">
-  <!-- font awesome CSS -->
-  <link rel="stylesheet" href="css/all.css">
-  <!-- flaticon CSS -->
-  <link rel="stylesheet" href="css/flaticon.css">
-  <link rel="stylesheet" href="css/themify-icons.css">
-  <!-- font awesome CSS -->
-  <link rel="stylesheet" href="css/magnific-popup.css">
-  <!-- swiper CSS -->
-  <link rel="stylesheet" href="css/slick.css">
-  <link rel="stylesheet" href="css/price_rangs.css">
-  <!-- style CSS -->
-  <link rel="stylesheet" href="css/style.css">
 
   <!-- 지우면 절대 안돼!!!!!! -->
   <style>
@@ -55,6 +29,8 @@
 
 <body>
 
+	<%@ include file="/views/common/menubar.jsp" %>
+
   <!--================Home Banner Area =================-->
   <!-- breadcrumb start-->
   <section class="breadcrumb contents_bg">
@@ -64,7 +40,7 @@
           <div class="breadcrumb_iner">
             <div class="breadcrumb_iner_item">
               <h2>결제 확인</h2>
-              <p>Home <span>-</span> Order Confirmation</p>
+              <p>결제에 성공했습니다!</p>
             </div>
           </div>
         </div>
@@ -75,7 +51,7 @@
 
   <!--================ confirmation part start =================-->
 
-  <%-- <% if(결제성공) %> --%>
+
   <section class="confirmation_part padding_top">
     <div class="container">
       <div class="row">
@@ -103,33 +79,14 @@
             <br>
          	<button type="button" class="btn-conf">고객센터</button>
          	&nbsp;&nbsp;
-         	<button teyp="button" class="btn-conf" style="background-color:#778C79;">마이 페이지</button>
+         	<button type="button" class="btn-conf" style="background-color:#778C79;">마이 페이지</button>
           </div>
         </div>
+       </div>
     </div>
   </section>
 
-  <%-- <% }else { %> --%>
-    <section class="confirmation_part padding_top">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="confirmation_tittle">
-              <span style="color:black; font-weight: bold; font-size:30px">결제에 실패하였습니다.</span>
-              <br>
-              <span style="color:#778C79">주문 처리에 실패하여 결제를 완료하지 못했습니다.
-                <br>재시도에도 계속해서 오류가 발생하는 경우 고객센터로 문의 바랍니다.</span>
-            </div>
-          </div>
-          <div class="col-lg-6 col-lx-4" align="center" style="margin:auto;">
-            <button type="button" class="btn-conf">장바구니로</button>
-            &nbsp;&nbsp;
-            <button type="button" class="btn-conf" style="background-color:#778C79;">홈으로 돌아가기</button>
-          </div>
-      </div>
-    </section>
-    <br><br>
-  <%-- <% } %> --%>
+  
   <!--================ confirmation part end =================-->
 
   <!--::footer_part start::-->

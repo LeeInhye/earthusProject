@@ -46,7 +46,23 @@ public class CheckoutPayController extends HttpServlet {
 		String proQty = request.getParameter("proQty");
 		String proCode = request.getParameter("proCode");
 		
+		// 다 뽑아보자...
 		System.out.println(request.getParameter("cardUid"));
+		System.out.println(proQty);
+		System.out.println(proCode);
+		System.out.println(Integer.parseInt(request.getParameter("userNo")));
+		System.out.println(request.getParameter("payment"));
+		System.out.println(Integer.parseInt(request.getParameter("point")));
+		System.out.println(request.getParameter("shippingMemo"));
+		System.out.println(Integer.parseInt(request.getParameter("totalPrice")));
+		System.out.println(request.getParameter("userName"));
+		System.out.println(request.getParameter("userPhone"));
+		System.out.println(request.getParameter("name"));
+		System.out.println(request.getParameter("phone"));
+		System.out.println(request.getParameter("postCode"));
+		System.out.println(request.getParameter("roadAddr"));
+		System.out.println(request.getParameter("detailAddr"));
+		// ...
 		
 		o = new Order(
 					Integer.parseInt(request.getParameter("userNo")),
@@ -54,8 +70,8 @@ public class CheckoutPayController extends HttpServlet {
 					Integer.parseInt(request.getParameter("point")),
 					request.getParameter("shippingMemo"),
 					Integer.parseInt(request.getParameter("totalPrice")),
-					request.getParameter(request.getParameter("userName")),
-					request.getParameter(request.getParameter("userPhone")),
+					request.getParameter("userName"), 
+					request.getParameter("userPhone"),
 					request.getParameter("name"),
 					request.getParameter("phone"),
 					request.getParameter("postCode"),
@@ -69,7 +85,7 @@ public class CheckoutPayController extends HttpServlet {
 			request.getRequestDispatcher("views/order/confirmation.jsp").forward(request, response);
 		}else {
 			request.setAttribute("errorMsg", "결제에 실패하였습니다.");
-			request.getRequestDispatcher("views/common/errorPage.jsp");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 		
 	}

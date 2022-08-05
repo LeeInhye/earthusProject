@@ -86,16 +86,16 @@ public class CheckoutDao {
 		return result;
 	}
 
-	public int insertOrderProduct(Connection conn, Order o, String proQty) {
+	public int insertOrderProduct(Connection conn, String proCode, String proQty) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertOrderProduct");
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, o.getProCode());
+			pstmt.setString(1, proCode);
 			pstmt.setString(2, proQty); 		// 자동형변환 되니까
-			result += pstmt.executeUpdate();
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
