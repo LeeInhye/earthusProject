@@ -116,6 +116,18 @@
 	<!-- 회원 정보 수정 -->
 	<entry key="updateMember">
 		UPDATE MEMBER
+		   SET USER_PWD = ?
+		     , USER_NAME = ?
+		     , EMAIL = ?
+		     , PHONE = ?
+		     , ZONECODE = ?
+		     , ADDRESS = ?
+		     , ADDR_EXTRA = ?
+		     , ADDR_DETAIL = ?
+		     , USER_BIRTH = ?
+		     , GENDER = ?
+		     , USER_MODIFY_DATE = SYSDATE
+		 WHERE USER_ID = ?
 	</entry>
 	
 	<entry key="deleteMember">

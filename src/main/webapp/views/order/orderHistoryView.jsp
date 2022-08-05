@@ -148,24 +148,38 @@
       </script>
       
       <!-- 페이징바 영역 -->
-      <div class="paging-area" align="center">
-      	<% if(currentPage != 1){ %>
-            	<button onclick="location.href='<%=contextPath%>/history.or?opage=<%=currentPage-1%>';">&lt;</button>
-			<% } %>
-			<% for(int p=startPage; p<=endPage; p++){ %>
-			
-				<% if(p == currentPage){ %>
-	            	<button disabled><%= p %></button>
-            	<%}else{ %>
-            		<button onclick="location.href='<%=contextPath%>/history.or?opage=<%= p %>';"><%= p %></button>
-            	<% } %>
-            <% } %>
-			
-			<% if(currentPage != maxPage){ %>
-            	<button onclick="location.href='<%=contextPath%>/history.or?opage=<%=currentPage+1%>';">&gt;</button>
-            <% } %>
-      
-      </div>
+      <nav class="blog-pagination justify-content-center d-flex">
+          <ul class="pagination">
+          	<% if(currentPage != 1) {%>
+                  <li class="page-item">
+                      <button onclick="location.href='<%=contextPath%>/history.or?cpage=<%= pi.getCurrentPage()-1 %>';" class="page-link" aria-label="Previous">
+                          <i class="ti-angle-left"></i>
+                      </button>
+                  </li>
+              <% } %>
+              
+              <% for(int p=startPage; p<=endPage; p++) { %>
+   			  <% if(p == currentPage){ %>
+                      <li class="page-item active">
+                          <button class="page-link" disabled><%= p %></button>
+                      </li>
+   			  <% }else { %>
+                      <li class="page-item">
+                          <button class="page-link" onclick="location.href='<%=contextPath%>/history.or?cpage=<%= p %>';"><%= p %></button>
+                      </li>
+			  <% } %>
+			  <% } %>
+
+              <% if(currentPage != maxPage) { %>
+                  <li class="page-item">
+                      <button onclick="location.href='<%=contextPath%>/history.or?cpage=<%= pi.getCurrentPage()+1 %>';" class="page-link" aria-label="Next">
+                          <i class="ti-angle-right"></i>
+                      </button>
+                  </li>
+              <% } %>
+          </ul>
+      </nav>
+      <!-- 페이징바 영역 끝 -->
       
       
 		<br><br><br><br><br><br><br><br><br><br>

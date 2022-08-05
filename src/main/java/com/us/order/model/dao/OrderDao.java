@@ -52,6 +52,30 @@ public class OrderDao {
 		return listCount;
 	}
 	
+	// 페이징용
+	public int selectListCount(Connection conn, String status) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectListCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return listCount;
+	}
+	
 	// 주문내역 조회
 	public ArrayList<Order> selectOrderList(Connection conn, PageInfo pi, int userNo) {
 		ArrayList<Order> list = new ArrayList<>();
@@ -140,7 +164,7 @@ public class OrderDao {
 	}
 	
 	// 취소/교환/반품 페이지
-	public ArrayList<Order> selectCeList(Connection conn, int userNo){
+	public ArrayList<Order> selectCeList(Connection conn, int userNo ,PageInfo pi){
 		ArrayList<Order> celist = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -149,7 +173,11 @@ public class OrderDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
 			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -402,6 +430,79 @@ public class OrderDao {
 		return list;
 		
 		
+	}
+	
+	// 관_취소/교환/반품 조회
+	public ArrayList<Order> selectCerListAd(Connection conn, String status, PageInfo pi){
+		ArrayList<Order> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql1 = prop.getProperty("selectCerListAd1");
+		String sql2 = prop.getProperty("selectCerListAd2");
+		String sql = sql1 + status + sql2;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Order ol = new Order();
+				ol.setOrderNo(rset.getInt("order_no"));
+				ol.setProCode(rset.getString("pro_code"));
+				ol.setOrderDate(rset.getDate("order_date"));
+				ol.setUserId(rset.getString("user_id"));
+				ol.setDelStatus(rset.getInt("del_status"));
+				list.add(ol);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+		
+	}
+	
+	public ArrayList<Order> selectCncltList(PageInfo pi, Connection conn){
+		ArrayList<Order> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectCListAd");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Order ol = new Order();
+				ol.setOrderNo(rset.getInt("order_no"));
+				ol.setProCode(rset.getString("pro_code"));
+				ol.setOrderDate(rset.getDate("order_date"));
+				ol.setUserId(rset.getString("user_id"));
+				ol.setDelStatus(rset.getInt("del_status"));
+				list.add(ol);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 	
 }

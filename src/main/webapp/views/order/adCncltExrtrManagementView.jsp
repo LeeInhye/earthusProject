@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.us.order.model.vo.*, com.us.common.model.vo.PageInfo"%>
+<%
+	ArrayList<Order> list = (ArrayList<Order>)request.getAttribute("list");
+	
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,9 +46,9 @@
                         &nbsp;&nbsp;&nbsp;<input type="text" id="text-ih"><button id="s-icon-ih"><i class="bi bi-search"></i></button>
                     </div>
                     <div id="btn-list-ih" align="center">
-                        <button name="s-btn" id="can" onclick="showDiv(this);">취소</button> |
-                        <button name="s-btn" id="ex" onclick="showDiv(this);">교환</button> |
-                        <button name="s-btn" id="re" onclick="showDiv(this);">반품</button>
+                        <button name="s-btn" value="4" id="can" onclick="showDiv(this);">취소</button> |
+                        <button name="s-btn" value="5" id="ex" onclick="showDiv(this);">교환</button> |
+                        <button name="s-btn" value="6" id="re" onclick="showDiv(this);">반품</button>
                     </div>
                     <div class="list3-ih" id="canBox-ih">
                         <table>
@@ -51,86 +60,16 @@
                                 <th>결제ID</th>
                                 <th>주문 처리 상태</th>
                             </tr>
+                        	<%for(Order or : list) {%>
                             <tr>
-                                <td>10</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td><%=or.getOrderNo() %></td>
+                                <td><%=or.getOrderNo() %></td>
+                                <td><%=or.getProCode() %></td>
+                                <td><%=or.getOrderDate() %></td>
+                                <td><%=or.getUserId() %></td>
+                                <td><%=or.getDelStatus() %></td>
                             </tr>
-                            <tr>
-                                <td>9</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>8</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>7</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+							<%} %>
                         </table>
                     </div>
 
@@ -145,96 +84,17 @@
                                 <th>주문 처리 상태</th>
                                 <th>배송비</th>
                             </tr>
+                            <%for(Order or : list) {%>
                             <tr>
-                                <td>10</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td><%=or.getOrderNo() %></td>
+                                <td><%=or.getOrderNo() %></td>
+                                <td><%=or.getProCode() %></td>
+                                <td><%=or.getOrderDate() %></td>
+                                <td><%=or.getUserId() %></td>
+                                <td><%=or.getDelStatus() %></td>
+                                <td>6000</td>
                             </tr>
-                            <tr>
-                                <td>9</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>8</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>7</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                            <%} %>
                         </table>
                     </div>
 
@@ -250,14 +110,15 @@
                                 <th>배송비</th>
                                 <th width="100">수령</th>
                             </tr>
+                            <%for(Order or : list) {%>
                             <tr>
-                                <td>10</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td><%=or.getOrderNo() %></td>
+                                <td><%=or.getOrderNo() %></td>
+                                <td><%=or.getProCode() %></td>
+                                <td><%=or.getOrderDate() %></td>
+                                <td><%=or.getUserId() %></td>
+                                <td><%=or.getDelStatus() %></td>
+                                <td>6000</td>
                                 <td>
                                     <select id="yn-ih">
                                         <option>Y</option>
@@ -265,100 +126,28 @@
                                     </select>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>9</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>8</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>7</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                            <%} %>
                         </table>
                     </div>
-                    <br><br>
-                    <button type="submit" id="l-btn-ih">변경사항 반영</button>
+                    <!-- 페이징바 영역 -->
+			       <div class="paging-area" align="center">
+			        	<% if(currentPage != 1) { %>
+			            	<button onclick="location.href='<%=contextPath%>/adCncltExrtr.or?cpage=<%= pi.getCurrentPage()-1 %>';" class="btn btn_black">&lt;</button>
+						<% } %>
+						
+						<% for(int p=startPage; p<=endPage; p++) { %>
+				            <% if(p == currentPage){ %>
+				            	<button class="btn btn_gray" disabled><%= p %></button>
+				            <% }else { %>
+				            	<button class="btn btn_black" onclick="location.href='<%=contextPath%>/adCncltExrtr.or?cpage=<%= p %>';"><%= p %></button>
+							<% } %>
+						<% } %>
+						
+						<% if(currentPage != maxPage) { %>
+			            <button onclick="location.href='<%=contextPath%>/adCncltExrtr.or?cpage=<%= pi.getCurrentPage()+1 %>';" class="btn btn_black">&gt;</button>
+			            <% } %>
+			       </div>
+			       <!-- 페이징바 영역 끝 -->
                     
 
                 </div>
@@ -403,7 +192,7 @@
             
         })
 
-        function showDiv(btn){
+        function showDiv(page){
             const list = document.getElementsByClassName("list3-ih");
 
             for(let i=0; i<list.length; i++){
@@ -413,6 +202,89 @@
                     list[i].style.display = "none";
                 }
             }
+            
+            $.ajax({
+				 url:"<%= contextPath%>/adCncltExrtr.or",
+                data:{status:$("button[name=s-btn]").val(),
+               	   cpage:page},
+                success:function(map){
+                	let contextPath = "<%=contextPath%>";
+   					let pi = map.pi;
+   					let list = map.list;
+   				
+   				let value = ""; // 댓글 리스트 
+   				let paging = ""; // 페이징 처리
+   				
+				// 취/교/반 리스트
+				if(list[i].delStatus == 4) {
+						
+					value += "<tr>"
+						   + "<td>" + list[i].orderNo + "</td>"
+						   + "<td>" + list[i].orderNo + "</td>"
+						   + "<td>" + list[i].proCode +"</td>"
+						   + "<td>" + list[i].orderDate + "</td>"
+						   + "<td>" + list[i].userId + "</td>"
+						   + "<td>" + list[i].delStatus + "</td>"
+						   + "</tr>";
+				}else if(list[i].delStatus == 5) {
+					
+					value += "<tr>"
+						   + "<td>" + list[i].orderNo + "</td>"
+						   + "<td>" + list[i].orderNo + "</td>"
+						   + "<td>" + list[i].proCode +"</td>"
+						   + "<td>" + list[i].orderDate + "</td>"
+						   + "<td>" + list[i].userId + "</td>"
+						   + "<td>" + list[i].delStatus + "</td>"
+						   + "<td> 6000 </td>"
+						   + "</tr>";
+				}else{
+					value += "<tr>"
+						   + "<td>" + list[i].orderNo + "</td>"
+						   + "<td>" + list[i].orderNo + "</td>"
+						   + "<td>" + list[i].proCode +"</td>"
+						   + "<td>" + list[i].orderDate + "</td>"
+						   + "<td>" + list[i].userId + "</td>"
+						   + "<td>" + list[i].delStatus + "</td>"
+						   + "<td> 6000 </td>"
+						   + "<td><select id='yn-ih'>"
+				                          + "<option>Y</option>"
+				                          + "<option>N</option>"
+				                      	   + "</select></td>"
+						   + "</tr>";
+				}
+
+   					
+       				// 페이징바
+       				if(pi.currentPage != 1) {
+       					paging += '<button onclick="selectStatus(' + (pi.currentPage-1) + ');" class="btn btn_black">&lt;</button>';
+       				}
+       				
+       				
+       				for(let p=pi.startPage; p<=pi.endPage; p++){
+       					
+       					if(p == pi.currentPage){
+       						paging += '<button class="btn btn_gray" disabled>' +  p + '</button>';
+       					}else{
+       						paging += '<button onclick="selectStatus(' + p + ');" class="btn btn_black">' + p + '</button>';
+       					}
+       					
+       				}
+       				
+       				if(pi.currentPage != pi.maxPage) {
+   						paging += '<button onclick="selectStatus(' + (pi.currentPage+1) + ');" class="btn btn_black">&gt;</button>';
+       				}
+   					
+   				}
+   				
+               	$(".class").html(value);
+				 	$(".paging-area").html(paging); 
+    					
+                },
+                error:function(){
+                    console.log("ajax 데이터 조회 실패")
+                }
+			 })
+			 
         }
         
     </script>

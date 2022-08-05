@@ -19,7 +19,7 @@
         <br><br><br><br>
         
         <div class="myPage_main">
-            <div class="mpBlock" onclick="location.href='<%= contextPath %>/history.or?opage=1';">
+            <div class="mpBlock" onclick="location.href='<%= contextPath %>/history.or?cpage=1';">
                 <div class="mp_top">
                     <h3>ORDER</h3>
                     <br>
@@ -32,7 +32,7 @@
                 </div>
             </div>
 	
-            <div class="mpBlock" onclick="location.href='<%= contextPath %>/CncltExrtr.or';">
+            <div class="mpBlock" onclick="location.href='<%= contextPath %>/CncltExrtr.or?cpage=1';">
                 <div class="mp_top">
                     <h3>CANCLE | EXCHANGE | RETURN</h3>
                     <br>
