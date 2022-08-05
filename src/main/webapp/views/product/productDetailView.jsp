@@ -167,7 +167,7 @@
                			}
                			
                			$('#qty').val(this_qty);
-               			$("#order-qty").val(this_qty);
+               			$("#proQty").val(this_qty);
                			
                			
                			var num = <%= Integer.parseInt(p.getPrice()) %>; // 상품 개당 가격
@@ -199,10 +199,13 @@
             <div class="card_area d-flex justify-content-between align-items-center">
             
               <% if(loginUser != null){ %>
+              	<button type="button" onclick="insertCart()" class="btn_3" style="background:#A8BFAA;">장바구니</button>
               	<form action="<%=contextPath%>/checkout.or" method="post">
-	              	<button type="button" onclick="insertCart()" class="btn_3" style="background:#A8BFAA;">장바구니</button>
 	              	<button class="btn_3 font_bold_gray">바로결제</button>
-	              	<input type="hidden" id="order-qty" name="proQty" value="">
+	              	<input type="hidden" name="proCode" value="<%= p.getProCode() %>">
+	              	<input type="hidden" name="proName" value="<%= p.getProName() %>">
+	              	<input type="hidden" name="price" value="<%= p.getPrice() %>">
+					<input type="hidden" id="proQty" name="proQty" value="">	              	
               	</form>
               	
               <%}else{ %>
