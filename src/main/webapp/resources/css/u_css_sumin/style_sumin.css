@@ -1238,6 +1238,7 @@ textarea {
 
 .col1 {width:5% !important;}
 .col2 {width:15% !important;}
+.waiting {font-weight:bold !important; color:#778c79 !important;}
 .col3 {width:50%; text-align:left !important;}
 .col4 {width:15% !important;}
 .col5 {width:15% !important;}
