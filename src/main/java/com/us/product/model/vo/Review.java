@@ -13,6 +13,7 @@ public class Review {
 	private String revContent;
 	private String revImgPath;
 	private String revType;
+	private String userName;
 
 	public Review() {
 		super();
@@ -30,6 +31,28 @@ public class Review {
 		this.revRate = revRate;
 		this.revContent = revContent;
 		this.revType = revType;
+	}
+	
+	
+	public Review(int revNo, int userNo, String proCode, String userName, Date revDate, int revRate, String revContent,
+			String revType) {
+		super();
+		this.revNo = revNo;
+		this.userNo = userNo;
+		this.proCode = proCode;
+		this.userName = userName;
+		this.revDate = revDate;
+		this.revRate = revRate;
+		this.revContent = revContent;
+		this.revType = revType;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public int getRevNo() {

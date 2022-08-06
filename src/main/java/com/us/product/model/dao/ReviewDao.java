@@ -62,6 +62,70 @@ public class ReviewDao {
 	}
 	
 	
+	// 상품 디테일 뷰에서 해당 상품에 대한 리스트 조회하는 메소드
+	public ArrayList<Review> selectList(Connection conn, String proCode){
+		ArrayList<Review> list = new ArrayList<>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectProList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, proCode);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Review(
+							rset.getInt("REV_NO"),
+							rset.getInt("USER_NO"),
+							rset.getString("PRO_CODE"),
+							rset.getString("USER_NAME"),
+							rset.getDate("REV_DATE"),
+							rset.getInt("REV_RATE"),
+							rset.getString("REV_CONTENT"),
+							rset.getString("REV_TYPE")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	
+	public ArrayList<Attachment> selectAttachmentList(Connection conn, String proCode){
+		ArrayList<Attachment> list = new ArrayList<>();
+		Attachment at = null;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectProAttachmentList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, proCode);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Attachment(
+							rset.getInt("REF_BNO"),
+							rset.getString("FILE_PATH"),
+							rset.getString("CHANGE_NAME")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(conn);
+		}
+		return list;
+		
+	}
+	
+	
 	// 사용자의 모든 사진리뷰들의 모든 사진에 대한 정보를 조회
 	public ArrayList<Attachment> selectAttachmentList(Connection conn, int userNo){
 		ArrayList<Attachment> list = new ArrayList<>();

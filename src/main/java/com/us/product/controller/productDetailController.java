@@ -10,11 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.us.common.model.vo.Attachment;
 import com.us.common.model.vo.PageInfo;
 import com.us.member.model.vo.Member;
 import com.us.product.model.service.ProductService;
+import com.us.product.model.service.ReviewService;
 import com.us.product.model.vo.ProQna;
 import com.us.product.model.vo.Product;
+import com.us.product.model.vo.Review;
 import com.us.product.model.vo.WishList;
 
 /**
@@ -74,12 +77,21 @@ public class productDetailController extends HttpServlet {
 			request.setAttribute("w", w);
 		}
 		
+		
+		// 리뷰 리스트 조회
+		ArrayList<Review> rlist = new ReviewService().selectList(proCode);
+		
+		// 리뷰 사진 리스트 조회
+		ArrayList<Attachment> picList = new ReviewService().selectAttachmentList(proCode);
+		
 		// 페이지 요청
 		if(result > 0 && p != null) { // 상품 조회 성공, 조회수 1 증가
 			
 			request.setAttribute("p", p);
 			request.setAttribute("pi", pi);
 			request.setAttribute("list", list);
+			request.setAttribute("rlist", rlist);
+			request.setAttribute("picList", picList);
 			request.getRequestDispatcher("/views/product/productDetailView.jsp").forward(request, response);
 		}else {
 			request.setAttribute("errorMsg", "상품 조회 실패");

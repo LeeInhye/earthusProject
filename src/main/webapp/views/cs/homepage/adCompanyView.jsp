@@ -80,7 +80,7 @@
                     });
 
                     function sendFile(file, editor, welEditable){
-                        var imgUrl = 'sources/img/homepage/'
+                        var imgUrl = 'resources/img/homepage/'
 
                         // 파일 전송을 위한 form 생성
                         form_data = new FormData();
