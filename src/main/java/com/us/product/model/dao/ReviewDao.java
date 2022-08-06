@@ -65,6 +65,7 @@ public class ReviewDao {
 	// 사용자의 모든 사진리뷰들의 모든 사진에 대한 정보를 조회
 	public ArrayList<Attachment> selectAttachmentList(Connection conn, int userNo){
 		ArrayList<Attachment> list = new ArrayList<>();
+		Attachment at = null;
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("selectAttachmentList");
@@ -74,11 +75,11 @@ public class ReviewDao {
 			pstmt.setInt(1, userNo);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				list.add(new Attachment(
-							rset.getInt("REF_BNO"),
-							rset.getString("FILE_PATH"),
-							rset.getString("CHANGE_NAME")
-						));
+				at = new Attachment();
+				at.setRefBNo( rset.getInt("REF_BNO") );
+				at.setFilePath( rset.getString("FILE_PATH") );
+				at.setChangeName( rset.getString("CHANGE_NAME") );
+				list.add(at);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -86,6 +87,7 @@ public class ReviewDao {
 			close(rset);
 			close(pstmt);
 		}
+		System.out.println("DAO에서의 list : " + list);
 		return list;
 	}
 	

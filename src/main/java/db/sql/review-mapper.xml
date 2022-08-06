@@ -27,13 +27,10 @@
 		     , FILE_PATH
 		     , CHANGE_NAME
 		  FROM REVIEW
-	 LEFT JOIN ATTACHMENT
-	 	    ON (REV_NO = REF_BNO)
+		  JOIN ATTACHMENT
+		    ON (REV_NO = REF_BNO)
 		 WHERE REF_TYPE = 4
 		   AND USER_NO = ?
-		   AND STATUS = 'Y'
-	     ORDER
-			BY REV_DATE DESC
 	</entry>
 	
 	<entry key="checkPurchase">
