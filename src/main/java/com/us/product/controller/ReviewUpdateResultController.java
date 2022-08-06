@@ -57,7 +57,7 @@ public class ReviewUpdateResultController extends HttpServlet {
 				at = new Attachment();
 				at.setOriginName(multiRequest.getOriginalFileName("review-image"));
 				at.setChangeName(multiRequest.getFilesystemName("review-image"));
-				at.setFilePath("/resources/img/product/review/");
+				at.setFilePath("resources/img/product/review/");
 			}else {
 				r.setRevType("T");
 			}
