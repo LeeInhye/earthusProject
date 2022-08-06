@@ -52,7 +52,10 @@ public class ChallListController extends HttpServlet {
 		  
 		// * 현재 요청한 페이지(currentPage)에 보여질 게시글 리스트 조회 (boardLimit수만큼 조회)
 		ArrayList<Challenge> list = new ChallengeService().selectChallList(pi);
-
+		
+		// 메인에 띄울 챌린지
+		request.getSession().setAttribute("chList", list);
+		
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/challenge/challListView.jsp").forward(request, response);
