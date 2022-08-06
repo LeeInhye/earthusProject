@@ -161,8 +161,7 @@
 		                      , USER_ENROLL_DATE
 		                      , USER_STATUS
 		                      , POINT_BALANCE
-		                      , POINT_DATE
-                              , RANK() OVER (PARTITION BY USER_NO ORDER BY TO_CHAR(POINT_DATE, 'RRRR-MM-DD') DESC) AS RNK        
+                              , ROW_NUMBER() OVER(PARTITION BY USER_NO ORDER BY POINT_NO DESC) RNK        
 		                  FROM MEMBER
 		                  LEFT JOIN POINT USING(USER_NO)
 		                  ORDER
