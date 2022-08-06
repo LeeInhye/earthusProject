@@ -84,7 +84,6 @@ public class productDetailController extends HttpServlet {
 		// 리뷰 사진 리스트 조회
 		ArrayList<Attachment> picList = new ReviewService().selectAttachmentList(proCode);
 		
-		
 		// 페이지 요청
 		if(result > 0 && p != null) { // 상품 조회 성공, 조회수 1 증가
 			

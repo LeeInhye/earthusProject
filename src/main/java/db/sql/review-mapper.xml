@@ -45,7 +45,7 @@
 		  JOIN ATTACHMENT
 		    ON (REV_NO = REF_BNO)
 		 WHERE REF_TYPE = 4
-		   AND PRO_CODE = ?;
+		   AND PRO_CODE = ?
 	</entry>
 	
 	<!-- 특정 회원의 사진 리뷰들의 사진 정보를 조회 -->
