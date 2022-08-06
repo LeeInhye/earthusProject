@@ -42,14 +42,12 @@
 	#index_01{
 	    width: 705px;
 	    height: 400px;
-	    border: 1px solid dimgrey;
 	    margin: 0 auto;
 	}
 	
 	#slide1{
 	    height: 350px;
 	    overflow: hidden;
-	    border-bottom: 1px solid dimgrey;
 	}
 	#slide1>ul{
 	    width: 3600px;
@@ -266,13 +264,13 @@
 		})
 		
 		setInterval(function(){
-		    $('#slide1>ul').delay(2500);
+		    $('#slide1>ul').delay(3000);
 		    $('#slide1>ul').animate({marginLeft: "-705px"})
-		    $('#slide1>ul').delay(2500);
+		    $('#slide1>ul').delay(3000);
 		    $('#slide1>ul').animate({marginLeft: "-1410px"})
-		    $('#slide1>ul').delay(2500);
+		    $('#slide1>ul').delay(3000);
 		    $('#slide1>ul').animate({marginLeft: "-2115px"})
-		    $('#slide1>ul').delay(2500);
+		    $('#slide1>ul').delay(3000);
 		    $('#slide1>ul').animate({marginLeft: "0px"})
 		});
 
