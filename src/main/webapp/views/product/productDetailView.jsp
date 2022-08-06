@@ -92,7 +92,7 @@
 </head>
 <body>
 
-<%@ include file="/views/common/menubar.jsp" %>
+<%@ include file="../common/menubar.jsp" %>
 
 <!-- font awesome -->
 <script src="https://use.fontawesome.com/e3cb36acfb.js"></script>
@@ -758,8 +758,11 @@
       </div>
     </div>
   </section>
+  </div>
+  </div>
+  </div>
   <!--================ 상품 상세 조회 끝 =================-->
 		
-<%@ include file="/views/common/footerbar.jsp" %>
+<%@ include file="../common/footerbar.jsp" %>
 </body>
 </html>
