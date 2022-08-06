@@ -139,7 +139,7 @@
                             </div>
                             <div class="widgets_inner">
                                 <div class="range_item">
-                                    <input type="text" class="js-range-slider" name="" value=""/>
+                                    <input type="range" class="js-range-slider" name="" value=""/>
                                     <div class="d-flex">
                                         <div class="price_text">
                                             <p>가격 :</p>
@@ -225,7 +225,7 @@
                                                 <p><%= p.getPrice() %>원</p>&nbsp;&nbsp;&nbsp;
                                                 
 		                                 <% if( loginUser != null ) {  // 로그인 o %> 
-			                              		<i class="fa fa-heart" onclick="checkWish()"></i> <!-- 찜했을경우 -->
+			                              		<i class="fa fa-heart color-gray" onclick="checkWish();"></i> <!-- 찜했을경우 -->
 			                              		
 		                                 <%	} else { // 로그인 x %> 
 		                                      	<i class="fa fa-heart" onclick="$('#unavailable').modal('show');" ></i>
@@ -252,10 +252,13 @@
 	                              <img src="<%= contextPath %>/<%= p.getProImgPath() %>" alt="">
 	                              <div class="single_product_text">
 	                                  <h4><%= p.getProName() %></h4>
-	                                  <p><%= p.getPrice() %>원</p>&nbsp;&nbsp;&nbsp;<i class="fa fa-heart color-gray"></i>
+	                                  <p><%= p.getPrice() %>원</p>&nbsp;&nbsp;&nbsp;
+	                                  
 	                                  <% if(loginUser != null) {%>
+	                                  <i class="fa fa-heart color-gray"></i>
 	                                  <a class="add_cart" onclick="insertCart('<%= p.getProCode() %>');">+ 장바구니 추가</a>
 	                                  <% }else { %>
+	                                  <i class="fa fa-heart color-gray" onclick="$('#unavailable').modal('show')"></i>
 	                                  <a class="add_cart" onclick="$('#unavailable').modal('show')">+ 장바구니 추가</a>
 	                                  <% } %>
 	                                  <input type="hidden" name="proCode" value="<%= p.getProCode() %>">
@@ -382,9 +385,6 @@
 
         	// ---------------- 찜 버튼 -----------------
             $('.single_product_text>i').click(function(){ 
-
-                    
-                    
                 if( $(this).hasClass("color-gray") ){ 
                  	$(this).removeClass("color-gray").addClass("color-lightgreen");
                 }else{

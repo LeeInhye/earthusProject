@@ -64,15 +64,14 @@
 	                    
 	                        <!------ 정렬 바 시작 ------>
 	                        <div class="pro-info-var">
-	                        	<form name="search-bar">
 	                            <table height="100%" style="margin:auto">
 	                                <tr>
 	                                    <td width="20%" class="tb-title">카테고리</td>
 	                                    <td width="80%" colspan="3" id="category">
-	                                        <input type="checkbox" name="hair" id="hair" value="1" checked> <label for="hair">Hair</label>
-	                                        <input type="checkbox" name="body" id="body" value="2" checked> <label for="body">Body</label>
-	                                        <input type="checkbox" name="kitchen" id="kitchen" value="3" checked> <label for="kitchen">Kitchen</label>
-	                                        <input type="checkbox" name="bath" id="bath" value="4" checked> <label for="bath">Bath</label>
+	                                        <input type="checkbox" name="category" id="hair" value="1" checked> <label for="hair">Hair</label>
+	                                        <input type="checkbox" name="category" id="body" value="2" checked> <label for="body">Body</label>
+	                                        <input type="checkbox" name="category" id="kitchen" value="3" checked> <label for="kitchen">Kitchen</label>
+	                                        <input type="checkbox" name="category" id="bath" value="4" checked> <label for="bath">Bath</label>
 	                                    </td>
 	                                </tr>
 	                                <tr>
@@ -93,11 +92,10 @@
 	                                        <input type="text" class="form-control" name="proKeyword" placeholder="상품명 키워드를 입력하세요.">
 	                                    </td>
 	                                    <td>
-	                                    	<button type="button" onclick="searchPro();" class="btn btn-sm btn-update" style="margin-left:20px; width:100px; height:40px;">조회
+	                                    	<button type="button" onclick="searchPro(1);" class="btn btn-sm btn-update" style="margin-left:20px; width:100px; height:40px;">조회</button>
 	                                    </td>
 	                                </tr>
 	                            </table>
-	                            </form>
 	                        </div>
 	                        <hr>
 	                        <!-- 정렬 바 끝 -->
@@ -123,7 +121,7 @@
 	                                    </th>
 	                                </tr>
 	                            </thead>
-	                            <tbody>
+	                            <tbody id="tbody">
 	                            
 	                            	<% for(Product p : list) { %>
 	                                <tr>
@@ -138,6 +136,7 @@
 	                                    </td>
 	                                </tr>
 	                                <% } %>
+	                                
 	                            </tbody>
 	                        </table>
 	
@@ -188,7 +187,7 @@
 	                        <!------- 페이징 처리 ------>
 	                        <div class="pageination">
 	                        	<nav aria-label="Page navigation example">
-	                        		<ul class="pagination justify-content-center">
+	                        		<ul class="pagination justify-content-center" id="pageArea">
 	                        		
 	                        			<% if(currentPage != 1) { %>
 	                        			<li class="page-item">
@@ -231,41 +230,94 @@
                 
       <!-- 스크립트 영역 -->
       
+      
       <script>
-      	function searchPro(){
+      //------------------ 카테고리, 키워드 검색 결과 --------------------
+      	function searchPro(page){
       		
-      		int categoryNo = []; // 카테고리 번호들을 담은 변수
+      		let categoryNo = ""; // 카테고리 번호들을 담은 변수
       		
-      		if($("input[type=checkbox]:checked").length != 0){
-      			
-      			categoryNo.push($(this).val());
-      		}
-      		
+      		$('input[name="category"]:checked').each(function(){
+      			categoryNo += "," + $(this).val(); // ,1,2,3 
+      		})
+      		console.log("category:" + categoryNo);
       		$.ajax({
       			url:"<%=contextPath%>/adsearch.pr",
       			type:"get",
       			data:{
-      				cpage:1,
+      				cpage:page,
       				categoryNo:categoryNo,
       				keyword:$('input[name=proKeyword]').val()
       			},
       			success:function(map){
       				console.log("맵 담김")
       				console.log(map);
+      				
+      				const pi = map.pi;
+      				const newList  = map.list;
+      				
+      				var txt = ""; // 테이블 코드 저장할 변수
+      				
+      				// 검색 결과 알려주기
+      				for(let i = 0; i < newList.length; i++) {
+	                    txt += "<tr>";
+	                    txt +=    "<td>";
+	                    txt +=        "<input type='checkbox' class='checkbox' value='" + newList[i].proCode + "'>";
+	                    txt +=    "</td>";
+	                    txt +=    "<td class='proCode'>" + newList[i].proCode + "</td>";
+	                    txt +=    "<td>" + newList[i].proName + "</td>";
+	                    txt +=    "<td>" + newList[i].stock + "</td>";
+	                    txt +=    "<td>";
+	                    txt +=        "<button class='btn btn-sm btn-update'" +  "onclick='updatePro(" + newList[i].proCode + ");'>수정</button>";
+	                    txt +=    "</td>";
+	                    txt += "</tr>";
+                    }
+      				
+                    var ptxt = ""; // 페이징 처리 코드 저장할 변수
+                    
+                    // 검색 결과 페이징 처리
+                    if(pi.currentPage != 1) {
+	              		ptxt += "<li class='page-item'>";
+	              		ptxt +=		"<a class='page-link' onclick='searchPro(" + (pi.currentPage - 1) + ");' aria-label='Previous'>";
+	              		ptxt +=			"<i class='fa-solid fa-angle-left'></i>";
+	              		ptxt +=		"</a>";
+	              		ptxt +=	"</li>";
+              		}
+               			
+           			for(let p = pi.startPage; p <= pi.endPage; p++) {
+           			
+               			if(p == pi.currentPage) {
+	               		ptxt += "<li class='page-item active'><a class='page-link' onclick='searchPro(" + p + ");'>" + p + "</a></li>";
+	               		} else {
+	               		ptxt +=	"<li class='page-item'>";
+	               		ptxt +=		"<a class='page-link' onclick='searchPro(" + p + ")'>" + p + "</a>";
+	               		ptxt +=	"</li>";
+               			}
+           			}
+             			
+           			if(pi.currentPage != pi.maxPage) {
+	           			ptxt += "<li class='page-item'>";
+	           			ptxt += 	"<a class='page-link' onclick='searchPro(" + (pi.currentPage + 1) + ");' aria-label='Next'>";
+	           			ptxt += 		"<i class='fa-solid fa-angle-right'></i>";
+	           			ptxt += 	"</a>";
+	           			ptxt += "</li>";
+           			}
+           			
+           			// 각 영역에 코드 넣어주기
+           			$('#tbody').empty();
+           			$('#tbody').append(txt);
+           			$('#pageArea').empty();
+           			$('#pageArea').append(ptxt);
       			},
       			error:function(){
       				console.log("상품 검색용 ajax 통신 실패");
       			}
       		})
       	}
+      // --------------------------------------------------------
       </script>
                 
        <script>
-           function dateAll(){
-               // 클릭된 버튼만 lightgray 배경!!
-               
-           }
-           
            // ---------- 전체 체크 체크박스 jQuery ----------- 동작 o
            $('#selectAll').click(function(){
            	

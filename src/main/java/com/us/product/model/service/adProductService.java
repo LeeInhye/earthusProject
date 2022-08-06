@@ -112,4 +112,18 @@ public class adProductService {
 		close(conn);
 		return result;
 	}
+	
+	public int selectListCount(String categoryNo, String keyword) {
+		Connection conn = getConnection();
+		int listCount = new adProductDao().selectListCount(conn, categoryNo, keyword);
+		close(conn);
+		return listCount;
+	}
+	
+	public ArrayList<Product> searchProduct(PageInfo pi, String categoryNo, String keyword){
+		Connection conn = getConnection();
+		ArrayList<Product> list = new adProductDao().searchProduct(conn, pi, categoryNo, keyword);
+		close(conn);
+		return list;
+	}
 }

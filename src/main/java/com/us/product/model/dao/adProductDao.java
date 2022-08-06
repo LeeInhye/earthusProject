@@ -402,6 +402,88 @@ public class adProductDao {
 		}
 		return list;
 		
+	}
+	
+	public int selectListCount(Connection conn, String categoryNo, String keyword) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListCount");
 		
+		if(!categoryNo.equals("")) {
+			sql += "WHERE CATEGORY_NO IN (" + categoryNo.substring(1) + ") ";
+			// ,1,2,3 ==> WHERE CATEGORY_NO IN (1,2,3)
+			
+			if(!keyword.equals("")) {
+				sql += "AND PRO_NAME LIKE '%" + keyword + "%' ";
+			}
+		}else {
+			if(!keyword.equals("")) {
+				sql += "WHERE PRO_NAME LIKE '%" + keyword + "%' ";
+			}
+		}
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("listCount");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+	
+	public ArrayList<Product> searchProduct(Connection conn, PageInfo pi, String categoryNo, String keyword){
+		ArrayList<Product> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchProduct");
+		
+		// 페이징 시작값, 끝값
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		if(!categoryNo.equals("")) {
+			sql += "WHERE CATEGORY_NO IN (" + categoryNo.substring(1) + ") "; 
+			
+			if(!keyword.equals("")) {
+				sql += "AND PRO_NAME LIKE '%" + keyword + "%' ";
+			}
+		}else {
+			if(!keyword.equals("")) {
+				sql += "WHERE PRO_NAME LIKE '%" + keyword + "%' ";
+			}
+		}
+		
+		sql += "ORDER BY PRO_ENROLL_DATE DESC ) A ) WHERE RNUM BETWEEN ? AND ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Product p = new Product();
+				p.setProCode(rset.getString("pro_code"));
+				p.setProName(rset.getString("pro_name"));
+				p.setStock(rset.getInt("stock"));
+				
+				list.add(p);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 }
