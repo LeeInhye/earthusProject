@@ -97,7 +97,9 @@ public class ReviewService {
 		Connection conn = getConnection();
 		
 		int result1 = 0;
-		int result2 = 1;
+		int result2 = 0;
+		int result3 = 0;
+		int result4 = 1;
 		
 		// REVIEW 테이블에 UPDATE문
 		result1 = new ReviewDao().updateReview(conn, r);	
@@ -109,11 +111,13 @@ public class ReviewService {
 			}else {
 				// 기존에 이미지 있고, 수정하면서 이미지 파일이 변경된 경우
 				// 삭제를 먼저 하고 INSERT를 다음에 해야 함
-				result2 = new ReviewDao().deleteAttachment(conn, r)	* new ReviewDao().insertAttachment(conn, r, at);
+				result2 = new ReviewDao().deleteAttachment(conn, r);
+				result3 = new ReviewDao().insertAttachment(conn, r, at);
+				result4 = result2 * result3;
 			}
 		}
 		
-		if(result1 * result2 > 0) {
+		if(result1 * result4 > 0) {
 			commit(conn);
 		}else {
 			rollback(conn);

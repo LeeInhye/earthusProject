@@ -173,11 +173,14 @@ public class ReviewDao {
 			pstmt.setString(2, at.getOriginName());
 			pstmt.setString(3, at.getChangeName());
 			pstmt.setString(4, at.getFilePath());
+			
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
+		System.out.println("insertAttachment의 결과 : " + result);
 		return result;
 	}
 	
@@ -193,6 +196,7 @@ public class ReviewDao {
 			pstmt.setInt(1, revNo);
 			
 			rset = pstmt.executeQuery();
+			
 			if(rset.next()) {
 				r = new Review();
 				r.setRevNo(rset.getInt("REV_NO"));
@@ -269,6 +273,7 @@ public class ReviewDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("deleteAttachment");
+		System.out.println(r);
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -291,9 +296,7 @@ public class ReviewDao {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("deleteReview");
 		String sql2 = prop.getProperty("deleteAttachment");
-		
-		
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, revNo);
@@ -301,7 +304,9 @@ public class ReviewDao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} try {
+		} 
+		
+		try {
 			pstmt = conn.prepareStatement(sql2);
 			pstmt.setInt(1, revNo);
 			result2 = pstmt.executeUpdate();

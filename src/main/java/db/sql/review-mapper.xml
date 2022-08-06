@@ -138,13 +138,6 @@
 		 WHERE REV_NO = ?
 	</entry>
 	
-	<entry key="deleteAttachment">
-		UPDATE
-		   SET STATUS = 'N'
-		 WHERE REF_TYPE = 4
-		   AND REF_BNO = ?
-	</entry>
-	
 	
 
 </properties>

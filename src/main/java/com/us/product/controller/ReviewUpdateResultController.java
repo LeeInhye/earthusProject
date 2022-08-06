@@ -65,7 +65,7 @@ public class ReviewUpdateResultController extends HttpServlet {
 			int result = new ReviewService().updateReview(r, at, oldFile);
 			
 			if(result > 0) {
-				request.getRequestDispatcher("views/product/mypageReviewListView").forward(request, response);
+				response.sendRedirect(request.getContextPath() + "/myPage.mp");
 			}else {
 				request.setAttribute("errorMsg", "리뷰 수정에 실패하였습니다.");
 				request.getRequestDispatcher("views/common/errorPage.jsp");
