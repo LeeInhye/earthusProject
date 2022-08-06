@@ -53,6 +53,30 @@ public class AdBannerDao {
 		return list;
 	}
 	
+	public ArrayList<Banner> selectMainList(Connection conn){
+		ArrayList<Banner> list = new ArrayList<>();
+		Banner b = null;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectMainList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				b = new Banner();
+				b.setBnImgURL("/earthus/" + rset.getString("BN_IMG_URL"));
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
 	
 	public int insertBanner(Connection conn, Attachment at) {
 		int result = 0;

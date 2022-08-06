@@ -37,6 +37,28 @@
     <!--  jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <style>
+    
+    /*--------좌우슬라이딩---------*/
+	#index_01{
+	    width: 705px;
+	    height: 400px;
+	    border: 1px solid dimgrey;
+	    margin: 0 auto;
+	}
+	
+	#slide1{
+	    height: 350px;
+	    overflow: hidden;
+	    border-bottom: 1px solid dimgrey;
+	}
+	#slide1>ul{
+	    width: 3600px;
+	    font-size: 0;
+	}
+	#slide1>ul>li{
+	    display: inline-block;
+	    font-size: 0;
+	}
         
     </style>
     
@@ -214,45 +236,63 @@
 	
 	
 	
+ 	<script>
+		$(function(){
+			var a = "";
+			var b = "";
+			$.ajax({
+				url:"<%= contextPath %>/loadBanner.us",
+				success:function(blist){
+					console.log(blist);
+					
+					a = '<li>' 
+					  + '<a href="#">' 
+					  + '<img src="' + blist[0].bnImgURL + '" alt="슬라이드0">' 
+					  + '</a>'
+					  + '</li>'
+					$("#banner-ul").append(a);
+					
+					for(var i=1; i<blist.length; i++){
+						b = ' <li>' 
+						  + '<a href="#">' 
+						  + '<img src="' + blist[i].bnImgURL + '" alt="슬라이드' + i + '">' 
+						  + '</a>' 
+						  + '</li>'
+					$("#banner-ul").append(b);
+					}
+					
+				}
+			})
+		})
+		
+		setInterval(function(){
+		    $('#slide1>ul').delay(2500);
+		    $('#slide1>ul').animate({marginLeft: "-705px"})
+		    $('#slide1>ul').delay(2500);
+		    $('#slide1>ul').animate({marginLeft: "-1410px"})
+		    $('#slide1>ul').delay(2500);
+		    $('#slide1>ul').animate({marginLeft: "-2115px"})
+		    $('#slide1>ul').delay(2500);
+		    $('#slide1>ul').animate({marginLeft: "0px"})
+		});
+
+		
+	</script>
+	
 	 <!-- banner part start-->
     <section class="banner_part">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-12">
-                    <div class="banner_slider owl-carousel">
-
-                        <div class="single_banner_slider">
-                            <div class="row">
-                                <div class="banner_img d-none d-lg-block banner_text">
-                                    <img src="<%= contextPath %>/resources/img/banner_img.png" alt="">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="single_banner_slider">
-                            <div class="row">
-                                <div class="banner_img d-none d-lg-block banner_text">
-                                    <img src="<%= contextPath %>/resources/img/banner_img.png" alt="">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="single_banner_slider">
-                            <div class="row">
-                                <div class="banner_img d-none d-lg-block banner_text" style="top:0;">
-                                    <img src="<%= contextPath %>/resources/img/banner_img.png" alt="" id="banner_3">
-                                </div>
-                                <div class="banner_text"></div>
-                            </div>
-                        </div>
-                        
-
-                    </div>
-                </div>
-            </div>
+        <div id="index_01" class="banner-container">
+	        <div id="slide1" class="banner-wrap">
+				<ul id="banner-ul">
+					
+				</ul>
+			</div>
         </div>
     </section>
-    <!-- banner part start-->
+    <!-- banner part start--> 
+     
+     <script type="text/javascript" src="script/slide.js"></script>
+    <!-- banner part end -->
 
 
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

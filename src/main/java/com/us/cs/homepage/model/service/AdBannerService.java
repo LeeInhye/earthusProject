@@ -19,6 +19,13 @@ public class AdBannerService {
 		return list;
 	}
 	
+	public ArrayList<Banner> selectMainList(){
+		Connection conn = getConnection();
+		ArrayList<Banner> list = new AdBannerDao().selectMainList(conn);
+		close(conn);
+		return list;
+	}
+	
 	public int insertBanner(Attachment at) {
 		Connection conn = getConnection();
 		int result1 = new AdBannerDao().insertBanner(conn, at);
