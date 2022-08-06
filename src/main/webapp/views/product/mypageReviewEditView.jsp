@@ -169,6 +169,7 @@
 	         <br>
 	         <div class="button-area" align="right">
 	         	<input type="hidden" name="revNo" value="<%= r.getRevNo() %>">
+	         	<input type="hidden" name="oldFile" value="<%= r.getProImgPath() %>">
 	            <button type="submit" class="btn-review-edit" style="background-color:#778C79;">리뷰 수정</button>
 	         </div>
 		</form>

@@ -33,10 +33,10 @@ public class ReviewUpdateController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// userNo, form으로 받은 proCode로 수정할 리뷰 정보 조회, 응답 페이지로 넘기기
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
-		String proCode = request.getParameter("proCode");
+		int revNo = Integer.parseInt(request.getParameter("revNo"));
 		
 		
-		Review r = new ReviewService().selectReview(userNo, proCode);
+		Review r = new ReviewService().selectReview(userNo, revNo);
 		if(r != null) {
 			request.setAttribute("r", r); // 수정할 리뷰에 대한 정보를 담은 객체
 			request.getRequestDispatcher("views/product/mypageReviewEditView.jsp").forward(request, response);

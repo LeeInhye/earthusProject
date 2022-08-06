@@ -93,6 +93,8 @@
 	<!-- 리뷰 수정 클릭 -> 리뷰정보 조회 -->
 	<entry key="selectReview">
 		SELECT REV_NO
+			 , USER_NO
+			 , PRO_CODE
 		     , PRO_NAME
 		     , PRO_IMG_PATH
 		     , REV_RATE
@@ -100,8 +102,7 @@
 		     , REV_TYPE
 		  FROM REVIEW
 		  JOIN PRODUCT USING (PRO_CODE)
-		 WHERE USER_NO = ?
-		   AND PRO_CODE = ?
+		 WHERE REV_NO = ?
 	</entry>
 	
 	<entry key="selectAttachment">
@@ -124,25 +125,17 @@
 		 WHERE REV_NO = ?
 	</entry>
 	
-	<entry key="updateAttachment">
-		UPDATE ATTACHMENT
-		   SET STATUS = 'N'
+	<entry key="deleteAttachment">
+		DELETE
+		  FROM ATTACHMENT
 		 WHERE REF_TYPE = 4
 		   AND REF_BNO = ?
-		   AND CHANGE_NAME != ?
 	</entry>
 	
 	<entry key="deleteReview">
 		DELETE 
 		  FROM REVIEW
 		 WHERE REV_NO = ?
-	</entry>
-	
-	<entry key="deleteAttachment">
-		UPDATE
-		   SET STATUS = 'N'
-		 WHERE REF_TYPE = 4
-		   AND REF_BNO = ?
 	</entry>
 	
 	

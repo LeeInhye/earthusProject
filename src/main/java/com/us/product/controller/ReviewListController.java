@@ -42,11 +42,9 @@ public class ReviewListController extends HttpServlet {
 		
 		// 회원의 모든 리뷰 리스트 
 		ArrayList<Review> list = new ReviewService().selectList(userNo);
-		System.out.println("리뷰리스트 : " + list);
 		
 		// 회원의 사진 리뷰의 사진에 대한 정보를 담은 리스트
 		ArrayList<Attachment> picList = new ReviewService().selectAttachmentList(userNo);
-		System.out.println("리뷰의 사진들 : " + picList);
 		
 		request.setAttribute("list", list);
 		request.setAttribute("picList", picList);
