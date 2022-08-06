@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.us.member.model.vo.Member" %>
+    pageEncoding="UTF-8" import="com.us.member.model.vo.Member, java.util.ArrayList, com.us.challenge.model.vo.Challenge" %>
 <%
 	String contextPath = request.getContextPath();
 	Member loginUser = (Member)session.getAttribute("loginUser");
+	ArrayList<Challenge> chList = (ArrayList<Challenge>)session.getAttribute("chList");
 %>
 <!DOCTYPE html>
 <html>
@@ -272,28 +273,28 @@
                     <div class="single_feature_post_text">
                         <h3 style="margin-top: 230px;">HAIR</h3>
                         <a href="<%= contextPath %>/list.pro?categoryNo=1&cpage=1" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
-                        <img src="<%= contextPath %>/resources/img/feature/feature_1.png" alt="">
+                        <img src="<%= contextPath %>/resources/img/product/hair_1_img.png" alt="고 그린 헤어샴푸바" style="height: 100%;">
                     </div>
                 </div>
                 <div class="col-lg-5 col-sm-6">
-                    <div class="single_feature_post_text">
-                        <h3 style="margin-top: 277px; margin-left: 80%; color:#778C79;">BODY</h3>
+                    <div class="single_feature_post_text" style="position:relative !important;">
                         <a href="<%= contextPath %>/list.pro?categoryNo=2&cpage=1" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
-                        <img src="" alt="">
+                        <h3 style="margin-top: 277px; margin-left: 70%; z-index:1;  position:absolute;">BODY</h3>
+                        <img src="<%= contextPath %>/resources/img/product/body_5_img.png" alt="" style="height: 100%; float: right;" >
                     </div>
                 </div>
                 <div class="col-lg-5 col-sm-6">
-                    <div class="single_feature_post_text">
-                        <h3 style="margin-top:230px;">KITCHEN</h3>
-                        <a href="<%= contextPath %>/list.pro?categoryNo=3&cpage=1" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
-                        <img src="<%= contextPath %>/resources/img/feature/feature_3.png" alt="">
+                    <div class="single_feature_post_text" style="position:relative !important;">
+                        <a href="<%= contextPath %>/list.pro?categoryNo=2&cpage=1" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
+                        <h3 style="margin-top: 277px; margin-left: 60%; z-index:1;  position:absolute;">KITCHEN</h3>
+                        <img src="<%= contextPath %>/resources/img/product/kitchen_7_img.png" alt="" style="height: 100%; float: right;" >
                     </div>
                 </div>
                 <div class="col-lg-7 col-sm-6">
                     <div class="single_feature_post_text">
-                        <h3 style="margin-top: 277px; margin-left:75%;">BATHROOM</h3>
+                        <h3 style="margin-top: 277px; margin-left:65%; z-index:1;  position:absolute;">BATHROOM</h3>
                         <a href="<%= contextPath %>/list.pro?categoryNo=4&cpage=1" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
-                        <img src="" alt="">
+                        <img src="<%= contextPath %>/resources/img/product/body_6_img.png" alt="" style="height: 100%; float: right;" >
                     </div>
                 </div>
             </div>
@@ -328,13 +329,13 @@
 
                     <div class="col-lg-5 col-sm-6">
                         <div class="single_product_item">
-                            <img src="<%= contextPath %>/resources/img/product/product_1.png" alt="">
+                            <img src="<%= contextPath %>/<%= chList.get(0).getChallThumbnail() %>">
                             <div class="single_product_text">
                                 <br>
-                                <h4>챌린지 1</h4>
-                                <h5>것은 청춘의 끓는 피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이
-                                    돋고 이상의 꽃이 피고 희망의 놀이 뜨고 열락의 새가 운다사랑의 풀이 없으면
-                                    인간은 사막이다 오아이스도 없는</h5>
+                                <h4><%= chList.get(0).getChallTitle() %></h4>
+                                <h5>4월 2일, 세계자폐인의 날</h5>
+                                <h5>자폐에 대한 인식을 높이고자</h5>
+                                <h5>세계랜드마크에 파란 등을 켜는 캠패인</h5>
                             </div>
                         </div>
                     </div>
@@ -343,22 +344,24 @@
                         <div style="height:100%; align-items: center;">
                             <div class="single_product_item">
                                 <div class="single_product_text" style="text-align:center; margin:0px 0px 20px 0px;">
-                                    <h4>챌린지 추천추천! 참여참여!</h4> <br>
-                                    <h5>것은 청춘의 끓는 피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이
-                                        것은 청춘의 끓는 피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이
-                                    </h5>
+                                    <h4 style="margin: auto;">챌린지 추천추천! 참여참여!</h4> <br>
+                                    <h5>챌린지 참여하시고</h5>
+                                    <h5>SNS에 올려</h5>
+                                    <h5>포인트 받아가세요!</h5>
                                 </div>
                             </div>
 
 
-                            <div class="row single_product_item" style="margin-top:50px;">
-                                    <div class="col-lg-4">
-                                        <img src="<%= contextPath %>/resources/img/product/product_2.png" alt="">
+                            <div class="row single_product_item" style="margin-top:10px;">
+                                    <div style="width: 100%;">
+                                        <img src="<%= contextPath %>/<%= chList.get(1).getChallThumbnail() %>" style="width: 100%;">
                                     </div>
 
-                                    <div class="col-lg-8 single_product_text" style="margin-top:20px;">
-                                        <h4>챌린지 2</h4> <br>
-                                        <h5>것은 청춘의 끓는 피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이</h5>
+                                    <div class="col-lg-8 single_product_text" style="margin-top:0px;">
+                                        <h4><%= chList.get(1).getChallTitle() %></h4> <br>
+                                        <h5>하루에 한가지,</h5>
+                                        <h5>한 달에 하루</h5>
+                                        <h5>플라스틱을 줄여요!</h5>
                                     </div>
                             </div>
                         </div>
@@ -366,12 +369,13 @@
 
                     <div class="col-lg-3 col-sm-6">
                         <div class="single_product_item">
-                            <img src="<%= contextPath %>/resources/img/product/product_3.png" alt="">
+                            <img src="<%= contextPath %>/<%= chList.get(2).getChallThumbnail() %>">
                             <div class="single_product_text">
-                                <h4>챌린지 3</h4>
-                                <h5>것은 청춘의 끓는 피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이
-                                    돋고 이상의 꽃이 피고 희망의 놀이 뜨고 열락의 새가 운다사랑의 풀이 없으면
-                                    인간은 사막이다 오아이스도 없는</h5>
+                                <h4><%= chList.get(2).getChallTitle() %></h4> <br>
+                                <h5>PLASTIC ISLANDS NO MORE</h5>
+                                <h5>텀블러를 사용해주세요!</h5>
+                                <h5>플라스틱 프리 챌린지,</h5>
+                                <h5>EARTHUS가 함께 실천합니다.</h5>
                             </div>
                         </div>
                     </div>
