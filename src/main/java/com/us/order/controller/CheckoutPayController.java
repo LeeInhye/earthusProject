@@ -78,7 +78,7 @@ public class CheckoutPayController extends HttpServlet {
 			
 			if(result > 0) {
 				request.setAttribute("totalPrice", request.getParameter("totalPrice"));
-				request.getRequestDispatcher("views/order/confirmation_cash.jsp").forward(request, response);
+				request.getRequestDispatcher("views/order/confirmation.jsp").forward(request, response);
 			}else {
 				request.setAttribute("errorMsg", "결제에 실패하였습니다.");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

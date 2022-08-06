@@ -63,10 +63,13 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="confirmation_tittle">
-            <span style="color:black; font-weight: bold; font-size:30px">성공적으로 결제되었습니다!</span>
+            <span style="color:black; font-weight: bold; font-size:30px">성공적으로 주문처리 되었습니다!</span>
             <br>
-            <span style="color:#778C79">배송은 평균 공휴일 제외 2~3일 이내에 시작됩니다.
-              <br>(택배사 사정에 따라 달라질 수 있습니다.)</span>
+            <span style="color:#778C79">
+            무통장 입금의 경우, <br>
+            주문일시 기준 24시간 이내에 입금해야 정상적으로 결제가 완료됩니다.<br><br>
+            입금처 : 국민은행 68950201159449 어스어스
+            </span>
               <br><br>
           </div>
         </div>
