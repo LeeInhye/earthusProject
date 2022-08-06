@@ -87,7 +87,6 @@ public class ReviewDao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println("DAO에서의 list : " + list);
 		return list;
 	}
 	
@@ -183,7 +182,7 @@ public class ReviewDao {
 	}
 	
 	
-	public Review selectReview(Connection conn, int userNo, String proCode) {
+	public Review selectReview(Connection conn, int revNo) {
 		Review r = null;
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
@@ -191,15 +190,14 @@ public class ReviewDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, userNo);
-			pstmt.setString(2, proCode);
+			pstmt.setInt(1, revNo);
 			
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
 				r = new Review();
 				r.setRevNo(rset.getInt("REV_NO"));
-				r.setUserNo(userNo);
-				r.setProCode(proCode);
+				r.setUserNo(rset.getInt("USER_NO"));
+				r.setProCode(rset.getString("PRO_CODE"));
 				r.setProName(rset.getString("PRO_NAME"));
 				r.setProImgPath(rset.getString("PRO_IMG_PATH"));
 				r.setRevRate(rset.getInt("REV_RATE"));
@@ -266,15 +264,15 @@ public class ReviewDao {
 	}
 	
 	// 리뷰 이미지 사진이 변경되었을 때, 기존 이미지의 STATUS를 'N'로 만드는 메소드
-	public int updateAttachment(Connection conn, Review r, Attachment at) {
+	// 를 작성해야 하는데 너무 귀찮아서 DELETE 해버릴거임
+	public int deleteAttachment(Connection conn, Review r) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("updateAttachment");
+		String sql = prop.getProperty("deleteAttachment");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, r.getRevNo());
-			pstmt.setString(2, at.getChangeName());
 				
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

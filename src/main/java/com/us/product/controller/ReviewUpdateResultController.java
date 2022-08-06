@@ -43,6 +43,9 @@ public class ReviewUpdateResultController extends HttpServlet {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/img/product/review/");
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
+			// 기존 첨부파일이 있는지 확인할 용도
+			String oldFile = multiRequest.getParameter("oldFile");
+			
 			Review r = new Review();
 			r.setRevNo( Integer.parseInt(multiRequest.getParameter("revNo")) );
 			r.setRevRate( Integer.parseInt(multiRequest.getParameter("rate")) );
@@ -55,12 +58,11 @@ public class ReviewUpdateResultController extends HttpServlet {
 				at.setOriginName(multiRequest.getOriginalFileName("review-image"));
 				at.setChangeName(multiRequest.getFilesystemName("review-image"));
 				at.setFilePath("/resources/img/product/review/");
-				System.out.println(at);
 			}else {
 				r.setRevType("T");
 			}
 			
-			int result = new ReviewService().updateReview(r, at);
+			int result = new ReviewService().updateReview(r, at, oldFile);
 			
 			if(result > 0) {
 				request.getRequestDispatcher("views/product/mypageReviewListView").forward(request, response);

@@ -89,16 +89,10 @@
 		        <input type="hidden" name="userNo" value="<%= userNo %>">
 		        <input type="hidden" name="proCode" value="<%= proCode %>">
 	        	
-	        	<div class="col-lg-6 col-xl-4 "> 
-	              <div style="display:inline;">
-	                <img src="<%= proImgPath %>" style="width:80px; height:80px;"/>
-	                <p style="display:inline;">상품명 : <%= proName %> <br> 가격 : <%= price %></p>
-		          </div>
-	            </div>
-	            
 	            <br><br>
 	         
-				<h3>리뷰 작성하기</h3>
+				<h2>리뷰 작성하기</h2>
+				<br><br>
 				<div class="rate-area">
 					<p style="display:inline;">당신의 별점은: </p>
 					<fieldset id="rate-star">

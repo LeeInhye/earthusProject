@@ -69,15 +69,15 @@ public class ReviewService {
 	}
 	
 	
-	public Review selectReview(int userNo, String proCode) {
+	public Review selectReview(int userNo, int revNo) {
 		Connection conn = getConnection();
 		
 		Review r = null;
 		Attachment at = null;
-		r = new ReviewDao().selectReview(conn, userNo, proCode);
+		r = new ReviewDao().selectReview(conn, revNo);
 		
-		if(r.getRevType() == "P") {
-			at = new ReviewDao().selectAttachment(conn, r.getRevNo());
+		if(r.getRevType().equals("P")) {
+			at = new ReviewDao().selectAttachment(conn, revNo);
 			
 			if(at != null) {
 				r.setRevImgPath( at.getFilePath() + at.getChangeName() );
@@ -89,16 +89,28 @@ public class ReviewService {
 	}
 	
 	
-	public int updateReview(Review r, Attachment at) {
+	// REVIEW 테이블에 UPDATE문
+	// 만약 넘어온 이미지 첨부파일이 있다면,
+	// 1) 신규 파일 : ATTACHMENT 테이블에 INSERT문
+	// 2) 변경 파일 : ATTACHMENT 테이블에 INSERT문, ATTACHMENT 테이블에 DELETE문
+	public int updateReview(Review r, Attachment at, String oldFile) {
 		Connection conn = getConnection();
 		
 		int result1 = 0;
 		int result2 = 1;
 		
+		// REVIEW 테이블에 UPDATE문
 		result1 = new ReviewDao().updateReview(conn, r);	
 		
 		if(at != null) {
-			result2 = new ReviewDao().insertAttachment(conn, r, at) * new ReviewDao().updateAttachment(conn, r, at);
+			if(oldFile == null) {
+				// 최초로 이미지 업로드
+				result2 = new ReviewDao().insertAttachment(conn, r, at);
+			}else {
+				// 기존에 이미지 있고, 수정하면서 이미지 파일이 변경된 경우
+				// 삭제를 먼저 하고 INSERT를 다음에 해야 함
+				result2 = new ReviewDao().deleteAttachment(conn, r)	* new ReviewDao().insertAttachment(conn, r, at);
+			}
 		}
 		
 		if(result1 * result2 > 0) {

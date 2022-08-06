@@ -53,11 +53,15 @@
 			margin-top:10px;
 		}
 		#edit-review{
+			display:inline-block;
 			width:50px; 
 			height:150px; 
-			border:1px solid #F2F2F2  ; 
+			border:1px solid #F2F2F2; 
 			background:none; 
-			border-radius:10px;
+			border-radius:5px;
+			text-decoration:none;
+			color:black;
+			line-height:150px;
 		}
 	</style>
 
@@ -109,12 +113,13 @@
 						<img src="<%= r.getProImgPath() %>" width="90%">
 					</td>
 					<td align="center"> <%= r.getProName() %> </td>
-					<% if(r.getRevType() == "P"){ %>
-						<td>
-							<div style="float:left; padding-right:10px;">
+					
+					<% if( r.getRevType().equals("P") ){ %>
+						<td style="padding:0px; margin-left:10px;">
+							<div style="float:left;">
 							<% for(int i=0; i<picList.size(); i++ ){ %>
 								<% if( picList.get(i).getRefBNo() == r.getRevNo() ){ %>
-									<img src="<%= picList.get(i).getFilePath() + picList.get(i).getChangeName() %>" style="width:100px; height:100px;">
+									<img src="<%= picList.get(i).getFilePath() + picList.get(i).getChangeName() %>" style="width:200px; height:100px;">
 								<% } %>
 							<% } %>
 							</div>
@@ -126,8 +131,7 @@
 						</td>
 					<% } %>
 					<td align="center">
-						<button id="edit-review">수정</button>
-						<input type="hidden" value="<%= r.getProCode() %>">
+						<a href="<%= contextPath %>/update.re?userNo=<%= loginUser.getUserNo() %>&revNo=<%= r.getRevNo() %>" id="edit-review" >수정</a>
 					</td>
 				</tr>
 			<% } %> 
@@ -140,11 +144,8 @@
 		</table>		
 	</div>
 	
-	<form action="<%= contextPath %>/update.re" method="get" id="hidden-form" style="display:none;">
-		<input type="hidden" name="userNo" value="<%= loginUser.getUserNo() %>">
-		<input type="hidden" name="proCode" value="">
-		<button type="submit" id="btn-submit"></button>
-	</form>
+	
+
 	
 	<!-- ============ Start Script Area ==============-->
 	<script>
