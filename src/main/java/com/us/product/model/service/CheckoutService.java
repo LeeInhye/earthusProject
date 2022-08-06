@@ -23,12 +23,10 @@ public class CheckoutService {
 	
 	
 	// 결제 페이지에서 조회한 값을 DB에 넘기기 위한 메소드
-	public int processPayment(Order o, String proQty, String proCode) {
-		// 이 메소드에서는
+	public int processCardPayment(Order o, String proQty, String proCode, String cardUid) {
 		// 1) ORDER : INSERT
 		// 2) ORDER-PRODUT : INSERT
-		// 3) CART : DELETE
-		// 4) POINT : INSERT (o.getPointsUsed != 0 인 경우에만)
+		// 3) PAY_CARD : INSERT
 		
 		Connection conn = getConnection();
 		CheckoutDao dao = new CheckoutDao();
@@ -36,30 +34,57 @@ public class CheckoutService {
 		int result1 = 0;
 		int result2 = 0;
 		int result3 = 0;
-		int result4 = 1;
 		
 		// 1) ORDER 테이블에 INSERT문 실행
 		result1 = dao.insertOrder(conn, o);
 		
-		// 2) ORDER-PRODUCT 테이블에 INSERT문 실행
+		// 2) ORDER_PRODUCT 테이블에 INSERT문 실행
 		result2 = dao.insertOrderProduct(conn, proCode, proQty);
 		
-		// 3) CART 테이블에 DELETE문 실행
-		/* result3 = dao.deleteCart(conn, o, proCode); */
+		// 3) PAY_CASH 테이블에 
+		result3 = dao.insertPayCash(conn);
 		
-		// 4) POINT 테이블에 INSERT문 실행
-		/*
-		 * if(o.getPointsUsed() != 0) { result4 = dao.insertPoint(conn, o); }
-		 */
-		
-		if(result1*result2 > 0) {
+		if(result1*result2*result3 > 0) {
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
 		
 		close(conn);
-		return result1*result2;
+		return result1*result2*result3;
+	}
+	
+	
+	
+	public int processCashPayment(Order o, String proQty, String proCode) {
+		// 1) ORDER : INSERT
+		// 2) ORDER-PRODUT : INSERT
+		// 3) PAY_CARD : INSERT
+		
+		Connection conn = getConnection();
+		CheckoutDao dao = new CheckoutDao();
+		
+		int result1 = 0;
+		int result2 = 0;
+		int result3 = 0;
+		
+		// 1) ORDER 테이블에 INSERT문 실행
+		result1 = dao.insertOrder(conn, o);
+		
+		// 2) ORDER_PRODUCT 테이블에 INSERT문 실행
+		result2 = dao.insertOrderProduct(conn, proCode, proQty);
+		
+		// 3) PAY_CARD 테이블에 
+		result3 = dao.insertPayCash(conn);
+		
+		if(result1*result2*result3 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result1*result2*result3;
 	}
 	
 	

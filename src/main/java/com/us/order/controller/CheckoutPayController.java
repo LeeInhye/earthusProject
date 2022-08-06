@@ -1,7 +1,6 @@
 package com.us.order.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,10 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.us.member.model.vo.Member;
 import com.us.order.model.vo.Order;
 import com.us.product.model.service.CheckoutService;
-import com.us.product.model.vo.Cart;
 
 /**
  * Servlet implementation class CheckoutPayController
@@ -45,24 +42,8 @@ public class CheckoutPayController extends HttpServlet {
 		
 		String proQty = request.getParameter("proQty");
 		String proCode = request.getParameter("proCode");
+		String cardUid = request.getParameter("cardUid");
 		
-		// 다 뽑아보자...
-		System.out.println(request.getParameter("cardUid"));
-		System.out.println(proQty);
-		System.out.println(proCode);
-		System.out.println(Integer.parseInt(request.getParameter("userNo")));
-		System.out.println(request.getParameter("payment"));
-		System.out.println(Integer.parseInt(request.getParameter("point")));
-		System.out.println(request.getParameter("shippingMemo"));
-		System.out.println(Integer.parseInt(request.getParameter("totalPrice")));
-		System.out.println(request.getParameter("userName"));
-		System.out.println(request.getParameter("userPhone"));
-		System.out.println(request.getParameter("name"));
-		System.out.println(request.getParameter("phone"));
-		System.out.println(request.getParameter("postCode"));
-		System.out.println(request.getParameter("roadAddr"));
-		System.out.println(request.getParameter("detailAddr"));
-		// ...
 		
 		o = new Order(
 					Integer.parseInt(request.getParameter("userNo")),
@@ -79,14 +60,29 @@ public class CheckoutPayController extends HttpServlet {
 					request.getParameter("detailAddr")
 				);
 		
-		result = new CheckoutService().processPayment(o, proQty, proCode);
-	
-		if(result > 0) {
-			request.setAttribute("totalPrice", request.getParameter("totalPrice"));
-			request.getRequestDispatcher("views/order/confirmation.jsp").forward(request, response);
+		if( request.getParameter("payment") == "CARD" ) {
+			// 카드 결제인 경우 : ORDER, ORDER_PRODUCT, PAY_CARD 테이블에 DML문 처리
+			result = new CheckoutService().processCardPayment(o, proQty, proCode, cardUid);
+			
+			if(result > 0) {
+				request.setAttribute("totalPrice", request.getParameter("totalPrice"));
+				request.getRequestDispatcher("views/order/confirmation.jsp").forward(request, response);
+			}else {
+				request.setAttribute("errorMsg", "결제에 실패하였습니다.");
+				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			}
+			
 		}else {
-			request.setAttribute("errorMsg", "결제에 실패하였습니다.");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			// 무통장 결제인 경우 : ORDER, ORDER_PRODUCT, PAY_CASH 테이블에 DML문 처리
+			result = new CheckoutService().processCashPayment(o, proQty, proCode);
+			
+			if(result > 0) {
+				request.setAttribute("totalPrice", request.getParameter("totalPrice"));
+				request.getRequestDispatcher("views/order/confirmation_cash.jsp").forward(request, response);
+			}else {
+				request.setAttribute("errorMsg", "결제에 실패하였습니다.");
+				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			}
 		}
 		
 	}

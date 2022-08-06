@@ -104,6 +104,26 @@ public class CheckoutDao {
 		
 		return result;
 	}
+	
+	
+	public int insertPayCash(Connection conn) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertPayCash");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+			
+		return result;
+	}
+	
 
 	public int deleteCart(Connection conn, Order o, String proCode) {
 		int result = 0;

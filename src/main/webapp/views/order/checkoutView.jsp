@@ -274,32 +274,43 @@
 		//============================================================
 			
 		
-		// 결제 API (아임포트) 관련 결제 요청하는 function
+		// 결제하기 버튼 누르면 결제(카드 or 무통장) 요청하는 function
 		function requestPay() {
-			var IMP = window.IMP;
-			IMP.init("imp03580136"); // 가맹점 식별코드
-			//IMP.request_pay(param, callback) 결제창 호출
-			IMP.request_pay({ // param
-				pg: "nice",
-				pay_method: "card",
-				merchant_uid: "ORD" + <%= new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + (int)(Math.random() * 90000 + 10000) %> ,
-				name: '<%= orderProduct.getProName() %>',
-				amount: /* $("#totalPrice").text() */ 100,
-				buyer_email: $("input[name=email]").val(),
-				buyer_name: $("input[name=name]").val(),
-				buyer_tel: $("input[name=phone]").val(),
-				buyer_addr: $("input[name=roadAddr]").val() + $("input[name=detailAddr]").val(),
-				buyer_postcode: $("input[name=postCode]").val()
-			}, function (rsp) { // callback
-			    if (rsp.success) { 
-			  	  // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
-			  	  $("input[name=cardUid]").val( rsp.merchant_uid );
-			  	  $("#order-form").submit();
 			
-			    } else {
-			      alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
-			    }
-			});
+			
+			if( $("#f-option6").prop("checked") ){
+				// 카드 결제 라디오버튼을 선택한 경우
+				var IMP = window.IMP;
+				IMP.init("imp03580136"); // 가맹점 식별코드
+				
+				//IMP.request_pay(param, callback) 결제창 호출
+				IMP.request_pay({ // param
+					pg: "nice",
+					pay_method: "card",
+					merchant_uid: "ORD" + <%= new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + (int)(Math.random() * 90000 + 10000) %> ,
+					name: '<%= orderProduct.getProName() %>',
+					amount: /* $("#totalPrice").text() */ 100,
+					buyer_email: $("input[name=email]").val(),
+					buyer_name: $("input[name=name]").val(),
+					buyer_tel: $("input[name=phone]").val(),
+					buyer_addr: $("input[name=roadAddr]").val() + $("input[name=detailAddr]").val(),
+					buyer_postcode: $("input[name=postCode]").val()
+				}, function (rsp) { // callback
+				    if (rsp.success) { 
+				  	  // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
+				  	  $("input[name=cardUid]").val( rsp.merchant_uid );
+				  	  $("#order-form").submit();
+				
+				    } else {
+				      alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
+				    }
+				});
+			}else{
+				// 무통장 입금 선택한 경우
+				$("#order-form").submit();
+			}
+			
+			
 	    }
 
 	</script>

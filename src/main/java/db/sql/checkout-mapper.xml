@@ -15,6 +15,7 @@
 		   AND PRO_CODE IN ?
 	</entry>
 	
+	<!-- 주문 시 ORDER 테이블에 행 추가 -->
 	<entry key="insertOrder">
 		INSERT
 		  INTO "ORDER"
@@ -49,6 +50,7 @@
 		     )
 	</entry>
 	
+	<!-- 장바구니에서 넘어오는 주문 시 장바구니에서 구매된 상품 제거 -->
 	<entry key="deleteCart">
 		DELETE
 		  FROM CART
@@ -56,18 +58,26 @@
 		   AND PRO_CODE = ?
 	</entry>
 	
-	<entry key="insertPoint">
+	<entry key="insertPayCard">
 		INSERT
-		  INTO POINT
+		  INTO PAY_CARD
 		VALUES
-			 (
-			   SEQ_POINTNO.NEXTVAL
-			 , ?
-			 , '사용'
-			 , '상품 결제에 포인트 사용'
-			 , 3000
-			 , 
-			 )
+		     (
+		       SEQ_ODRNO.CURRVAL
+		     , ?
+		     , SYSDATE
+		     )
 	</entry>
+	
+	<entry key="insertPayCash">
+		INSERT
+		  INTO PAY_CASH
+		VALUES
+		     (
+		       SEQ_ODRNO.CURRVAL
+		     , SYSDATE
+		     )
+	</entry>
+	
 	
 </properties>
