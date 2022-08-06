@@ -49,6 +49,7 @@ public class DeleteMemberController extends HttpServlet {
 		int result = new MemberService().deleteMember(userId, userPwd);
 		
 		if(result > 0) {	// 회원 탈퇴 성공
+			session.removeAttribute("loginUser");
 			request.getRequestDispatcher("/views/member/deleteMemSuccess.jsp").forward(request, response);
 		} else {
 			session.setAttribute("modalId", "deleteFail");

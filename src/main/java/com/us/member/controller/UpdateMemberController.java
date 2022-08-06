@@ -74,7 +74,9 @@ public class UpdateMemberController extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		if(result > 0) {	// 수정 성공
-			response.sendRedirect(request.getContextPath() + "/goUpdate.me");
+			//response.sendRedirect(request.getContextPath() + "/goUpdate.me");
+			session.setAttribute("modalMsg", "회원 정보 수정에 성공하였습니다.");
+			request.getRequestDispatcher("/views/common/errorModal.jsp").forward(request, response);
 			session.setAttribute("loginUser", newM);
 		} else {	// 수정 실패
 			session.setAttribute("modalId", "updateMemberFail");

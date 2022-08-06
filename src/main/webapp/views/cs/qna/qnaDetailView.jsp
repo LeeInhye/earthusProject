@@ -51,14 +51,9 @@
 	                <tr>
 	                    <th>작성자</th>
 	                    <td>
-	                        <% String name = q.getQnaWriter(); %>
-	                        <% int length = name.length(); %>
-	                        <% int end = length - (length / 2); %>
-	                        <% String str = ""; %>
-	                        <% for(int a = 0; a < length / 2; a++){ %>
-	                        	<% str += "*"; %>
-	                        <% } %>
-	                        &nbsp;&nbsp;<%= name.substring(0, end) + str %>
+	                        <% String qnaId = q.getQnaWriter(); %>
+                        	<% int end = qnaId.length(); %>
+                        	&nbsp;&nbsp;<%= "***" + qnaId.substring(3, end) %>
 	                    </td>
 	                </tr>
 	                <tr>
