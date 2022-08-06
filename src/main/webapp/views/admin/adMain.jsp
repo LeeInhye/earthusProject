@@ -82,7 +82,6 @@
                                 &nbsp;&nbsp;<a href="<%= contextPath %>/adlist.pr?cpage=1">상품 조회</a><br>
                                 &nbsp;&nbsp;<a href="<%=contextPath%>/adlist.pq?cpage=1">상품 문의 관리</a><br>
                                 &nbsp;&nbsp;<a href="">리뷰 관리</a><br>
-                                &nbsp;&nbsp;<a href="">상품 재고</a><br>
                                 
                             </div>
                         </div>
@@ -113,11 +112,6 @@
                                 <a href="<%= contextPath %>/adList.fq?fpage=1">자주 묻는 질문 관리</a> <br>
                                 <a href="<%= contextPath %>/adList.qa?qpage=1">Q&A 관리</a>
                             </div>
-                        </div>
-                        <div class="main-list2-ih">
-                            <h6><a href="">통계</a></h6>
-                                &nbsp;&nbsp;<a href="">상품 판매량</a><br>
-                                &nbsp;&nbsp;<a href="">찜 횟수</a>
                         </div>
                     </div>
                     

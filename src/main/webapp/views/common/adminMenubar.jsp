@@ -92,19 +92,9 @@
                                         <a class="nav-link" href="<%=contextPath%>/adlist.pr?cpage=1">조회</a>
                                         <a class="nav-link" href="<%=contextPath%>/adlist.pq?cpage=1">상품 문의 관리</a>
                                         <a class="nav-link" href="">리뷰 관리</a>
-                                        <a class="nav-link" href="">상품 재고</a>
                                     </nav>
                                 </div>
-                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                    통계
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                </a>
-                                <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                    <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="">상품 판매량</a>
-                                        <a class="nav-link" href="">찜 횟수</a>
-                                    </nav>
-                                </div>
+                                
                             </nav>
                         </div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#orderCollapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
