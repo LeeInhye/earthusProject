@@ -197,9 +197,11 @@
         let regExpName = /^[가-힣]{2,8}$/; // 한글 2~8글자 입력
 		if( !regExpName.test(ProQnaWriterName) ){ // 작성자명 형식 유효 x
 			
-			$('model-body').text("유효하지 않은 이름 형식입니다.");
+			$('.modal-body').text("유효하지 않은 이름 형식입니다.");
 			$('#errorModal').modal('show');
+			return false;
 		}
+        
 		if( proQnaEmail == "" && proQnaPhone == "" ){ // 연락처 미입력
                 	
            	$('.modal-body').text("연락처를 입력해 주세요.");
