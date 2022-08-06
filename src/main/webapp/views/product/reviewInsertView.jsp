@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.us.product.model.vo.Review" %>
 <%
-	String contextPath = request.getContextPath();
 	int userNo = (int)request.getAttribute("userNo");
 	String proCode = (String)request.getAttribute("proCode");
+	String proName = (String)request.getAttribute("proName");
+	String price = (String)request.getAttribute("price");
+	String proImgPath = (String)request.getAttribute("proImgPath");
 %>
 <!DOCTYPE html>
 <html>
@@ -13,11 +15,10 @@
 
 	<!-- 리뷰 영역 스타일 -->
 <style>
-	body{
-		background-color:#F2F2F2;
-	
-    }
+
+
     .insert-review-outer{
+    	margin-top:200px;
        padding-left:50px;
        padding-right:50px;
     }
@@ -79,16 +80,24 @@
 
 </head>
 <body>
-	<!-- 리뷰 작성 팝업창으로 띄우기 -->
-	
+
+	<%@ include file="/views/common/menubar.jsp" %>
+
 	<div class="insert-review-outer">
 		<div class="insert-review-content">
 	        <form action="<%= contextPath %>/insertResult.re" method="post" enctype="multipart/form-data">
-	        <!-- 현재 Review r 객체에 (USER_NO, PRO_CODE, PRO_NAME, PRO_IMG_PATH 담겨있음) -->
-	        <input type="hidden" name="userNo" value="<%= userNo %>">
-	        <input type="hidden" name="proCode" value="<%= proCode %>">
-	        
+		        <input type="hidden" name="userNo" value="<%= userNo %>">
+		        <input type="hidden" name="proCode" value="<%= proCode %>">
+	        	
+	        	<div class="col-lg-6 col-xl-4 "> 
+	              <div style="display:inline;">
+	                <img src="<%= proImgPath %>" style="width:80px; height:80px;"/>
+	                <p style="display:inline;">상품명 : <%= proName %> <br> 가격 : <%= price %></p>
+		          </div>
+	            </div>
 	            
+	            <br><br>
+	         
 				<h3>리뷰 작성하기</h3>
 				<div class="rate-area">
 					<p style="display:inline;">당신의 별점은: </p>

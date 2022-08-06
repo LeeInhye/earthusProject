@@ -23,8 +23,7 @@
 	<entry key="checkPurchase">
 		SELECT USER_NO
 		    , PRO_CODE
-		    , PRO_NAME
-		 FROM "ORDER-PRODUCT"
+		 FROM "ORDER_PRODUCT"
 		 JOIN "ORDER"
 		USING (ORDER_NO)
 		WHERE PRO_CODE = ?
