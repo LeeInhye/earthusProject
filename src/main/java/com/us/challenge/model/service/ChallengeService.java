@@ -96,6 +96,16 @@ public class ChallengeService {
 		return list;
 	}
 	
+	// 메인페이지 리스트 조회
+	// 사용자_챌린지 리스트 조회
+		public ArrayList<Challenge> selectChallList(){
+			Connection conn = getConnection();
+			ArrayList<Challenge> list = new ChallengeDao().selectChallList(conn);
+			close(conn);
+			
+			return list;
+		}
+	
 	// 사용자_챌린지 상세 조회
 	// 1) 조회수 증가
 	public int increaseCount(int challNo) {

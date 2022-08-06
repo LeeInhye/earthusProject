@@ -323,65 +323,91 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="row align-items-center justify-content-between">
+		<!-- 챌린지 정보 ajax로 가져오기 -->
+		<script>
+			$(document).ready(function(){
+				$.ajax({
+                    url:"<%= contextPath%>/mainSelect.ch",
+                    success:function(list){
+                    	console.log(list[0].challThumbnail);
+        				
+                    	var txt="";
+                    	
+                    		
+                    		txt += "<img src='/us/"+list[0].challThumbnail + "'>";
+                    		txt += '<div class="single_product_text">';
+                    		txt += '<br>';
+                    		txt += '<h4>' + list[0].challTitle + '</h4>';
+                    		txt += '<h5>4월 2일, 세계자폐인의 날</h5>';
+                    		txt += '<h5>자폐에 대한 인식을 높이고자</h5>';
+                    		txt += '<h5>세계랜드마크에 파란 등을 켜는 캠패인</h5>';
+                    		txt += '                </div></div></div></div></div></div>';
+                                        
 
-                    <div class="col-lg-5 col-sm-6">
-                        <div class="single_product_item">
-                            <img src="<%= contextPath %>/<%= chList.get(0).getChallThumbnail() %>">
-                            <div class="single_product_text">
-                                <br>
-                                <h4><%= chList.get(0).getChallTitle() %></h4>
-                                <h5>4월 2일, 세계자폐인의 날</h5>
-                                <h5>자폐에 대한 인식을 높이고자</h5>
-                                <h5>세계랜드마크에 파란 등을 켜는 캠패인</h5>
-                            </div>
-                        </div>
-                    </div>
+                                    <%-- <div class="col-lg-4 col-sm-6 d-flex">
+                                        <div style="height:100%; align-items: center;">
+                                            <div class="single_product_item">
+                                                <div class="single_product_text" style="text-align:center; margin:0px 0px 20px 0px;">
+                                                    <h4 style="margin: auto;">챌린지 추천추천! 참여참여!</h4> <br>
+                                                    <h5>챌린지 참여하시고</h5>
+                                                    <h5>SNS에 올려</h5>
+                                                    <h5>포인트 받아가세요!</h5>
+                                                </div>
+                                            </div>
 
-                    <div class="col-lg-4 col-sm-6 d-flex">
-                        <div style="height:100%; align-items: center;">
-                            <div class="single_product_item">
-                                <div class="single_product_text" style="text-align:center; margin:0px 0px 20px 0px;">
-                                    <h4 style="margin: auto;">챌린지 추천추천! 참여참여!</h4> <br>
-                                    <h5>챌린지 참여하시고</h5>
-                                    <h5>SNS에 올려</h5>
-                                    <h5>포인트 받아가세요!</h5>
+
+                                            <div class="row single_product_item" style="margin-top:10px;">
+                                                    <div style="width: 100%;">
+                                                        <img src="<%= contextPath %>/<%= chList.get(1).getChallThumbnail() %>" style="width: 100%;">
+                                                    </div>
+
+                                                    <div class="col-lg-8 single_product_text" style="margin-top:0px;">
+                                                        <h4><%= chList.get(1).getChallTitle() %></h4> <br>
+                                                        <h5>하루에 한가지,</h5>
+                                                        <h5>한 달에 하루</h5>
+                                                        <h5>플라스틱을 줄여요!</h5>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3 col-sm-6">
+                                        <div class="single_product_item">
+                                            <img src="<%= contextPath %>/<%= chList.get(2).getChallThumbnail() %>">
+                                            <div class="single_product_text">
+                                                <h4><%= chList.get(2).getChallTitle() %></h4> <br>
+                                                <h5>PLASTIC ISLANDS NO MORE</h5>
+                                                <h5>텀블러를 사용해주세요!</h5>
+                                                <h5>플라스틱 프리 챌린지,</h5>
+                                                <h5>EARTHUS가 함께 실천합니다.</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
                                 </div>
                             </div>
-
-
-                            <div class="row single_product_item" style="margin-top:10px;">
-                                    <div style="width: 100%;">
-                                        <img src="<%= contextPath %>/<%= chList.get(1).getChallThumbnail() %>" style="width: 100%;">
-                                    </div>
-
-                                    <div class="col-lg-8 single_product_text" style="margin-top:0px;">
-                                        <h4><%= chList.get(1).getChallTitle() %></h4> <br>
-                                        <h5>하루에 한가지,</h5>
-                                        <h5>한 달에 하루</h5>
-                                        <h5>플라스틱을 줄여요!</h5>
-                                    </div>
-                            </div>
                         </div>
-                    </div>
+                    	 --%>
+                    	$("#challArea").append(txt);
+                    },
+                    error:function(){
+                        console.log("ajax 게시글 삭제 실패");
+                    }
+                })
+			})
+		</script>
+		
+		<div class="row">
+        	<div class="col-lg-12">
+            	<div class="row align-items-center justify-content-between">
 
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="single_product_item">
-                            <img src="<%= contextPath %>/<%= chList.get(2).getChallThumbnail() %>">
-                            <div class="single_product_text">
-                                <h4><%= chList.get(2).getChallTitle() %></h4> <br>
-                                <h5>PLASTIC ISLANDS NO MORE</h5>
-                                <h5>텀블러를 사용해주세요!</h5>
-                                <h5>플라스틱 프리 챌린지,</h5>
-                                <h5>EARTHUS가 함께 실천합니다.</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    <div class="col-lg-5 col-sm-6">
+                    	<div class="single_product_item" id="challArea">
+		
+		
+		
+
+
     </div>
 </section>
 
