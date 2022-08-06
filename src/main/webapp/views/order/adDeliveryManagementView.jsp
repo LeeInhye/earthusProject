@@ -57,13 +57,28 @@
 	                                <td><%=or.getOrderNo() %></td>
 	                                <td><%=or.getOrderDate() %></td>
 	                                <td><%=or.getUserId() %></td>
-	                                <td><%=or.getDelStatus() %></td>
+	                                <%if(or.getDelStatus() == 1) {%>
+	                                	 <td>상품준비중</td>
+	                                <%}else if(or.getDelStatus() == 2) {%>
+	                                	 <td>배송중</td>
+	                                <%}else if(or.getDelStatus() == 3) {%>
+	                                	 <td>배송완료</td>
+	                                <%}else if(or.getDelStatus() == 4) {%>
+	                                	 <td>주문취소</td>
+	                                <%}else if(or.getDelStatus() == 5) {%>
+	                                	 <td>교환</td>
+	                                <%}else {%>
+	                                	 <td>반품</td>
+	                                <%} %>
+	                                
 	                                <td>
 	                                	<%if(or.getDelStatus() == 1) {%>
 	                                    <button  type="button" id="wb-btn-ih" data-bs-toggle="modal" data-bs-target="#wbModal-ih">발급하기</button>
 	                                    <%}else if(or.getDelStatus() == 2) {%>
 	                                    <button  id="df-btn-ih">배송완료</button>
-	                                    <%}else {%>
+	                                    <%}else if(or.getDelStatus() == 4){%>
+	                                    	<button id="dis-btn-ih" style="height:100%;" disabled>주문취소</button>
+	                                    <%}else { %>
 	                                    <button id="dis-btn-ih" style="height:100%;" disabled>배송완료</button>
 	                                    <%} %>
 	                                </td>
@@ -87,7 +102,6 @@
 		                    </div>
                     	</form>
                     </div>
-                    
                     
                 </div>
             </main>
