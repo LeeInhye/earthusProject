@@ -225,7 +225,8 @@
                                                 <p><%= p.getPrice() %>원</p>&nbsp;&nbsp;&nbsp;
                                                 
 		                                 <% if( loginUser != null ) {  // 로그인 o %> 
-			                              		<i class="fa fa-heart" onclick="checkWish()"></i>
+			                              		<i class="fa fa-heart" onclick="checkWish()"></i> <!-- 찜했을경우 -->
+			                              		
 		                                 <%	} else { // 로그인 x %> 
 		                                      	<i class="fa fa-heart" onclick="$('#unavailable').modal('show');" ></i>
 		                                 <% } %>
@@ -375,6 +376,7 @@
 
 	<!---------------- 스크립트 시작 --------------->
     <script>
+    
 
         $(function(){
 

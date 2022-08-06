@@ -338,7 +338,7 @@ public class adProductDao {
 	
 	public int updateProQna(Connection conn, int userNo, String proAContent, int proQnaNo) {
 		int result = 0;
-		PreparedStatement pstmt =null;
+		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateProQna");
 		
 		try {
@@ -371,10 +371,8 @@ public class adProductDao {
 		
 		switch(option) {
 		case "all": break;
-		case "waiting": where = "WHERE PRO_A_ENROLL_DATE IS NULL ";
-			break;
-		case "complete": where = "WHERE PRO_A_ENROLL_DATE IS NOT NULL ";
-			break;
+		case "waiting": where = "WHERE PRO_A_ENROLL_DATE IS NULL "; break;
+		case "complete": where = "WHERE PRO_A_ENROLL_DATE IS NOT NULL "; break;
 		}
 		
 		sql += where + "ORDER BY PRO_Q_ENROLL_DATE DESC ) A ) WHERE RNUM BETWEEN ? AND ?";

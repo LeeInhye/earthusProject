@@ -318,8 +318,6 @@ public class ProductDao {
 			return list;
 		}
 	
-	// 상품명 키워드로 상품들 조회 핑요!!!
-	
 	// 위시리스트
 	public ArrayList<WishList> selectWishList(Connection conn, int userNo){
 		ArrayList<WishList> list = new ArrayList<>();

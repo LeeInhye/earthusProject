@@ -34,10 +34,11 @@ public class adProQnaUpdateController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo(); // 관리자 고유번호
+		
 		String proAContent = request.getParameter("proAContent");
 		int proQnaNo = Integer.parseInt(request.getParameter("proQnaNo"));
 		
+		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo(); // 관리자 고유번호
 		int result = new adProductService().updateProQna(userNo, proAContent, proQnaNo);
 		
 		if(result > 0) { //성공

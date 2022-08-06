@@ -90,7 +90,7 @@
 	                                <tr>
 	                                    <td class="tb-title" id="search">검색</td>
 	                                    <td colspan="2">
-	                                        <input type="text" class="form-control" name="proKeyword" placeholder="키워드를 입력하세요.">
+	                                        <input type="text" class="form-control" name="proKeyword" placeholder="상품명 키워드를 입력하세요.">
 	                                    </td>
 	                                    <td>
 	                                    	<button type="button" onclick="searchPro();" class="btn btn-sm btn-update" style="margin-left:20px; width:100px; height:40px;">조회
@@ -229,99 +229,106 @@
       </div>
       <!-- 상품 조회 영역 끝-->
                 
-        <script>
-            function dateAll(){
-                // 클릭된 버튼만 lightgray 배경!!
+      <!-- 스크립트 영역 -->
+      
+      <script>
+      	function searchPro(){
+      		
+      		int categoryNo = []; // 카테고리 번호들을 담은 변수
+      		
+      		if($("input[type=checkbox]:checked").length != 0){
+      			
+      			categoryNo.push($(this).val());
+      		}
+      		
+      		$.ajax({
+      			url:"<%=contextPath%>/adsearch.pr",
+      			type:"get",
+      			data:{
+      				cpage:1,
+      				categoryNo:categoryNo,
+      				keyword:$('input[name=proKeyword]').val()
+      			},
+      			success:function(map){
+      				console.log("맵 담김")
+      				console.log(map);
+      			},
+      			error:function(){
+      				console.log("상품 검색용 ajax 통신 실패");
+      			}
+      		})
+      	}
+      </script>
                 
+       <script>
+           function dateAll(){
+               // 클릭된 버튼만 lightgray 배경!!
+               
+           }
+           
+           // ---------- 전체 체크 체크박스 jQuery ----------- 동작 o
+           $('#selectAll').click(function(){
+           	
+            if( $('#selectAll').is(":checked") ){
+            	
+            	$('.checkbox').prop("checked", true);
+            }else{
+            	$('.checkbox').prop("checked", false);
             }
-            
-            // ---------- 전체 체크 체크박스 jQuery ----------- 동작 o
-            $('#selectAll').click(function(){
-            	
-	            if( $('#selectAll').is(":checked") ){
-	            	
-	            	$('.checkbox').prop("checked", true);
-	            }else{
-	            	$('.checkbox').prop("checked", false);
-	            }
-            })
-            // ------------------------------------------
-            
-            
-            // ------------- 상품 삭제 버튼 클릭 시 -------------- 동작 o
-            $('#pro-delete-btn').click(function(){
-                
-                if($(".checkbox:checked").length == 0){ // 체크된 상품이 없다면
-                	
-            		$('#deleteModal1').modal('show');
-            		
-            	}else{ // 체크된 상품이 있다면
-            		
-            		$('#deleteModal2').modal('show');
-            	}
-            })
-            
-            // 체크된 체크박스의 값 뽑는 함수
-            function proCodeArr(){
-            	
-            	let arr = [];
-            	$(".checkbox").each(function(){
-            		if( $(this).is(":checked") ){
-			           arr.push($(this).val()); 
-            		}
-            	})
-            	return arr;
-            }
-            
-            function sendArr(no){
-            	location.href = "<%=contextPath%>/delete.pr?no="+ no;
-            }
-            
-           	function deletePro(){
-            	
-            	let no = proCodeArr();
-            	
-            	sendArr(no);
-            	
-            }
-            
-            
-            // --------------------------------------------
-            
-            // ------------- 상품 수정 버튼 클릭 시 --------------  동작 O
-            function updatePro(no){
-            	
-            	location.href = "<%=contextPath%>/updateForm.pr?no=" + no;
-          
-            }
-            // --------------------------------------------
-            
-            // ------------- 상품 카테고리,키워드로 검색 ---------------
-            function searchPro(){
-            	
-            	let no = []; // 상품 카테고리를 담을 변수
-            	let keyword = ""; // 상품명 키워드를 담을 변수
-            	
-            	// 체크된 카테고리만 변수 no에 담기
-            	$('#category>input[type=checkbox]').each(function(){
-            		if($(this).is(":checked")){
-            			no.push($(this).val());
-            		}
-            	})
-            	keyword = $('input[name=proKeyword]').val();
-            	$.ajax({
-            		
-            		url:"<%=contextPath%>/adsearch.pr",
-            		type:"get",
-            		data:{
-            			no:no,
-            			keyword:$('input[name=proKeyword]').val()
-            			 }
-            	
-            		
-            	})
-            	
-            }
-        </script>
+           })
+           // ------------------------------------------
+           
+           
+           // ------------- 상품 삭제 버튼 클릭 시 -------------- 동작 o
+           $('#pro-delete-btn').click(function(){
+               
+               if($(".checkbox:checked").length == 0){ // 체크된 상품이 없다면
+               	
+           		$('#deleteModal1').modal('show');
+           		
+           	}else{ // 체크된 상품이 있다면
+           		
+           		$('#deleteModal2').modal('show');
+           	}
+           })
+           
+           // -------------- 체크된 체크박스의 값 뽑는 함수 -------------
+           function proCodeArr(){
+           	
+           	let arr = [];
+           	$(".checkbox").each(function(){
+           		if( $(this).is(":checked") ){
+		           arr.push($(this).val()); 
+           		}
+           	})
+           	return arr;
+           }
+           // -------------------------------------------------
+           
+           
+           // ---------------- 체크된 상품 삭제 함수 ------------------
+           function sendArr(no){
+           	location.href = "<%=contextPath%>/delete.pr?no="+ no;
+           }
+           
+          	function deletePro(){
+           	
+           	let no = proCodeArr();
+           	
+           	sendArr(no);
+           	
+           }
+
+           // --------------------------------------------
+           
+           
+           // ------------- 상품 수정 버튼 클릭 시 --------------  동작 O
+           function updatePro(no){
+           	
+           	location.href = "<%=contextPath%>/updateForm.pr?no=" + no;
+         
+           }
+           // --------------------------------------------
+       </script>
 </body>
 </html>
