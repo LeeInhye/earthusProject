@@ -36,11 +36,11 @@ public class Attachment {
 		this.filePath = filePath;
 	}
 	
-	public Attachment(int refBNo, String changeName, String filePath) {
+	public Attachment(int refBNo, String filePath, String changeName) {
 		super();
 		this.refBNo = refBNo;
-		this.changeName = changeName;
 		this.filePath = filePath;
+		this.changeName = changeName;
 	}
 
 	public int getFileNo() {

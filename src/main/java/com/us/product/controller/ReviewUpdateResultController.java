@@ -55,6 +55,7 @@ public class ReviewUpdateResultController extends HttpServlet {
 				at.setOriginName(multiRequest.getOriginalFileName("review-image"));
 				at.setChangeName(multiRequest.getFilesystemName("review-image"));
 				at.setFilePath("/resources/img/product/review/");
+				System.out.println(at);
 			}else {
 				r.setRevType("T");
 			}
@@ -62,7 +63,7 @@ public class ReviewUpdateResultController extends HttpServlet {
 			int result = new ReviewService().updateReview(r, at);
 			
 			if(result > 0) {
-				response.sendRedirect(request.getContextPath() + "/list.re");
+				request.getRequestDispatcher("views/product/mypageReviewListView").forward(request, response);
 			}else {
 				request.setAttribute("errorMsg", "리뷰 수정에 실패하였습니다.");
 				request.getRequestDispatcher("views/common/errorPage.jsp");

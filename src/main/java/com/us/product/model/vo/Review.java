@@ -19,7 +19,7 @@ public class Review {
 	}
 
 	public Review(int revNo, int userNo, String proCode, String proName, String proImgPath, Date revDate, int revRate,
-			String revContent, String revImgPath, String revType) {
+			String revContent, String revType) {
 		super();
 		this.revNo = revNo;
 		this.userNo = userNo;
@@ -29,7 +29,6 @@ public class Review {
 		this.revDate = revDate;
 		this.revRate = revRate;
 		this.revContent = revContent;
-		this.revImgPath = revImgPath;
 		this.revType = revType;
 	}
 
