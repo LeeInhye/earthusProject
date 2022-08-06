@@ -60,6 +60,10 @@ public class adProductUpdateController extends HttpServlet {
 			reqInfoImgPath = request.getParameter("existReqInfoImg");
 		}
 		
+		proImgPath     = "resources/img/product/" + proImgPath;
+		detailImgPath  = "resources/img/product/" + detailImgPath;
+		reqInfoImgPath = "resources/img/product/" + reqInfoImgPath;
+		
 		Product p = new Product();
 		p.setProCode(proCode);
 		p.setCategory(category);
