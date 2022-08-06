@@ -219,11 +219,19 @@
 		                            <td><%= m.getUserStatus() %></td>
 		                            <td class="btn_left">
 		                                <button type="button" class="btn-sm btn_black">수정</button>
-		                                
 		                            </td>
 		                        </tr>
 		                        
 		                      <% } %>
+		                      
+		                      <script>
+		                      	// 회원 수정
+		                      	$(".M_member_table>tbody>tr").on("click", "td:last-child", function() {
+			            			console.log( $(this).parent().children().eq(1).text() );
+			            			location.href = "<%= contextPath %>/adUpdateForm.me?mNo=" + $(this).parent().children().eq(1).text();
+			            		})
+		                      
+		                      </script>
 		                        
 		
 		                    </tbody>
@@ -285,14 +293,7 @@
 							});
 						})
 						
-						// 수정버튼 클릭시 수정 페이지로 이동
 		            	$(function(){
-		            		$(".M_member_table>tbody>tr").on("click", "td:last-child", function() {
-		            			console.log( $(this).parent().children().eq(1).text() );
-		            			location.href = "<%= contextPath %>/adUpdateForm.me?mNo=" + $(this).parent().children().eq(1).text();
-		            		})
-		            			
-		            		
 		            		// 회원 삭제
                             var checkCnt = "";
 		            		
