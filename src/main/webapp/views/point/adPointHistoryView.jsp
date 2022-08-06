@@ -134,19 +134,18 @@
 	                        <tr class="table_thead_border" style="border-bottom: none;">
 	                        	<th width="5%">No.</th>
 	                            <th width="10%">아이디</th>
-	                            <th width="5%">이름</th>
+	                            <th width="10%">이름</th>
 	                            <th width="30%">포인트 내용</th>
 	                            <th width="10%">포인트</th>
 	                            <th width="15%">일시</th>
-	                            <th width="10%">유형</th>
-	                            <th width="10%">잔액</th>
-	                            <th width="5%"> </th>
+	                            <th width="5%">유형</th>
+	                            <th width="15%">잔액</th>
 	                        </tr>
 	                    </thead>
 	                    <tbody id="pointBody">
 	                    
 	                    <!-- 전체  -->
-               			<% for(Point p : list) { %>
+                			<% for(Point p : list) { %>
 	                        <tr style="cursor: auto;">
 	                        	<td><%= p.getPointNo() %></td>
 	                            <td><%= p.getUserId() %></td>
@@ -156,14 +155,9 @@
 	                            <td><%= p.getPointDate() %></td>
 	                            <td><%= p.getPointType() %></td>
 	                            <td><%= p.getPointBalance() %></td>
-	                            <td class="btn_left">
-	                                <button type="button" class="btn-sm btn_black">수정</button>
-	                                
-	                            </td>
 	                        </tr>
-	                        
 	                      <% } %>
-	                        
+	                      
 	                    </tbody>
 	                </table>
 	                
@@ -192,19 +186,7 @@
 	            	<% } %>
 	            
 	            </div>
-	            
-	            <!-- 전체 선택 -->
-	            <script>
 
-					// 수정버튼 클릭시 수정 페이지로 이동
-	            	$(function(){
-	            		$(".M_member_table>tbody>tr").on("click", "td:last-child", function() {
-	            			console.log( $(this).parent().children().eq(1).text() );
-	            			location.href = "<%= contextPath %>/adUpdateForm.me?mNo=" + $(this).parent().children().eq(1).text();
-	            		})
-
-				</script>
-				                
 		        </div>
 		    </main>
 		</div>

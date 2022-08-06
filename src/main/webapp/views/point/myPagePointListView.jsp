@@ -1,5 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page 
+	import="java.util.ArrayList, com.us.point.model.vo.Point, com.us.common.model.vo.PageInfo, java.sql.Date, com.us.member.model.vo.Member"
+%>
+<%
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	ArrayList<Point> list = (ArrayList<Point>)request.getAttribute("list");
+	Date firstDate = (Date)request.getAttribute("firstDate"); 
+	Date lastDate = (Date)request.getAttribute("lastDate"); 
+	Member m = (Member)session.getAttribute("loginUser");
+		
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+	
+	int lastIdx = list.size() - 1;
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,7 +52,7 @@
         #btn-list>button{
           border:0;
           background-color: white;
-          padding-top:60px;
+          padding-top:5px;
           font-weight: bold;
         }
         .date{border:1px solid lightgray;}
@@ -54,7 +71,7 @@
       얼스어스의 포인트는 1P 당 1원으로 사용 가능합니다.
 
     </span>
-    <button id="mybtn">마이페이지 &gt;</button>
+    <button id="mybtn" onclick="location.href='<%= contextPath %>/myPage.mp';">마이페이지 &gt;</button>
 
     <hr><br>
 
@@ -70,14 +87,90 @@
       <button style="background:rgb(168,191,170); color:white;">조회</button>
     </div>
 
+    <br><br>
+    
+	<script>
+	function gogogo(){
+    	 console.log("고고");
+     }
+     
+	// 지급상태로 리스트 조회
+	function selectStatus(page, filter){
+		
+		$.ajax({
+			url:"<%= contextPath%>/filter.po",
+			data:{no:<%= m.getUserNo() %>,
+				  cpage:page,
+				  filter:filter,
+			success:function(map){
+             	let contextPath = "<%=contextPath%>";
+				let pi = map.pi;
+				let list = map.list;
+				
+				let value = ""; // 댓글 리스트 
+				let paging = ""; // 페이징 처리
+				if(list.length == 0){
+					value += "<tr>"
+						   + "<td colspan='5'>존재하는 내역이 없습니다.</td>"
+						   + "</tr>";
+				}else {
+					// 댓글 리스트
+					for(let i=0; i<list.length; i++) {
+						
+						value += '<tr class="list-area">'
+							   + '<td>' + list[i].pointDate + '</td>'
+							   
+					   if(list[i].pointType().equals("적립")) {
+						   value += '<td style="color:blue">' + list[i].pointType + '</td>';
+					   }else {
+						   value += '<td style="color:red">' + list[i].pointType + '</td>';
+					   }
+				   
+				   		value += '<td>' + list[i].pointReason + '</td>';
+				   		value += '<td>;
+				   			   
+				   		if(list[i].pointAmount > 0) {
+				   			value += '+' + list[i].pointAmount;
+				   		}else {
+				   			value += list[i].pointAmount;	
+				   		}
+				   		
+				   		value += '</td>'
+				   			   + '<td>' + list[i].pointBalance + '</td>'
+				   			   + '</tr>';
+				   			   
+
+                    	$(".list-area").html(value);
+				
+					}
+			},
+			error:{
+				
+			}
+		})
+		
+		
+	}
+    
+	</script>
+    
+    
+
     <div id="btn-list">
-      <button>전체</button> <button>적립</button> <button>사용</button> 
+      <button class="a" onclick="selectStatus(1, 'all');">전체</button>
+      <button class="b" onclick="gogogo();">적립</button>
+      <button class="c" onclick="selectStatus(1, 'minus');">사용</button> 
+
+        <% if(!list.isEmpty()) { %>
+		   	<span style="float:right">
+		   		<%= firstDate %>~<%= lastDate %>까지의 포인트 내역 <b><%= pi.getListCount() %>건</b>
+		   	</span>
+		<% } %>
     </div>
+    
     <hr><br>
   </section>
   
-  
-
   <!--================ 포인트 테이블 =================-->
   <section class="cart_area">
       <div class="">
@@ -93,41 +186,31 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>2020-07-07</td>
-                <td>적립</td>
-                <td>챌린지 참여</td>
-                <td>+ 1000</td>
-                <td>2000</td>
-              </tr>
-              <tr>
-                <td>2020-07-07</td>
-                <td>사용</td>
-                <td>포인트 결제</td>
-                <td>- 3000</td>
-                <td>1000</td>
-              </tr>
-              <tr>
-                <td>2020-07-07</td>
-                <td>적립</td>
-                <td>주문</td>
-                <td>+ 1000</td>
-                <td>4000</td>
-              </tr>
-              <tr>
-                <td>2020-07-07</td>
-                <td>적립</td>
-                <td>챌린지 참여</td>
-                <td>+ 2000</td>
-                <td>3000</td>
-              </tr>
-              <tr>
-                <td>2020-07-07</td>
-                <td>적립</td>
-                <td>회원가입 축하 포인트</td>
-                <td>+ 1000</td>
-                <td>1000</td>
-              </tr>
+            	<% if(list.isEmpty()) { %>
+            		<tr>
+            			<td colspan="5">존재하는 내역이 없습니다.</td>
+            		</tr>
+            	<% } else { %>
+	          	   <% for(Point p : list) { %>
+	                 <tr class="list-area">
+	                     <td><%= p.getPointDate() %></td>
+	                   	<% if(p.getPointType().equals("적립")) { %>
+	                     	<td style="color:blue"><%= p.getPointType() %></td>
+	                     <% }else { %>
+	                     	<td style="color:red"><%= p.getPointType() %></td>
+	                     <% } %>
+	                     <td><%= p.getPointReason() %></td>
+	                     <td>
+	                     	<% if(p.getPointAmount() > 0) { %>
+	                     		+<%= p.getPointAmount() %>
+	                     	<% }else { %>
+	                     	 	<%= p.getPointAmount() %>
+	                     	<% } %>
+	                     </td>
+	                     <td><%= p.getPointBalance() %></td>
+	                 </tr>
+            	<% } %>
+               <% } %>
               <tr>
                 <td></td><td></td><td></td><td></td><td></td>
               </tr>
@@ -137,12 +220,43 @@
         </div>
       </div>
   </section>
-   
-   
-   
-   <br><br><br><br><br><br>
-   <%@ include file="/views/common/footerbar.jsp" %>
-   
+  
+  <!-- 페이징바 영역 -->
+  <nav class="blog-pagination justify-content-center d-flex">
+      <ul class="pagination">
+        <% if(currentPage != 1) {%>
+          <li class="page-item">
+            <button onclick="location.href='<%=contextPath%>/list.po?cpage=<%= pi.getCurrentPage()-1 %>';" class="page-link" aria-label="Previous">
+              <i class="ti-angle-left"></i>
+            </button>
+          </li>
+        <% } %>
+                    
+        <% for(int p=startPage; p<=endPage; p++) { %>
+          <% if(p == currentPage){ %>
+            <li class="page-item active">
+              <button class="page-link" disabled><%= p %></button>
+            </li>
+          <% }else { %>
+            <li class="page-item">
+              <button class="page-link" onclick="location.href='<%=contextPath%>/list.po?cpage=<%= p %>';"><%= p %></button>
+            </li>
+          <% } %>
+        <% } %>
+    
+        <% if(currentPage != maxPage) { %>
+          <li class="page-item">
+            <button onclick="location.href='<%=contextPath%>/list.po?cpage=<%= pi.getCurrentPage()+1 %>';" class="page-link" aria-label="Next">
+              <i class="ti-angle-right"></i>
+            </button>
+          </li>
+        <% } %>
+      </ul>
+  </nav>
+  <!-- 페이징바 영역 끝 -->   
+  
+  <br><br><br><br><br><br>
+  <%@ include file="/views/common/footerbar.jsp" %>
 
 </body>
 </html>
