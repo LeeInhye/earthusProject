@@ -35,7 +35,10 @@ public class ReviewInsertController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 리뷰 작성 전 : 로그인 유저(userNo), 유저가 상품을 구입했는지 체크하고 작성창으로 연결
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-		String proCode = ((Product)request.getSession().getAttribute("p")).getProCode();
+		String proCode = request.getParameter("proCode");
+		String proName = request.getParameter("proName");
+		String price = request.getParameter("price");
+		String proImgPath = request.getParameter("proImgPath");
 		
 		// 상품 구입 여부를 체크
 		int result;
@@ -46,9 +49,13 @@ public class ReviewInsertController extends HttpServlet {
 			// => 필요한 값 (USER_NO, PRO_CODE, PRO_NAME, PRO_IMG_PATH 담아 넘기기)
 			request.setAttribute("userNo", userNo);
 			request.setAttribute("proCode", proCode);
+			request.setAttribute("proName", proName);
+			request.setAttribute("price", price);
+			request.setAttribute("proImgPath", proImgPath);
 			request.getRequestDispatcher("views/product/reviewInsertView.jsp").forward(request, response);
 		} else {
-			response.sendRedirect(request.getContextPath() + "/detail.pro?proCode=" + proCode);
+			request.setAttribute("errorMsg", "상품 구입 후 리뷰 작성이 가능합니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 	}
 

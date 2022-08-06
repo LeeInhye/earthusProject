@@ -605,83 +605,36 @@
           <div class="row" style="width:800px; margin:auto;">
             <div class="col-lg-12">
               <div class="row total_rate" style="padding-bottom:0px; padding-top:100px;">
-                <div class="col-6" style="margin:auto;">
+                <div class="col-12" style="margin:auto;">
                   <div class="box_total"  style="background-color: #F2F2F2;">
                     <h5>평점</h5>
                     <h4 style="color:#778C79;">4.0</h4>
                     <h6>(03명의 후기)</h6>
                   </div>
                 </div>
-                <div class="col-3" style="margin:auto;">
-                  <div class="rating_list">
-                    <h3>3개의 리뷰</h3>
-                    <ul class="list">
-                      <li>
-                        <a href="#">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i style="color:gray; font-style: normal;"></i>
-                          <span style="padding-left:10px;">3</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star" style="color:#F2F2F2"></i> 
-                          <i style="color:gray; font-style: normal;"></i>
-                          <span style="padding-left:10px;">3</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star" style="color:#F2F2F2"></i>
-                          <i class="fa fa-star" style="color:#F2F2F2"></i> 
-                          <i style="color:gray; font-style: normal;"></i>
-                          <span style="padding-left:10px;">3</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star" style="color:#F2F2F2"></i>
-                          <i class="fa fa-star" style="color:#F2F2F2"></i>
-                          <i class="fa fa-star" style="color:#F2F2F2"></i> 
-                          <i style="color:gray; font-style: normal;"></i>
-                          <span style="padding-left:10px;">3</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star" style="color:#F2F2F2"></i>
-                          <i class="fa fa-star" style="color:#F2F2F2"></i>
-                          <i class="fa fa-star" style="color:#F2F2F2"></i>
-                          <i class="fa fa-star" style="color:#F2F2F2"></i> 
-                          <i style="color:gray; font-style: normal;"></i>
-                          <span style="padding-left:10px;">3</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
               </div>
-	              <div class="col-lg-12" align="center">
-	              	<button class="btn_4 btn-insert" style="width:90%; height:45px; margin-top:10px; border:none; color:#778C79;">리뷰 작성</button>
-	              </div>
               
-              <br><br>
+              <!-- 리뷰 작성 버튼 부분 시작 -->
+              <div class="col-lg-12" align="center" style="padding:0px; ">
+				<% if(loginUser != null){ %>
+                <form action="<%= contextPath %>/insert.re" method="post">
+				<input type="hidden" name="userNo" value="<%= loginUser.getUserNo() %>">
+				<input type="hidden" name="proCode" value="<%= p.getProCode() %>">	    
+				<input type="hidden" name="proName" value="<%= p.getProName() %>">      
+				<input type="hidden" name="price" value="<%= p.getPrice() %>">    
+				<input type="hidden" name="proImgPath" value="<%= contextPath + "/" + p.getProImgPath() %>">
+              	<button class="btn_4" style="width:100%; height:45px; margin-top:10px; border:none; color:#778C79;">리뷰 작성</button>
+                </form>
+				<% } %>
+              </div>
+              <!-- 리뷰 작성 버튼 부분 끝 -->
+        		
+              <br><br><br><br><br>
+              
+              <!-- 리뷰 조회 영역 -->
               <div class="review_list">
-              
+              	
+              	<!-- for문 시작 : 개별 리뷰 영역 -->
                 <div class="review_item">
                   <div class="media">
                     <table id="member-info">
@@ -713,6 +666,7 @@
                   </div>
                   <br><br>
                 </div>
+                <!-- for문 끝 : 개별 리뷰 끝 -->
                 
               </div>
             </div>
@@ -729,7 +683,7 @@
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal">&times;</button>
-		        <h4 class="modal-title">Modal Header</h4>
+		        <h4 class="modal-title">이미지 상세 보기</h4>
 		      </div>
 		      <div class="modal-body">
 		        <p>Some text in the modal.</p>
@@ -743,18 +697,6 @@
 		</div>
 		<!-- Modal End -->
 		
-		<script>
-		<!-- 리뷰 작성 버튼 누르면 팝업 띄우는 함수 -->
-			$(function(){
-				// 새로운 리뷰 등록 버튼 누르면 팝업페이지 (리뷰등록 페이지) 띄우는 함수
-				$(".btn-insert").click(function(){
-					var popupX = screen.width/2 - 250;
-					var popupY = screen.height/2 - 300; 
-					const option = "scrollbars=no, location=no, toolbar=no, resizable=no, status=no, width=700px, height=600px, left=" + popupX + ", top=" + popupY;
-					window.open("<%= contextPath %>/insert.re", "리뷰 등록", option);
-				})
-			})
-		</script>
       </div>
     </div>
   </section>
