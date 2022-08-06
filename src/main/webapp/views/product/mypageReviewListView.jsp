@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, com.us.product.model.vo.Review" %>
+<%@ page import="java.util.ArrayList, com.us.product.model.vo.Review, com.us.common.model.vo.Attachment" %>
 <%
 	ArrayList<Review> list = (ArrayList<Review>)request.getAttribute("list");
+	ArrayList<Attachment> picList = (ArrayList<Attachment>)request.getAttribute("picList");
 %>
 
 <!DOCTYPE html>
@@ -87,16 +88,16 @@
 		<br><br>
 		<div align="right" id="mypage-review-top">
 			<a href="#" class="genric-btn default circle" style="background-color:#A8BFAA; color:white;">마이페이지로 &gt;</a>
-			<hr>
+			<hr><br>
 		</div>
-
+		
 		<table class="table">
 			<thead>
 			  <tr align="center">
 				<th width="5%" class="review-pic" width="5%;"><input type="checkbox" id="check-all"  onclick="checkAll();"></th>
 				<th width="10%;">상품 사진</th>
-				<th width="15%">상품명</th>
-				<th width="60%">리뷰 내용</th>
+				<th width="20%">상품명</th>
+				<th width="55%">리뷰 내용</th>
 				<th width="10%">리뷰 수정</th>
 			  </tr>
 			</thead>
@@ -108,12 +109,22 @@
 						<img src="<%= r.getProImgPath() %>" width="90%">
 					</td>
 					<td align="center" class="clickable"> <%= r.getProName() %> </td>
-					<td class="clickable">
-						<div class="revPic" style="float:left; padding-right:10px;">
-							<img src="<%= r.getRevImgPath() %>" style="width:150px; height:150px;">
-						</div>
-						<p style="margin-top:20px;"><%= r.getRevContent() %></p>
-					</td>
+					<% if(r.getRevType() == "P"){ %>
+						<td class="clickable">
+							<div class="revPic" style="float:left; padding-right:10px;">
+							<% for(int i=0; i<picList.size(); i++ ){ %>
+								<% if( picList.get(i).getRefBNo() == r.getRevNo() ){ %>
+									<img src="<%= picList.get(i).getFilePath() + picList.get(i).getChangeName() %>" style="width:150px; height:150px;">
+								<% } %>
+							<% } %>
+							</div>
+							<p style="margin-top:20px; white-space:pre;"><%= r.getRevContent() %></p>
+						</td>
+					<% }else { %>
+						<td class="clickable">
+							<p style="margin-top:20px; white-space:pre;"><%= r.getRevContent() %></p>
+						</td>
+					<% } %>
 					<td align="center">
 						<button id="edit-review">수정</button>
 						<input type="hidden" value="<%= r.getProCode() %>">
@@ -130,6 +141,7 @@
 	</div>
 	
 	<form action="<%= contextPath %>/update.re" method="get" id="hidden-form" style="display:none;">
+		<input type="hidden" name="userNo" value="<%= loginUser.getUserNo() %>">
 		<input type="hidden" name="proCode" value="">
 		<button type="submit" id="btn-submit"></button>
 	</form>
@@ -156,7 +168,7 @@
 			deleteElement = deleteElement.substring(0, deleteElement.lastIndexOf(","));
 			
 			$.ajax({
-				url:"<%=contextPath%>/delete.re",
+				url:"<%= contextPath %>/delete.re",
 				data:{
 					revNo:deleteElement
 					},

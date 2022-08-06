@@ -37,12 +37,19 @@ public class ReviewListController extends HttpServlet {
 		// session에 저장되어있는 loginUser 객체를 이용해서 
 		// 1) REVIEW 테이블로부터 USER_NO = loginUser.userNo()인 ArrayList<Review> 를 조회해옴
 		// 2) (첨부파일 있는 경우 대비) ATTACHMENT 테이블로부터 REVIEW+ATTACHMENT를 글 번호로 조인해서 ArrayList<Attachment> 조회해옴
-		Member m = (Member)request.getSession().getAttribute("loginUser");
-		int userNo = m.getUserNo();
 		
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		
+		// 회원의 모든 리뷰 리스트 
 		ArrayList<Review> list = new ReviewService().selectList(userNo);
+		System.out.println(list);
+		
+		// 회원의 사진 리뷰의 사진에 대한 정보를 담은 리스트
+		ArrayList<Attachment> picList = new ReviewService().selectAttachmentList(userNo);
+		System.out.println(picList);
 		
 		request.setAttribute("list", list);
+		request.setAttribute("picList", picList);
 		request.getRequestDispatcher("views/product/mypageReviewListView.jsp").forward(request, response);
 
 		

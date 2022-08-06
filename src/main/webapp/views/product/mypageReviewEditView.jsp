@@ -135,9 +135,12 @@
 	                <script>
 	                	// 기존 revRate와 같은 값을 가진 라디오버튼에 checked속성 부여하는 함수
 	                	$(function(){
-	                		$("input[name]rate").each(function(){
-		                		if( $(this).val() == <%= r.getRevRate() %> ){
-		                			$(this).prop("checked", true);
+	                		$("input[name=rate]").each(function(){
+		                		if( Number($(this).val()) == <%= r.getRevRate() %> ){
+		                			$(this).attr("checked", "checked");
+		                			$(this).next().children().css("color", "#fbd600");
+		  	                        $(this).prevAll("label").children().css("color", "#fbd600");
+		  	                        $(this).next().nextAll("label").children().css("color", "#F2F2F2");
 		                		}	                			
 	                		})
 	                	})

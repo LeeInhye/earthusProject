@@ -3,6 +3,7 @@
 
 <properties>
 	
+	<!-- 특정 회원의 모든 리뷰 리스트를 조회 -->
 	<entry key="selectList">
 		SELECT REV_NO
 		     , USER_NO
@@ -12,12 +13,27 @@
 		     , REV_DATE
 		     , REV_RATE
 		     , REV_CONTENT
-		     , FILE_PATH + CHANGE_NAME AS REV_IMG_PATH 
 		     , REV_TYPE 
 		  FROM REVIEW
-		  JOIN PRODUCT USING (PRO_CODE)
-	 LEFT JOIN ATTACHMENT ON (REV_NO = REF_BNO)
+	 	  JOIN PRODUCT USING (PRO_CODE)
 		 WHERE USER_NO = ?
+		 ORDER
+		    BY REV_DATE DESC
+	</entry>
+	
+	<!-- 특정 회원의 사진 리뷰들의 사진 정보를 조회 -->
+	<entry key="selectAttachmentList">
+		SELECT REF_BNO
+		     , FILE_PATH
+		     , CHANGE_NAME
+		  FROM REVIEW
+	 LEFT JOIN ATTACHMENT
+	 	    ON (REV_NO = REF_BNO)
+		 WHERE REF_TYPE = 4
+		   AND USER_NO = ?
+		   AND STATUS = 'Y'
+	     ORDER
+			BY REV_DATE DESC
 	</entry>
 	
 	<entry key="checkPurchase">
@@ -77,6 +93,7 @@
 		     )
 	</entry>
 	
+	<!-- 리뷰 수정 클릭 -> 리뷰정보 조회 -->
 	<entry key="selectReview">
 		SELECT REV_NO
 		     , PRO_NAME
