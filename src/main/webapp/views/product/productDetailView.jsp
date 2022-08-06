@@ -31,12 +31,13 @@
 	}
 	
 	// 해당 상품의 리뷰 별점 평균
+	double revAvg = 0;
 	if(!rlist.isEmpty()){
 		int sum = 0;
 		for(int i=0; i<rlist.size(); i++){
 			sum += rlist.get(i).getRevRate();		
 		}
-		double revAvg = sum / rlist.size();			
+		revAvg = sum / rlist.size();			
 	}
 	
 	// 리뷰들 중 사진 리뷰들의 사진 Attachment 리스트
@@ -613,18 +614,22 @@
 
         <!-- 아래부터 Review 영역!! -->
         <!-- 아래부터 Review 영역!! -->
+        
         <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
           <div class="row" style="width:800px; margin:auto;">
             <div class="col-lg-12">
+            
+            <% if(!rlist.isEmpty()) { %>
               <div class="row total_rate" style="padding-bottom:0px; padding-top:100px;">
                 <div class="col-12" style="margin:auto;">
                   <div class="box_total"  style="background-color: #F2F2F2;">
                     <h5>평점</h5>
-                    <h4 style="color:#778C79;">4.0</h4>
-                    <h6>(03명의 후기)</h6>
+                    <h4 style="color:#778C79;"><%= revAvg %></h4>
+                    <h6>(<%= rlist.size() %>명의 후기)</h6>
                   </div>
                 </div>
               </div>
+              <% } %>
               
               <!-- 리뷰 작성 버튼 부분 시작 -->
               <div class="col-lg-12" align="center" style="padding:0px; ">
@@ -662,13 +667,20 @@
 	                      </tr>
 	                    </table>
 	                    <div class="media-body">
-	                      <i class="fa fa-star"></i>
-	                      <i class="fa fa-star"></i>
-	                      <i class="fa fa-star"></i>
-	                      <i class="fa fa-star"></i>
-	                      <i class="fa fa-star"></i>
+	                      <span>별점 : </span>
+	                      <span style="color:#fbd600;"> 
+	                      	<% for(int i=0; i<r.getRevRate(); i++) { %>
+	                      		★
+	                      	<% } %>
+                       	  </span>
+	                      <span style="color:#F2F2F2">
+	                      	<% for(int i=5; i>r.getRevRate(); i--) { %>
+								★
+	                      	<% } %>
+	                      </span>		
 	                    </div>
 	                  </div>
+	                  
 	                  <div class="review-content" style="height:100px;">
 	                    <p class="review-content-text" style="width:70%; height:150px; float:left; box-sizing:border-box; word-break:break-all;">
 	                      <%= r.getRevContent() %>
