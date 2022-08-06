@@ -110,7 +110,7 @@
 						  <label for="rate3"><i class="fa fa-star review-rate"></i></label>
 						  <input type="radio" name="rate" value="4" id="rate4">
 						  <label for="rate4"><i class="fa fa-star review-rate"></i></label>
-						  <input type="radio" name="rate" value="5" id="rate5">
+						  <input type="radio" name="rate" value="5" id="rate5" checked="checked">
 						  <label for="rate5"><i class="fa fa-star review-rate"></i></label>
 					</fieldset>
 				</div>

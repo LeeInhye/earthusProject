@@ -36,7 +36,6 @@ public class ReviewInsertResultController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//(Review 객체에 USER_NO, PRO_CODE, PRO_NAME, PRO_IMG_PATH 담겨있음)
 		
 		request.setCharacterEncoding("UTF-8");
 		
@@ -68,11 +67,11 @@ public class ReviewInsertResultController extends HttpServlet {
 			int result = new ReviewService().insertReview(r, at);
 			
 			if(result > 0) {
-				session.setAttribute("resultMsg", "리뷰 등록에 성공하였습니다.");
-				request.getRequestDispatcher("views/product/reviewInsertResultView.jsp");
+				request.setAttribute("resultMsg", "리뷰 등록에 성공하였습니다.");
+				request.getRequestDispatcher("views/product/reviewInsertResultView.jsp").forward(request, response);
 			}else {
-				session.setAttribute("resultMsg", "리뷰 등록에 실패하였습니다.");
-				request.getRequestDispatcher("views/product/reviewInsertResultView.jsp");
+				request.setAttribute("resultMsg", "리뷰 등록에 실패하였습니다.");
+				request.getRequestDispatcher("views/product/reviewInsertResultView.jsp").forward(request, response);
 			}
 		}
 		

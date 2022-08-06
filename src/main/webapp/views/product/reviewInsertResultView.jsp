@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.us.product.model.vo.Review" %>
 <%
-	String contextPath = request.getContextPath();
-	String resultMsg = request.getParameter("resultMsg");
+	String resultMsg = (String)request.getAttribute("resultMsg");
 %>
 <!DOCTYPE html>
 <html>
@@ -12,9 +11,6 @@
 
 	<!-- 리뷰 영역 스타일 -->
 <style>
-	body{
-		background-color:#F2F2F2;
-    }
     .outer{
        margin:100px 0px auto;
     }
@@ -22,7 +18,7 @@
          background-color:#A8BFAA;
          color:#F2F2F2;
          border: none;
-         border-radius:10px;
+         border-radius:5px;
          width:100px;
          height:30px;
          font-size:15px; font-weight: bold;
@@ -58,11 +54,20 @@
 <link rel="stylesheet" href="css/style.css">
 
 </head>
+
 <body>
+
+	<%@ include file="/views/common/menubar.jsp" %>
+	
+	
 	<!-- 결과에 대한 alert창 -->
 	<div class="outer" align="center">
-		<p><%= resultMsg %></p>
-		<button id="submit-btn" onclick="close();">닫기</button>
+		<br><br><br><br><br>
+		<p style="font-size:25px;"><%= resultMsg %></p>
+		<br><br><br>
+		<div id="submit-btn" align="center" >
+			<a href="<%= contextPath%>" style="text-decoration:none; color:white; line-height:30px;">메인으로</a>
+		</div>
 	</div>
 	
 	
