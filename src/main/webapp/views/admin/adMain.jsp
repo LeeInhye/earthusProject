@@ -55,7 +55,7 @@
                                 <h6><a href="<%= contextPath %>/adList.me?mpage=1">회원 정보 관리</a></h6>
                                 <h6><a href="">포인트 관리</a></h6>
                                 &nbsp;&nbsp;<a href="<%= contextPath %>/history.po?cpage=1">내역 조회</a><br>
-                                &nbsp;&nbsp;<a href="">적립/회수</a>
+                                &nbsp;&nbsp;<a href="<%= contextPath %>/adList.po?cpage=1">적립/회수</a>
                             </div>
                         </div>
                         <div class="main-list1-ih st">
