@@ -1,6 +1,9 @@
 package com.us.point.model.dao;
 
 import static com.us.common.JDBCTemplate.close;
+import static com.us.common.JDBCTemplate.commit;
+import static com.us.common.JDBCTemplate.getConnection;
+import static com.us.common.JDBCTemplate.rollback;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -158,7 +161,141 @@ public class PointDao {
 		
 		return list;
 	}
+
+	// 페이징바_회원별 포인트 내역 총 개수
+	public int selectMMListCount(Connection conn, int userNo) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectMMListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
 	
+	// 페이징바_회원별 포인트 내역에서 검색 필터별 내역 총 개수
+	public int selectMMFilterListCount(Connection conn, int userNo, String filter) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectMMListCount") + filter;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	// 사용자_포인트 내역 조회
+	public ArrayList<Point> selectUserHistory(Connection conn, int userNo, PageInfo pi) {
+		ArrayList<Point> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectUserHistory1") + prop.getProperty("selectUserHistory2");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Point(rset.getInt("point_no"),
+								   rset.getString("point_type"),
+								   rset.getString("point_reason"),
+								   rset.getInt("point_amount"),
+								   rset.getInt("point_balance"),
+								   rset.getDate("point_date"),
+								   rset.getString("user_id"),
+								   rset.getString("user_name")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	// 사용자_포인트 내역 검색 필터별 조회
+	public ArrayList<Point> selectUserHistory(Connection conn, int userNo, String filter, PageInfo pi) {
+		ArrayList<Point> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql1 = prop.getProperty("selectUserHistory1");
+		String sql2 = prop.getProperty("selectUserHistory2");
+		
+		String sql = sql1 + filter + sql2;
+		System.out.println(sql);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Point(rset.getInt("point_no"),
+								   rset.getString("point_type"),
+								   rset.getString("point_reason"),
+								   rset.getInt("point_amount"),
+								   rset.getInt("point_balance"),
+								   rset.getDate("point_date"),
+								   rset.getString("user_id"),
+								   rset.getString("user_name")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 	
 	
 }

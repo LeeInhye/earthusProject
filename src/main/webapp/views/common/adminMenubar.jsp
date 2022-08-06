@@ -71,7 +71,7 @@
                                 <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                     <nav class="sb-sidenav-menu-nested nav">
                                         <a class="nav-link" href="<%= contextPath %>/history.po?cpage=1">내역 조회</a>
-                                        <a class="nav-link" href="">적립/회수</a>
+                                        <a class="nav-link" href="<%= contextPath %>/adList.po?cpage=1">적립/회수</a>
                                     </nav>
                                 </div>
                             </nav>

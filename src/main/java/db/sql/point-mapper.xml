@@ -62,6 +62,40 @@
 		        )
 		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
+	
+	<entry key="selectMMListCount">
+		SELECT COUNT(*) AS COUNT
+		  FROM POINT
+		 WHERE USER_NO = ?
+	</entry>
+	
+	<entry key="selectUserHistory1">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM (
+		                SELECT 
+		                       POINT_NO
+		                     , USER_ID
+		                     , POINT_TYPE
+		                     , POINT_REASON
+		                     , USER_NAME
+		                     , POINT_AMOUNT
+		                     , POINT_BALANCE
+		                     , POINT_DATE
+		                  FROM POINT
+		                  JOIN MEMBER USING (USER_NO)
+						 WHERE USER_NO = ?
+	</entry>
+	
+		<entry key="selectUserHistory2">
+		                 ORDER
+		                    BY POINT_NO DESC
+		                ) A
+		        )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
 
 
 </properties>

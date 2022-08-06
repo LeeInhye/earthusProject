@@ -94,11 +94,11 @@
 		<table class="table">
 			<thead>
 			  <tr align="center">
-				<th width="5%" class="review-pic" width="5%;"><input type="checkbox" id="check-all"  onclick="checkAll();"></th>
-				<th width="10%;">상품 사진</th>
-				<th width="20%">상품명</th>
-				<th width="55%">리뷰 내용</th>
-				<th width="10%">리뷰 수정</th>
+				<th width="20px" class="review-pic"><input type="checkbox" id="check-all"  onclick="checkAll();"></th>
+				<th width="150px">상품 사진</th>
+				<th width="150px">상품명</th>
+				<th colspan="2" width="300px">리뷰 내용</th>
+				<th width="100px">리뷰 수정</th>
 			  </tr>
 			</thead>
 			<tbody>
@@ -108,21 +108,21 @@
 					<td align="center" class="clickable" height="150px;">
 						<img src="<%= r.getProImgPath() %>" width="90%">
 					</td>
-					<td align="center" class="clickable"> <%= r.getProName() %> </td>
+					<td align="center"> <%= r.getProName() %> </td>
 					<% if(r.getRevType() == "P"){ %>
-						<td class="clickable">
-							<div class="revPic" style="float:left; padding-right:10px;">
+						<td>
+							<div style="float:left; padding-right:10px;">
 							<% for(int i=0; i<picList.size(); i++ ){ %>
 								<% if( picList.get(i).getRefBNo() == r.getRevNo() ){ %>
-									<img src="<%= picList.get(i).getFilePath() + picList.get(i).getChangeName() %>" style="width:150px; height:150px;">
+									<img src="<%= picList.get(i).getFilePath() + picList.get(i).getChangeName() %>" style="width:100px; height:100px;">
 								<% } %>
 							<% } %>
 							</div>
-							<p style="margin-top:20px; white-space:pre;"><%= r.getRevContent() %></p>
 						</td>
+						<td style="margin-top:20px; white-space:pre-wrap;"><%= r.getRevContent() %></td>
 					<% }else { %>
-						<td class="clickable">
-							<p style="margin-top:20px; white-space:pre;"><%= r.getRevContent() %></p>
+						<td colspan="2">
+							<pre style="margin-top:20px; white-space:pre-wrap;"><%= r.getRevContent() %></pre>
 						</td>
 					<% } %>
 					<td align="center">
@@ -134,7 +134,7 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="5"><button type="button" class="btn-bottom btn-delete" onclick="deleteChecked();">삭제</button></td>
+					<td colspan="6"><button type="button" class="btn-bottom btn-delete" onclick="deleteChecked();">삭제</button></td>
 				</tr>
 			</tfoot>
 		</table>		
