@@ -27,6 +27,17 @@ public class ReviewService {
 	}
 	
 	
+	// 마이페이지의 리뷰 관리에서 조회하는 리뷰 리스트 중 첨부파일들에 대한 정보를 조회
+	public ArrayList<Attachment> selectAttachmentList(int userNo){
+		Connection conn = getConnection();
+		ArrayList<Attachment> list = new ReviewDao().selectAttachmentList(conn, userNo);
+	
+		close(conn);
+		return list;
+	}
+	
+	
+	// 리뷰 등록 전 해당 상품의 구매자인지 확인하는 메소드
 	public int checkPurchase(int userNo, String proCode) {
 		Connection conn = getConnection();
 		int result = new ReviewDao().checkPurchase(conn, userNo, proCode);
@@ -67,6 +78,7 @@ public class ReviewService {
 		
 		if(r.getRevType() == "P") {
 			at = new ReviewDao().selectAttachment(conn, r.getRevNo());
+			
 			if(at != null) {
 				r.setRevImgPath( at.getFilePath() + at.getChangeName() );
 			}

@@ -91,7 +91,7 @@ public class productListController extends HttpServlet {
 			request.setAttribute("wList", wList);
 		}
 			
-		
+		session.setAttribute("pi", pi);
 		// 포워딩
 		request.setAttribute("pi", pi);
 		request.setAttribute("cList", cList);

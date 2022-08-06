@@ -49,7 +49,6 @@ public class ReviewDao {
 							rset.getDate("REV_DATE"),
 							rset.getInt("REV_RATE"),
 							rset.getString("REV_CONTENT"),
-							rset.getString("REV_IMG_PATH"),
 							rset.getString("REV_TYPE")
 						));
 			}
@@ -63,6 +62,7 @@ public class ReviewDao {
 	}
 	
 	
+	// 사용자의 모든 사진리뷰들의 모든 사진에 대한 정보를 조회
 	public ArrayList<Attachment> selectAttachmentList(Connection conn, int userNo){
 		ArrayList<Attachment> list = new ArrayList<>();
 		ResultSet rset = null;
@@ -76,8 +76,8 @@ public class ReviewDao {
 			while(rset.next()) {
 				list.add(new Attachment(
 							rset.getInt("REF_BNO"),
-							rset.getString("CHANGE_NAME"),
-							rset.getString("FILE_PATH")
+							rset.getString("FILE_PATH"),
+							rset.getString("CHANGE_NAME")
 						));
 			}
 		} catch (SQLException e) {

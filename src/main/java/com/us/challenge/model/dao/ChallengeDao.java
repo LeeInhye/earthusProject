@@ -263,6 +263,40 @@ public class ChallengeDao {
 		
 		return list;
 	}
+	
+	
+	// 메인 페이지_챌린지 리스트 조회
+		public ArrayList<Challenge> selectChallList(Connection conn) {
+			// select => ResultSet(여러 행) => ArrayList<Challenge>
+			ArrayList<Challenge> list = new ArrayList<>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("selectChallListMain");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					list.add(new Challenge(rset.getInt("chall_no"),
+										   rset.getString("chall_title"),
+										   rset.getInt("chall_point"),
+										   rset.getString("chall_thumbnail"),
+										   rset.getDate("chall_enroll_date"),
+										   rset.getInt("chall_cmnt")
+							));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			return list;
+		}
 
 	// 사용자_챌린지 상세 조회
 	// 1) 조회수 증가
