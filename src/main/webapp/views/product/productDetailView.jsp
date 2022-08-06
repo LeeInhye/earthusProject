@@ -49,18 +49,6 @@
 		font-size:large;
 	}
 	
-	// 상품 문의 답변상태 - 답변대기중
-	.waiting {
-		font-weight:bold !important;
-		/*color:#778C79;*/
-		color:#a8bfaa !important;
-	}
-	
-	// 상품 문의 답변상태 - 답변완료
-	.completion {
-		font-weight:bold;
-	}
-	
 	.col3 {
 		text-align:center;
 	}
@@ -72,6 +60,9 @@
 		display:block;
 	}
 	
+	#enrollBtn {
+		float:right;
+	}
 	<!-- 리뷰 영역 스타일 -->
 	#rate-star{
 	  display:inline-block;
@@ -448,7 +439,7 @@
           			<ul>
           				<li class="col1">No</li>
           				<li class="col2">상태</li>
-          				<li class="col3">제목</li>
+          				<li class="col3" style="text-align:center">제목</li>
           				<li class="col4">작성자</li>
           				<li class="col5">작성일</li>
           			</ul>
@@ -463,7 +454,7 @@
           				<li class="col1"><%=q.getProQnaNo()%></li>
           				
           				<!-- 답변 미등록 상태면 -->
-          				<% if(q.getProAEnrollDate() == null && q.getProAEnrollDate().equals("")) { %> 
+          				<% if(q.getProAEnrollDate() == null) { %> 
           				<li class="col2 waiting">답변대기중</li>
           				<% }else { %>
           				<li class="col2 completion">답변완료</li>
@@ -543,8 +534,8 @@
                             </a>
                           </li>
                           <% } %>
-                          <li><a href="<%=contextPath%>/insertForm.pq?code=<%=p.getProCode()%>&name=<%=p.getProName()%>" class="btn-submit" id="z2"
-                            style="display:inline-block; text-align:right;">상품 문의하기</a></li>
+                         <li><a href="<%=contextPath%>/insertForm.pq?code=<%=p.getProCode()%>&name=<%=p.getProName()%>" class="btn-submit" id="z2"
+                         style="display:inline-block; text-align:center;">상품 문의하기</a></li>
                       </ul>
                   </nav>
               </div>

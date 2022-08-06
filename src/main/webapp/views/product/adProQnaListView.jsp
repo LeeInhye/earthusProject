@@ -81,7 +81,7 @@
 	                                   <td>
 	                                   <% if(pq.getProAEnrollDate() == null){ %>
 	                                       <button class="btn btn-sm pro-a-btn" style="line-height:20px;"
-	                                       onclick="location.href='<%=contextPath%>/updateForm.pq?proQnaNo=<%=pq.getProQnaNo()%>'">답변하기</button>
+	                                       onclick="location.href='<%=contextPath%>/updateForm.pq?proQnaNo=<%=pq.getProQnaNo()%>';">답변하기</button>
 	                                   <% }else {%>
 	                                   	   <button class="btn btn-sm pro-a-btn" style="line-height:20px; background:lightgray;
 	                                   	   color:#404040;" disabled>답변완료</button>
@@ -230,7 +230,7 @@
                      // 각 영역에 코드 넣어주기
     				$("tbody").empty();
     				$('tbody').append(txt);
-    				$('#pageArea').empty(ptxt);
+    				$('#pageArea').empty();
                     $('#pageArea').append(ptxt);
               			
             },  //success 끝
