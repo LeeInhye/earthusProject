@@ -86,7 +86,7 @@ ArrayList<WishList> list = (ArrayList<WishList>)request.getAttribute("list");
 		                    	<td>
 		                      	<div class="media">
 		                        <div class="d-flex">
-		                          <%= wi.getProImgPath() %>
+		                          <img src="<%=contextPath%>/<%= wi.getProImgPath() %>">
 		                        </div>
 		                        <div class="media-body">
 		                          	<p><%= wi.getProName() %></p>
@@ -172,5 +172,7 @@ ArrayList<WishList> list = (ArrayList<WishList>)request.getAttribute("list");
         }
       </script>
 	
+	<br><br><br><br><br><br><br><br><br><br>
+	<%@ include file="../common/footerbar.jsp" %>
 </body>
 </html>

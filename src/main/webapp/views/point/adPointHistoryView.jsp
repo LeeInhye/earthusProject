@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, com.us.point.model.vo.Point, com.us.common.model.vo.PageInfo, java.text.SimpleDateFormat" 
+<%@ page import="java.util.ArrayList, com.us.point.model.vo.Point, com.us.common.model.vo.PageInfo" 
 %>
 <%
 	ArrayList<Point> list = (ArrayList<Point>)request.getAttribute("list");
@@ -52,6 +52,14 @@
                 				const list = map.list; // [{}, {}, {}]
                 				
                 				var value = "";
+                				
+                				var year = "";
+	                            var month = "";
+	                            var day = ""
+	                            var indexM = "";
+	                            var indexD = "";
+	                            var indexY = "";
+                				
                 				for(let i = 0; i < list.length; i++){
 									// 검색 결과 넣어주기	
                 					
@@ -60,15 +68,34 @@
 									     + '<td>' + list[i].userId + '</td>'
 									     + '<td>' + list[i].userName + '</td>'
 									     + '<td>' + list[i].pointReason + '</td>'
-									     + '<td>' + list[i].pointAmount + '</td>'
-									     + '<td>' + list[i].pointDate + '</td>'
-									     + '<td>' + list[i].pointType + '</td>'
-									     + '<td>' + list[i].pointBalance + '</td>'
-									     + '<td class="btn_left">'
-		                                 + '<button type="button" class="btn-sm btn_black">수정</button>'
-		                                 + '</td>'
-		                                 + '</tr>';
+									     + '<td>' + list[i].pointAmount + '</td>';
+									     
+								    <!-- 날짜 -->
+		                            indexM = list[i].pointDate.indexOf("월");
+		                            indexD = list[i].pointDate.indexOf(",");
+		                            indexY = list[i].pointDate.length;
+		                            
+		                            year = list[i].pointDate.substring(indexD + 2, indexY);
+		                            month = list[i].pointDate.substring(0, indexM);
+		                            day = list[i].pointDate.substring(indexM + 2, indexD);
+		                            
+		                           	if(month < 10){
+		                           		month = "0" + month;
+		                           	}
+		                           	if(day < 10){
+		                           		day = "0" + day;
+		                           	}
+		                            
+		                            value += "<td>" + year + "-" + month + "-" + day + "</td>";
+									    
+		                            value += '<td>' + list[i].pointType + '</td>'
+									      + '<td>' + list[i].pointBalance + '</td>'
+									      + '<td class="btn_left">'
+		                                  + '<button type="button" class="btn-sm btn_black">수정</button>'
+		                                  + '</td>'
+		                                  + '</tr>';
             					}
+                				
                 				
                 				var ptxt = "";
                 				// 페이징바
