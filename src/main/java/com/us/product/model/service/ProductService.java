@@ -181,4 +181,17 @@ public class ProductService {
 		close(conn);
 		return result;
 	}
+	
+	public int goCart(int userNo, String pCode) {
+		Connection conn = getConnection();
+		int result = new ProductDao().goCart(conn, userNo, pCode);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
 }

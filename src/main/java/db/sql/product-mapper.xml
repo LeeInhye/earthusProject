@@ -288,4 +288,22 @@ UPDATE PRODUCT
 	 WHERE RNUM BETWEEN ? AND ?
 </entry>
 
+<entry key="goCart">
+	INSERT
+	  INTO CART
+	      (
+	       USER_NO
+	     , PRO_CODE
+	     , PRO_QTY
+	     , ADD_DATE
+	      )
+	VALUES
+	     (
+	       ?
+	     , ?
+	     , DEFAULT
+	     , DEFAULT
+	     )
+</entry>
+
 </properties>
