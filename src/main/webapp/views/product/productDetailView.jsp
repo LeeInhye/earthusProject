@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@
 	page import="java.util.ArrayList, com.us.product.model.vo.Product, com.us.common.model.vo.PageInfo,
-				 com.us.product.model.vo.ProQna, com.us.product.model.vo.WishList"
+				 com.us.product.model.vo.ProQna, com.us.product.model.vo.WishList, com.us.product.model.vo.Review, com.us.common.model.vo.Attachment"
 %>
 <%
 	Product p = (Product)request.getAttribute("p"); // 상품 정보
@@ -20,6 +20,27 @@
 	for(int i=0; i<qlist.size(); i++){
 		qnaCount++;		
 	}
+	
+	// 해당 상품의 리뷰들을 담은 ArrayList
+	ArrayList<Review> rlist = (ArrayList<Review>)request.getAttribute("rlist");
+	
+	// 해당 상품의 리뷰 개수
+	int revCount = 0;
+	for(int i=0; i<rlist.size(); i++){
+		revCount++;
+	}
+	
+	// 해당 상품의 리뷰 별점 평균
+	if(!rlist.isEmpty()){
+		int sum = 0;
+		for(int i=0; i<rlist.size(); i++){
+			sum += rlist.get(i).getRevRate();		
+		}
+		double revAvg = sum / rlist.size();			
+	}
+	
+	// 리뷰들 중 사진 리뷰들의 사진 Attachment 리스트
+	ArrayList<Attachment> picList = (ArrayList<Attachment>)request.getAttribute("picList");
 	
 %>
 <!DOCTYPE html>
@@ -624,39 +645,50 @@
               
               <!-- 리뷰 조회 영역 -->
               <div class="review_list">
-              	
+              	<% if( rlist.isEmpty() ) {%>
+              		<div align="center">
+              			<br><br><br><br><br><br>
+	              		<p style="font-weight:bold; font-size:20px;">아직 등록된 리뷰가 없습니다.</p>              		
+              		</div>
+              	<% }else { %>
               	<!-- for문 시작 : 개별 리뷰 영역 -->
-                <div class="review_item">
-                  <div class="media">
-                    <table id="member-info">
-                      <tr>
-                        <td width="50px">김지*</td>
-                        <td width="100px;">2022-07-26</td>
-                      </tr>
-                    </table>
-                    <div class="media-body">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                    </div>
-                  </div>
-                  <div class="review-content" style="height:100px;">
-                    <p class="review-content-text" style="width:70%; height:150px; float:left; box-sizing:border-box; word-break:break-all;">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo
-                    </p>
-                    <div class="review-content-photo" style="width:30%; height:100px; padding-left:20px; float:left;">
-                      <a href="" data-toggle="modal" data-target="#originalImage">
-                        <img src="img/product/b3.jpg" id="review-img" style="width:100%; height:100%;">
-                      </a>
-                    </div>
-                  </div>
-                  <br><br>
-                </div>
+              		<% for(Review r : rlist) { %>
+	                <div class="review_item">
+	                  <div class="media">
+	                    <table id="member-info">
+	                      <tr>
+	                        <td width="50px"><%= r.getUserName() %></td>
+	                        <td width="100px;"><%= r.getRevDate() %></td>
+	                      </tr>
+	                    </table>
+	                    <div class="media-body">
+	                      <i class="fa fa-star"></i>
+	                      <i class="fa fa-star"></i>
+	                      <i class="fa fa-star"></i>
+	                      <i class="fa fa-star"></i>
+	                      <i class="fa fa-star"></i>
+	                    </div>
+	                  </div>
+	                  <div class="review-content" style="height:100px;">
+	                    <p class="review-content-text" style="width:70%; height:150px; float:left; box-sizing:border-box; word-break:break-all;">
+	                      <%= r.getRevContent() %>
+	                    </p>
+	                    <% if( r.getRevType().equals("P") ) { %>
+	                    	<% for(int i=0; i<picList.size(); i++){ %>
+	                    		<% if( picList.get(i).getRefBNo() == r.getRevNo() ) { %>
+				                    <div class="review-content-photo" style="width:30%; height:100px; padding-left:20px; float:left;">
+				                      <a data-toggle="modal" data-target="#originalImage">
+				                        <img src="<%= picList.get(i).getFilePath() + picList.get(i).getChangeName() %>" id="review-img" style="width:100%; height:100%;">
+				                      </a>
+				                    </div>
+			                    <% } %>
+		                    <% } %>
+	                    <% } %>
+	                  </div>
+	                  <br><br>
+	                </div>
+	                <% } %>
+                <% } %>
                 <!-- for문 끝 : 개별 리뷰 끝 -->
                 
               </div>
@@ -666,10 +698,18 @@
         <!-- 리뷰 영역 끝!!! -->
         
         <!-- 리뷰 조회 - 이미지 크게 조회하는 모달 -->
+		  <script>
+		  	$(function(){
+		  		$("#review-img").click(function(){
+		  			$("#modal-original-img").attr( "src", $(this).attr("src") );
+		  		})
+		  	})
+		  </script>
+		  
         <!-- Modal Start -->
 		<div id="originalImage" class="modal fade" role="dialog">
 		  <div class="modal-dialog">
-		
+				
 		    <!-- Modal content-->
 		    <div class="modal-content">
 		      <div class="modal-header">
@@ -677,7 +717,7 @@
 		        <h4 class="modal-title">이미지 상세 보기</h4>
 		      </div>
 		      <div class="modal-body">
-		        <p>Some text in the modal.</p>
+		        <img src="" id="modal-original-img">
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -21,6 +21,33 @@
 		    BY REV_DATE DESC
 	</entry>
 	
+	<entry key="selectProList">
+		SELECT REV_NO
+		     , USER_NO
+		     , PRO_CODE
+		     , USER_NAME
+		     , REV_DATE
+		     , REV_RATE
+		     , REV_CONTENT
+		     , REV_TYPE 
+		  FROM REVIEW
+	 	  JOIN MEMBER USING (USER_NO)
+		 WHERE PRO_CODE = ?
+		 ORDER
+		    BY REV_DATE DESC
+	</entry>
+	
+	<entry key="selectProAttachmentList">
+		SELECT REF_BNO
+			 , FILE_PATH
+			 , CHANGE_NAME
+		  FROM REVIEW
+		  JOIN ATTACHMENT
+		    ON (REV_NO = REF_BNO)
+		 WHERE REF_TYPE = 4
+		   AND PRO_CODE = ?;
+	</entry>
+	
 	<!-- 특정 회원의 사진 리뷰들의 사진 정보를 조회 -->
 	<entry key="selectAttachmentList">
 		SELECT REF_BNO

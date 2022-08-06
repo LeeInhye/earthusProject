@@ -26,6 +26,24 @@ public class ReviewService {
 		return list;
 	}
 	
+	// 상품 디테일 뷰에서 해당 상품에 대한 리스트 조회하는 메소드
+	public ArrayList<Review> selectList(String proCode){
+		Connection conn = getConnection();
+		ArrayList<Review> list = new ReviewDao().selectList(conn, proCode);
+		
+		close(conn);
+		return list;
+	}
+	
+	// 마이페이지의 리뷰 관리에서 조회하는 리뷰 리스트 중 첨부파일들에 대한 정보를 조회
+	public ArrayList<Attachment> selectAttachmentList(String proCode){
+		Connection conn = getConnection();
+		ArrayList<Attachment> list = new ReviewDao().selectAttachmentList(conn, proCode);
+	
+		close(conn);
+		return list;
+	}
+	
 	
 	// 마이페이지의 리뷰 관리에서 조회하는 리뷰 리스트 중 첨부파일들에 대한 정보를 조회
 	public ArrayList<Attachment> selectAttachmentList(int userNo){
