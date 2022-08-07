@@ -20,7 +20,7 @@ public class OrderService {
 		return listCount;
 	}
 	
-	// 페이징용
+	// 취교반 페이징용
 	public int selectListCount(String status) {
 		Connection conn = getConnection();
 		int listCount = new OrderDao().selectListCount(conn, status);
@@ -91,9 +91,9 @@ public class OrderService {
 	}
 	
 	// 관_구매내역조회
-	public ArrayList<Order> selectOrderListAd(){
+	public ArrayList<Order> selectOrderListAd(PageInfo pi){
 		Connection conn = getConnection();
-		ArrayList<Order> list = new OrderDao().selectOrderListAd(conn);
+		ArrayList<Order> list = new OrderDao().selectOrderListAd(conn, pi);
 		close(conn);
 		return list;
 	}
@@ -102,6 +102,20 @@ public class OrderService {
 	public int updateDelNo(int orderNo, int delNo) {
 		Connection conn = getConnection();
 		int result = new OrderDao().updateDelNo(conn, orderNo, delNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	// 관_운송장 추가시 상태변경
+	public int updateDelSta() {
+		Connection conn = getConnection();
+		int result = new OrderDao().updateDelSta(conn);
 		
 		if(result>0) {
 			commit(conn);

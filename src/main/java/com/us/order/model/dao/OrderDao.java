@@ -52,13 +52,23 @@ public class OrderDao {
 		return listCount;
 	}
 	
-	// 페이징용
+	// 취교반 페이징용
 	public int selectListCount(Connection conn, String status) {
 		int listCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("selectListCount");
+		
+		String where = "";
+		
+		switch(status) {
+		case"취소" : where = "WHERE DEL_STATUS = 4 "; break;
+		case"교환" : where = "WHERE DEL_STATUS = 5 "; break;
+		case"반품" : where = "WHERE DEL_STATUS = 6 "; break;
+		}
+		sql += where;
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
@@ -288,7 +298,7 @@ public class OrderDao {
 	}
 	
 	// 관_구매내역조회
-	public ArrayList<Order> selectOrderListAd(Connection conn){
+	public ArrayList<Order> selectOrderListAd(Connection conn, PageInfo pi){
 		ArrayList<Order> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -296,6 +306,12 @@ public class OrderDao {
 		String sql = prop.getProperty("selectOrderListAd");
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -329,6 +345,25 @@ public class OrderDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, delNo);
 			pstmt.setInt(2, orderNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// 관_운송장 추가시 상태변경
+	public int updateDelSta(Connection conn) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateDelSta");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -438,9 +473,18 @@ public class OrderDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql1 = prop.getProperty("selectCerListAd1");
-		String sql2 = prop.getProperty("selectCerListAd2");
-		String sql = sql1 + status + sql2;
+		String sql = prop.getProperty("selectCerListAd1");
+		
+		String where = "";
+		
+		switch(status) {
+		case "취소" : where = "WHERE DEL_STATUS = 4 "; break;
+		case "교환" : where = "WHERE DEL_STATUS = 5 "; break;
+		case "반품" : where = "WHERE DEL_STATUS = 6 "; break;
+		}
+		
+		sql += where = "ORDER BY ORDER_NO DESC) A ) WHERE RNUM BETWEEN ? AND ?";
+		
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
