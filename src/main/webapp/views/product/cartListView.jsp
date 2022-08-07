@@ -58,7 +58,7 @@
   <section class="cart_area padding_top">
     <div class="container">
       <div class="cart_inner">
-      	<%-- <form action="<%= contextPath %>/checkout.or" method="post"> --%>
+      	<form action="<%= contextPath %>/checkoutList.or" method="post">
       		<input type="hidden" name="fromCart" value="T">
 	        <div class="table-responsive">
 	          <table class="table">
@@ -136,7 +136,7 @@
 	            <button class="btn" id="checkout_btn" onclick="orderChecked();">주문하기</button>
 	          </div>
 	        </div>
-        <!-- </form>  -->
+        </form>
       </div>
      </div>
   </section>
@@ -281,7 +281,7 @@
     function orderChecked(){
     	var orderProCode = "";
     	$("input[name=check]:checked").each(function(){
-    		orderProCode += $(this).val() + ","
+    		orderProCode += "'" + $(this).val() + "',"
     	})
     	orderProCode = orderProCode.substring(0, orderProCode.lastIndexOf(","));
     	$("input[name=orderProCode]").val( orderProCode );

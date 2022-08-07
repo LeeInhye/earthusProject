@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+	<entry key="selectProList">
+		SELECT USER_NO
+			 , PRO_CODE
+			 , PRO_NAME
+			 , PRICE
+			 , PRO_QTY
+		  FROM CART
+		  JOIN PRODUCT
+		 USING (PRO_CODE)
+		 WHERE USER_NO = ?
+		   AND PRO_CODE IN ?
+	</entry>
+	
+	<!-- 주문 시 ORDER 테이블에 행 추가 -->
+	<entry key="insertOrder">
+		INSERT
+		  INTO "ORDER"
+		VALUES
+			 (
+			   SEQ_ODRNO.NEXTVAL
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+			 , NULL
+			 , 1
+			 )
+	</entry>
+	
+	<entry key="insertOrderProduct">
+		INSERT
+		  INTO "ORDER_PRODUCT"
+		VALUES
+		     (
+		       SEQ_ODRNO.CURRVAL
+		     , ?
+		     , ?
+		     )
+	</entry>
+	
+	<!-- 장바구니에서 넘어오는 주문 시 장바구니에서 구매된 상품 제거 -->
+	<entry key="deleteCart">
+		DELETE
+		  FROM CART
+		 WHERE USER_NO = ?
+		   AND PRO_CODE = ?
+	</entry>
+	
+	<entry key="insertPayCard">
+		INSERT
+		  INTO PAY_CARD
+		VALUES
+		     (
+		       SEQ_ODRNO.CURRVAL
+		     , ?
+		     , SYSDATE
+		     )
+	</entry>
+	
+	<entry key="insertPayCash">
+		INSERT
+		  INTO PAY_CASH
+		VALUES
+		     (
+		       SEQ_ODRNO.CURRVAL
+		     , SYSDATE
+		     )
+	</entry>
+	
+	
+</properties>
