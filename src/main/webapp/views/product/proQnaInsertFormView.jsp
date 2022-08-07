@@ -124,7 +124,7 @@
 
 <script>
 
-    function checkPrivate(){ // 비밀글 체크 여부 검사 (잘됨)
+    function checkPrivate(){ // 비밀글 체크 여부 검사
         
 		
         if($("input[name=private]").is(':checked')){ // 비밀글 체크 O
@@ -140,7 +140,7 @@
         }
     } 
 
-    function validate(){ // 등록 버튼 클릭 시 유효성 검사 (됨)
+    function validate(){ // 등록 버튼 클릭 시 유효성 검사
 
 		let proQnaTitle = $('input[name=proQnaTitle]').val();  // 제목
         let proQnaContent = $('textarea[name=proQnaContent]').val(); // 문의 사항
@@ -202,7 +202,7 @@
 			return false;
 		}
         
-		if( proQnaEmail == "" && proQnaPhone == "" ){ // 연락처 미입력
+		if( (proQnaEmail == "") && (proQnaPhone == "") ){ // 연락처 미입력
                 	
            	$('.modal-body').text("연락처를 입력해 주세요.");
            	$('#errorModal').modal('show');
@@ -235,14 +235,12 @@
      
      <!-- Modal footer -->
      <div class="modal-footer" style="display:inline-block; text-align:center;">
-       <button type="button" class="btn btn-green" data-dismiss="modal">확인</button>
+       <button type="button" class="btn btn-green" data-bs-dismiss="modal">확인</button>
      </div>
      
     </div>
   </div>
 </div>
-
-<!----------------- 모달 모음 끝 ----------------->
 
 	
 	<%@ include file="../common/footerbar.jsp" %>

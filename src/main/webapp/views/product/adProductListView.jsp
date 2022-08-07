@@ -241,6 +241,7 @@
       			categoryNo += "," + $(this).val(); // ,1,2,3 
       		})
       		console.log("category:" + categoryNo);
+      		
       		$.ajax({
       			url:"<%=contextPath%>/adsearch.pr",
       			type:"get",

@@ -48,14 +48,14 @@
                                           * 상품명 : 
                                       </td>
                                       <td colspan="2">
-                                          <input type="text" class="form-control" name="proName" placeholder="상품명을 입력하세요." required>
+                                          <input type="text" class="form-control" name="proName" id="proName" placeholder="상품명을 입력하세요."required>
                                       </td>
                                   </tr>
 
                                   <tr>
                                       <td class="pro-info">상품코드 : </td>
                                       <td colspan="2">
-                                          <input type="text" class="form-control" name="proCode" value="<%= Integer.parseInt(maxProCode) + 1 %>" readonly>
+                                          <input type="text" class="form-control" name="proCode" id="proCode" value="<%= Integer.parseInt(maxProCode) + 1 %>" readonly>
                                       </td>
                                   </tr>
                                   
@@ -64,7 +64,7 @@
                                           * 상품간단설명 : 
                                       </td>
                                       <td colspan="2">
-                                          <textarea class="form-control" name="proInfo" rows="2" style="resize:none; font-size:small;" placeholder="상품의 간단한 설명을 입력하세요."></textarea>
+                                          <textarea class="form-control" name="proInfo" id="proInfo" rows="2" style="resize:none; font-size:small;" placeholder="상품의 간단한 설명을 입력하세요."></textarea>
                                       </td>
                                   </tr>
                                   
@@ -95,7 +95,7 @@
                                           * 판매가격 : 
                                       </td>
                                       <td colspan="2">
-                                          <input type="number" class="form-control" name="price" placeholder="판매 가격을 입력하세요. 단위 : 원" required>
+                                          <input type="number" class="form-control" name="price" id="price" placeholder="판매 가격을 입력하세요. 단위 : 원" required>
                                       </td>
                                   </tr>
 
@@ -137,13 +137,30 @@
        
        	// ---------- file input 값이 null일 때 modal 발생 ---------- 작동!
        	function check(){
-       		$(function(){
-       			if( $('input[type=file]').val() == null ){
-       				
-       				$('#fileCheckModal').modal();
-       				return false;
+       		// proName, proCode, proInfo(간단설명), proImg, detailImg, price, stock, reqInfoImg
+       		
+       		if( $('#proName').val() == "" ){ // 상품명 미입력
+       			alert("상품명을 입력해 주세요."); return false; 
+       		}
+       		if( $('#proInfo').val() == "" ){ // 상품간단설명 미입력
+       			alert("상품간단설명을 입력해 주세요."); return false; 
+       		}
+       		
+       		let result = 0;
+       		$('input[type=file]').each(function(){
+       			if( $(this).val() == "" ) {
+    				result = result + 1;
        			}
        		})
+   			if( result > 0 ){ // 이미지 파일 3개 중 한개라도 미입력
+				alert("등록되지 않은 이미지가 있습니다."); return false; 
+   			}
+   			if( $('#price').val() == "" ){
+   				alert("가격을 입력해 주세요."); return false; 
+   			}
+   			if( $('#stock').val() == "" ){
+   				alert("재고수량을 입력해 주세요."); return false; 
+   			}
        	}
        	
        	// ----------------- 이미지 파일 선택 시 파일 경로 보여줌 --------------- 작동, 근데 fakepath
@@ -160,7 +177,6 @@
        	});
        	// -----------------------------------------------------
        </script>
-	
 
 </body>
 </html>
