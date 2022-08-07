@@ -208,9 +208,9 @@
 		                  ORDER
 		                    BY USER_NO DESC
 		                ) A
+		            WHERE RNK = 1
 		        )
 		 WHERE RNUM BETWEEN ? AND ?
-		   AND RNK = 1
 	</entry>
 	
 	<entry key="adDeleteMember">

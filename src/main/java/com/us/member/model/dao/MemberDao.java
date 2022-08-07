@@ -462,6 +462,7 @@ public class MemberDao {
 							   , rset.getString("ADDR_DETAIL")
 							   , rset.getDate("USER_ENROLL_DATE")
 							   , rset.getString("USER_STATUS")
+							   , rset.getInt("POINT_BALANCE")
 						));
 			}
 		} catch (SQLException e) {

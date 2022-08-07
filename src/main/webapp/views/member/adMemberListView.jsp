@@ -101,7 +101,6 @@
 			                            	txt += " " + newList[i].addrDetail + "</td>"
 			                            }
 			                            
-			                            console.log(newList[i].userEnrollDate);
 			                            
 			                            <!-- 날짜 -->
 			                            indexM = newList[i].userEnrollDate.indexOf("월");
@@ -181,47 +180,50 @@
 		                    </thead>
 		                    <tbody id="mBody">
 		                    
+		                    <% for(Member m : list) { %>
+		                    	<% System.out.println(m.getUserNo()); %>
+		                    <% } %>
+		                    
 		                    <!-- 전체  -->
-                			<% for(int i = 0; i < list.size(); i++) { %>
+                			<% for(Member m : list) { %>
 		                        <!-- 값은 다 DB와 연결될 것 -->
 		                        <tr style="cursor: auto;">
-		                            <td><input type="checkbox" name="checkMember" value="<%= list.get(i).getUserNo() %>"></td>
-		                            <td><%= list.get(i).getUserNo() %></td>
-		                            <td><%= list.get(i).getUserId() %></td>
-		                            <td><%= list.get(i).getUserName() %></td>
-		                            <td><%= list.get(i).getEmail() %></td>
-		                            <td><%= list.get(i).getPhone() %></td>
+		                            <td><input type="checkbox" name="checkMember" value="<%= m.getUserNo() %>"></td>
+		                            <td><%= m.getUserNo() %></td>
+		                            <td><%= m.getUserId() %></td>
+		                            <td><%= m.getUserName() %></td>
+		                            <td><%= m.getEmail() %></td>
+		                            <td><%= m.getPhone() %></td>
 		                            
 		                            <td>
-		                            	<% if( list.get(i).getZonecode() == null){ %>
-		                            		<% list.get(i).setZonecode(""); %>
+		                            	<% if( m.getZonecode() == null){ %>
+		                            		<% m.setZonecode(""); %>
 		                            	<% } else {%>
-		                            		<% list.get(i).setZonecode("(" + list.get(i).getZonecode() +")"); %>
+		                            		<% m.setZonecode("(" + m.getZonecode() +")"); %>
 		                            	<% } %>
 		                            	
-		                            	<% if( list.get(i).getAddress() == null){ %>
-		                            		<% list.get(i).setAddress(""); %>
+		                            	<% if( m.getAddress() == null){ %>
+		                            		<% m.setAddress(""); %>
 		                            	<% } %>
 		                            	
-		                            	<% if( list.get(i).getAddrExtra() == null){ %>
-		                            		<% list.get(i).setAddrExtra(""); %>
+		                            	<% if( m.getAddrExtra() == null){ %>
+		                            		<% m.setAddrExtra(""); %>
 		                            	<% } %>
 		                            	
-		                            	<% if( list.get(i).getAddrDetail() == null){ %>
-		                            		<% list.get(i).setAddrDetail(""); %>
+		                            	<% if( m.getAddrDetail() == null){ %>
+		                            		<% m.setAddrDetail(""); %>
 		                            	<% } %>
 		                            	
-										<%= list.get(i).getZonecode() %>&nbsp;<%= list.get(i).getAddress() %>&nbsp;<%= list.get(i).getAddrExtra() %>&nbsp;<%= list.get(i).getAddrDetail() %> 
+										<%= m.getZonecode() %>&nbsp;<%= m.getAddress() %>&nbsp;<%= m.getAddrExtra() %>&nbsp;<%= m.getAddrDetail() %> 
 									</td>
-		                            <td><%= list.get(i).getUserEnrollDate() %></td>
+		                            <td><%= m.getUserEnrollDate() %></td>
 		                            <!--  포인트 넣기 -->
-		                            <td><%= list.get(i).getPoint() %></td>
-		                            <td><%= list.get(i).getUserStatus() %></td>
+		                            <td><%= m.getPoint() %></td>
+		                            <td><%= m.getUserStatus() %></td>
 		                            <td class="btn_left">
 		                                <button type="button" class="btn-sm btn_black">수정</button>
 		                            </td>
 		                        </tr>
-		                        
 		                      <% } %>
 		                      
 		                      <script>
