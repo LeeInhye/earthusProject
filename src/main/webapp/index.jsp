@@ -40,17 +40,17 @@
     
     /*--------좌우슬라이딩---------*/
 	#index_01{
-	    width: 705px;
-	    height: 400px;
+	    width: 1000px;
+	    height: 500px;
 	    margin: 0 auto;
 	}
 	
 	#slide1{
-	    height: 350px;
+	    height: 500px;
 	    overflow: hidden;
 	}
 	#slide1>ul{
-	    width: 3600px;
+	    width: 4000px;
 	    font-size: 0;
 	}
 	#slide1>ul>li{
@@ -265,11 +265,11 @@
 		
 		setInterval(function(){
 		    $('#slide1>ul').delay(3000);
-		    $('#slide1>ul').animate({marginLeft: "-705px"})
+		    $('#slide1>ul').animate({marginLeft: "-1000px"})
 		    $('#slide1>ul').delay(3000);
-		    $('#slide1>ul').animate({marginLeft: "-1410px"})
+		    $('#slide1>ul').animate({marginLeft: "-2000px"})
 		    $('#slide1>ul').delay(3000);
-		    $('#slide1>ul').animate({marginLeft: "-2115px"})
+		    $('#slide1>ul').animate({marginLeft: "-3000px"})
 		    $('#slide1>ul').delay(3000);
 		    $('#slide1>ul').animate({marginLeft: "0px"})
 		});
@@ -287,6 +287,7 @@
 				</ul>
 			</div>
         </div>
+        <br><br><br>	
     </section>
     <!-- banner part start--> 
      
