@@ -393,10 +393,10 @@
                                         txt += '<div style="height:100%; align-items: center;">';
                                             txt += '<div class="single_product_item">';
                                                 txt += '<div class="single_product_text" style="text-align:center; margin:0px 0px 20px 0px;">';
-                                                    txt += '<h4 style="margin: auto;">챌린지 추천추천! 참여참여!</h4> <br>';
+                                                    /* txt += '<h4 style="margin: auto;">챌린지 추천추천! 참여참여!</h4> <br>';
                                                     txt += '<h5>챌린지 참여하시고</h5>';
                                                     txt += '<h5>SNS에 올려</h5>';
-                                                    txt += '<h5>포인트 받아가세요!</h5>';
+                                                    txt += '<h5>포인트 받아가세요!</h5>'; */
                                                 txt += '</div></div>';
 
 
