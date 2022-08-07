@@ -330,8 +330,8 @@ public class adProductDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			close(pstmt);
 			close(rset);
+			close(pstmt);
 		}
 		return pq;
 	}
