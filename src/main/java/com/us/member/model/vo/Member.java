@@ -67,9 +67,6 @@ public class Member {
 	}
 	
 	
-
-	
-
 	public Member(String userId, String userPwd, String userName, String email, String phone, String zonecode,
 			String address, String addrExtra, String addrDetail, String userBirth, String gender) {
 		super();
@@ -165,6 +162,14 @@ public class Member {
 		this.address = address;
 		this.addrExtra = addrExtra;
 		this.addrDetail = addrDetail;
+	}
+
+	public Member(int userNo, String userId, String userName, String userStatus) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userName = userName;
+		this.userStatus = userStatus;
 	}
 
 	public int getUserNo() {

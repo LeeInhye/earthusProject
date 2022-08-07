@@ -15,6 +15,7 @@ import com.us.challenge.model.vo.Challenge;
 import com.us.challenge.model.vo.Comment;
 import com.us.common.model.vo.Attachment;
 import com.us.common.model.vo.PageInfo;
+import com.us.member.model.vo.Member;
 
 public class ChallengeDao {
 	
@@ -470,8 +471,6 @@ public class ChallengeDao {
 		String sql2 = prop.getProperty("selectCmntList2");
 		String sql = sql1 + selectSt + sql2;
 		
-		System.out.println(sql);
-
 		try {
 			pstmt = conn.prepareStatement(sql);
 			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
@@ -554,6 +553,86 @@ public class ChallengeDao {
 			close(pstmt);
 		}
 		System.out.println(result);
+		return result;
+	}
+	
+	// 관리자_회원명으로 회원번호 불러오기
+	public Member selectByUserName(Connection conn, String userName) {
+		// select => ResultSet(한 행) => Member
+		Member m = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectByUserName");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userName);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Member(rset.getInt("user_no"),
+							   rset.getString("user_id"),
+							   rset.getString("user_name"),
+							   rset.getString("user_status"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return m;
+	}
+
+	
+	// 관리자_챌린지 포인트 지급
+	public int givePoint(Connection conn, int userNo, int challNo, String challTitle, int amount) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("givePoint");
+	
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setString(2, challTitle);
+			pstmt.setInt(3, amount);
+			pstmt.setInt(4, userNo);
+			pstmt.setInt(5, amount);
+			pstmt.setInt(6, challNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	// 관리자_챌린지 포인트 지급_챌린지댓글 테이블 상태값 변경
+	public int updateCmntStatus(Connection conn, int cmntNo) {
+		// update
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateCmntStatus");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cmntNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
 		return result;
 	}
 	

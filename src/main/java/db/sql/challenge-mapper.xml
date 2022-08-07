@@ -217,5 +217,54 @@
 		  FROM CHALLENGE_CMNT
 	</entry>
 	
+	<entry key="selectByUserName">
+		SELECT
+		        USER_NO
+		      , USER_ID
+		      , USER_NAME
+		      , USER_STATUS
+		  FROM MEMBER
+		 WHERE USER_NAME = ?
+	</entry>
+	
+	<entry key="givePoint">
+		INSERT
+		  INTO POINT
+		     (
+		       POINT_NO
+		     , USER_NO
+		     , POINT_TYPE
+		     , POINT_REASON
+		     , POINT_AMOUNT
+		     , POINT_BALANCE
+		     , CHALL_NO
+		     )
+		VALUES
+		     (
+		       SEQ_POINTNO.NEXTVAL
+		     , ?
+		     , '적립'
+		     , ? || ' 챌린지 참여'
+		     , ?
+		     , (
+		        SELECT *
+		        FROM (
+		                SELECT SUM(POINT_AMOUNT) OVER(PARTITION BY USER_NO ORDER BY POINT_NO)
+		                  FROM POINT
+		                  WHERE USER_NO = ?
+		                  ORDER BY POINT_NO DESC
+		                  )
+		        WHERE ROWNUM = 1
+		     ) + ?
+		     , ?
+		     )
+	</entry>
+	
+	<entry key="updateCmntStatus">
+		UPDATE CHALLENGE_CMNT
+		   SET CMNT_STATUS = 'Y'
+		 WHERE CMNT_NO = ?
+	</entry>
+	
 	
 </properties>

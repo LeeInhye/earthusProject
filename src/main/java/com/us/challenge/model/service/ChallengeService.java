@@ -13,6 +13,7 @@ import com.us.challenge.model.vo.Challenge;
 import com.us.challenge.model.vo.Comment;
 import com.us.common.model.vo.Attachment;
 import com.us.common.model.vo.PageInfo;
+import com.us.member.model.vo.Member;
 
 public class ChallengeService {
 	
@@ -194,6 +195,38 @@ public class ChallengeService {
 
 		return result;
 	}
+	
+	// 관리자_회원명으로 회원번호 불러오기
+	public Member selectByUserName(String userName) {
+		Connection conn = getConnection();
+		Member m = new ChallengeDao().selectByUserName(conn, userName);
+		close(conn);
+		
+		return m;
+	}
 
+	// 관리자_챌린지 포인트 지급
+	public int givePoint(int userNo, int challNo, String challTitle, int amount, int cmntNo) {
+		Connection conn = getConnection();
+		
+		// 포인트 테이블에 내역 insert
+		int result1 = new ChallengeDao().givePoint(conn, userNo, challNo, challTitle, amount);
+		
+		// 챌린지 댓글 테이블에서 처리상태를 Y로 update
+		int result2 = new ChallengeDao().updateCmntStatus(conn, cmntNo);
+		
+		int result = result1 * result2;
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}		
+		close(conn);
+
+		return result;
+	}
+	
+	
 	
 }

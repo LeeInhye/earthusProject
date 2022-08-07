@@ -43,6 +43,10 @@
         font-size: 12px;
         background: #778C79;
     }
+    #btn_point_done {
+        font-size: 12px;
+        background: gray;
+    }
 </style>
 </head>
 <body>
@@ -77,7 +81,7 @@
                     </div>
 					<br><br>
 					
-					<table>
+					<table id="pointTable">
 						<thead>
 							<tr>
 								<th width="5%" height="50px">
@@ -113,18 +117,46 @@
 										<td><%= cmnt.getCmntContent() %></td>
 										<td><%= cmnt.getCmntWriter() %></td>
 										<td><%= cmnt.getCmntEnrollDate() %></td>
-										<td>
-	                                        <button type="button" class="btn btn-dark" id="btn_point">지급하기</button>
+										<td id="btn_area">
+											<% if( cmnt.getCmntStatus().equals("N") ) { %>
+	                                        	<button type="button" class="btn btn-dark" id="btn_point">지급하기</button>
+	                                        <% }else { %>
+	                                        	<button type="button" class="btn btn-dark" id="btn_point_done" disabled>지급완료</button>
+	                                        <% } %>
 	                                    </td>
 									</tr>
 								<% } %>
 							<% } %>
 						</tbody>
 					</table>
- 
-						<button class="btn_admin" id="btn_delete" style="float: left; margin-left: 10%;" data-bs-toggle="modal" data-bs-target="#jyModal_noCheck">선택 삭제</button>
-						<a href="<%= contextPath %>/adCmntMain.ch?cpage=1" class="btn_admin" style="float: right; margin-right: 10%; text-decoration:none;">챌린지 목록</a>
-	 					<br><br><br><br><br>
+					<br><br>
+
+					<script>
+						// 포인트 지급
+						$("#pointTable>tbody>tr").on("click", "td:last-child>button", function(){
+
+  							// 회원명, 챌린지 글번호, 지급할 포인트, 댓글번호
+							var userName = $(this).parent().parent().children().eq(4).text();
+							var challNo = <%= ch.getChallNo() %>;
+							var amount = <%= ch.getChallPoint() %>;
+							var cmntNo = $(this).parent().parent().children().eq(1).text();
+							
+							$.ajax({
+				    			url:"<%=contextPath%>/givePoint.ch",
+				    			data:{no:challNo, cmntNo:cmntNo, userName:userName, amount:amount},
+				    			success:function(result){ // 성공시 => 버튼 지급완료로 변경
+				    				
+				    				var value = "";
+				    				
+				    				value = '<button type="button" class="btn btn-dark" id="btn_point_done" disabled>지급완료</button>';
+				    				
+				    				$("#btn_area").html(value);
+				    				
+				    			}
+							})
+						
+						})
+					</script>
 						
 				       <!-- 페이징바 영역 -->
 				       <div class="paging-area" align="center">
@@ -228,7 +260,6 @@
 									checkCmnt += ($(this).val()) + ","; // 체크된 것만 게시글번호 뽑기 "2,3,4,"
 	                            })
 	                            checkCmnt = checkCmnt.substring(0,checkCmnt.lastIndexOf(",")); // 맨 뒤 콤마 삭제 "2,3,4"
-								console.log(checkCmnt);
 								if(checkCmnt == ''){ // 선택된 체크박스 하나도 없을 경우
 	                	            $("#btn_delete").attr("data-bs-target", "#jyModal_noCheck");
 	                                
