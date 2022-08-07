@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.us.product.model.vo.*"%>
 <%
-ArrayList<WishList> list = (ArrayList<WishList>)request.getAttribute("list");
+	ArrayList<WishList> list = (ArrayList<WishList>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
@@ -43,6 +43,21 @@ ArrayList<WishList> list = (ArrayList<WishList>)request.getAttribute("list");
           border-radius:5px;
         }
         table input{accent-color:rgb(119,140,121);}
+        #y-btn {
+		  border:0;
+		  border-radius:5px;
+		  background-color:rgb(119,140,121);
+		  color:white;
+		  width:90px;
+		  height:40px;
+		}
+		#n-btn{
+		  border:0;
+		  border-radius:5px;
+		  background-color:rgba(64,64,64,0.5);
+		  color:white;
+		  width:90px;
+		  height:40px;
       </style>
 </head>
 <body>
@@ -71,6 +86,7 @@ ArrayList<WishList> list = (ArrayList<WishList>)request.getAttribute("list");
 	                  </tr>
 	                </thead>
 	                <tbody>
+	                <input type="hidden" name="userNo" value="<%=loginUser.getUserNo()%>">
 	                <% if(list.isEmpty()) {%>
 	                	<tr>
 	                		<td colspan="5" align="center">
@@ -86,14 +102,14 @@ ArrayList<WishList> list = (ArrayList<WishList>)request.getAttribute("list");
 		                    	<td>
 		                      	<div class="media">
 		                        <div class="d-flex">
-		                          <img src="<%=contextPath%>/<%= wi.getProImgPath() %>">
+		                          <img width="250" height="250" src="<%=contextPath%>/<%= wi.getProImgPath() %>">
 		                        </div>
 		                        <div class="media-body">
 		                          	<p><%= wi.getProName() %></p>
 		                        </div>
 			                      </div>
 			                    </td>
-			                    <td colspan="2" align="center">
+			                    <td id="price" colspan="2" align="center">
 			                      	<h5><%= wi.getPrice() %></h5>
 			                    </td>
 			                    <td align="center">
@@ -113,13 +129,26 @@ ArrayList<WishList> list = (ArrayList<WishList>)request.getAttribute("list");
 	                    <td></td>
 	                    <td>
 	                      <div class="cupon_text float-right">
-	                        <button class="ca-btn">선택 상품 장바구니로 이동</button>
+	                        <button class="ca-btn" onclick="goCart();">선택 상품 장바구니로 이동</button>
 	                      </div>
 	                    </td>
 	                  </tr>
 	                  
 	                </tbody>
             	</table>
+            	<div class="modal" id="cartModal">
+		                        <div class="modal-dialog">
+		                            <div class="modal-content">
+		                                
+		                                <div class="modal-body" align="center">
+		                                	<br><br>
+	                                        <h5 class="modal-title">선택한 상품이 장바구니에 담겼습니다.</h5>
+	                                        <br><br>
+	                                        <button id="y-btn" onclick="location.reload();">확인</button>
+		                                </div>
+		                            </div>
+		                        </div>
+		                    </div>
             </div>
           
       </section>
@@ -139,6 +168,8 @@ ArrayList<WishList> list = (ArrayList<WishList>)request.getAttribute("list");
           $(".product").click(function(){
         	  $("#checkAll").prop("checked", false);
           })
+
+          
 		
           
           
@@ -169,7 +200,26 @@ ArrayList<WishList> list = (ArrayList<WishList>)request.getAttribute("list");
     				console.log("위시리스트 삭제용 ajax 통신 실패");
     			}
         	})
-        }
+        	
+      	}
+      	
+      	function goCart(){
+      		
+      		$.ajax({
+        		url:"<%=contextPath%>/insertCart.pr",
+        		data:{
+        			userNo:$("#lsuccess").val(),
+        			pCode:$("input:checkbox[name=pCode]:checked").val()},
+        		success:function(){
+        			$('#cartModal').modal('show');
+        		}, error:function(){
+    				console.log("카트 이동용 ajax 통신 실패");
+    			}
+        	})
+      	}
+      	
+      	
+        
       </script>
 	
 	<br><br><br><br><br><br><br><br><br><br>

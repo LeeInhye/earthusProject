@@ -110,7 +110,7 @@
 						<td>
 						  <div class="media">
 							<div class="d-flex">
-							  <img src="<%=contextPath %>/<%=or.getProImgPath() %>" />
+							 <img width="250" height="250" src="<%=contextPath %>/<%=or.getProImgPath() %>"/>
 							</div>
 							<div class="media-body">
 							  <h5><%=or.getProName() %></h5>
@@ -140,7 +140,7 @@
 						  <div class="p-btn">
 						  <%if((or.getDelStatus() == 1)){ %>
 						  	<button id="cancel<%=or.getProCode()%>" class="cancel" type="button" data-toggle="modal" data-target="#cancelModal">취소</button> <br>
-						  	<button id="exchange" class="exchange" type="button" data-toggle="modal" data-target="#impoExrtrModal">교환/반품</button>
+						  	<button id="exchange" class="exchange" type="button" data-toggle="modal" data-target="#impoExrtrModal">교환/반품</button> <br>
 						  	<button id="detail" type="button" data-toggle="modal" data-target="#nopelModal">내역조회</button>
 						  <%}else if((or.getDelStatus() == 2)){ %>
 						  	<button id="cancel<%=or.getProCode()%>" class="cancel" type="button" data-toggle="modal" data-target="#impoCancelModal1">취소</button> <br>
