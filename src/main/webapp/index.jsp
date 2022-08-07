@@ -279,6 +279,7 @@
 	
 	 <!-- banner part start-->
     <section class="banner_part">
+    	<br><br>
         <div id="index_01" class="banner-container">
 	        <div id="slide1" class="banner-wrap">
 				<ul id="banner-ul">
