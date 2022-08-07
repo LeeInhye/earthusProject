@@ -145,12 +145,11 @@
 				    			url:"<%=contextPath%>/givePoint.ch",
 				    			data:{no:challNo, cmntNo:cmntNo, userName:userName, amount:amount},
 				    			success:function(result){ // 성공시 => 버튼 지급완료로 변경
-				    				
-				    				var value = "";
-				    				
-				    				value = '<button type="button" class="btn btn-dark" id="btn_point_done" disabled>지급완료</button>';
-				    				
-				    				$("#btn_area").html(value);
+				    			
+				    				// 모든 버튼에 적용됨 ....
+				    				$(".btn-dark").attr("value", "지급완료");
+				    				$(".btn-dark").attr("style", "background:gray;");
+				    				$(".btn-dark").attr("disabled", true);
 				    				
 				    			}
 							})

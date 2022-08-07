@@ -161,12 +161,12 @@
     
 
     <div id="btn-list">
-      <button class="a" onclick="selectStatus(1, 'all');">전체</button>
+<!--       <button class="a" onclick="selectStatus(1, 'all');">전체</button>
       <button class="b">적립</button>
-      <button class="c" onclick="selectStatus(1, 'minus');">사용</button> 
+      <button class="c" onclick="selectStatus(1, 'minus');">사용</button>  -->
 
         <% if(!list.isEmpty()) { %>
-		   	<span style="float:right">
+		   	<span>
 		   		<%= firstDate %>~<%= lastDate %>까지의 포인트 내역 <b><%= pi.getListCount() %>건</b>
 		   	</span>
 		<% } %>
