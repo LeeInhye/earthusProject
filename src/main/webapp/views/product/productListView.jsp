@@ -57,12 +57,12 @@
 	
 		<!-- banner part start-->
 		<section class="breadcrumb contents_bg">
-		    <div class="container">
+		    <div class="container" style="max-width:3640px;">
 		        <div class="row justify-content-center">
-		            <div class="col-lg-8">
+		            <div class="col-lg-8" style="max-width: 1080px; flex:100%">
 		                <div class="breadcrumb_iner">
 		                    <div class="breadcrumb_iner_item">
-		                        <img src="<%=contextPath%>/<%=cList.get(categoryNo-1).getCategoryImgPath()%>">
+		                        <img style="width:100%; height:100%;" src="<%=contextPath%>/<%=cList.get(categoryNo-1).getCategoryImgPath()%>">
 		                    </div>
 		                </div>
 		            </div>
