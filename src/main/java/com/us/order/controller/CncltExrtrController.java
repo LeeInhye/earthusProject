@@ -38,14 +38,14 @@ public class CncltExrtrController extends HttpServlet {
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		
 		// * 페이징 처리
-		int listCount = new ContentsService().selectListCount(); // 현재 게시글 총 갯수
-		int currentPage = Integer.parseInt(request.getParameter("cpage")); // 사용자가 보게 될 페이지 (즉, 사용자가 요청한 페이지)
-		int pageLimit = 5; // 페이징바의 페이지 최대 갯수 (몇 개 단위씩)		
-		int boardLimit = 5; // 한 페이지당 보여질 게시글의 최대 갯수 (몇 개 단위씩)
+		int listCount = new ContentsService().selectListCount(); 
+		int currentPage = Integer.parseInt(request.getParameter("cpage")); 
+		int pageLimit = 5; 	
+		int boardLimit = 5; 
 		
-		int maxPage = (int)Math.ceil( (double)listCount / boardLimit ); // 제일 마지막 페이지 수 (총 페이지 수)
-		int startPage = (currentPage-1) / pageLimit * pageLimit + 1; // 페이징바의 시작 수
-		int endPage = startPage + pageLimit - 1; // 페이징바의 끝 수
+		int maxPage = (int)Math.ceil( (double)listCount / boardLimit );
+		int startPage = (currentPage-1) / pageLimit * pageLimit + 1; 
+		int endPage = startPage + pageLimit - 1;
 
 		if(endPage > maxPage) {
 			endPage = maxPage;

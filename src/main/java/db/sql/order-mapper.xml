@@ -93,8 +93,8 @@
 					  JOIN ORDER_PRODUCT USING (ORDER_NO)
 					  JOIN PRODUCT USING (PRO_CODE)
 					 WHERE USER_NO = ?
-					 ORDER BY ORDER_NO DESC	  
-					     
+				     ORDER
+                        BY ORDER_NO DESC
 	                
 	  		  		) A
 	       )
@@ -133,25 +133,41 @@
 	</entry>
 	
 	<entry key="selectOrderListAd">
-		SELECT 
-		       DISTINCT ORDER_NO
-		     , DECODE(PAYMENT, 'CARD', CARD_APPROVAL_DATE, 'CASH', CASH_APPROVAL_DATE) "ORDER_DATE"
-		     , USER_ID
-		     , DEL_NO
-		     , DEL_STATUS
-		  FROM "ORDER"
-		  LEFT JOIN PAY_CARD USING (ORDER_NO)
-		  LEFT JOIN PAY_CASH USING (ORDER_NO)
-		  JOIN ORDER_PRODUCT USING (ORDER_NO)
-		  JOIN MEMBER USING (USER_NO)
-	     ORDER
-	        BY ORDER_NO DESC
+	
+	SELECT *
+	  FROM (
+	  		SELECT ROWNUM RNUM, A.*
+	  		  FROM (
+	  		  		SELECT 
+					       DISTINCT ORDER_NO
+					     , DECODE(PAYMENT, 'CARD', CARD_APPROVAL_DATE, 'CASH', CASH_APPROVAL_DATE) "ORDER_DATE"
+					     , USER_ID
+					     , DEL_NO
+					     , DEL_STATUS
+					  FROM "ORDER"
+					  LEFT JOIN PAY_CARD USING (ORDER_NO)
+					  LEFT JOIN PAY_CASH USING (ORDER_NO)
+					  JOIN ORDER_PRODUCT USING (ORDER_NO)
+					  JOIN MEMBER USING (USER_NO)
+				     ORDER
+				        BY ORDER_NO DESC
+	                
+	  		  		) A
+	       )
+	 WHERE RNUM BETWEEN ? AND ?
+		
 	</entry>
 	
 	<entry key="updateDelNo">
 		UPDATE "ORDER"
 		   SET DEL_NO = ?
 		 WHERE ORDER_NO = ?
+	</entry> 
+	
+	<entry key="updateDelsta">
+		UPDATE "ORDER"
+		   SET DEL_STATUS = 2
+		 WHERE DEL_NO IS NOT NULL
 	</entry>
 
 	<entry key="selectCanDetail">
@@ -191,23 +207,17 @@
 		        SELECT ROWNUM RNUM, A.*
 		  		  FROM (
 					  		SELECT 
-					       ORDER_NO
-					     , PRO_CODE
-					     , DECODE(PAYMENT, 'CARD', CARD_APPROVAL_DATE, 'CASH', CASH_APPROVAL_DATE) "ORDER_DATE"
-					     , USER_ID
-					     , DEL_STATUS
-					  FROM "ORDER"
-					  JOIN ORDER_PRODUCT USING (ORDER_NO)
-					LEFT JOIN PAY_CARD USING (ORDER_NO)
-					LEFT JOIN PAY_CASH USING (ORDER_NO)
-					  JOIN MEMBER USING (USER_NO)
+							       ORDER_NO
+							     , PRO_CODE
+							     , DECODE(PAYMENT, 'CARD', CARD_APPROVAL_DATE, 'CASH', CASH_APPROVAL_DATE) "ORDER_DATE"
+							     , USER_ID
+							     , DEL_STATUS
+							  FROM "ORDER"
+							  JOIN ORDER_PRODUCT USING (ORDER_NO)
+							LEFT JOIN PAY_CARD USING (ORDER_NO)
+							LEFT JOIN PAY_CASH USING (ORDER_NO)
+							  JOIN MEMBER USING (USER_NO)
 
-	</entry>
-	<entry key="selectCerListAd2">
-								      
-		  		  		) A
-		       )
-		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
 	<entry key="selectCListAd">

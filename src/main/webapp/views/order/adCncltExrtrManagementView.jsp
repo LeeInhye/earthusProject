@@ -46,89 +46,37 @@
                         &nbsp;&nbsp;&nbsp;<input type="text" id="text-ih"><button id="s-icon-ih"><i class="bi bi-search"></i></button>
                     </div>
                     <div id="btn-list-ih" align="center">
-                        <button name="s-btn" value="4" id="can" onclick="showDiv(this);">취소</button> |
-                        <button name="s-btn" value="5" id="ex" onclick="showDiv(this);">교환</button> |
-                        <button name="s-btn" value="6" id="re" onclick="showDiv(this);">반품</button>
+                        <button name="s-btn" id="can" value="4" onclick="showDiv(this, 1);">취소</button> |
+                        <button name="s-btn" id="ex" value="5" onclick="showDiv(this, 1);">교환</button> |
+                        <button name="s-btn" id="re" value="6" onclick="showDiv(this, 1);">반품</button>
                     </div>
                     <div class="list3-ih" id="canBox-ih">
                         <table>
-                            <tr>
-                                <th width="50">No.</th>
-                                <th>주문 번호</th>
-                                <th>상품 코드</th>
-                                <th>결제일</th>
-                                <th>결제ID</th>
-                                <th>주문 처리 상태</th>
-                            </tr>
-                        	<%for(Order or : list) {%>
-                            <tr>
-                                <td><%=or.getOrderNo() %></td>
-                                <td><%=or.getOrderNo() %></td>
-                                <td><%=or.getProCode() %></td>
-                                <td><%=or.getOrderDate() %></td>
-                                <td><%=or.getUserId() %></td>
-                                <td><%=or.getDelStatus() %></td>
-                            </tr>
-							<%} %>
+                        	<thead>
+	                            <tr>
+	                                <th width="50" height="50">No.</th>
+	                                <th>주문 번호</th>
+	                                <th>상품 코드</th>
+	                                <th>결제일</th>
+	                                <th>결제ID</th>
+	                                <th>주문 처리 상태</th>
+	                            </tr>
+                            </thead>
+                            <tbody>
+	                        	<%for(Order or : list) {%>
+	                            <tr>
+	                                <td width='50' height='50'><%=or.getOrderNo() %></td>
+	                                <td><%=or.getOrderNo() %></td>
+	                                <td><%=or.getProCode() %></td>
+	                                <td><%=or.getOrderDate() %></td>
+	                                <td><%=or.getUserId() %></td>
+	                                <td><%=or.getDelStatus() %></td>
+	                            </tr>
+								<%} %>
+							</tbody>
                         </table>
                     </div>
-
-                    <div class="list3-ih" id="exBox-ih" style="display:none;">
-                        <table>
-                            <tr>
-                                <th width="50">No.</th>
-                                <th>주문 번호</th>
-                                <th>상품 코드</th>
-                                <th>결제일</th>
-                                <th>결제ID</th>
-                                <th>주문 처리 상태</th>
-                                <th>배송비</th>
-                            </tr>
-                            <%for(Order or : list) {%>
-                            <tr>
-                                <td><%=or.getOrderNo() %></td>
-                                <td><%=or.getOrderNo() %></td>
-                                <td><%=or.getProCode() %></td>
-                                <td><%=or.getOrderDate() %></td>
-                                <td><%=or.getUserId() %></td>
-                                <td><%=or.getDelStatus() %></td>
-                                <td>6000</td>
-                            </tr>
-                            <%} %>
-                        </table>
-                    </div>
-
-                    <div class="list3-ih" id="reBox-ih" style="display:none;">
-                        <table>
-                            <tr>
-                                <th width="50">No.</th>
-                                <th>주문 번호</th>
-                                <th>상품 코드</th>
-                                <th>결제일</th>
-                                <th>결제ID</th>
-                                <th>주문 처리 상태</th>
-                                <th>배송비</th>
-                                <th width="100">수령</th>
-                            </tr>
-                            <%for(Order or : list) {%>
-                            <tr>
-                                <td><%=or.getOrderNo() %></td>
-                                <td><%=or.getOrderNo() %></td>
-                                <td><%=or.getProCode() %></td>
-                                <td><%=or.getOrderDate() %></td>
-                                <td><%=or.getUserId() %></td>
-                                <td><%=or.getDelStatus() %></td>
-                                <td>6000</td>
-                                <td>
-                                    <select id="yn-ih">
-                                        <option>Y</option>
-                                        <option>N</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <%} %>
-                        </table>
-                    </div>
+                    <br><br><br><br>
                     <!-- 페이징바 영역 -->
 			       <div class="paging-area" align="center">
 			        	<% if(currentPage != 1) { %>
@@ -192,71 +140,94 @@
             
         })
 
-        function showDiv(page){
-            const list = document.getElementsByClassName("list3-ih");
-
-            for(let i=0; i<list.length; i++){
-                if(btn.id+"Box-ih" == list[i].id){
-                    list[i].style.display = "block";
-                }else{
-                    list[i].style.display = "none";
-                }
-            }
+        function showDiv(btn, page){
             
             $.ajax({
-				 url:"<%= contextPath%>/adCncltExrtr.or",
-                data:{status:$("button[name=s-btn]").val(),
+				 url:"<%= contextPath%>/adSelectCncltExrtr.or",
+                data:{status:$(btn).html(),
                	   cpage:page},
                 success:function(map){
-                	let contextPath = "<%=contextPath%>";
    					let pi = map.pi;
    					let list = map.list;
    				
-   				let value = ""; // 댓글 리스트 
-   				let paging = ""; // 페이징 처리
-   				
-				// 취/교/반 리스트
-				if(list[i].delStatus == 4) {
-						
-					value += "<tr>"
-						   + "<td>" + list[i].orderNo + "</td>"
-						   + "<td>" + list[i].orderNo + "</td>"
-						   + "<td>" + list[i].proCode +"</td>"
-						   + "<td>" + list[i].orderDate + "</td>"
-						   + "<td>" + list[i].userId + "</td>"
-						   + "<td>" + list[i].delStatus + "</td>"
-						   + "</tr>";
-				}else if(list[i].delStatus == 5) {
-					
-					value += "<tr>"
-						   + "<td>" + list[i].orderNo + "</td>"
-						   + "<td>" + list[i].orderNo + "</td>"
-						   + "<td>" + list[i].proCode +"</td>"
-						   + "<td>" + list[i].orderDate + "</td>"
-						   + "<td>" + list[i].userId + "</td>"
-						   + "<td>" + list[i].delStatus + "</td>"
-						   + "<td> 6000 </td>"
-						   + "</tr>";
-				}else{
-					value += "<tr>"
-						   + "<td>" + list[i].orderNo + "</td>"
-						   + "<td>" + list[i].orderNo + "</td>"
-						   + "<td>" + list[i].proCode +"</td>"
-						   + "<td>" + list[i].orderDate + "</td>"
-						   + "<td>" + list[i].userId + "</td>"
-						   + "<td>" + list[i].delStatus + "</td>"
-						   + "<td> 6000 </td>"
-						   + "<td><select id='yn-ih'>"
-				                          + "<option>Y</option>"
-				                          + "<option>N</option>"
-				                      	   + "</select></td>"
-						   + "</tr>";
-				}
-
+   					let value1 = "";
+	   				let value2 = ""; //  데이터 리스트 
+	   				let paging = ""; // 페이징 처리
+	   				
+	   				console.log(list);
+	   				
+	   				if($(btn).text() == "취소"){
+	   					value1 += "<tr>"
+							   + "<th width='50' height='50'>No.</th>"
+							   + "<th>주문 번호</th>"
+							   + "<th>상품 코드</th>"
+							   + "<th>결제일</th>"
+							   + "<th>결제ID</th>"
+							   + "<th>주문 처리 상태</th>"
+							   + "</tr>" ;
+						for(let i=0; i<list.length; i++){
+							value2 += "<tr>"
+								   + "<td width='50' height='50'>" + list[i].orderNo + "</td>"
+								   + "<td>" + list[i].orderNo + "</td>"
+								   + "<td>" + list[i].proCode +"</td>"
+								   + "<td>" + list[i].orderDate + "</td>"
+								   + "<td>" + list[i].userId + "</td>"
+								   + "<td>취소</td>"
+								   + "</tr>";
+							}
+	   				}else if( $(btn).text() == "교환" ){
+	   					value1 += "<tr>"
+							   + "<th width='50' height='50'>No.</th>"
+							   + "<th>주문 번호</th>"
+							   + "<th>상품 코드</th>"
+							   + "<th>결제일</th>"
+							   + "<th>결제ID</th>"
+							   + "<th>주문 처리 상태</th>"
+							   + "<th>배송비</th>"
+							   + "<tr>";
+	   					for(let i=0; i<list.length; i++){
+	   						value2 += "<tr>"
+								   + "<td width='50' height='50'>" + list[i].orderNo + "</td>"
+								   + "<td>" + list[i].orderNo + "</td>"
+								   + "<td>" + list[i].proCode +"</td>"
+								   + "<td>" + list[i].orderDate + "</td>"
+								   + "<td>" + list[i].userId + "</td>"
+								   + "<td>교환</td>"
+								   + "<td> 6000 </td>"
+								   + "</tr>";
+							}
+							   
+	   				}else {
+	   					value1 += "<tr>"
+							   + "<th width='50' height='50'>No.</th>"
+							   + "<th>주문 번호</th>"
+							   + "<th>상품 코드</th>"
+							   + "<th>결제일</th>"
+							   + "<th>결제ID</th>"
+							   + "<th>주문 처리 상태</th>"
+							   + "<th>배송비</th>"
+							   + "<th>수령</th>"
+							   + "</tr>";
+	   					for(let i=0; i<list.length; i++){
+	   						value2 += "<tr>"
+	   							   + "<td width='50' height='50'>" + list[i].orderNo + "</td>"
+								   + "<td>" + list[i].orderNo + "</td>"
+								   + "<td>" + list[i].proCode +"</td>"
+								   + "<td>" + list[i].orderDate + "</td>"
+								   + "<td>" + list[i].userId + "</td>"
+								   + "<td>반품</td>"
+								   + "<td> 6000 </td>"
+								   + "<td><select id='yn-ih'>"
+						                          + "<option>Y</option>"
+						                          + "<option>N</option>"
+						                      	  + "</select></td>"
+								   + "</tr>";
+	   					}
+	   				}
    					
        				// 페이징바
        				if(pi.currentPage != 1) {
-       					paging += '<button onclick="selectStatus(' + (pi.currentPage-1) + ');" class="btn btn_black">&lt;</button>';
+       					paging += '<button onclick="showDiv(this,' + (pi.currentPage-1) + ');" class="btn btn_black">&lt;</button>';
        				}
        				
        				
@@ -265,21 +236,23 @@
        					if(p == pi.currentPage){
        						paging += '<button class="btn btn_gray" disabled>' +  p + '</button>';
        					}else{
-       						paging += '<button onclick="selectStatus(' + p + ');" class="btn btn_black">' + p + '</button>';
+       						paging += '<button onclick="showDiv(this, ' + p + ');" class="btn btn_black">' + p + '</button>';
        					}
        					
        				}
        				
        				if(pi.currentPage != pi.maxPage) {
-   						paging += '<button onclick="selectStatus(' + (pi.currentPage+1) + ');" class="btn btn_black">&gt;</button>';
+   						paging += '<button onclick="showDiv(this, ' + (pi.currentPage+1) + ');" class="btn btn_black">&gt;</button>';
        				}
+       				
+       				$("thead").empty();
+       				$("tbody").empty();
+       				$(".paging-area").empty(paging);
+       				$(".paging-area").append(paging);
+       				$("#canBox-ih thead").html(value1);
+       				$("#canBox-ih tbody").html(value2);
    					
-   				}
-   				
-               	$(".class").html(value);
-				 	$(".paging-area").html(paging); 
-    					
-                },
+   				},
                 error:function(){
                     console.log("ajax 데이터 조회 실패")
                 }

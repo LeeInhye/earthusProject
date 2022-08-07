@@ -35,6 +35,7 @@ public class adCncltExrtrManagementController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String status = request.getParameter("status");
+		status = "WHERE DEL_STATUS = 4";
 		
 		// -------- 페이징 처리 ---------
 		int listCount; 
@@ -49,12 +50,10 @@ public class adCncltExrtrManagementController extends HttpServlet {
 		listCount = new OrderService().selectListCount(status);
 		currentPage = Integer.parseInt(request.getParameter("cpage"));
 		pageLimit = 5;
-		boardLimit = 9;
+		boardLimit = 5;
 		
 		maxPage = (int)Math.ceil( (double)listCount / boardLimit );
-		
 		startPage = (currentPage - 1) / pageLimit * pageLimit + 1 ;
-		
 		endPage = startPage + pageLimit - 1;
 		
 		if(endPage > maxPage) {

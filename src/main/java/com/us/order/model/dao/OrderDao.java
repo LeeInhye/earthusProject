@@ -45,8 +45,8 @@ public class OrderDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(pstmt);
 			close(rset);
+			close(pstmt);
 		}
 		
 		return listCount;
@@ -60,14 +60,7 @@ public class OrderDao {
 		
 		String sql = prop.getProperty("selectListCount");
 		
-		String where = "";
-		
-		switch(status) {
-		case"취소" : where = "WHERE DEL_STATUS = 4 "; break;
-		case"교환" : where = "WHERE DEL_STATUS = 5 "; break;
-		case"반품" : where = "WHERE DEL_STATUS = 6 "; break;
-		}
-		sql += where;
+		sql += status;
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -79,8 +72,8 @@ public class OrderDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(pstmt);
 			close(rset);
+			close(pstmt);
 		}
 		
 		return listCount;
@@ -475,15 +468,9 @@ public class OrderDao {
 		
 		String sql = prop.getProperty("selectCerListAd1");
 		
-		String where = "";
 		
-		switch(status) {
-		case "취소" : where = "WHERE DEL_STATUS = 4 "; break;
-		case "교환" : where = "WHERE DEL_STATUS = 5 "; break;
-		case "반품" : where = "WHERE DEL_STATUS = 6 "; break;
-		}
 		
-		sql += where = "ORDER BY ORDER_NO DESC) A ) WHERE RNUM BETWEEN ? AND ?";
+		sql += status + "ORDER BY ORDER_NO DESC) A ) WHERE RNUM BETWEEN ? AND ?";
 		
 		
 		try {

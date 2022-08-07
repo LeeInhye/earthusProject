@@ -38,8 +38,12 @@ public class adAjaxCncltExrtrManagementController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String status = request.getParameter("status");
+		switch(status) {
+		case "취소": status = "WHERE DEL_STATUS = 4 "; break;
+		case "교환": status = "WHERE DEL_STATUS = 5 "; break;
+		case "반품": status = "WHERE DEL_STATUS = 6 "; break;
+		}
 		
-		status = "WHERE DEL_STATUS = '" + request.getParameter("status") + "'";
 		
 	
 		// * 페이징 처리
@@ -57,7 +61,7 @@ public class adAjaxCncltExrtrManagementController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 
-		// * 필터별 댓글리스트 받아서 넘기기
+		// * 필터별 받아서 넘기기
 		ArrayList<Order> list = new OrderService().selectCerListAd(status, pi);
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("list", list);

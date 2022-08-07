@@ -138,7 +138,7 @@
 					  <td>
 						<div class="media">
 						  <div class="d-flex">
-							<img src="<%=contextPath %>/<%=o.getProImgPath() %>" alt="" />
+							<img width="250" height="250" src="<%=contextPath %>/<%=o.getProImgPath() %>" alt="" />
 						  </div>
 						  <div class="media-body">
 							<p><%=o.getProName() %></p>
