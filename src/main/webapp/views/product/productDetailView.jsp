@@ -529,39 +529,45 @@
           	<hr>
           	</div>
             
-            <!-- 페이징 처리 -->
-            <div class="col-lg-12">
-              <div class="pageination" style="position:relative">
-                  <nav aria-label="Page navigation example">
-                      <ul class="pagination justify-content-center" id="pro-qna-page" style="margin:10px;">
-                          <li class="page-item">
-                          
-                          <% if( currentPage != 1 ){ %>
-                            <a class="page-link" href="<%=contextPath%>/detail.pro?proCode=<%=p.getProCode()%>&cpage=<%=currentPage-1%>" aria-label="Previous">
-                                <i class="ti-angle-double-left"></i>
-                            </a>
-                          <% } %>
-                          
-                         <% for(int i=startPage; i<=endPage; i++) { %>
-                         <% if( i == currentPage ){ %>
-                          </li>
-                          <li class="page-item"><a class="page-link" href="<%=contextPath%>/detail.pro?proCode=<%=p.getProCode()%>&cpage=<%=i%>"><%=i%></a></li>
-                          <% } %>
-                         <% } %>
-                         
-                         <% if( currentPage != maxPage ) { %>
-                          <li class="page-item">
-                            <a class="page-link" href="<%=contextPath%>/detail.pro?proCode=<%=p.getProCode()%>&cpage=<%=currentPage+1%>" aria-label="Next">
-                                <i class="ti-angle-double-right"></i>
-                            </a>
-                          </li>
-                          <% } %>
-                         <li><a href="<%=contextPath%>/insertForm.pq?code=<%=p.getProCode()%>&name=<%=p.getProName()%>" class="btn-submit" id="z2"
-                         style="display:inline-block; text-align:center;">상품 문의하기</a></li>
-                      </ul>
-                  </nav>
-              </div>
-            </div>            <!-- 페이징 처리 끝 -->
+             <!-- 페이징바 영역 -->
+                <div class="col-lg-12">
+                   <nav class="blog-pagination justify-content-center d-flex">
+                       <ul class="pagination">
+                       	<% if(currentPage != 1) {%>
+                               <li class="page-item">
+                                   <button onclick="location.href='<%=contextPath%>/detail.pro?proCode=<%=p.getProCode()%>&cpage=<%=currentPage-1%>';" class="page-link" aria-label="Previous">
+                                       <i class="ti-angle-left"></i>
+                                   </button>
+                               </li>
+                           <% } %>
+                           
+                           <% for(int i=startPage; i<=endPage; i++) { %>
+				            <% if(i == currentPage){ %>
+                                   <li class="page-item active">
+                                       <button class="page-link" disabled><%= i %></button>
+                                   </li>
+				            <% }else { %>
+                                   <li class="page-item">
+                                       <button class="page-link" onclick="location.href='<%=contextPath%>/detail.pro?proCode=<%=p.getProCode()%>&cpage=<%=i%>';"><%=i%></button>
+                                   </li>
+							<% } %>
+						<% } %>
+					
+                           <% if(currentPage != maxPage) { %>
+                               <li class="page-item">
+                                   <button onclick="location.href='<%=contextPath%>/detail.pro?proCode=<%=p.getProCode()%>&cpage=<%=currentPage+1%>';" class="page-link" aria-label="Next">
+                                       <i class="ti-angle-right"></i>
+                                   </button>
+                               </li>
+                           <% } %>
+                           	<li><a href="<%=contextPath%>/insertForm.pq?code=<%=p.getProCode()%>&name=<%=p.getProName()%>" class="btn-submit" id="z2"
+                     						style="display:inline-block; text-align:center;">상품 문의하기</a>
+                       		</li>
+                       </ul>
+                   </nav>
+                </div>
+              <!-- 페이징바 영역 끝 -->
+            
           </div>
        </div>
 
