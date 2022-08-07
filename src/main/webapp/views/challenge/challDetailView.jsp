@@ -229,6 +229,7 @@
     				// 댓글
     				let value = "";
     				for(let i=0; i<list.length; i++) {
+    					console.log(list[i]);
     					value += "<div class='comment-list'>"
     						   + "<div class='single-comment justify-content-between d-flex'>"
 		    				   + "<div class='user justify-content-between d-flex'>"
@@ -241,9 +242,26 @@
 		    				   + "<p class='date'>" + list[i].cmntEnrollDate + "</p>"
 		    				   + "</div></div>"
 		    				   + "<p class='comment'>" + list[i].cmntContent + "</p>"
-		    				   + "</div></div></div></div>";
+		    				   + "</div></div></div>";
+		    				   
+		    			if(list[i].cmntStatus == 'Y'){
+		    				value +=  "<br><div class='single-comment justify-content-between d-flex' style='margin-left: 3%;'>"
+			    				   + "<div class='user justify-content-between d-flex'>"
+			    				   + "<div class='desc'>"
+			    				   + "<div class='d-flex justify-content-between'>"
+			    				   + "<div class='d-flex align-items-center'>"
+			    				   + "<h5>"
+			    				   + "<a>└ 얼스어스</a>"
+			    				   + "</h5>"
+			    				   + "<p class='date'></p>"
+			    				   + "</div></div>"
+			    				   + "<p class='comment'>안녕하세요. Earth.Us입니다! <br>챌린지 참여가 확인되어 적립금이 지급되었습니다.</p>"
+			    				   + "</div></div></div>";
+		    			}	   
+
+		    			value += "</div>";
+		    				   
     				}
-    				
     				$("#cmntInsertArea").html(value);
     				
     				// 페이징바
