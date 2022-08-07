@@ -12,7 +12,7 @@
 		  JOIN PRODUCT
 		 USING (PRO_CODE)
 		 WHERE USER_NO = ?
-		   AND PRO_CODE IN ?
+		   AND PRO_CODE =?
 	</entry>
 	
 	<!-- 주문 시 ORDER 테이블에 행 추가 -->

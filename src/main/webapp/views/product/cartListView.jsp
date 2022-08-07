@@ -281,7 +281,7 @@
     function orderChecked(){
     	var orderProCode = "";
     	$("input[name=check]:checked").each(function(){
-    		orderProCode += "'" + $(this).val() + "',"
+    		orderProCode += $(this).val() + ","
     	})
     	orderProCode = orderProCode.substring(0, orderProCode.lastIndexOf(","));
     	$("input[name=orderProCode]").val( orderProCode );

@@ -31,21 +31,25 @@ public class CheckoutListDao {
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("selectProList");
+		
+		String[] orderProCodes = orderProCode.split(",");
 
 		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, userNo);
-			pstmt.setString(2, "(" + orderProCode + ")");
-			rset = pstmt.executeQuery();
-			
-			while (rset.next()) {
-				Cart c = new Cart();
-				c.setUserNo(rset.getInt("USER_NO"));
-				c.setProCode(rset.getString("PRO_CODE"));
-				c.setProName(rset.getString("USER_NAME"));
-				c.setPrice(rset.getInt("price"));
-				c.setProQty(rset.getInt("PRO_QTY"));
-				list.add(c);
+			for(int i=0; i<orderProCodes.length; i++) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, userNo);
+				pstmt.setString(2, orderProCodes[i]);
+				rset = pstmt.executeQuery();
+				
+				while (rset.next()) {
+					Cart c = new Cart();
+					c.setUserNo(rset.getInt("USER_NO"));
+					c.setProCode(rset.getString("PRO_CODE"));
+					c.setProName(rset.getString("PRO_NAME"));
+					c.setPrice(rset.getInt("price"));
+					c.setProQty(rset.getInt("PRO_QTY"));
+					list.add(c);
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
