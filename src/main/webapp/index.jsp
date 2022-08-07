@@ -245,7 +245,7 @@
 					
 					a = '<li>' 
 					  + '<a href="#">' 
-					  + '<img src="' + blist[0].bnImgURL + '" alt="슬라이드0">' 
+					  + '<img src="/us/' + blist[0].bnImgURL + '" alt="슬라이드0">' 
 					  + '</a>'
 					  + '</li>'
 					$("#banner-ul").append(a);
@@ -253,7 +253,7 @@
 					for(var i=1; i<blist.length; i++){
 						b = ' <li>' 
 						  + '<a href="#">' 
-						  + '<img src="' + blist[i].bnImgURL + '" alt="슬라이드' + i + '">' 
+						  + '<img src="/us/' + blist[i].bnImgURL + '" alt="슬라이드' + i + '">' 
 						  + '</a>' 
 						  + '</li>'
 					$("#banner-ul").append(b);
@@ -287,7 +287,6 @@
 				</ul>
 			</div>
         </div>
-        <br><br><br>	
     </section>
     <!-- banner part start--> 
      
