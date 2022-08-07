@@ -31,7 +31,7 @@ button {
                         <hr><br>
 						<%=pq%>
                         <div class="container pro-qna-ans-area">
-                        <form action="/update.pq" method="post">
+                        <form action="<%=contextPath%>/update.pq" method="post">
                             <table width="60%" style="margin:auto;" id="proQnaAns-tb">
                                 <tr height="50px">
                                     <td width="10%">No. <%=pq.getProQnaNo()%></td>
