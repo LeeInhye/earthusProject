@@ -40,8 +40,8 @@ public class CheckoutPayListController extends HttpServlet {
 		Order o = null;
 		int result = 0;
 		
-		String proQty = request.getParameter("proQty");
-		String orderProCode = request.getParameter("orderProCode");
+		String proQty = request.getParameter("proQty");  // proQty를 ,로 이은 문자열
+		String orderProCode = request.getParameter("orderProCode"); // proCode를 ,로 이은 문자열
 		String cardUid = request.getParameter("cardUid");
 		
 		

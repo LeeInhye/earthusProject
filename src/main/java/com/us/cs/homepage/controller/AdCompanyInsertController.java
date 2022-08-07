@@ -37,8 +37,6 @@ public class AdCompanyInsertController extends HttpServlet {
 		
 		String html = request.getParameter("comInfo");
 		
-		System.out.println(html);
-		
 		int result = new AdCompanyService().insertPost(html, 1);
 		
 		if(result > 0) {

@@ -45,7 +45,7 @@ public class CheckoutListService {
 		// 2) ORDER_PRODUCT 테이블에 INSERT문 실행
 		result2 = new CheckoutListDao().insertOrderProductList(conn, orderProCode, proQty);
 		
-		// 3) PAY_CASH 테이블에 
+		// 3) PAY_CARD 테이블에 
 		result3 = new CheckoutDao().insertPayCash(conn);
 		
 		result4 = new CheckoutListDao().deleteCart(conn, o, orderProCode);
@@ -62,7 +62,7 @@ public class CheckoutListService {
 	
 	
 	
-	public int processCashPayment(Order o, String proQty, String proCode) {
+	public int processCashPayment(Order o, String proQty, String orderProCode) {
 		// 1) ORDER : INSERT
 		// 2) ORDER-PRODUT : INSERT
 		// 3) PAY_CARD : INSERT
@@ -78,10 +78,10 @@ public class CheckoutListService {
 		result1 = dao.insertOrder(conn, o);
 		
 		// 2) ORDER_PRODUCT 테이블에 INSERT문 실행
-		result2 = dao.insertOrderProduct(conn, proCode, proQty);
+		result2 = new CheckoutListDao().insertOrderProductList(conn, orderProCode, proQty);
 		
-		// 3) PAY_CARD 테이블에 
-		result3 = dao.insertPayCash(conn);
+		// 3) PAY_CASH 테이블에 
+		result3 = new CheckoutDao().insertPayCash(conn);
 		
 		if(result1*result2*result3 > 0) {
 			commit(conn);
