@@ -16,6 +16,12 @@
 <body>
 
 	<%@ include file="/views/common/adminMenubar.jsp" %>
+	
+	<!-- include summernote css/js -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+	<link rel="stylesheet" href="<%= contextPath %>/resources/summernote/summernote-lite.css">
 
 	<div id="layoutSidenav">
         <div id="layoutSidenav_content">
@@ -31,7 +37,7 @@
                             <br><br>
 
                             <p>내용</p>
-                            <textarea name="content" rows="10" style="width:700px; resize: none;"></textarea>
+                            <textarea name="content" id="summernote" rows="10" style="width:700px; resize: none;"></textarea>
                             <br><br>
 
                             <p>썸네일 이미지</p>
@@ -101,6 +107,27 @@
                                         $("#enrollForm").submit();
                                     })
 
+                                     //여기 아래 부분
+                                     $('#summernote').summernote({
+                                         height: 300,                 // 에디터 높이
+                                         width: 700,
+                                         minHeight: 300,             // 최소 높이
+                                         maxHeight: null,             // 최대 높이
+                                         focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+                                         lang: "ko-KR",					// 한글 설정
+                                         tabsize: 2,
+                                         height: 120,
+                                         toolbar: [
+                                         ['style', ['style']],
+                                         ['font', ['bold', 'underline', 'clear']],
+                                         ['color', ['color']],
+                                         ['para', ['ul', 'ol', 'paragraph']],
+                                         ['table', ['table']],
+                                         ['insert', ['link', 'picture', 'video']],
+                                         ['view', ['fullscreen', 'codeview', 'help']]
+                                     ]
+                             	 });
+                                    
                                 })
                             </script>
                         </form>
