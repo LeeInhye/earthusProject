@@ -60,5 +60,8 @@ public class CheckoutListDao {
 		System.out.println(list);
 		return list;
 	}
+	
+	
+	
 
 }

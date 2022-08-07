@@ -40,17 +40,17 @@
     
     /*--------좌우슬라이딩---------*/
 	#index_01{
-	    width: 705px;
-	    height: 400px;
+	    width: 1000px;
+	    height: 500px;
 	    margin: 0 auto;
 	}
 	
 	#slide1{
-	    height: 350px;
+	    height: 500px;
 	    overflow: hidden;
 	}
 	#slide1>ul{
-	    width: 3600px;
+	    width: 4000px;
 	    font-size: 0;
 	}
 	#slide1>ul>li{
@@ -245,7 +245,7 @@
 					
 					a = '<li>' 
 					  + '<a href="#">' 
-					  + '<img src="' + blist[0].bnImgURL + '" alt="슬라이드0">' 
+					  + '<img src="/us/' + blist[0].bnImgURL + '" alt="슬라이드0">' 
 					  + '</a>'
 					  + '</li>'
 					$("#banner-ul").append(a);
@@ -253,7 +253,7 @@
 					for(var i=1; i<blist.length; i++){
 						b = ' <li>' 
 						  + '<a href="#">' 
-						  + '<img src="' + blist[i].bnImgURL + '" alt="슬라이드' + i + '">' 
+						  + '<img src="/us/' + blist[i].bnImgURL + '" alt="슬라이드' + i + '">' 
 						  + '</a>' 
 						  + '</li>'
 					$("#banner-ul").append(b);
@@ -265,11 +265,11 @@
 		
 		setInterval(function(){
 		    $('#slide1>ul').delay(3000);
-		    $('#slide1>ul').animate({marginLeft: "-705px"})
+		    $('#slide1>ul').animate({marginLeft: "-1000px"})
 		    $('#slide1>ul').delay(3000);
-		    $('#slide1>ul').animate({marginLeft: "-1410px"})
+		    $('#slide1>ul').animate({marginLeft: "-2000px"})
 		    $('#slide1>ul').delay(3000);
-		    $('#slide1>ul').animate({marginLeft: "-2115px"})
+		    $('#slide1>ul').animate({marginLeft: "-3000px"})
 		    $('#slide1>ul').delay(3000);
 		    $('#slide1>ul').animate({marginLeft: "0px"})
 		});
@@ -392,10 +392,10 @@
                                         txt += '<div style="height:100%; align-items: center;">';
                                             txt += '<div class="single_product_item">';
                                                 txt += '<div class="single_product_text" style="text-align:center; margin:0px 0px 20px 0px;">';
-                                                    txt += '<h4 style="margin: auto;">챌린지 추천추천! 참여참여!</h4> <br>';
+                                                    /* txt += '<h4 style="margin: auto;">챌린지 추천추천! 참여참여!</h4> <br>';
                                                     txt += '<h5>챌린지 참여하시고</h5>';
                                                     txt += '<h5>SNS에 올려</h5>';
-                                                    txt += '<h5>포인트 받아가세요!</h5>';
+                                                    txt += '<h5>포인트 받아가세요!</h5>'; */
                                                 txt += '</div></div>';
 
 

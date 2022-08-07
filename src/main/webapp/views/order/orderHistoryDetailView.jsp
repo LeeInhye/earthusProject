@@ -227,7 +227,15 @@
 			<tr>
 			  <th>배송메모</th>
 			  <%if(olist.get(0).getShpMemo() != null) {%>
-			  	<td><%=olist.get(0).getShpMemo() %></td>
+			  	 <%if(olist.get(0).getShpMemo() == "0"){%>
+				   <td>배송 메모를 선택해주세요.</td>
+				  <%}else if(olist.get(0).getShpMemo() == "1"){%>
+					   <td>경비실에 맡겨주세요.</td>
+				  <%}else if(olist.get(0).getShpMemo() == "2"){%>
+					   <td>현관문 앞에 놓아주세요.</td>
+				  <%}else if(olist.get(0).getShpMemo() == "3"){%>
+					   <td>배송 전에 미리 연락 바랍니다.</td>
+				  <%} %>
 			  <%}else{ %>
 			  	<td>요청사항 없음</td>
 			  <%} %>
