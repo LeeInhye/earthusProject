@@ -105,11 +105,21 @@
 	</entry>
 	
 	<entry key="updateChall">
-	
+		UPDATE
+		       CHALLENGE
+		   SET CHALL_TITLE = ?
+		     , CHALL_CONTENT = ?
+		     , CHALL_THUMBNAIL = ?
+		 WHERE CHALL_NO = ?
 	</entry>
 	
 	<entry key="updateAttachment">
-	
+		UPDATE
+		       ATTACHMENT
+		   SET ORIGIN_NAME = ?
+		     , CHANGE_NAME = ?
+		     , FILE_PATH = ?
+		 WHERE FILE_NO = ?
 	</entry>
 
 	<entry key="deleteChall">

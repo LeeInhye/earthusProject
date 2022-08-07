@@ -15,6 +15,7 @@ import com.us.challenge.model.vo.Challenge;
 import com.us.challenge.model.vo.Comment;
 import com.us.common.model.vo.Attachment;
 import com.us.common.model.vo.PageInfo;
+import com.us.contents.model.vo.Contents;
 import com.us.member.model.vo.Member;
 
 public class ChallengeDao {
@@ -193,7 +194,6 @@ public class ChallengeDao {
 		return result;
 	}
 
-
 	// 관리자_챌린지 선택 삭제
 	public int deleteChall(Connection conn, String challNo) {
 		// update => 처리된 행 수
@@ -226,6 +226,55 @@ public class ChallengeDao {
 		}
 		
 		return result;		
+	}
+	
+	// 관리자_챌린지 수정
+	public int updateChall(Connection conn, Challenge ch) {
+		// contents에 update => 처리된 행 수
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateChall");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, ch.getChallTitle());
+			pstmt.setString(2, ch.getChallContent());
+			pstmt.setString(3, ch.getChallThumbnail());
+			pstmt.setInt(4, ch.getChallNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateAttachment(Connection conn, Attachment at) {
+		// attachment에 update => 처리된 행 수
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+			pstmt.setInt(4, at.getFileNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 	// 사용자_챌린지 리스트 조회

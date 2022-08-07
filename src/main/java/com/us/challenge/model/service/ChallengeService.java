@@ -6,6 +6,8 @@ import static com.us.common.JDBCTemplate.getConnection;
 import static com.us.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.us.challenge.model.dao.ChallengeDao;
@@ -13,6 +15,8 @@ import com.us.challenge.model.vo.Challenge;
 import com.us.challenge.model.vo.Comment;
 import com.us.common.model.vo.Attachment;
 import com.us.common.model.vo.PageInfo;
+import com.us.contents.model.dao.ContentsDao;
+import com.us.contents.model.vo.Contents;
 import com.us.member.model.vo.Member;
 
 public class ChallengeService {
@@ -87,6 +91,29 @@ public class ChallengeService {
 
 		return result;
 	}
+	
+	// 관리자_챌린지 수정
+	public int updateChall(Challenge ch, Attachment at) {
+		Connection conn = getConnection();
+		
+		int result1 = new ChallengeDao().updateChall(conn, ch);
+		
+		int result2 = 1;
+		if(at != null) { // 새로운 상세이미지 첨부파일 있는 경우 => Attachment update
+			result2 = new ChallengeDao().updateAttachment(conn, at);
+		}
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+	
+		return result1 * result2;
+	}
+	
+	
 	
 	// 사용자_챌린지 리스트 조회
 	public ArrayList<Challenge> selectChallList(PageInfo pi){
@@ -226,7 +253,6 @@ public class ChallengeService {
 
 		return result;
 	}
-	
 	
 	
 }
