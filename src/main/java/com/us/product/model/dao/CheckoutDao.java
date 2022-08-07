@@ -27,33 +27,6 @@ public class CheckoutDao {
 		}
 	}
 
-	public ArrayList<Cart> selectProList(Connection conn, int userNo, String orderProCode) {
-		ArrayList<Cart> list = new ArrayList<>();
-		ResultSet rset = null;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("selectProList");
-
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, userNo);
-			pstmt.setString(2, "(" + orderProCode + ")");
-			rset = pstmt.executeQuery();
-
-			System.out.println(rset);
-
-			while (rset.next()) {
-				list.add(new Cart(rset.getInt("USER_NO"), rset.getString("PRO_CODE"), rset.getString("PRO_NAME"),
-						rset.getInt("PRICE"), rset.getInt("PRO_QTY")));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		System.out.println(list);
-		return list;
-	}
 
 	public int insertOrder(Connection conn, Order o) {
 		int result = 0;

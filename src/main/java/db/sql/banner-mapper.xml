@@ -12,7 +12,6 @@
 	<entry key="selectMainList">
 		SELECT BN_NO
 		     , BN_IMG_URL
-		     , BN_STATUS
 		  FROM BANNER
 		 WHERE BN_STATUS = 'Y'
 	</entry>
