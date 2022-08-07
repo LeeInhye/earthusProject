@@ -239,6 +239,7 @@
 			                        		$("input[name=outputPhone_status").val('');
 			                        	} else{ // 유효한 전화번호일 때
 		                                    $("input[name=outputPhone_status").val('Y');
+		                                    $("#outputCheckPhone").empty();
 		                                }
 		                        	});
 		                        	
