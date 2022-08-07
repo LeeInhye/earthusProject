@@ -54,12 +54,12 @@
 							</div>
 	
 							<div class="blog_details">
-								<a class="d-inline-block" href="single-blog.html">
+								<a class="d-inline-block">
 									<h2><%= ch.getChallTitle() %></h2>
 								</a>
 								<ul class="blog-info-link">
-									<li><a href="#"><i class="far fa-user"></i><%= ch.getChallEnrollDate() %></a></li>
-									<li><a href="#"><i class="far fa-comments"></i><%= ch.getChallCmnt() %> Comments</a></li>
+									<li style="color:gray;"><i class="far fa-user"></i><%= ch.getChallEnrollDate() %></li>
+									<li style="color:gray;"><i class="far fa-comments"></i><%= ch.getChallCmnt() %> Comments</li>
 								</ul>
 								<br>
 								<button class="btn_chall_point"><%= ch.getChallPoint() %> POINT</button>

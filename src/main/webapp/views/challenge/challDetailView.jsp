@@ -131,7 +131,7 @@
                     <tr>
                     <% if(loginUser == null) { %>
                         <td width="900px">
-                            <textarea class="form-control" name="comment" id="cmntContent" cols="30" rows="4"
+                            <textarea class="form-control" style="white-space:pre;" name="comment" id="cmntContent" cols="30" rows="4"
                             placeholder="로그인 후 이용 가능한 서비스입니다." readonly></textarea>
                         </td>
                         <td width="200px" style="padding-left: 40px;">
@@ -223,7 +223,6 @@
     			data:{no:<%= ch.getChallNo() %>, cpage:page},
     			success:function(map){
     				
-    				console.log(map);
     				const list = map.list;
     				const pi = map.pi; // {currentPage: , listCount : }
     				

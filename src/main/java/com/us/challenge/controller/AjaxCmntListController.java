@@ -35,8 +35,10 @@ public class AjaxCmntListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		int challNo = Integer.parseInt(request.getParameter("no"));
+
 		// * 페이징 처리
-		int listCount = new ChallengeService().selectListCount(); // 현재 게시글 총 갯수
+		int listCount = new ChallengeService().selectCmntCount(challNo); // 현재 게시글 총 갯수
 		int currentPage = Integer.parseInt(request.getParameter("cpage")); // 사용자가 보게 될 페이지 (즉, 사용자가 요청한 페이지)
 		int pageLimit = 3; // 페이징바의 페이지 최대 갯수 (몇 개 단위씩)		
 		int boardLimit = 5; // 한 페이지당 보여질 댓글 최대 갯수 (몇 개 단위씩)
@@ -50,8 +52,6 @@ public class AjaxCmntListController extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		
-		int challNo = Integer.parseInt(request.getParameter("no"));
 		
 		ArrayList<Comment> list = new ChallengeService().selectCmntList(challNo, pi);
 		
