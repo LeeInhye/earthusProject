@@ -1,7 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.us.order.model.vo.*"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.us.order.model.vo.*, com.us.common.model.vo.PageInfo"%>
 <%
 	ArrayList<Order> list = (ArrayList<Order>)request.getAttribute("list");
+
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
 %>
 <!DOCTYPE html>
 <html>
@@ -54,12 +61,42 @@
                                 <td><%=or.getOrderNo() %></td>
                                 <td><%=or.getOrderDate() %></td>
                                 <td><%=or.getUserId() %></td>
-                                <td><%=or.getDelStatus() %></td>
+                                <%if(or.getDelStatus() == 1) {%>
+                                	 <td>상품준비중</td>
+                                <%}else if(or.getDelStatus() == 2) {%>
+                                	 <td>배송중</td>
+                                <%}else if(or.getDelStatus() == 3) {%>
+                                	 <td>배송완료</td>
+                                <%}else if(or.getDelStatus() == 4) {%>
+                                	 <td>주문취소</td>
+                                <%}else if(or.getDelStatus() == 5) {%>
+                                	 <td>교환</td>
+                                <%}else {%>
+                                	 <td>반품</td>
+                                <%} %>
                             </tr>
                             <%} %>
                         </table>
                     </div>
-                    
+                    <!-- 페이징바 영역 -->
+			       <div class="paging-area" align="center">
+			        	<% if(currentPage != 1) { %>
+			            	<button onclick="location.href='<%=contextPath%>/adHistory.or?cpage=<%= pi.getCurrentPage()-1 %>';" class="btn btn_black">&lt;</button>
+						<% } %>
+						
+						<% for(int p=startPage; p<=endPage; p++) { %>
+				            <% if(p == currentPage){ %>
+				            	<button class="btn btn_gray" disabled><%= p %></button>
+				            <% }else { %>
+				            	<button class="btn btn_black" onclick="location.href='<%=contextPath%>/adHistory.or?cpage=<%= p %>';"><%= p %></button>
+							<% } %>
+						<% } %>
+						
+						<% if(currentPage != maxPage) { %>
+			            <button onclick="location.href='<%=contextPath%>/adHistory.or?cpage=<%= pi.getCurrentPage()+1 %>';" class="btn btn_black">&gt;</button>
+			            <% } %>
+			       </div>
+			       <!-- 페이징바 영역 끝 -->
                 </div>
             </main>
             

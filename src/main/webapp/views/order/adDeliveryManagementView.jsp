@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.us.order.model.vo.*"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.us.order.model.vo.*, com.us.common.model.vo.PageInfo"%>
 <%
 	ArrayList<Order> list = (ArrayList<Order>)request.getAttribute("list");
+
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
 %>
 <!DOCTYPE html>
 <html>
@@ -94,7 +100,7 @@
 	                                        <h5 class="modal-title"><b>운송장 번호 입력</b></h5> <br>
 	                                        <input type="text" style="width:300px;" name="delNo">
 	                                        <br><br>
-	                                        <button type="submit" id="mo-btn-ih">확인</button>
+	                                        <button type="submit" id="mo-btn-ih" onclick="<%=contextPath%>/updateSta.or">확인</button>
 		                                    
 		                                </div>
 		                            </div>
@@ -102,6 +108,25 @@
 		                    </div>
                     	</form>
                     </div>
+                     <!-- 페이징바 영역 -->
+			       <div class="paging-area" align="center">
+			        	<% if(currentPage != 1) { %>
+			            	<button onclick="location.href='<%=contextPath%>/adDel.or.?cpage=<%= pi.getCurrentPage()-1 %>';" class="btn btn_black">&lt;</button>
+						<% } %>
+						
+						<% for(int p=startPage; p<=endPage; p++) { %>
+				            <% if(p == currentPage){ %>
+				            	<button class="btn btn_gray" disabled><%= p %></button>
+				            <% }else { %>
+				            	<button class="btn btn_black" onclick="location.href='<%=contextPath%>/adDel.or?cpage=<%= p %>';"><%= p %></button>
+							<% } %>
+						<% } %>
+						
+						<% if(currentPage != maxPage) { %>
+			            <button onclick="location.href='<%=contextPath%>/adDel.or?cpage=<%= pi.getCurrentPage()+1 %>';" class="btn btn_black">&gt;</button>
+			            <% } %>
+			       </div>
+			       <!-- 페이징바 영역 끝 -->
                     
                 </div>
             </main>
@@ -146,6 +171,9 @@
             
         })
 
+        function updateDelSta(){
+        	
+        }
         
 
     </script>

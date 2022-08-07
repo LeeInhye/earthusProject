@@ -103,7 +103,7 @@
                         </a>
                         <div class="collapse" id="orderCollapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="<%=contextPath%>/adHistory.or">구매 내역 조회</a>
+                                <a class="nav-link" href="<%=contextPath%>/adHistory.or?cpage=1">구매 내역 조회</a>
                                 <a class="nav-link" href="<%=contextPath%>/adCncltExrtr.or?cpage=1">취소/교환/반품 관리</a>
                             </nav>
                         </div>
@@ -113,7 +113,7 @@
                         </a>
                         <div class="collapse" id="delCollapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="<%=contextPath%>/adDel.or">배송/운송장 관리</a>
+                                <a class="nav-link" href="<%=contextPath%>/adDel.or?cpage=1">배송/운송장 관리</a>
                             </nav>
                         </div>
                         <div class="collapse" id="delCollapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">

@@ -123,7 +123,7 @@
 					<td>
 					  <div class="media">
 						<div class="d-flex">
-						  <img src="<%=contextPath %>/<%=or.getProImgPath() %>" />
+						  <img width="250" height="250" src="<%=contextPath %>/<%=or.getProImgPath() %>" />
 						</div>
 						<div class="media-body">
 						  <h5><%=or.getProName() %></h5>
@@ -150,8 +150,8 @@
 						<%} %>
 					</td>
 					<td>
-					  <button id="q-btn">상품 문의</button><br>
-					  <button id="r-btn">리뷰 작성</button>
+					  <button id="q-btn" onclick="href='<%=contextPath%>';">상품 문의</button><br>
+					  <button id="r-btn" onclick="href='<%=contextPath%>';">리뷰 작성</button>
 					</td>
 				  </tr>
 				  <%} %>
@@ -168,7 +168,7 @@
 		  <hr>
 		  <table border="1">
 			<tr>
-			  <th>주문번호</th>
+			  <th width="120">주문번호</th>
 			  <td><%=olist.get(0).getOrderNo()%></td>
 			</tr>
 			<tr>
@@ -212,8 +212,8 @@
 		  <h4>배송지 정보</h4>
 		  <hr>
 		  <table border="1">
-			<tr>
-			  <th>수령인</th>
+			<tr width="80">
+			  <th width="80">수령인</th>
 			  <td><%=olist.get(0).getDelName() %></td>
 			</tr>
 			<tr>
@@ -240,7 +240,7 @@
 		  <hr>
 		  <table border="1">
 			<tr>
-			  <th>총 주문금액</th>
+			  <th width="80">총 주문금액</th>
 			  <td><%=olist.get(0).getPaymentAmount() %></td>
 			</tr>
 			<tr>
