@@ -78,6 +78,7 @@
                             <%} %>
                         </table>
                     </div>
+                    <br><br><br><br>
                     <!-- 페이징바 영역 -->
 			       <div class="paging-area" align="center">
 			        	<% if(currentPage != 1) { %>

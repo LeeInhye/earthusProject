@@ -14,13 +14,13 @@ import com.us.order.model.service.OrderService;
  * Servlet implementation class adDelStatusUpdateController
  */
 @WebServlet("/adUpdateDel.or")
-public class adUpdateDelStatusController extends HttpServlet {
+public class adAjaxUpdateDelStatusController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adUpdateDelStatusController() {
+    public adAjaxUpdateDelStatusController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,9 +32,10 @@ public class adUpdateDelStatusController extends HttpServlet {
 		int orderNo = Integer.parseInt(request.getParameter("orderNo"));
 		int delNo = Integer.parseInt(request.getParameter("delNo"));
 		
+		
 		int result = new OrderService().updateDelNo(orderNo, delNo);
 		
-		response.sendRedirect(request.getContextPath() + "/adDel.or");
+		response.getWriter().print(result);
 		
 	}
 

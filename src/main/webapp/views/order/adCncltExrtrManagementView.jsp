@@ -70,9 +70,11 @@
 	                                <td><%=or.getProCode() %></td>
 	                                <td><%=or.getOrderDate() %></td>
 	                                <td><%=or.getUserId() %></td>
-	                                <td><%=or.getDelStatus() %></td>
+	                                <%if (or.getDelStatus() == 4){%>
+	                                <td>취소</td>
+	                                <%}%>
 	                            </tr>
-								<%} %>
+	                            <%}%>
 							</tbody>
                         </table>
                     </div>
@@ -143,7 +145,7 @@
         function showDiv(btn, page){
             
             $.ajax({
-				 url:"<%= contextPath%>/adSelectCncltExrtr.or",
+				 url:"<%=contextPath%>/adSelectCncltExrtr.or",
                 data:{status:$(btn).html(),
                	   cpage:page},
                 success:function(map){

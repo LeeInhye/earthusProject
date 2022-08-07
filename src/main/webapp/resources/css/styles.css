@@ -11818,7 +11818,7 @@ body {
     border:0;
     border-radius:3px;
 }
-#wb-btn-ih, #df-btn-ih, #fi-modal{
+#wb-btn-ih, #df-btn-ih{
     background-color:rgb(13,13,13);
     color:white; 
     height:100%;
@@ -11835,7 +11835,7 @@ body {
     height:100%;
     color:black;
 }
-#mo-btn-ih{
+#mo-btn1-ih, #mo-btn2-ih{
     border:0;
     background-color:#778C79;
     color:white;

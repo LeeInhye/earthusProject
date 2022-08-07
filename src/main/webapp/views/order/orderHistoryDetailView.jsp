@@ -228,7 +228,7 @@
 			  <th>배송메모</th>
 			  <%if(olist.get(0).getShpMemo() != null) {%>
 			  	 <%if(olist.get(0).getShpMemo() == "0"){%>
-				   <td>배송 메모를 선택해주세요.</td>
+				   <td>요청사항 없음</td>
 				  <%}else if(olist.get(0).getShpMemo() == "1"){%>
 					   <td>경비실에 맡겨주세요.</td>
 				  <%}else if(olist.get(0).getShpMemo() == "2"){%>

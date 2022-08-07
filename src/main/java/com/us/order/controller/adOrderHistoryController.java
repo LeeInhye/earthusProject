@@ -47,7 +47,7 @@ public class adOrderHistoryController extends HttpServlet {
 		listCount = new OrderService().selectListCount();
 		currentPage = Integer.parseInt(request.getParameter("cpage"));
 		pageLimit = 5;
-		boardLimit = 10;
+		boardLimit = 5;
 		
 		maxPage = (int)Math.ceil( (double)listCount / boardLimit );
 		startPage = (currentPage - 1) / pageLimit * pageLimit + 1 ;
