@@ -65,7 +65,6 @@ public class AdMemberListController extends HttpServlet {
 		
 		// 현재 요청한 페이지에 보여질 멤버 리스트 조회
 		ArrayList<Member> list = new MemberService().selectMemberList(pi);
-		
 
 		// 단순 페이지 요청
 		HttpSession session = request.getSession();
