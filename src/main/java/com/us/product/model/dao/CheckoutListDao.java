@@ -71,7 +71,7 @@ public class CheckoutListDao {
 		
 		String[] proCodes = proCode.split(",");
 		String[] proQtys = proQty.split(",");
-
+		
 		try {
 			for(int i=0; i<proCodes.length; i++) {
 				pstmt = conn.prepareStatement(sql);

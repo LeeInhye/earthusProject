@@ -12,15 +12,7 @@ import com.us.product.model.vo.Cart;
 public class CheckoutService {
 	
 	// 장바구니에서 선택된 상품만 결제페이지로 보내기 위한 메소드
-	public ArrayList<Cart> selectProList(int userNo, String orderProCode){
-		Connection conn = getConnection();
-		
-		ArrayList<Cart> list = new CheckoutDao().selectProList(conn, userNo, orderProCode);
-		close(conn);
-		System.out.println(list);
-		return list;
-	}
-	
+
 	
 	// 결제 페이지에서 조회한 값을 DB에 넘기기 위한 메소드
 	public int processCardPayment(Order o, String proQty, String proCode, String cardUid) {
