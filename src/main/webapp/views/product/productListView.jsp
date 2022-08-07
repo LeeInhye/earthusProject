@@ -170,6 +170,7 @@
 
                   <!--상품 목록 영역 시작-->
                     <!------- 베스트 상품 영역 시작 ------->
+                    <% if(categoryNo != 5) { %>
                     <section class="product_list best_seller">
                         <div class="container">
                             <div class="row justify-content-center"> 
@@ -207,6 +208,7 @@
                             </div>
                         </div>
                     </section>
+                    <% } %>
                   
                     <!----- 베스트 상품 영역 끝 -----> 
 					<hr><br><br>
