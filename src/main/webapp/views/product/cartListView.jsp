@@ -58,7 +58,7 @@
   <section class="cart_area padding_top">
     <div class="container">
       <div class="cart_inner">
-      	<form action="<%= contextPath %>/checkout.or" method="post">
+      	<%-- <form action="<%= contextPath %>/checkout.or" method="post"> --%>
       		<input type="hidden" name="fromCart" value="T">
 	        <div class="table-responsive">
 	          <table class="table">
@@ -73,6 +73,7 @@
 	            </thead>
 	
 	            <tbody>
+	            <% if(!list.isEmpty()){ %>
 	            	<% for(Cart c : list) { %>
 						<tr class="product" class="check-item">
 					  		<td id="proCode">
@@ -102,8 +103,8 @@
 								<h5><%= c.getPrice() * c.getProQty() %></h5>
 						  	</td>
 						</tr>
-	              <% } %>
-	             
+	              	<% } %>
+	             <% } %>
 	              <tr class="bottom_button">
 	                <td colspan="2">
 	                  <button class="btn" id="delete-checked" onclick="deleteChecked();">삭제</button>
@@ -127,13 +128,15 @@
 	            </tfoot>
 	          </table>
 	          <div class="checkout_btn_inner float-right">
+	          <% if(!list.isEmpty()) { %>
 	          	<input type="hidden" id="userNo" name="userNo" value="<%= list.get(0).getUserNo() %>">
+          	  <% } %>
 	          	<input type="hidden" name="orderProCode" value="">
 	            <a class="btn" href="<%=contextPath%>">계속 쇼핑하기</a>
 	            <button class="btn" id="checkout_btn" onclick="orderChecked();">주문하기</button>
 	          </div>
 	        </div>
-        </form> 
+        <!-- </form>  -->
       </div>
      </div>
   </section>
