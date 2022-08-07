@@ -81,7 +81,7 @@ public class adContentsUpdateController extends HttpServlet {
 			if(result > 0) { // 성공 => 콘텐츠관리 리스트 페이지
 				response.sendRedirect(request.getContextPath() + "/adList.co?cpage=1");
 			}else { // 실패 => 에러 페이지
-				request.setAttribute("errorMsg", "게시글 작성 실패");
+				request.setAttribute("errorMsg", "게시글 수정 실패");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
 		}
