@@ -44,7 +44,7 @@ public class adPointListController extends HttpServlet {
 		int endPage;
 		
 		listCount = new MemberService().selectListCount();
-		currentPage = Integer.parseInt(request.getParameter("mpage"));
+		currentPage = Integer.parseInt(request.getParameter("cpage"));
 		pageLimit = 5;
 		boardLimit = 5;
 		
@@ -61,7 +61,6 @@ public class adPointListController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 
-		
 		// 현재 요청한 페이지에 보여질 멤버 리스트 조회
 		ArrayList<Member> list = new MemberService().selectMemberList(pi);
 		

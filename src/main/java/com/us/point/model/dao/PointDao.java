@@ -1,9 +1,6 @@
 package com.us.point.model.dao;
 
-import static com.us.common.JDBCTemplate.close;
-import static com.us.common.JDBCTemplate.commit;
-import static com.us.common.JDBCTemplate.getConnection;
-import static com.us.common.JDBCTemplate.rollback;
+import static com.us.common.JDBCTemplate.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -14,9 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.us.challenge.model.vo.Challenge;
 import com.us.common.model.vo.PageInfo;
-import com.us.member.model.vo.Member;
 import com.us.point.model.vo.Point;
 
 public class PointDao {
@@ -265,7 +260,7 @@ public class PointDao {
 		String sql2 = prop.getProperty("selectUserHistory2");
 		
 		String sql = sql1 + filter + sql2;
-		System.out.println(sql);
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
@@ -295,6 +290,36 @@ public class PointDao {
 		}
 		
 		return list;
+	}
+	
+	// 관리자_포인트 적립
+	public int insertPointPlus(Connection conn, String userNo, int amount, String reason) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertPointPlus");
+		
+		String[] userArr = userNo.split(",");  // ["3", "4", "5"] userNo
+		
+		try { // 회원번호 개수만큼 돌리기
+			pstmt = conn.prepareStatement(sql);
+			for(int i=0; i<userArr.length; i++){
+				
+				pstmt.setString(1, userArr[i]);
+				pstmt.setString(2, reason);
+				pstmt.setInt(3, amount);
+				pstmt.setString(4, userArr[i]);
+				pstmt.setInt(5, amount);
+				
+				result = pstmt.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 	
 	

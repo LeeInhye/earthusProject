@@ -95,6 +95,9 @@
      }
      
 	// 지급상태로 리스트 조회
+	$("#btn-list").on("click", "button", function(){
+		
+	})
 	function selectStatus(page, filter){
 		
 		$.ajax({
@@ -157,9 +160,9 @@
     
 
     <div id="btn-list">
-      <button class="a" onclick="selectStatus(1, 'all');">전체</button>
-      <button class="b" onclick="gogogo();">적립</button>
-      <button class="c" onclick="selectStatus(1, 'minus');">사용</button> 
+      <button class="a">전체</button>
+      <button class="b">적립</button>
+      <button class="c">사용</button> 
 
         <% if(!list.isEmpty()) { %>
 		   	<span style="float:right">

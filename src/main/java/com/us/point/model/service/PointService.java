@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import com.us.challenge.model.dao.ChallengeDao;
 import com.us.common.model.vo.PageInfo;
+import com.us.contents.model.dao.ContentsDao;
 import com.us.member.model.dao.MemberDao;
 import com.us.point.model.dao.PointDao;
 import com.us.point.model.vo.Point;
@@ -69,7 +70,6 @@ public class PointService {
 	
 	// 사용자_검색 필터별 포인트 내역 조회
 	public ArrayList<Point> selectUserHistory(int userNo, String filter, PageInfo pi) {
-		
 		Connection conn = getConnection();
 		ArrayList<Point> list = new PointDao().selectUserHistory(conn, userNo, filter, pi);
 		close(conn);
@@ -77,5 +77,19 @@ public class PointService {
 		return list;
 	}
 	
+	// 관리자_포인트 적립
+	public int insertPointPlus(String userNo, int amount, String reason) {
+		Connection conn = getConnection();
+		int result = new PointDao().insertPointPlus(conn, userNo, amount, reason);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}		
+		close(conn);
+
+		return result;
+	}
 	
 }
