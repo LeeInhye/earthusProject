@@ -187,26 +187,30 @@
 		        SELECT ROWNUM RNUM, A.*
 		          FROM(
 		                SELECT
-		                       USER_NO
-		                     , USER_ID
-		                     , USER_PWD
-		                     , USER_NAME
-		                     , EMAIL
-		                     , PHONE
-		                     , ZONECODE
-		                     , ADDRESS
-		                     , ADDR_EXTRA
-		                     , ADDR_DETAIL
-		                     , USER_ENROLL_DATE
-		                     , USER_STATUS
+		                        USER_NO
+		                      , USER_ID
+		                      , USER_PWD
+		                      , USER_NAME
+		                      , EMAIL
+		                      , PHONE
+		                      , ZONECODE
+		                      , ADDRESS
+		                      , ADDR_EXTRA
+		                      , ADDR_DETAIL
+		                      , USER_ENROLL_DATE
+		                      , USER_STATUS
+		                      , POINT_BALANCE
+                              , ROW_NUMBER() OVER(PARTITION BY USER_NO ORDER BY POINT_NO DESC) RNK        
 		                  FROM MEMBER
-		                 WHERE USER_ID LIKE ?
-		                    OR USER_NAME LIKE ?
+		                  LEFT JOIN POINT USING(USER_NO)
+		                  WHERE USER_ID LIKE ?
+		                     OR USER_NAME LIKE ?
 		                  ORDER
 		                    BY USER_NO DESC
 		                ) A
 		        )
 		 WHERE RNUM BETWEEN ? AND ?
+		   AND RNK = 1
 	</entry>
 	
 	<entry key="adDeleteMember">
