@@ -311,21 +311,37 @@ public class adProductDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				pq = new ProQna(rset.getInt("pro_qna_no"),
-								rset.getString("pro_code"),
-								rset.getString("pro_qna_title"),
-								rset.getString("pro_qna_content"),
-								rset.getString("pro_qna_pwd"),
-								rset.getInt("pro_qna_writer_no"),
-								rset.getString("pro_qna_writer_name"),
-								rset.getString("pro_qna_email"),
-								rset.getString("pro_qna_phone"),
-								rset.getDate("pro_q_enroll_date"),
-								rset.getDate("pro_a_enroll_date"),
-								rset.getString("pro_a_writer"),
-								rset.getString("pro_a_content"),
-								rset.getString("pro_name")
-								);
+				//pq = new ProQna(rset.getInt("pro_qna_no"),
+				//				rset.getString("pro_code"),
+				//				rset.getString("pro_qna_title"),
+				//				rset.getString("pro_qna_content"),
+				//				rset.getString("pro_qna_pwd"),
+				//				rset.getInt("pro_qna_writer_no"),
+				//				rset.getString("pro_qna_writer_name"),
+				//				rset.getString("pro_qna_email"),
+				//				rset.getString("pro_qna_phone"),
+				//				rset.getDate("pro_q_enroll_date"),
+				//				rset.getDate("pro_a_enroll_date"),
+				//				rset.getString("pro_a_writer"),
+				//				rset.getString("pro_a_content"),
+				//				rset.getString("pro_name")
+				//				);
+				
+				pq = new ProQna();
+				pq.setProQnaNo(rset.getInt("pro_qna_no"));
+				pq.setProCode(rset.getString("pro_code"));
+				pq.setProQnaTitle(rset.getString("pro_qna_title"));
+				pq.setProQnaContent(rset.getString("pro_qna_content"));
+				pq.setProQnaPwd(rset.getString("pro_qna_pwd"));
+				pq.setProQnaWriterNo(rset.getInt("pro_qna_writer_no"));
+				pq.setProQnaWriterName(rset.getString("pro_qna_writer_name"));
+				pq.setProQnaEmail(rset.getString("pro_qna_email"));
+				pq.setProQnaPhone(rset.getString("pro_qna_phone"));
+				pq.setProQEnrollDate(rset.getDate("pro_q_enroll_date"));
+				pq.setProAEnrollDate(rset.getDate("pro_a_enroll_date"));
+				pq.setProAWriter(rset.getString("pro_a_writer"));
+				pq.setProAContent(rset.getString("pro_a_content"));
+				pq.setProName(rset.getString("pro_name"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
