@@ -92,4 +92,19 @@ public class PointService {
 		return result;
 	}
 	
+	// 관리자_포인트 회수
+	public int insertPointMinus(String userNo, int amount, String reason) {
+		Connection conn = getConnection();
+		int result = new PointDao().insertPointMinus(conn, userNo, amount, reason);
+
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}		
+		close(conn);
+
+		return result;
+	}
+	
 }

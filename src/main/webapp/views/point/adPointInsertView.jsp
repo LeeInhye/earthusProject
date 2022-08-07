@@ -65,66 +65,69 @@
 		                            var indexD = "";
 		                            var indexY = "";
 		                            
-	                				for(let i = 0; i < newList.length; i++){
-										// 검색 결과 넣어주기	
-	                					txt += '<tr><td onclick="event.cancelBubble=true;"><input type="checkbox" name="checkMember"></td>';
-			                            txt += "<td>" + newList[i].userNo + "</td>";
-			                            txt += "<td>" + newList[i].userId + "</td>";
-			                            
-			                            
-			                            
-			                            txt += "<td>" + newList[i].userName + "</td>";
-			                            txt += "<td>" + newList[i].email + "</td>";
-			                            txt += "<td>" + newList[i].phone + "</td>";
-			                            
-			                            if( newList[i].zonecode == null){
-			                            	txt += "<td>";
-			                            } else{
-			                            	txt += "<td>(" + newList[i].zonecode + ")";
-			                            }
-			                            
-			                            if( newList[i].address == null){
-			                            	txt += "";
-			                            } else{
-			                            	txt += " " + newList[i].address;
-			                            }
-			                            
-			                            if( newList[i].addrExtra == null) {
-			                            	txt += "";
-			                            } else{
-			                            	txt += " " + newList[i].addrExtra;
-			                            }
-			                            
-			                            if( newList[i].addrDetail == null) {
-			                            	txt += "</td>";
-			                            } else{
-			                            	txt += " " + newList[i].addrDetail + "</td>"
-			                            }
-			                            
-			                            console.log(newList[i].userEnrollDate);
-			                            
-			                            <!-- 날짜 -->
-			                            indexM = newList[i].userEnrollDate.indexOf("월");
-			                            indexD = newList[i].userEnrollDate.indexOf(",");
-			                            indexY = newList[i].userEnrollDate.length;
-			                            
-			                            year = newList[i].userEnrollDate.substring(indexD + 2, indexY);
-			                            month = newList[i].userEnrollDate.substring(0, indexM);
-			                            day = newList[i].userEnrollDate.substring(indexM + 2, indexD);
-			                            
-			                           	if(month < 10){
-			                           		month = "0" + month;
-			                           	}
-			                           	if(day < 10){
-			                           		day = "0" + day;
-			                           	}
-			                            
-			                            txt += "<td>" + year + "-" + month + "-" + day + "</td>";
-			                            <!--  포인트 넣기 -->
-			                            txt += "<td>" + newList[i].point + "</td>";
-			                            txt += "<td>" + newList[i].userStatus + "</td>";
-			                            
-	            					}
+		                            if(newList.length == 0) {
+		                            	txt += '<tr>'
+			        						   + '<td colspan="10">일치하는 회원이 없습니다.</td>'
+			        						   + '</tr>';
+									} else {
+		                				for(let i = 0; i < newList.length; i++){
+											// 검색 결과 넣어주기	
+		                					txt += '<tr><td onclick="event.cancelBubble=true;">'
+		                						 + '<input type="checkbox" name="check" value="' + newList[i].userNo + '"</td>';
+		                					
+				                            txt += "<td>" + newList[i].userNo + "</td>";
+				                            txt += "<td>" + newList[i].userId + "</td>";
+				                            
+				                            txt += "<td>" + newList[i].userName + "</td>";
+				                            txt += "<td>" + newList[i].email + "</td>";
+				                            txt += "<td>" + newList[i].phone + "</td>";
+				                            
+				                            if( newList[i].zonecode == null){
+				                            	txt += "<td>";
+				                            } else{
+				                            	txt += "<td>(" + newList[i].zonecode + ")";
+				                            }
+				                            
+				                            if( newList[i].address == null){
+				                            	txt += "";
+				                            } else{
+				                            	txt += " " + newList[i].address;
+				                            }
+				                            
+				                            if( newList[i].addrExtra == null) {
+				                            	txt += "";
+				                            } else{
+				                            	txt += " " + newList[i].addrExtra;
+				                            }
+				                            
+				                            if( newList[i].addrDetail == null) {
+				                            	txt += "</td>";
+				                            } else{
+				                            	txt += " " + newList[i].addrDetail + "</td>"
+				                            }
+				                            
+				                            <!-- 날짜 -->
+				                            indexM = newList[i].userEnrollDate.indexOf("월");
+				                            indexD = newList[i].userEnrollDate.indexOf(",");
+				                            indexY = newList[i].userEnrollDate.length;
+				                            
+				                            year = newList[i].userEnrollDate.substring(indexD + 2, indexY);
+				                            month = newList[i].userEnrollDate.substring(0, indexM);
+				                            day = newList[i].userEnrollDate.substring(indexM + 2, indexD);
+				                            
+				                           	if(month < 10){
+				                           		month = "0" + month;
+				                           	}
+				                           	if(day < 10){
+				                           		day = "0" + day;
+				                           	}
+				                            
+				                            txt += "<td>" + year + "-" + month + "-" + day + "</td>";
+				                            txt += "<td>" + newList[i].point + "</td>";
+				                            txt += "<td>" + newList[i].userStatus + "</td>";
+				                            
+		            					}
+									}
 	                				
 	                				var ptxt = "";
 	                				// 페이징바
@@ -278,7 +281,7 @@
                     <!-- 모달 끝 -->
 
                     <!-- 모달: 적립 모달 -->
-                    <div class="modal" id="jyModal_confirm">
+                    <div class="modal" id="jyModal_plusPoint">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <!-- Modal Header -->
@@ -289,16 +292,56 @@
                                 <!-- Modal body -->
                                 <form action="<%=contextPath%>/plus.po" method="post">
                                 <div class="modal-body" align="center";>
-	                                <input type="hidden" id="checkUserNo" name="userNo" value="">
-	                                
 		                                <table>
+		                                <tr>
+		                                	<td>적립할 회원번호 :</td>
+		                                	<td><input type="text" id="checkUserNo1" name="userNo" value=""></td>
+		                                </tr>
 										<tr>
 											<td style="width: 40%;">적립할 포인트 &nbsp;: </td>
-											<td><input type="number" step="100" name="amount"></td>
+											<td><input type="number" step="100" name="amount" min="100" required></td>
 										</tr>
 										<tr>
 											<td>포인트 내용 &nbsp;&nbsp;&nbsp;:</td>
-											<td><input type="text" name="reason"></td>
+											<td><input type="text" name="reason" required></td>
+										</tr>
+		                                </table>
+	                                </div>
+	                                <!-- Modal footer -->
+	                                <div class="modal-footer">
+	                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">취소</button>
+	                                <button type="submit" class="btn btn-dark" id="realInsert">확인</button>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 모달 끝 -->
+                    
+                    <!-- 모달: 회수 모달 -->
+                    <div class="modal" id="jyModal_minusPoint">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                <h4>포인트 회수</h4>
+								<button type="button" class="modal_close" data-bs-dismiss="modal">&times;</button>
+                                </div>
+                                <!-- Modal body -->
+                                <form action="<%=contextPath%>/plus.po" method="post">
+                                <div class="modal-body" align="center";>
+		                                <table>
+		                                <tr>
+		                                	<td>회수할 회원번호 :</td>
+		                                	<td><input type="text" id="checkUserNo2" name="userNo" value=""></td>
+		                                </tr>
+										<tr>
+											<td style="width: 40%;">회수할 포인트 &nbsp;: </td>
+											<td><input type="number" step="100" name="amount" max="-100" required></td>
+										</tr>
+										<tr>
+											<td>포인트 내용 &nbsp;&nbsp;&nbsp;:</td>
+											<td><input type="text" name="reason" required></td>
 										</tr>
 		                                </table>
 	                                </div>
@@ -341,20 +384,26 @@
                         
                         // 체크박스 체크/체크해제시 선택삭제 버튼의 모달 속성 변경
                         var checkCnt = "";
-						$("input:checkbox").change(function(){
+                        // $("input:checkbox").change(function(){ 로 작성시 ajax사용 후 이벤트 작동하지 않음!
+						$(document).on("change", "input:checkbox", function(){  
 							checkCnt = "";
 							$("input:checkbox[name=check]:checked").each(function(){
                                 checkCnt += ($(this).val()) + ","; // 체크된 것만 게시글번호 뽑기 "2,3,4,"
                             })
                             checkCnt = checkCnt.substring(0,checkCnt.lastIndexOf(",")); // 맨 뒤 콤마 삭제 "2,3,4"
+                            
+                            console.log(checkCnt);
 							
 							if(checkCnt == ''){ // 선택된 체크박스 하나도 없을 경우
                 	            $("#plusBtn").attr("data-bs-target", "#jyModal_noCheck");
                 	            $("#minusBtn").attr("data-bs-target", "#jyModal_noCheck");
                             }else{ // 선택된 체크박스 있을 경우
-	                            $("#plusBtn").attr("data-bs-target", "#jyModal_confirm");
-	                            $("#minusBtn").attr("data-bs-target", "#jyModal_confirm");
-	                            $("#checkUserNo").val(checkCnt);
+	                            $("#plusBtn").attr("data-bs-target", "#jyModal_plusPoint");
+	                            $("#minusBtn").attr("data-bs-target", "#jyModal_minusPoint");
+	                            
+	                            // form Modal에 값 넣어두기
+	                            $("#checkUserNo1").val(checkCnt);
+	                            $("#checkUserNo2").val(checkCnt);
                             }
 							
 						})                                                     

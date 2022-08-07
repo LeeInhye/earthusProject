@@ -322,5 +322,40 @@ public class PointDao {
 		return result;
 	}
 	
+	// 관리자_포인트 회수
+	public int insertPointMinus(Connection conn, String userNo, int amount, String reason) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertPointMinus");
+		
+		String[] userArr = userNo.split(",");  // ["3", "4", "5"] userNo
+		
+		int minusValue = 0;
+		if(amount < 0) {
+			// 회수할 포인트를 양수로 변경. point_amount컬럼에는 음수로 저장하고 잔액 계산에 양수로 변환해서 사용
+			minusValue = amount * -1;
+		}
+		
+		try { // 회원번호 개수만큼 돌리기
+			pstmt = conn.prepareStatement(sql);
+			for(int i=0; i<userArr.length; i++){
+				
+				pstmt.setString(1, userArr[i]);
+				pstmt.setString(2, reason);
+				pstmt.setInt(3, amount);
+				pstmt.setString(4, userArr[i]);
+				pstmt.setInt(5, minusValue);
+				
+				result = pstmt.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
 }

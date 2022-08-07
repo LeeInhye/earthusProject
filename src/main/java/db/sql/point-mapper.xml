@@ -127,6 +127,37 @@
 		     )
 	</entry>
 	
+	<entry key="insertPointMinus">
+		INSERT
+		  INTO POINT
+		     (
+		       POINT_NO
+		     , USER_NO
+		     , POINT_TYPE
+		     , POINT_REASON
+             , POINT_AMOUNT
+             , POINT_BALANCE
+		     )
+		VALUES
+		     (
+		       SEQ_POINTNO.NEXTVAL
+		     , ?
+		     , '회수'
+		     , ?
+             , ?
+             , (
+                SELECT *
+                FROM (
+                        SELECT SUM(POINT_AMOUNT) OVER(PARTITION BY USER_NO ORDER BY POINT_NO)
+                          FROM POINT
+                          WHERE USER_NO = ?
+                          ORDER BY POINT_NO DESC
+                          )
+                WHERE ROWNUM = 1
+             ) - ?
+		     )
+	</entry>
+	
 
 
 </properties>

@@ -41,7 +41,6 @@ public class adPointSearchControlloer extends HttpServlet {
 		// 검색한 키워드
 		String keyword = request.getParameter("keyword");
 		
-		
 		// 페이징 처리
 		int listCount;	//  현재 게시글 총 갯수
 		int currentPage;	// 사용자가 요청한 페이지
@@ -68,9 +67,7 @@ public class adPointSearchControlloer extends HttpServlet {
 			endPage = maxPage;
 		}
 		
-		// 페이징바에 필요한 객체
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		
 		
 		// 검색 결과로 포인트 내역 조회
 		// Service 단계 없이 바로 Dao쪽 호출

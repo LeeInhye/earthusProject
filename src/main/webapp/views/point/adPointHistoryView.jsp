@@ -60,42 +60,43 @@
 	                            var indexD = "";
 	                            var indexY = "";
                 				
-                				for(let i = 0; i < list.length; i++){
-									// 검색 결과 넣어주기	
-                					
-									value += '<tr style="cursor: auto;">'
-									     + '<td>' + list[i].pointNo + '</td>'
-									     + '<td>' + list[i].userId + '</td>'
-									     + '<td>' + list[i].userName + '</td>'
-									     + '<td>' + list[i].pointReason + '</td>'
-									     + '<td>' + list[i].pointAmount + '</td>';
-									     
-								    <!-- 날짜 -->
-		                            indexM = list[i].pointDate.indexOf("월");
-		                            indexD = list[i].pointDate.indexOf(",");
-		                            indexY = list[i].pointDate.length;
-		                            
-		                            year = list[i].pointDate.substring(indexD + 2, indexY);
-		                            month = list[i].pointDate.substring(0, indexM);
-		                            day = list[i].pointDate.substring(indexM + 2, indexD);
-		                            
-		                           	if(month < 10){
-		                           		month = "0" + month;
-		                           	}
-		                           	if(day < 10){
-		                           		day = "0" + day;
-		                           	}
-		                            
-		                            value += "<td>" + year + "-" + month + "-" + day + "</td>";
-									    
-		                            value += '<td>' + list[i].pointType + '</td>'
-									      + '<td>' + list[i].pointBalance + '</td>'
-									      + '<td class="btn_left">'
-		                                  + '<button type="button" class="btn-sm btn_black">수정</button>'
-		                                  + '</td>'
-		                                  + '</tr>';
-            					}
-                				
+	                            if(list.length == 0) {
+		        					value += '<tr>'
+		        						   + '<td colspan="8">존재하는 내역이 없습니다.</td>'
+		        						   + '</tr>';
+								} else {
+	                				for(let i = 0; i < list.length; i++){
+										// 검색 결과 넣어주기	
+										value += '<tr style="cursor: auto;">'
+										     + '<td>' + list[i].pointNo + '</td>'
+										     + '<td>' + list[i].userId + '</td>'
+										     + '<td>' + list[i].userName + '</td>'
+										     + '<td>' + list[i].pointReason + '</td>'
+										     + '<td>' + list[i].pointAmount + '</td>';
+										     
+									    <!-- 날짜 -->
+			                            indexM = list[i].pointDate.indexOf("월");
+			                            indexD = list[i].pointDate.indexOf(",");
+			                            indexY = list[i].pointDate.length;
+			                            
+			                            year = list[i].pointDate.substring(indexD + 2, indexY);
+			                            month = list[i].pointDate.substring(0, indexM);
+			                            day = list[i].pointDate.substring(indexM + 2, indexD);
+			                            
+			                           	if(month < 10){
+			                           		month = "0" + month;
+			                           	}
+			                           	if(day < 10){
+			                           		day = "0" + day;
+			                           	}
+			                            
+			                            value += "<td>" + year + "-" + month + "-" + day + "</td>";
+										    
+			                            value += '<td>' + list[i].pointType + '</td>'
+										      + '<td>' + list[i].pointBalance + '</td>'
+			                                  + '</tr>';
+	            					}
+	                			}
                 				
                 				var ptxt = "";
                 				// 페이징바
@@ -132,19 +133,18 @@
 	                <table class="M_member_table table table-hover">
 	                    <thead>
 	                        <tr class="table_thead_border" style="border-bottom: none;">
-	                        	<th width="5%">No.</th>
+	                        	<th width="10%">No.</th>
 	                            <th width="10%">아이디</th>
-	                            <th width="10%">이름</th>
+	                            <th width="8%">이름</th>
 	                            <th width="30%">포인트 내용</th>
 	                            <th width="10%">포인트</th>
 	                            <th width="15%">일시</th>
 	                            <th width="5%">유형</th>
-	                            <th width="15%">잔액</th>
+	                            <th width="12%">잔액</th>
 	                        </tr>
 	                    </thead>
 	                    <tbody id="pointBody">
 	                    
-	                    <!-- 전체  -->
                 			<% for(Point p : list) { %>
 	                        <tr style="cursor: auto;">
 	                        	<td><%= p.getPointNo() %></td>

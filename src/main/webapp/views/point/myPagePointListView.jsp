@@ -63,7 +63,7 @@
    <%@ include file="/views/common/menubar.jsp" %>
    
    <section class="mypoint">
-    <h2>포인트 관리</h2>
+    <h2>포인트 내역</h2>
     <br>
     <span style="font-size:small">
       포인트는 구매 확정 시 지급됩니다. 구매 후기 작성 시 포인트 지급됩니다. <br>
@@ -74,7 +74,7 @@
     <button id="mybtn" onclick="location.href='<%= contextPath %>/myPage.mp';">마이페이지 &gt;</button>
 
     <hr><br>
-
+<!-- 
     <div id="select">
       <span>기간별 검색</span>&nbsp;
       <button class="d-btn" id="d1">전체</button><button class="d-btn" id="d2">오늘</button><button class="d-btn" id="d3">7일</button><button class="d-btn" id="d4">30일</button>
@@ -86,20 +86,20 @@
       <input type="date" class="date" id="n2">
       <button style="background:rgb(168,191,170); color:white;">조회</button>
     </div>
+ -->
 
     <br><br>
     
 	<script>
-	function gogogo(){
-    	 console.log("고고");
-     }
-     
 	// 지급상태로 리스트 조회
-	$("#btn-list").on("click", "button", function(){
-		
+	$("#btn-list>button").on("click", function(){
+		console.log('gg');
 	})
+	
+	
 	function selectStatus(page, filter){
-		
+		console.log("page"+page);
+		console.log(filter);
 		$.ajax({
 			url:"<%= contextPath%>/filter.po",
 			data:{no:<%= m.getUserNo() %>,
@@ -146,7 +146,8 @@
                     	$(".list-area").html(value);
 				
 					}
-			},
+				},
+			}
 			error:{
 				
 			}
@@ -160,9 +161,9 @@
     
 
     <div id="btn-list">
-      <button class="a">전체</button>
+      <button class="a" onclick="selectStatus(1, 'all');">전체</button>
       <button class="b">적립</button>
-      <button class="c">사용</button> 
+      <button class="c" onclick="selectStatus(1, 'minus');">사용</button> 
 
         <% if(!list.isEmpty()) { %>
 		   	<span style="float:right">
