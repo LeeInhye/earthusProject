@@ -107,26 +107,25 @@
                                         $("#enrollForm").submit();
                                     })
 
-                                     //여기 아래 부분
-                                     $('#summernote').summernote({
-                                         height: 300,                 // 에디터 높이
-                                         width: 700,
-                                         minHeight: 300,             // 최소 높이
-                                         maxHeight: null,             // 최대 높이
-                                         focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-                                         lang: "ko-KR",					// 한글 설정
-                                         tabsize: 2,
-                                         height: 120,
-                                         toolbar: [
-                                         ['style', ['style']],
-                                         ['font', ['bold', 'underline', 'clear']],
-                                         ['color', ['color']],
-                                         ['para', ['ul', 'ol', 'paragraph']],
-                                         ['table', ['table']],
-                                         ['insert', ['link', 'picture', 'video']],
-                                         ['view', ['fullscreen', 'codeview', 'help']]
-                                     ]
-                             	 });
+                                    $('#summernote').summernote({
+                                        height: 300,                 
+                                        width: 700,
+                                        minHeight: 300,  // 최소 높이
+                                        maxHeight: null,  // 최대 높이
+                                        focus: false,       // 에디터 로딩후 포커스를 맞출지 여부
+                                        lang: "ko-KR",		// 한글 설정
+                                        tabsize: 2,
+                                        height: 120,
+                                        toolbar: [
+                                        ['style', ['style']],
+                                        ['font', ['bold', 'underline', 'clear']],
+                                        ['color', ['color']],
+                                        ['para', ['ul', 'ol', 'paragraph']],
+                                        ['table', ['table']],
+                                        ['insert', ['link', 'picture', 'video']],
+                                        ['view', ['fullscreen', 'codeview', 'help']]
+                                     	]
+                             		 });
                                     
                                 })
                             </script>

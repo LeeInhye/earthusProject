@@ -58,14 +58,14 @@
 	                        </div>
 	
 	                        <div class="blog_details">
-	                            <a class="d-inline-block" href="single-blog.html">
+	                            <a class="d-inline-block">
 	                                <h2><%= c.getCntTitle() %></h2>
 	                            </a>
 	                            <% if( c.getCntContent() != null) { %>
 	                            	<p><%= c.getCntContent() %></p>
 	                            <% } %>
 	                            <ul class="blog-info-link">
-	                                <li><a href="#"><i class="ti-calendar"></i><%= c.getCntEnrollDate() %></a></li>
+	                                <li style="color:gray;"><i class="ti-calendar"></i><%= c.getCntEnrollDate() %></li>
 	                                <li><a href="#"><i class="ti-heart"></i> <%= c.getCntLike() %> Likes</a></li>
 	                            </ul>
 	                        </div>
