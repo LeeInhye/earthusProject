@@ -136,7 +136,7 @@ SELECT COUNT(PRO_QNA_NO) "listCount"
 	          
 </entry>
 
-<entry key="selectProQna1">
+<entry key="selectProQna">
    SELECT 
          PRO_QNA_NO
        , PRO_CODE
