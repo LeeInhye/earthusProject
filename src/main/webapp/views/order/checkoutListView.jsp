@@ -131,7 +131,7 @@
 										<!-- 결제상품 목록 조회 -->
 										<li>
 										<a href="#"><%= c.getProName() %> <span class="last" class="price"><%= c.getPrice() * c.getProQty() %></span></a>
-										<a id="proQty" style="display:none;"><%= c.getProQty() %></a>
+										<a class="proQty" style="display:none;"><%= c.getProQty() %></a>
 										</li>
 									<% } %>
 								</ul>
@@ -236,10 +236,10 @@
 		// proQty input 요소에 ,로 연이은 proCode별 구매 상품 개수 넘기기
 		$(function(){
 			var proQty = "";
-			$("#proQty").each(function(){
-				proQty += $("#proQty").text() + ",";
-				proQty.substring(0, proQty.lastIndexOf(","));
+			$(".proQty").each(function(){
+				proQty += $(this).text() + ",";
 			})
+			proQty = proQty.substring(0, proQty.lastIndexOf(","));
 			$("input[name=proQty]").val(proQty);
 		})
 		

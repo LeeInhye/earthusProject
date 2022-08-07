@@ -36,7 +36,7 @@ public class CheckoutListViewController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
-		String ProCode = request.getParameter("orderProCode");
+		String proCode = request.getParameter("orderProCode");
 		
 		
 		
@@ -44,13 +44,20 @@ public class CheckoutListViewController extends HttpServlet {
 		
 		// 바로결제에서 이동한 경우
 		// 결제 페이지에 회원번호, 상품코드, 상품명 전달 => ArrayList로
-		list = new CheckoutListService().selectProList(userNo, ProCode);
+		list = new CheckoutListService().selectProList(userNo, proCode);
+		
+		System.out.println("proCode : " + proCode);
 		
 		String orderProCode = "";
 		for(Cart c : list) {
-			orderProCode += c.getProCode();
+			System.out.println("결제페이지로 보내는 Cart객체 : " + c);
+			orderProCode += c.getProCode() + ",";
 		}
-	
+		
+		orderProCode = orderProCode.substring(0, orderProCode.lastIndexOf(","));
+		
+		System.out.println("결제페이지로 보내는 orderProCode : " + orderProCode);
+		
 		request.setAttribute("list", list);
 		request.setAttribute("orderProCode", orderProCode);
 		request.getRequestDispatcher("views/order/checkoutListView.jsp").forward(request, response);

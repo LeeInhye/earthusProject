@@ -44,7 +44,6 @@
 		DELETE
 		  FROM CART
 		 WHERE USER_NO = ?
-		   AND PRO_CODE = ?
 	</entry>
 	
 	<entry key="insertOrderProductList">

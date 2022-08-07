@@ -45,19 +45,20 @@ public class CheckoutListService {
 		// 2) ORDER_PRODUCT 테이블에 INSERT문 실행
 		result2 = new CheckoutListDao().insertOrderProductList(conn, orderProCode, proQty);
 		
-		// 3) PAY_CARD 테이블에 
+		// 3) PAY_CARD 테이블에 INSERT문 실행
 		result3 = new CheckoutDao().insertPayCash(conn);
 		
+		// 4) CART 테이블에 DELETE문 실행
 		result4 = new CheckoutListDao().deleteCart(conn, o, orderProCode);
 		
-		if(result1*result2*result3 > 0) {
+		if(result1*result2*result3*result4 > 0) {
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
 		
 		close(conn);
-		return result1*result2*result3;
+		return result1*result2*result3*result4;
 	}
 	
 	
@@ -73,6 +74,7 @@ public class CheckoutListService {
 		int result1 = 0;
 		int result2 = 0;
 		int result3 = 0;
+		int result4 = 0;
 		
 		// 1) ORDER 테이블에 INSERT문 실행
 		result1 = dao.insertOrder(conn, o);
@@ -81,16 +83,19 @@ public class CheckoutListService {
 		result2 = new CheckoutListDao().insertOrderProductList(conn, orderProCode, proQty);
 		
 		// 3) PAY_CASH 테이블에 
-		result3 = new CheckoutDao().insertPayCash(conn);
+		result3 = dao.insertPayCash(conn);
 		
-		if(result1*result2*result3 > 0) {
+		// 4) CART 테이블에 DELETE문 실행
+		result4 = new CheckoutListDao().deleteCart(conn, o, orderProCode);
+		
+		if(result1*result2*result3*result4 > 0) {
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
 		
 		close(conn);
-		return result1*result2*result3;
+		return result1*result2*result3*result4;
 	}
 
 }

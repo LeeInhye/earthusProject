@@ -59,30 +59,26 @@ public class CheckoutPayListController extends HttpServlet {
 					request.getParameter("roadAddr"),
 					request.getParameter("detailAddr")
 				);
+		System.out.println("proQty : " + proQty);
+		System.out.println("orderProCode : " + orderProCode);
+		System.out.println("cardUid : " + cardUid);
+		System.out.println("Order객체 : " + o);
 		
-		if( request.getParameter("payment") == "CARD" ) {
+		if( request.getParameter("payment").equals("CARD") ) {
 			// 카드 결제인 경우 : ORDER, ORDER_PRODUCT, PAY_CARD 테이블에 DML문 처리
 			result = new CheckoutListService().processCardPayment(o, proQty, orderProCode, cardUid);
-			
-			if(result > 0) {
-				request.setAttribute("totalPrice", request.getParameter("totalPrice"));
-				request.getRequestDispatcher("views/order/confirmation.jsp").forward(request, response);
-			}else {
-				request.setAttribute("errorMsg", "결제에 실패하였습니다.");
-				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-			}
 			
 		}else {
 			// 무통장 결제인 경우 : ORDER, ORDER_PRODUCT, PAY_CASH 테이블에 DML문 처리
 			result = new CheckoutListService().processCashPayment(o, proQty, orderProCode);
-			
-			if(result > 0) {
-				request.setAttribute("totalPrice", request.getParameter("totalPrice"));
-				request.getRequestDispatcher("views/order/confirmation.jsp").forward(request, response);
-			}else {
-				request.setAttribute("errorMsg", "결제에 실패하였습니다.");
-				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-			}
+		}
+		
+		if(result > 0) {
+			request.setAttribute("totalPrice", request.getParameter("totalPrice"));
+			request.getRequestDispatcher("views/order/confirmation.jsp").forward(request, response);
+		}else {
+			request.setAttribute("errorMsg", "결제에 실패하였습니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 		
 	}

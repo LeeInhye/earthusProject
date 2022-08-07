@@ -96,13 +96,20 @@ public class CheckoutListDao {
 		
 		String[] proCodes = proCode.split(",");
 
-		try {
-			for(int i=0; i<proCodes.length; i++) {
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, o.getUserNo());
-				pstmt.setString(2, proCodes[i]);		
-				result = pstmt.executeUpdate();
+		sql += "AND PRO_CODE IN (";
+		
+		for(int i=0; i<proCodes.length; i++) {
+			sql += proCodes[i];
+			if(i < proCodes.length - 1) {
+				sql += ",";
 			}
+		}
+		sql += ")";
+
+		try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, o.getUserNo());	
+				result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

@@ -82,7 +82,6 @@
 							<td>
 							  	<div class="media">
 								    <div class="d-flex">
-						      			<img src="img/product/single-product/cart-1.jpg">
 								    </div>
 								    <div class="media-body">
 							      		<p><%= c.getProName() %></p>
