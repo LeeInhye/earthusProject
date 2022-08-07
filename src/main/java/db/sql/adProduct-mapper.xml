@@ -75,24 +75,15 @@ SELECT LAST_NUMBER "maxProCode"
 </entry>
 
 <entry key="searchProduct">
-	SELECT *
+SELECT *
   FROM (
     SELECT ROWNUM RNUM, A.*
       FROM (
         SELECT 
                PRO_CODE
-             , CATEGORY_NO
              , PRO_NAME
              , STOCK
-             , PRO_ENROLL_DATE
           FROM PRODUCT
-         WHERE CATEGORY_NO IN ? ( EX. 1 / (1,2,3) / (1,3) ) 
-           AND PRO_NAME LIKE '%찰%'
-         ORDER
-            BY PRO_ENROLL_DATE DESC
-           ) A
-       )
- WHERE RNUM BETWEEN 1 AND 10
 </entry>
 
 <entry key="selectProQnaList">
