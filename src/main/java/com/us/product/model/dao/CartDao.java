@@ -45,6 +45,7 @@ public class CartDao {
 								  rset.getDate("ADD_DATE")
 						));
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -60,22 +61,22 @@ public class CartDao {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("deleteSelected");
 		
+		// 동적 SQL문
+		sql += "AND PRO_CODE IN(";
+		
 		String[] proCodes = proCode.split(",");
 		for(int i=0; i<proCodes.length; i++) {
-			System.out.println();
-			
+			sql += proCodes[i];
+			if(i != proCodes.length - 1) {
+				sql += ",";
+			}
 		}
-		
-		String where = "";
-		
-		
+		sql += ")";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userNo);
-			pstmt.setString(2, proCode);
 			result = pstmt.executeUpdate();
-					
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

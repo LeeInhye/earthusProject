@@ -32,6 +32,8 @@ public class AjaxCartDeleteController extends HttpServlet {
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
 		String proCode = request.getParameter("proCode");
 		
+		System.out.println(proCode);
+		
 		int result = new CartService().deleteSelected(userNo, proCode);
 		response.getWriter().print(result);
 	}

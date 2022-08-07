@@ -19,7 +19,6 @@
 		DELETE
 		  FROM CART
 		 WHERE USER_NO = ?
-		   AND PRO_CODE IN (?)
 	</entry>
 	
 	<entry key="updateQuantity">
