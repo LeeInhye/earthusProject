@@ -144,5 +144,26 @@ SELECT COUNT(PRO_QNA_NO) "listCount"
 	          JOIN PRODUCT USING(PRO_CODE) 
 	          
 </entry>
+
+<entry key="selectProQna1">
+   SELECT 
+         PRO_QNA_NO
+       , PRO_CODE
+       , PRO_QNA_TITLE
+       , PRO_QNA_CONTENT
+       , PRO_QNA_PWD
+       , PRO_QNA_WRITER_NO
+       , PRO_QNA_WRITER_NAME
+       , PRO_QNA_EMAIL
+       , PRO_QNA_PHONE
+       , PRO_Q_ENROLL_DATE
+       , PRO_A_ENROLL_DATE
+       , PRO_A_WRITER
+       , PRO_A_CONTENT
+       , PRO_NAME
+     FROM PRO_QNA
+     JOIN PRODUCT USING(PRO_CODE)
+    WHERE PRO_QNA_NO = ?
+</entry>
 </properties>
 	        
