@@ -32,6 +32,17 @@
 	                           </select>
 	                            
 	                        </div>
+	                        
+	                        <!-- 선택했던 카테고리가 selected되게 -->
+	                        <script>
+								$(function(){
+									$("#noticeUpdateForm option").each(function(){
+										if( $(this).val() == "<%= n.getCsCategory() %>" ){
+											$(this).attr("selected", true);
+										}
+									})
+								})
+							</script>
 	
 	                        <br><br>  
 	
