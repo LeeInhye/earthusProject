@@ -160,7 +160,7 @@
 							</div>
 							
 							<input type="hidden" name="userNo" value="<%= loginUser.getUserNo() %>">
-							<input type="hidden" name="userName" value="<%= loginUser.getUserName() %>">
+							<input type="hidden" name="userName" value="<%= loginUser.getUserName() %>">	
 							<input type="hidden" name="userPhone" value="<%= loginUser.getPhone() %>">
 							<input type="hidden" name="cardUid" value="">
 							<input type="hidden" name="totalPrice" value="<%= sum + 3000%>">

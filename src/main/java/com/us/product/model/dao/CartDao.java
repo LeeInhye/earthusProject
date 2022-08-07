@@ -60,6 +60,16 @@ public class CartDao {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("deleteSelected");
 		
+		String[] proCodes = proCode.split(",");
+		for(int i=0; i<proCodes.length; i++) {
+			System.out.println();
+			
+		}
+		
+		String where = "";
+		
+		
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userNo);

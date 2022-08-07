@@ -104,6 +104,10 @@
 						  	</td>
 						</tr>
 	              	<% } %>
+	             <% }else { %>
+	             	<tr>
+	             		<th colspan="5">장바구니에 담긴 상품이 없습니다!</th>
+	             	</tr>
 	             <% } %>
 	              <tr class="bottom_button">
 	                <td colspan="2">

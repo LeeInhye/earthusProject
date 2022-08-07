@@ -425,7 +425,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
-            aria-selected="false">리뷰(리뷰수)</a>
+            aria-selected="false">리뷰(<%= rlist.size() %>)</a>
         </li>
       </ul>
       <!----- 상품 상세 조회 네비게이션 끝 ----->
@@ -690,7 +690,7 @@
 	                    		<% if( picList.get(i).getRefBNo() == r.getRevNo() ) { %>
 				                    <div class="review-content-photo" style="width:30%; height:100px; padding-left:20px; float:left;">
 				                      <a data-toggle="modal" data-target="#originalImage">
-				                        <img src="<%= picList.get(i).getFilePath() + picList.get(i).getChangeName() %>" id="review-img" style="width:100%; height:100%;">
+				                        <img src="<%= picList.get(i).getFilePath() + picList.get(i).getChangeName() %>" class="review-img" style="width:100%; height:100%;">
 				                      </a>
 				                    </div>
 			                    <% } %>
@@ -712,8 +712,8 @@
         <!-- 리뷰 조회 - 이미지 크게 조회하는 모달 -->
 		  <script>
 		  	$(function(){
-		  		$("#review-img").click(function(){
-		  			$("#modal-original-img").attr( "src", $(this).attr("src") );
+		  		$(".review-img").click(function(){
+		  			$("#modal-original-img").prop( "src", $(this).attr("src") );
 		  		})
 		  	})
 		  </script>
@@ -726,7 +726,6 @@
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal">&times;</button>
-		        <h4 class="modal-title">이미지 상세 보기</h4>
 		      </div>
 		      <div class="modal-body">
 		        <img src="" id="modal-original-img">
