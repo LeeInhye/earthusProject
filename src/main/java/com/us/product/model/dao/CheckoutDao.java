@@ -125,23 +125,7 @@ public class CheckoutDao {
 	}
 	
 
-	public int deleteCart(Connection conn, Order o, String proCode) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("deleteCart");
-
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, o.getUserNo());
-			pstmt.setString(2, proCode);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-
-	}
+	
 
 	
 	/*

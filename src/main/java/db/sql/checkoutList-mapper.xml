@@ -39,7 +39,15 @@
 			 )
 	</entry>
 	
-	<entry key="insertOrderProduct">
+	<!-- 장바구니에서 넘어오는 주문 시 장바구니에서 구매된 상품 제거 -->
+	<entry key="deleteCart">
+		DELETE
+		  FROM CART
+		 WHERE USER_NO = ?
+		   AND PRO_CODE = ?
+	</entry>
+	
+	<entry key="insertOrderProductList">
 		INSERT
 		  INTO "ORDER_PRODUCT"
 		VALUES
@@ -49,35 +57,5 @@
 		     , ?
 		     )
 	</entry>
-	
-	<!-- 장바구니에서 넘어오는 주문 시 장바구니에서 구매된 상품 제거 -->
-	<entry key="deleteCart">
-		DELETE
-		  FROM CART
-		 WHERE USER_NO = ?
-		   AND PRO_CODE = ?
-	</entry>
-	
-	<entry key="insertPayCard">
-		INSERT
-		  INTO PAY_CARD
-		VALUES
-		     (
-		       SEQ_ODRNO.CURRVAL
-		     , ?
-		     , SYSDATE
-		     )
-	</entry>
-	
-	<entry key="insertPayCash">
-		INSERT
-		  INTO PAY_CASH
-		VALUES
-		     (
-		       SEQ_ODRNO.CURRVAL
-		     , SYSDATE
-		     )
-	</entry>
-	
 	
 </properties>

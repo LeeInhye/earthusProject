@@ -72,7 +72,7 @@
 	<!--================Checkout Area =================-->
 	<section class="checkout_area padding_top">
 		<div class="container">
-			<form class="billing_details" id="order-form" action="<%= contextPath %>/pay.or" method="post">
+			<form class="billing_details" id="order-form" action="<%= contextPath %>/payList.or" method="post">
 				<div class="row">
 					<div class="col-lg-8">
 						<h3 style="padding: 0px; margin-bottom: 15px; font-weight: bold;">주문자 정보</h3>
@@ -131,6 +131,7 @@
 										<!-- 결제상품 목록 조회 -->
 										<li>
 										<a href="#"><%= c.getProName() %> <span class="last" class="price"><%= c.getPrice() * c.getProQty() %></span></a>
+										<a id="proQty" style="display:none;"><%= c.getProQty() %></a>
 										</li>
 									<% } %>
 								</ul>
@@ -163,7 +164,8 @@
 							<input type="hidden" name="userPhone" value="<%= loginUser.getPhone() %>">
 							<input type="hidden" name="cardUid" value="">
 							<input type="hidden" name="totalPrice" value="<%= sum + 3000%>">
-							<input type="hidden" name="proCode" value="<%= orderProCode %>">
+							<input type="hidden" name="orderProCode" value="<%= orderProCode %>">
+							<input type="hidden" name="proQty" value="">
 							<button type="button" onclick="requestPay();" id="submit-btn" class="btn_3">결제 진행하기</button>
 						</div>
 					</div>
@@ -231,6 +233,17 @@
 		})
 		
 		
+		// proQty input 요소에 ,로 연이은 proCode별 구매 상품 개수 넘기기
+		$(function(){
+			var proQty = "";
+			$("#proQty").each(function(){
+				proQty += $("#proQty").text() + ",";
+				proQty.substring(0, proQty.lastIndexOf(","));
+			})
+			$("input[name=proQty]").val(proQty);
+		})
+		
+		
 		// 포인트 사용 input요소에 값 입력되면 입력값을 주문서의 포인트 사용란에 넣기
 		$(function(){
 			$("input[name=point]").change(function(){
@@ -262,7 +275,6 @@
 		
 		// 결제하기 버튼 누르면 결제(카드 or 무통장) 요청하는 function
 		function requestPay() {
-			
 			
 			if( $("#f-option6").prop("checked") ){
 				// 카드 결제 라디오버튼을 선택한 경우

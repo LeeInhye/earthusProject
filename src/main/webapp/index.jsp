@@ -40,7 +40,7 @@
     
     /*--------좌우슬라이딩---------*/
 	#index_01{
-	    width: 1000px;
+	    width: 1400px;
 	    height: 500px;
 	    margin: 0 auto;
 	}

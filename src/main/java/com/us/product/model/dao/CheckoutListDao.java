@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.us.order.model.vo.Order;
 import com.us.product.model.vo.Cart;
 
 public class CheckoutListDao {
@@ -62,6 +63,53 @@ public class CheckoutListDao {
 	}
 	
 	
+	// 장바구니 결제 건을 OrderProduct 테이블에 INSERT (상품 수량 개수만큼 실행)
+	public int insertOrderProductList(Connection conn, String proCode, String proQty) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertOrderProductList");
+		
+		String[] proCodes = proCode.split(",");
+		String[] proQtys = proQty.split(",");
+
+		try {
+			for(int i=0; i<proCodes.length; i++) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, proCodes[i]);
+				pstmt.setString(2, proQtys[i]);    // 자동형변환 되니까
+				result = pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+		close(pstmt);
+		}
+		
+		return result;
+	}
 	
+	
+	public int deleteCart(Connection conn, Order o, String proCode) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteCart");
+		
+		String[] proCodes = proCode.split(",");
+
+		try {
+			for(int i=0; i<proCodes.length; i++) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, o.getUserNo());
+				pstmt.setString(2, proCodes[i]);		
+				result = pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+
+	}
 
 }

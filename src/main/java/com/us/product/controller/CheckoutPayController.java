@@ -1,4 +1,4 @@
-package com.us.order.controller;
+package com.us.product.controller;
 
 import java.io.IOException;
 
