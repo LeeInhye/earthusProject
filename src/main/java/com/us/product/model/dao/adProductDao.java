@@ -404,7 +404,7 @@ public class adProductDao {
 				list.add(new ProQna(rset.getInt("pro_qna_no"),
 									rset.getString("pro_qna_title"),
 									rset.getString("pro_qna_writer_name"),
-									rset.getDate("pro_q_enroll_date"),
+									rset.getString("pro_q_enroll_date"),
 									rset.getDate("pro_a_enroll_date"),
 									rset.getString("pro_name")
 									));
@@ -466,14 +466,14 @@ public class adProductDao {
 		int endRow = startRow + pi.getBoardLimit() - 1;
 		
 		if(!categoryNo.equals("")) {
-			sql += "WHERE CATEGORY_NO IN (" + categoryNo.substring(1) + ") "; 
+			sql += " WHERE CATEGORY_NO IN (" + categoryNo.substring(1) + ") "; 
 			
 			if(!keyword.equals("")) {
 				sql += "AND PRO_NAME LIKE '%" + keyword + "%' ";
 			}
 		}else {
 			if(!keyword.equals("")) {
-				sql += "WHERE PRO_NAME LIKE '%" + keyword + "%' ";
+				sql += " WHERE PRO_NAME LIKE '%" + keyword + "%' ";
 			}
 		}
 		

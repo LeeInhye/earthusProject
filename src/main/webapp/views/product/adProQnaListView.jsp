@@ -173,7 +173,7 @@
                        txt += "<td>" + newList[i].proName + "</td>";
                        txt += "<td>" + newList[i].proQnaTitle + "</td>";
                        txt += "<td>" + newList[i].proQnaWriterName + "</td>";
-                       txt += "<td>" + newList[i].proQEnrollDate + "</td>";
+                       txt += "<td>" + newList[i].QEnrollDate + "</td>";
                        txt += "<td>";
                        
                        if(newList[i].proAEnrollDate == null){

@@ -14,6 +14,9 @@ public class ProQna {
 	private String proQnaEmail;
 	private String proQnaPhone;
 	private Date proQEnrollDate;
+	private String QEnrollDate; // 문의등록일을 YYYY-MM-DD 로 바꾸기 위해
+	
+
 	private Date proAEnrollDate;
 	private String proAWriter;
 	private String proAContent;
@@ -82,6 +85,25 @@ public class ProQna {
 		this.proQEnrollDate = proQEnrollDate;
 		this.proAEnrollDate = proAEnrollDate;
 		this.proName = proName;
+	}
+	
+	public ProQna(int proQnaNo, String proQnaTitle, String proQnaWriterName, String QEnrollDate, Date proAEnrollDate,
+			String proName) {
+		super();
+		this.proQnaNo = proQnaNo;
+		this.proQnaTitle = proQnaTitle;
+		this.proQnaWriterName = proQnaWriterName;
+		this.QEnrollDate = QEnrollDate;
+		this.proAEnrollDate = proAEnrollDate;
+		this.proName = proName;
+	}
+
+	public String getQEnrollDate() {
+		return QEnrollDate;
+	}
+	
+	public void setQEnrollDate(String qEnrollDate) {
+		QEnrollDate = qEnrollDate;
 	}
 
 	public int getProQnaNo() {
