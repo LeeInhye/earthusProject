@@ -58,7 +58,7 @@
                         	<%for(Order or : list){ %>
                             <tr>
                                 <td width="50" height="50"><%=or.getOrderNo() %></td>
-                                <td><%=or.getOrderNo() %></td>
+                                <td><a href="<%=contextPath %>/historyDetail.or?oNo=<%=or.getOrderNo()%>" style="color:black; text-decoration:none;"><%=or.getOrderNo() %></a></td>
                                 <td><%=or.getOrderDate() %></td>
                                 <td><%=or.getUserId() %></td>
                                 <%if(or.getDelStatus() == 1) {%>
