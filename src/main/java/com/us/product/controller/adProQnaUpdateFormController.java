@@ -37,7 +37,6 @@ public class adProQnaUpdateFormController extends HttpServlet {
 		request.setAttribute("pq", pq);
 		request.getRequestDispatcher("/views/product/adProQnaUpdateFormView.jsp").forward(request, response);
 		
-		System.out.println(pq);
 		
 	}
 
