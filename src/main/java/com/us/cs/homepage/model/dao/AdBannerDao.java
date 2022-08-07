@@ -65,7 +65,7 @@ public class AdBannerDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				b = new Banner();
-				b.setBnImgURL("/us/" + rset.getString("BN_IMG_URL"));
+				b.setBnImgURL(rset.getString("BN_IMG_URL"));
 				list.add(b);
 			}
 		} catch (SQLException e) {
