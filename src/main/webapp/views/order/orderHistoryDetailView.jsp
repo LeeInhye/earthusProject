@@ -150,8 +150,10 @@
 						<%} %>
 					</td>
 					<td>
-					  <button id="q-btn" onclick="href='<%=contextPath%>';">상품 문의</button><br>
-					  <button id="r-btn" onclick="href='<%=contextPath%>';">리뷰 작성</button>
+					  <%if(or.getDelStatus() == 3) {%>
+					  <button id="q-btn" type="button" onclick="location.href='<%=contextPath%>/insertForm.pq?code=<%=or.getProCode()%>&name=<%=or.getProName()%>';">상품 문의</button><br>
+					  <button id="r-btn" onclick="">리뷰 작성</button>
+					  <%} %>
 					</td>
 				  </tr>
 				  <%} %>

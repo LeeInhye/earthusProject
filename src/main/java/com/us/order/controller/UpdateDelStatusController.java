@@ -36,7 +36,7 @@ public class UpdateDelStatusController extends HttpServlet {
 		
 		int result = new OrderService().updateExrtr(orderNo, select);
 		
-		response.sendRedirect(request.getContextPath() + "/CncltExrtr.or");
+		response.sendRedirect(request.getContextPath() + "/CncltExrtr.or?cpage=1");
 	}
 
 	/**

@@ -283,7 +283,7 @@
 		        	<br><br>
 		        	<span style="font-size:large;"><b>교환(반품)을 신청하시겠습니까?</b></span> <br><br><br>
 		        	
-		        	<button type="submit" class="btn" id="re-end" onclick="href='<%=contextPath%>/CncltExrtr.or?cpage=1';">신청하기</button>
+		        	<button type="submit" class="btn" id="re-end" onclick="href='history.back()';">신청하기</button>
 		        	
 		      </div>
 	
