@@ -39,7 +39,7 @@
 	                        <!-- 선택했던 카테고리가 selected되게 -->
 	                        <script>
 								$(function(){
-									$("faqUpdateForm option").each(function(){
+									$("#faqUpdateForm option").each(function(){
 										if( $(this).val() == "<%= f.getCsCategory() %>" ){
 											$(this).attr("selected", true);
 										}
