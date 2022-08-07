@@ -70,12 +70,8 @@
 		    </div>
 		</section>
 		<!-- banner part end -->
-
-    <script>
-    	$(document).ready(function(){
-    		$('.cat_product_area .row').removeAttr('align-items');
-    	})
-    </script>
+		
+		
     
     <!--================상품 카테고리 영역=================-->
     <section class="cat_product_area section_padding">
@@ -133,26 +129,7 @@
                                 </ul>
                             </div>
                         </aside>
-                        <aside class="left_widgets p_filter_widgets price_rangs_aside"> <!--가격 필터-->
-                            <div class="l_w_title">
-                                <h3>가격 필터</h3>
-                            </div>
-                            <div class="widgets_inner">
-                                <div class="range_item">
-                                    <input type="range" class="js-range-slider" name="" value=""/>
-                                    <div class="d-flex">
-                                        <div class="price_text">
-                                            <p>가격 :</p>
-                                        </div>
-                                        <div class="price_value d-flex justify-content-center">
-                                            <input type="text" class="js-input-from" id="amount" value="최소가격" readonly />
-                                            <span>~</span>
-                                            <input type="text" class="js-input-to" id="amount" value="최대가격" readonly />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </aside>
+                        
                     </div>
                 </div>
                 <div class="col-lg-9">
@@ -190,16 +167,6 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- 카테고리별 상품 검색 -->
-                    <script>
-                    	function searchPro(){
-							location.href = "<%= contextPath %>/list.pro?categoryNo=" + <%= categoryNo %> + "&cpage=1&keyword=" + $("#pNameKeyword").val();                     		
-                    
-                    	}
-                    </script>
-                    
-                    
 
                   <!--상품 목록 영역 시작-->
                     <!------- 베스트 상품 영역 시작 ------->
@@ -225,10 +192,10 @@
                                                 <p><%= p.getPrice() %>원</p>&nbsp;&nbsp;&nbsp;
                                                 
 		                                 <% if( loginUser != null ) {  // 로그인 o %> 
-			                              		<i class="fa fa-heart color-gray" onclick="checkWish();"></i> <!-- 찜했을경우 -->
+			                              		<i class="fa fa-heart color-gray loginHeart"></i> <!-- 찜했을경우 -->
 			                              		
 		                                 <%	} else { // 로그인 x %> 
-		                                      	<i class="fa fa-heart" onclick="$('#unavailable').modal('show');" ></i>
+		                                      	<i class="fa fa-heart color-gray" onclick="$('#unavailable').modal('show');" ></i>
 		                                 <% } %>
 		                                 
                                               <input type="hidden" name="proCode" value="<%= p.getProCode() %>">
@@ -255,7 +222,7 @@
 	                                  <p><%= p.getPrice() %>원</p>&nbsp;&nbsp;&nbsp;
 	                                  
 	                                  <% if(loginUser != null) {%>
-	                                  <i class="fa fa-heart color-gray"></i>
+	                                  <i class="fa fa-heart color-gray loginHeart"></i>
 	                                  <a class="add_cart" onclick="insertCart('<%= p.getProCode() %>');">+ 장바구니 추가</a>
 	                                  <% }else { %>
 	                                  <i class="fa fa-heart color-gray" onclick="$('#unavailable').modal('show')"></i>
@@ -266,30 +233,6 @@
 	                          </div>
 	                      </div>
 	                    <% } %>
-	                    
-	                    <!------- 장바구니 추가 ajax (o) ------->
-	                    <script>
-	                    	
-	                    	function insertCart(proCode){
-	                    		
-	                    		$.ajax({
-	                    			url:"<%=contextPath%>/insert.ca",
-	                    			data:{ proCode:proCode,
-	                   					   proQty:1},
-	                    			type:"post",
-	                    			success: function(result){
-	                    				// 장바구니 추가 성공 시 성공 완료 modal
-	                    				if(result > 0){
-	    	                				$('#insertCartModal').modal('show');
-	                    				}
-	                    			},error: function(){
-	                    				console.log("장바구니 추가 ajax 통신 실패");
-	                    			}
-	    	                		})
-	                    		
-	                    	}
-	                    	
-	                    </script>
                       	
 		                <!------- 장바구니 이동 확인 Modal ------->
 		                <div class="modal" id="insertCartModal">
@@ -308,9 +251,9 @@
 		                        <button type="button" class="btn btn_2" data-dismiss="modal">취소</button>
 		                      </div>
 		                      
-		                   </div>
-		          		</div>
-		        	</div>
+			                  </div>
+			          	   </div>
+			        	</div>
 		                      
 		               <!------- 장바구니 담기 실패 Modal ------->
 		                <div class="modal" id="unavailable">
@@ -332,45 +275,43 @@
 		                  </div>
 		                </div>
 		             	<!------- 장바구니 Modal 끝 ------->
-                      
-                      
-                      
-                        <!------------ 페이징바 영역 ------------>
-                        <div class="col-lg-12">
-                            <div class="pageination">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-center">
-                                        
-                                        <% if(currentPage != 1) { %>
-                                        <li class="page-item">
-                                            <a class="page-link" href="<%=contextPath%>/list.pro?categoryNo=<%= categoryNo %>&cpage=<%=currentPage-1%>" aria-label="Previous">
-                                                <i class="ti-angle-double-left"></i>
-                                            </a>
-                                        </li>
-                                        <% } %>
-                                        
-                                       	<% for(int i=startPage; i<=endPage; i++){ %>
-                                       	
-                                       		<% if(i == currentPage){ %>
-	                                       	<li class="page-item"><a disabled class="page-link" href="<%=contextPath%>/list.pro?categoryNo=<%= categoryNo %>&cpage=<%= i %>"><%= i %></a></li>
-	                                       	<% }else { %>
-                                       		<li class="page-item"><a class="page-link" href="<%=contextPath%>/list.pro?categoryNo=<%= categoryNo %>&cpage=<%= i %>"><%= i %></a></li>
-	                                       	<% } %>
-	                                       	
-	                                    <% } %>
-	                                    
-	                                    <% if(currentPage != maxPage){ %>
-                                        <li class="page-item">
-                                            <a class="page-link" href="<%= contextPath %>/list.pro?categoryNo=<%= categoryNo %>&cpage=<%= currentPage+1 %>" aria-label="Next">
-                                                <i class="ti-angle-double-right"></i>
-                                            </a>
-                                        </li>
-                                        <% } %>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                        <!-------------------  페이징바 영역 끝 ----------------->
+		             	
+			                <!-- 페이징바 영역 -->
+			                 <div class="col-lg-12">
+			                    <nav class="blog-pagination justify-content-center d-flex">
+			                        <ul class="pagination">
+			                        	<% if(currentPage != 1) {%>
+			                                <li class="page-item">
+			                                    <button onclick="location.href='<%=contextPath%>/list.pro?categoryNo=<%= categoryNo %>&cpage=<%=currentPage-1%>';" class="page-link" aria-label="Previous">
+			                                        <i class="ti-angle-left"></i>
+			                                    </button>
+			                                </li>
+			                            <% } %>
+			                            
+			                            <% for(int p=startPage; p<=endPage; p++) { %>
+								            <% if(p == currentPage){ %>
+			                                    <li class="page-item active">
+			                                        <button class="page-link" disabled><%= p %></button>
+			                                    </li>
+								            <% }else { %>
+			                                    <li class="page-item">
+			                                        <button class="page-link" onclick="location.href='<%=contextPath%>/list.pro?categoryNo=<%= categoryNo %>&cpage=<%= p %>';"><%= p %></button>
+			                                    </li>
+											<% } %>
+										<% } %>
+									
+			                            <% if(currentPage != maxPage) { %>
+			                                <li class="page-item">
+			                                    <button onclick="location.href='<%= contextPath %>/list.pro?categoryNo=<%= categoryNo %>&cpage=<%= currentPage+1 %>';" class="page-link" aria-label="Next">
+			                                        <i class="ti-angle-right"></i>
+			                                    </button>
+			                                </li>
+			                            <% } %>
+			                        </ul>
+			                    </nav>
+			                 </div>
+			               <!-- 페이징바 영역 끝 -->
+                      	
                     </div>
                 </div>
             </div>
@@ -380,21 +321,55 @@
 	<!---------------- 스크립트 시작 --------------->
     <script>
     
+    	// --------------- 카테고리 사이드 바 스타일 변경 ------------------
+	    $(document).ready(function(){
+			$('.cat_product_area .row').removeAttr('align-items');
+		})
+		// -------------------------------------------------------
+    
 
+		// --------------- 카테고리별 상품 검색 -------------------
+    	function searchPro(){
+			location.href = "<%= contextPath %>/list.pro?categoryNo=" + <%= categoryNo %> + "&cpage=1&keyword=" + $("#pNameKeyword").val();                     		
+    
+    	}
+    	// -------------------------------------------------
+    	
+    
+    	// -------------- 장바구니 추가 ajax ---------------
+	    function insertCart(proCode){
+			
+			$.ajax({
+				url:"<%=contextPath%>/insert.ca",
+				data:{ proCode:proCode,
+						   proQty:1},
+				type:"post",
+				success: function(result){
+					// 장바구니 추가 성공 시 성공 완료 modal
+					if(result > 0){
+	    				$('#insertCartModal').modal('show');
+					}
+				},error: function(){
+					console.log("장바구니 추가 ajax 통신 실패");
+				}
+	    		})
+		}
+    	// ----------------------------------------------
+    
+    	
+       	// ---------------- 찜 버튼 -----------------
+        $('.loginHeart').click(function(){
+	        if( $(this).hasClass("color-gray") ){ 
+	         	$(this).removeClass("color-gray").addClass("color-lightgreen");
+	        }else{
+	        	$(this).removeClass("color-lightgreen").addClass("color-gray");
+	        }
+        })
+        // ----------------------------------------
+        
+        
         $(function(){
 
-        	// ---------------- 찜 버튼 -----------------
-            $('.single_product_text>i').click(function(){ 
-                if( $(this).hasClass("color-gray") ){ 
-                 	$(this).removeClass("color-gray").addClass("color-lightgreen");
-                }else{
-                	$(this).removeClass("color-lightgreen").addClass("color-gray");
-                }
-                
-            })
-            // ----------------------------------------
-            
-            
             // ------- 상품 이미지나 상품명, 가격 클릭 시 상품 상세 페이지로 이동 -------
             $(".single_product_item img").click(function(){
             	
@@ -404,9 +379,6 @@
             })
             // ---------------------------------------------------------
             
-            
-            // 상품 정렬
-			
         })
                                             
 
@@ -414,6 +386,8 @@
     
     <!--상품 목록 영역 끝-->
     <!--================상품 카테고리 영역 끝=================-->
+    
+    
     
     <!----- owl carousel 사용 시 필요한 링크와 구문 ----->
 	<script src="<%= contextPath %>/resources/js/owl.carousel.min.js"></script>
