@@ -29,7 +29,6 @@ button {
                     <div class="container productQnaAns">
                         <h3 class="mt-4" style="font-weight:bold;">상품 > 상품 문의 관리</h3>
                         <hr><br>
-						<%=pq%>
                         <div class="container pro-qna-ans-area">
                         <form action="<%=contextPath%>/update.pq" method="post">
                             <table width="60%" style="margin:auto;" id="proQnaAns-tb">
