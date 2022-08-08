@@ -56,13 +56,15 @@ public class Order {
 	}
 	
 
-	public Order(int orderNo, int pointsUsed, int paymentAmount, String delName, String delPhone, String delZoneCode,
+	public Order(int orderNo, int pointsUsed, int paymentAmount, String ordrrName, String ordrrPhone, String delName, String delPhone, String delZoneCode,
 			String delAddress, String delAddrDetail, int delStatus, String proName, Date orderDate, String proImgPath,
 			int price, int quantity) {
 		super();
 		this.orderNo = orderNo;
 		this.pointsUsed = pointsUsed;
 		this.paymentAmount = paymentAmount;
+		this.ordrrName = ordrrName;
+		this.ordrrPhone = ordrrPhone;
 		this.delName = delName;
 		this.delPhone = delPhone;
 		this.delZoneCode = delZoneCode;

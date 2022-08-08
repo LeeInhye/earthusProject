@@ -117,6 +117,8 @@
 			 , DEL_ADDR_DETAIL
 			 , POINTS_USED
 			 , PAYMENT_AMOUNT
+			 , ORDRR_NAME
+			 , ORDRR_PHONE
 		  FROM "ORDER"
 		LEFT JOIN PAY_CARD USING (ORDER_NO)
 		LEFT JOIN PAY_CASH USING (ORDER_NO)
@@ -161,13 +163,14 @@
 	<entry key="updateDelNo">
 		UPDATE "ORDER"
 		   SET DEL_NO = ?
+		     , DEL_STATUS = 2
 		 WHERE ORDER_NO = ?
 	</entry> 
 	
-	<entry key="updateDelsta">
+	<entry key="updateDelFi">
 		UPDATE "ORDER"
-		   SET DEL_STATUS = 2
-		 WHERE DEL_NO IS NOT NULL
+		   SET DEL_STATUS = 3
+		 WHERE ORDER_NO = ?
 	</entry>
 
 	<entry key="selectCanDetail">

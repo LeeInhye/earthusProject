@@ -46,72 +46,87 @@
                         &nbsp;&nbsp;&nbsp;<input type="text" id="text-ih"><button id="s-icon-ih"><i class="bi bi-search"></i></button>
                     </div>
                     <div class="list3-ih" id="ex">
-                    	<form action="adUpdateDel.or">
-	                        <table>
-	                            <tr>
-	                                <th>No.</th>
-	                                <th>주문 번호</th>
-	                                <th>결제일</th>
-	                                <th>결제ID</th>
-	                                <th>주문 처리 상태</th>
-	                                <th width="70">운송장</th>
-	                            </tr>
-	                            <%for(Order or : list) { %>
-	                            <tr>
-		                            <input type="hidden" name="orderNo" value="<%=or.getOrderNo()%>">
-	                                <td><%=or.getOrderNo() %></td>
-	                                <td><%=or.getOrderNo() %></td>
-	                                <td><%=or.getOrderDate() %></td>
-	                                <td><%=or.getUserId() %></td>
-	                                <%if(or.getDelStatus() == 1) {%>
-	                                	 <td>상품준비중</td>
-	                                <%}else if(or.getDelStatus() == 2) {%>
-	                                	 <td>배송중</td>
-	                                <%}else if(or.getDelStatus() == 3) {%>
-	                                	 <td>배송완료</td>
-	                                <%}else if(or.getDelStatus() == 4) {%>
-	                                	 <td>주문취소</td>
-	                                <%}else if(or.getDelStatus() == 5) {%>
-	                                	 <td>교환</td>
-	                                <%}else {%>
-	                                	 <td>반품</td>
-	                                <%} %>
-	                                
-	                                <td>
-	                                	<%if(or.getDelStatus() == 1) {%>
-	                                    <button  type="button" id="wb-btn-ih" data-bs-toggle="modal" data-bs-target="#wbModal-ih">발급하기</button>
-	                                    <%}else if(or.getDelStatus() == 2) {%>
-	                                    <button  id="df-btn-ih">배송완료</button>
-	                                    <%}else if(or.getDelStatus() == 4){%>
-	                                    	<button id="dis-btn-ih" style="height:100%;" disabled>주문취소</button>
-	                                    <%}else { %>
-	                                    <button id="dis-btn-ih" style="height:100%;" disabled>배송완료</button>
-	                                    <%} %>
-	                                </td>
-	                            </tr>
-	                            <%} %>
-	                            
-	                        </table>
-		                    <div class="modal" id="wbModal-ih">
-		                        <div class="modal-dialog">
-		                            <div class="modal-content">
-		                                
-		                                <div class="modal-body" align="center">
-	                                        <h5 class="modal-title"><b>운송장 번호 입력</b></h5> <br>
-	                                        <input type="text" style="width:300px;" name="delNo">
-	                                        <br><br>
-	                                        <button type="submit" id="mo-btn-ih" onclick="<%=contextPath%>/updateSta.or">확인</button>
-		                                    
-		                                </div>
-		                            </div>
-		                        </div>
-		                    </div>
-                    	</form>
+                        <table>
+                            <tr>
+                                <th width="50" height="50">No.</th>
+                                <th>주문 번호</th>
+                                <th>결제일</th>
+                                <th>결제ID</th>
+                                <th>주문 처리 상태</th>
+                                <th width="70">운송장</th>
+                            </tr>
+                            <%for(Order or : list) { %>
+	                        <input type="hidden" name="orderNo" value="<%=or.getOrderNo()%>">
+                            <tr id="btn-area">
+                                <td width="50" height="50"><%=or.getOrderNo() %></td>
+                                <td><%=or.getOrderNo() %></td>
+                                <td><%=or.getOrderDate() %></td>
+                                <td><%=or.getUserId() %></td>
+                                <%if(or.getDelStatus() == 1) {%>
+                                	 <td>상품준비중</td>
+                                <%}else if(or.getDelStatus() == 2) {%>
+                                	 <td>배송중</td>
+                                <%}else if(or.getDelStatus() == 3) {%>
+                                	 <td>배송완료</td>
+                                <%}else if(or.getDelStatus() == 4) {%>
+                                	 <td>주문취소</td>
+                                <%}else if(or.getDelStatus() == 5) {%>
+                                	 <td>교환</td>
+                                <%}else {%>
+                                	 <td>반품</td>
+                                <%} %>
+                                
+                                <td>
+                                	<%if(or.getDelStatus() == 1) {%>
+                                    <button id="wb-btn-ih" data-bs-toggle="modal" data-bs-target="#wbModal-ih">발급하기</button>
+                                    <%}else if(or.getDelStatus() == 2) {%>
+                                    <button id="df-btn-ih" data-bs-toggle="modal" data-bs-target="#fi-modal">배송완료</button>
+                                    <%}else if(or.getDelStatus() == 4){%>
+                                    	<button id="dis-btn-ih" style="height:100%;" disabled>주문취소</button>
+                                    <%}else { %>
+                                    	<button id="dis-btn-ih" style="height:100%;" disabled>배송완료</button>
+                                    <%} %>
+                                </td>
+                            </tr>
+                            <%} %>
+                            
+                        </table>
+	                    <div class="modal" id="wbModal-ih">
+	                        <div class="modal-dialog">
+	                            <div class="modal-content">
+	                                <div class="modal-body" align="center">
+                                        <h5 class="modal-title"><b>운송장 번호 입력</b></h5> <br>
+                                        <input type="number" style="width:300px;" name="delNo">
+                                        <br><br>
+
+                                        <button type="button" id="mo-btn1-ih">확인</button>
+	                                    
+	                                </div>
+	                            	
+	                            </div>
+	                        </div>
+	                    </div>
+	                    
+	                    <div class="modal" id="fi-modal">
+	                        <div class="modal-dialog">
+	                            <div class="modal-content">
+	                                <div class="modal-body" align="center">
+	                                	<br><br>
+                                        <h5 class="modal-title">배송완료 처리되었습니다.</h5> <br>
+                                        <br>
+                                        <button type="button" id="mo-btn2-ih">확인</button>
+	                                    
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+                    	
                     </div>
+                    <br><br><br><br>
                      <!-- 페이징바 영역 -->
 			       <div class="paging-area" align="center">
 			        	<% if(currentPage != 1) { %>
-			            	<button onclick="location.href='<%=contextPath%>/adDel.or.?cpage=<%= pi.getCurrentPage()-1 %>';" class="btn btn_black">&lt;</button>
+			            	<button onclick="location.href='<%=contextPath%>/adDel.or?cpage=<%= pi.getCurrentPage()-1 %>';" class="btn btn_black">&lt;</button>
 						<% } %>
 						
 						<% for(int p=startPage; p<=endPage; p++) { %>
@@ -171,9 +186,39 @@
             
         })
 
-        function updateDelSta(){
+        $("#mo-btn1-ih").on("click", function(){
         	
-        }
+        	$.ajax({
+        		url:"<%=contextPath%>/adUpdateDel.or",
+        		data:{orderNo:$("input[name=orderNo]").val(),
+        			 delNo:$("input[name=delNo]").val()},
+        		success:function(result){
+        			var value = "";
+        			
+        			value = '<button id="df-btn-ih" data-bs-toggle="modal" data-bs-target="#fi-modal">배송완료</button>';
+        			
+        			$("#btn-area").html(value);
+        			location.reload();
+        		}
+        	})
+        })
+        
+        $("#mo-btn2-ih").on("click", function(){
+        	$.ajax({
+        		url:"<%=contextPath%>/adDelFinish.or",
+        		data:{orderNo:$("input[name=orderNo]").val()},
+        		success:function(result){
+        			
+        			var value = "";
+        			
+        			value = '<button id="dis-btn-ih" style="height:100%;" disabled>배송완료</button>';
+        			
+        			$("#btn-area").html(value);
+        			
+        			location.reload();
+        		}
+        	})
+        })
         
 
     </script>

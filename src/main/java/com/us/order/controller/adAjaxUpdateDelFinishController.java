@@ -8,19 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.us.order.model.service.OrderService;
-import com.us.order.model.vo.Order;
 
 /**
- * Servlet implementation class DelStatusUpdateController
+ * Servlet implementation class adAjaxUpdateDelFinishController
  */
-@WebServlet("/dsUpdate.or")
-public class UpdateDelStatusController extends HttpServlet {
+@WebServlet("/adDelFinish.or")
+public class adAjaxUpdateDelFinishController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateDelStatusController() {
+    public adAjaxUpdateDelFinishController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,14 +28,11 @@ public class UpdateDelStatusController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		int orderNo = Integer.parseInt(request.getParameter("orderNo"));
 		
-		int select = Integer.parseInt(request.getParameter("select"));
+		int result = new OrderService().updateDelFi(orderNo);
 		
-		int result = new OrderService().updateExrtr(orderNo, select);
-		
-		response.sendRedirect(request.getContextPath() + "/CncltExrtr.or?cpage=1");
+		response.getWriter().print(result);
 	}
 
 	/**

@@ -113,18 +113,7 @@ public class OrderService {
 	}
 	
 	// 관_운송장 추가시 상태변경
-	public int updateDelSta() {
-		Connection conn = getConnection();
-		int result = new OrderDao().updateDelSta(conn);
-		
-		if(result>0) {
-			commit(conn);
-		}else {
-			rollback(conn);
-		}
-		close(conn);
-		return result;
-	}
+	
 	
 	// 취소 상세내역 조회
 	public ArrayList<Order> selectCanDetail(int orderNo){
@@ -156,5 +145,19 @@ public class OrderService {
 		ArrayList<Order> list = new OrderDao().selectCncltList(pi, conn);
 		close(conn);
 		return list;
+	}
+	
+	// 관_배송완료처리
+	public int updateDelFi(int orderNo) {
+		Connection conn = getConnection();
+		int result = new OrderDao().updateDelFi(conn, orderNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 }

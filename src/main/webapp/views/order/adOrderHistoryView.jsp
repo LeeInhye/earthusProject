@@ -49,7 +49,7 @@
                     <div class="list3-ih">
                         <table>
                             <tr>
-                                <th>No.</th>
+                                <th width="50" height="50">No.</th>
                                 <th>주문 번호</th>
                                 <th>결제일</th>
                                 <th>결제ID</th>
@@ -57,8 +57,8 @@
                             </tr>
                         	<%for(Order or : list){ %>
                             <tr>
-                                <td><%=or.getOrderNo() %></td>
-                                <td><%=or.getOrderNo() %></td>
+                                <td width="50" height="50"><%=or.getOrderNo() %></td>
+                                <td><a href="<%=contextPath %>/historyDetail.or?oNo=<%=or.getOrderNo()%>" style="color:black; text-decoration:none;"><%=or.getOrderNo() %></a></td>
                                 <td><%=or.getOrderDate() %></td>
                                 <td><%=or.getUserId() %></td>
                                 <%if(or.getDelStatus() == 1) {%>
@@ -78,6 +78,7 @@
                             <%} %>
                         </table>
                     </div>
+                    <br><br><br><br>
                     <!-- 페이징바 영역 -->
 			       <div class="paging-area" align="center">
 			        	<% if(currentPage != 1) { %>

@@ -223,6 +223,8 @@ public class OrderDao {
 				o = new Order(rset.getInt("order_no"),
 							  rset.getInt("points_used"),
 				 		      rset.getInt("payment_amount"),
+				 		      rset.getString("ordrr_name"),
+							  rset.getString("ordrr_phone"),
 				 		      rset.getString("del_name"),
 				 		      rset.getString("del_phone"),
 				 		      rset.getString("del_zonecode"),
@@ -348,24 +350,7 @@ public class OrderDao {
 		return result;
 	}
 	
-	// 관_운송장 추가시 상태변경
-	public int updateDelSta(Connection conn) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("updateDelSta");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		return result;
-	}
+	
 	
 	// 취소 상세내역 조회
 	public ArrayList<Order> selectCanDetail(Connection conn, int orderNo){
@@ -534,6 +519,25 @@ public class OrderDao {
 			close(pstmt);
 		}
 		return list;
+	}
+	
+	public int updateDelFi(Connection conn, int orderNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateDelFi");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, orderNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 	
 }

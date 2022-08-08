@@ -120,20 +120,19 @@ SELECT COUNT(PRO_QNA_NO) "listCount"
 </entry>
 
 <entry key="selectSortProQnaList">
-	SELECT *
-	  FROM (
-	    SELECT ROWNUM RNUM, A.*
-	      FROM (
-	        SELECT 
-	               PRO_QNA_NO
-	             , PRO_NAME
-	             , PRO_QNA_TITLE
-	             , PRO_QNA_WRITER_NAME
-	             , PRO_Q_ENROLL_DATE
-	             , PRO_A_ENROLL_DATE
-	          FROM PRO_QNA
-	          JOIN PRODUCT USING(PRO_CODE) 
-	          
+   SELECT *
+     FROM (
+       SELECT ROWNUM RNUM, A.*
+         FROM (
+           SELECT 
+                  PRO_QNA_NO
+                , PRO_NAME
+                , PRO_QNA_TITLE
+                , PRO_QNA_WRITER_NAME
+                , TO_CHAR(PRO_Q_ENROLL_DATE, 'YYYY-MM-DD') "PRO_Q_ENROLL_DATE"
+                , PRO_A_ENROLL_DATE
+             FROM PRO_QNA
+             JOIN PRODUCT USING(PRO_CODE) 
 </entry>
 
 <entry key="selectProQna">
