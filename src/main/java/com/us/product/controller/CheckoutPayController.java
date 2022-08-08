@@ -60,7 +60,7 @@ public class CheckoutPayController extends HttpServlet {
 					request.getParameter("detailAddr")
 				);
 		
-		if( request.getParameter("payment") == "CARD" ) {
+		if( request.getParameter("payment").equals( "CARD") ) {
 			// 카드 결제인 경우 : ORDER, ORDER_PRODUCT, PAY_CARD 테이블에 DML문 처리
 			result = new CheckoutService().processCardPayment(o, proQty, proCode, cardUid);
 			
