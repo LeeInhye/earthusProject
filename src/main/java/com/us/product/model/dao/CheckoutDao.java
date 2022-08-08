@@ -79,6 +79,28 @@ public class CheckoutDao {
 	}
 	
 	
+	
+	public int insertPayCard(Connection conn, String cardUid) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertPayCard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, cardUid);
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+			
+		return result;
+	}
+	
+	
+	
 	public int insertPayCash(Connection conn) {
 		int result = 0;
 		PreparedStatement pstmt = null;

@@ -34,7 +34,7 @@ public class CheckoutService {
 		result2 = dao.insertOrderProduct(conn, proCode, proQty);
 		
 		// 3) PAY_CASH 테이블에 
-		result3 = dao.insertPayCash(conn);
+		result3 = dao.insertPayCard(conn, cardUid);
 		
 		if(result1*result2*result3 > 0) {
 			commit(conn);

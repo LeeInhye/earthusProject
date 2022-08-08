@@ -46,7 +46,7 @@ public class CheckoutListService {
 		result2 = new CheckoutListDao().insertOrderProductList(conn, orderProCode, proQty);
 		
 		// 3) PAY_CARD 테이블에 INSERT문 실행
-		result3 = new CheckoutDao().insertPayCash(conn);
+		result3 = new CheckoutDao().insertPayCard(conn, cardUid);
 		
 		// 4) CART 테이블에 DELETE문 실행
 		result4 = new CheckoutListDao().deleteCart(conn, o, orderProCode);
