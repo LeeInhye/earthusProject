@@ -145,11 +145,12 @@
 				    			url:"<%=contextPath%>/givePoint.ch",
 				    			data:{no:challNo, cmntNo:cmntNo, userName:userName, amount:amount},
 				    			success:function(result){ // 성공시 => 버튼 지급완료로 변경
-				    			
+				    				
 				    				// 모든 버튼에 적용됨 ....
-				    				$(".btn-dark").attr("value", "지급완료");
-				    				$(".btn-dark").attr("style", "background:gray;");
-				    				$(".btn-dark").attr("disabled", true);
+				    				//$(".btn-dark").attr("value", "지급완료");
+				    				//$(".btn-dark").attr("style", "background:gray;");
+				    				//$(".btn-dark").attr("disabled", true);
+				    				location.reload();
 				    				
 				    			}
 							})
@@ -323,9 +324,15 @@
 			        							   + "<td><label>" + list[i].cmntStatus + "</label></td>"
 			        							   + "<td>" + list[i].cmntContent + "</td>"
 			        							   + "<td>" + list[i].cmntWriter + "</td>"
-			        							   + "<td>" + list[i].cmntEnrollDate + "</td>"
-			        							   + "<td>" + "<button type='button' class='btn btn-dark' id='btn_point'>지급하기</button></td>"
-			        							   + "</tr>";
+			        							   + "<td>" + list[i].cmntEnrollDate + "</td>";
+			        							   
+			        						value += "<td>";
+		        								if( list[i].cmntStatus == "미지급" ) {
+		        									value += "<button type='button' class='btn btn-dark' id='btn_point'>지급하기</button>";
+		        								} else {
+		        									value += "<button type='button' class='btn btn-dark' id='btn_point_done' disabled>지급완료</button>";
+		        								}
+			        						value += "</td>"+ "</tr>";
 			        					}
 			        					
 			            				// 페이징바
