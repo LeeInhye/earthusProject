@@ -155,5 +155,12 @@ SELECT COUNT(PRO_QNA_NO) "listCount"
      JOIN PRODUCT USING(PRO_CODE)
     WHERE PRO_QNA_NO = ?
 </entry>
+<entry key="updateProQna">
+	UPDATE PRO_QNA
+	   SET PRO_A_ENROLL_DATE = SYSDATE
+	       , PRO_A_WRITER = ?
+	     , PRO_A_CONTENT = ?
+	 WHERE PRO_QNA_NO = ?
+</entry>
 </properties>
 	        
