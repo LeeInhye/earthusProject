@@ -85,156 +85,155 @@
 		<hr>
 	</section>
 	
-	  <!--================Cart Area =================-->
+	<!--================Cart Area =================-->
 	<section class="cart_area padding_top">
-		  <div class="cart_inner">
+		<div class="cart_inner">
 			<div class="table-responsive">
-			  <table class="table" style="width:70%" align="center">
-				<thead>
-				  <tr>
-					<th scope="col">주문번호 / 주문일자</th>
-					<th scope="col">상품정보</th>
-					<th scope="col">주문금액(수량)</th>
-					<th scope="col">주문처리상태</th>
-					<th scope="col">취소/교환/반품</th>
-				  </tr>
-				</thead>
-				<tbody>
-					<%for(Order or : celist){ %>
-					  <tr class="tt" myattr="<%=or.getOrderNo() %>">
-						<td class="on">
-							
-							<h5><%=or.getOrderNo() %></h5>
-							<p style="font-size:small"><%=or.getOrderDate() %></p>
-						</td>
-						<td>
-						  <div class="media">
-							<div class="d-flex">
-							 <img width="250" height="250" src="<%=contextPath %>/<%=or.getProImgPath() %>"/>
-							</div>
-							<div class="media-body">
-							  <h5><%=or.getProName() %></h5>
-							</div>
-						  </div>
-						</td>
-						<td>
-						  <h5><%=or.getPrice() %></h5><br>
-						  <h5><%=or.getQuantity() %>개</h5>
-						</td>
-						<td>
-							<%if(or.getDelStatus() == 1) {%>
-							  <h5>상품준비중</h5>
-							<%}else if(or.getDelStatus() == 2) {%>
-							  <h5>배송중</h5>
-							<%}else if(or.getDelStatus() == 3) {%>
-							  <h5>배송완료</h5>
-							  <%}else if(or.getDelStatus() == 4) {%>
-							  <h5>주문취소</h5>
-							  <%}else if(or.getDelStatus() == 5) {%>
-							  <h5>교환</h5>
-							<%}else {%>
-							  <h5>반품</h5>
-							<%} %>
-						</td>
-						<td>
-						  <div class="p-btn">
-						  <%if((or.getDelStatus() == 1)){ %>
-						  	<button id="cancel<%=or.getProCode()%>" class="cancel" type="button" data-toggle="modal" data-target="#cancelModal">취소</button> <br>
-						  	<button id="exchange" class="exchange" type="button" data-toggle="modal" data-target="#impoExrtrModal">교환/반품</button> <br>
-						  	<button id="detail" type="button" data-toggle="modal" data-target="#nopelModal">내역조회</button>
-						  <%}else if((or.getDelStatus() == 2)){ %>
-						  	<button id="cancel<%=or.getProCode()%>" class="cancel" type="button" data-toggle="modal" data-target="#impoCancelModal1">취소</button> <br>
-						  	<button id="exchange" class="exchange" onclick="location.href='<%=contextPath%>/request.or?exNo=<%=or.getOrderNo()%>&pCo=<%=or.getProCode()%>';">교환/반품</button> <br>
-						  	<button id="detail" type="button" data-toggle="modal" data-target="#nopelModal">내역조회</button>
-						  <%}else if((or.getDelStatus() == 3)){ %>
-						  	<button id="cancel<%=or.getProCode()%>" class="cancel" type="button" data-toggle="modal" data-target="#impoCancelModal2">취소</button> <br>
-						  	<button id="exchange" class="exchange" onclick="location.href='<%=contextPath%>/request.or?exNo=<%=or.getOrderNo()%>&pCo=<%=or.getProCode()%>';">교환/반품</button> <br>
-						  	<button id="detail" type="button" data-toggle="modal" data-target="#nopelModal">내역조회</button>
-						  <%}else if((or.getDelStatus() == 4) || (or.getDelStatus() == 5) || (or.getDelStatus() == 6)) {%>
-							<button id="cancel<%=or.getProCode()%>" class="cancel dis-btn" type="button" data-toggle="modal" data-target="#cancelModal" disabled>취소</button> <br>
-							<button id="exchange" class="exchange dis-btn" onclick="location.href='<%=contextPath%>/request.or?exNo=<%=or.getOrderNo()%>&pCo=<%=or.getProCode()%>';" disabled>교환/반품</button> <br>
-							<%if(or.getDelStatus() == 4) {%>
-							  <button id="detail" onclick="location.href='<%=contextPath%>/canDetail.or?cNo=<%=or.getOrderNo() %>'">내역조회</button>
-							<%}else{ %>
-							  <button id="detail" onclick="location.href='<%=contextPath%>/exrtrDetail.or?erNo=<%=or.getOrderNo() %>&pNo=<%=or.getProCode()%>'">내역조회</button>
-							<%} %>
-						  <%} %>
-						  </div>
-						</td>
-					  </tr>
-					<%} %>
-				</tbody>
-			  </table>
+				<table class="table" style="width:70%" align="center">
+					<thead>
+						<tr>
+							<th scope="col">주문번호 / 주문일자</th>
+							<th scope="col">상품정보</th>
+							<th scope="col">주문금액(수량)</th>
+							<th scope="col">주문처리상태</th>
+							<th scope="col">취소/교환/반품</th>
+						</tr>
+					</thead>
+					<tbody>
+						<%for(Order or : celist){ %>
+							<tr class="tt" myattr="<%=or.getOrderNo() %>">
+								<td class="on">
+									<h5><%=or.getOrderNo() %></h5>
+									<p style="font-size:small"><%=or.getOrderDate() %></p>
+								</td>
+								<td>
+									<div class="media">
+										<div class="d-flex">
+											<img width="250" height="250" src="<%=contextPath %>/<%=or.getProImgPath() %>"/>
+										</div>
+										<div class="media-body">
+											<h5><%=or.getProName() %></h5>
+										</div>
+									</div>
+								</td>
+								<td>
+									<h5><%=or.getPrice() %></h5><br>
+									<h5><%=or.getQuantity() %>개</h5>
+								</td>
+								<td>
+									<%if(or.getDelStatus() == 1) {%>
+										<h5>상품준비중</h5>
+									<%}else if(or.getDelStatus() == 2) {%>
+										<h5>배송중</h5>
+									<%}else if(or.getDelStatus() == 3) {%>
+										<h5>배송완료</h5>
+									<%}else if(or.getDelStatus() == 4) {%>
+										<h5>주문취소</h5>
+									<%}else if(or.getDelStatus() == 5) {%>
+										<h5>교환</h5>
+									<%}else {%>
+										<h5>반품</h5>
+									<%} %>
+								</td>
+								<td>
+									<div class="p-btn">
+										<%if((or.getDelStatus() == 1)){ %>
+											<button id="cancel<%=or.getProCode()%>" class="cancel" type="button" data-toggle="modal" data-target="#cancelModal">취소</button> <br>
+											<button id="exchange" class="exchange" type="button" data-toggle="modal" data-target="#impoExrtrModal">교환/반품</button> <br>
+											<button id="detail" type="button" data-toggle="modal" data-target="#nopelModal">내역조회</button>
+										<%}else if((or.getDelStatus() == 2)){ %>
+											<button id="cancel<%=or.getProCode()%>" class="cancel" type="button" data-toggle="modal" data-target="#impoCancelModal1">취소</button> <br>
+											<button id="exchange" class="exchange" onclick="location.href='<%=contextPath%>/request.or?exNo=<%=or.getOrderNo()%>&pCo=<%=or.getProCode()%>';">교환/반품</button> <br>
+											<button id="detail" type="button" data-toggle="modal" data-target="#nopelModal">내역조회</button>
+										<%}else if((or.getDelStatus() == 3)){ %>
+											<button id="cancel<%=or.getProCode()%>" class="cancel" type="button" data-toggle="modal" data-target="#impoCancelModal2">취소</button> <br>
+											<button id="exchange" class="exchange" onclick="location.href='<%=contextPath%>/request.or?exNo=<%=or.getOrderNo()%>&pCo=<%=or.getProCode()%>';">교환/반품</button> <br>
+											<button id="detail" type="button" data-toggle="modal" data-target="#nopelModal">내역조회</button>
+										<%}else if((or.getDelStatus() == 4) || (or.getDelStatus() == 5) || (or.getDelStatus() == 6)) {%>
+										<button id="cancel<%=or.getProCode()%>" class="cancel dis-btn" type="button" data-toggle="modal" data-target="#cancelModal" disabled>취소</button> <br>
+										<button id="exchange" class="exchange dis-btn" onclick="location.href='<%=contextPath%>/request.or?exNo=<%=or.getOrderNo()%>&pCo=<%=or.getProCode()%>';" disabled>교환/반품</button> <br>
+											<%if(or.getDelStatus() == 4) {%>
+												<button id="detail" onclick="location.href='<%=contextPath%>/canDetail.or?cNo=<%=or.getOrderNo() %>'">내역조회</button>
+											<%}else{ %>
+												<button id="detail" onclick="location.href='<%=contextPath%>/exrtrDetail.or?erNo=<%=or.getOrderNo() %>&pNo=<%=or.getProCode()%>'">내역조회</button>
+											<%} %>
+										<%} %>
+									</div>
+								</td>
+							</tr>
+						<%} %>
+					</tbody>
+				</table>
 			</div>
-		  </div>
+		</div>
 	</section>
 	
 	<div class="modal" id="impoCancelModal1">
-		  <div class="modal-dialog">
-		    <div class="modal-content">
-		      <div class="modal-body" align="center">
-		        	<br><br>
-		        	<span style="font-size:large;">배송이 시작되었습니다.<br>교환/반품만 가능합니다.</span> <br><br><br>
-		        	<input type="hidden" value="" id="cancelOrNo">
-		        	<button type="button" class="btn" id="y-btn" data-dismiss="modal">확인</button>
-		        	
-		      </div>
-		    </div>
-		  </div>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body" align="center">
+				  	<br><br>
+				  	<span style="font-size:large;">배송이 시작되었습니다.<br>교환/반품만 가능합니다.</span> <br><br><br>
+				  	<input type="hidden" value="" id="cancelOrNo">
+				  	<button type="button" class="btn" id="y-btn" data-dismiss="modal">확인</button>
+				  	
+				</div>
+			</div>
+		</div>
 	</div>
 	
 	<div class="modal" id="impoCancelModal2">
-		  <div class="modal-dialog">
-		    <div class="modal-content">
-		      <div class="modal-body" align="center">
-		        	<br><br>
-		        	<span style="font-size:large;">배송이 완료되었습니다.<br>교환/반품만 가능합니다.</span> <br><br><br>
-		        	<input type="hidden" value="" id="cancelOrNo">
-		        	<button type="button" class="btn" id="y-btn" data-dismiss="modal">확인</button>
-		        	
-		      </div>
-		    </div>
-		  </div>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body" align="center">
+				  	<br><br>
+				  	<span style="font-size:large;">배송이 완료되었습니다.<br>교환/반품만 가능합니다.</span> <br><br><br>
+				  	<input type="hidden" value="" id="cancelOrNo">
+				  	<button type="button" class="btn" id="y-btn" data-dismiss="modal">확인</button>
+				  	
+				</div>
+			</div>
+		</div>
 	</div>
 	
 	<div class="modal" id="impoExrtrModal">
-		  <div class="modal-dialog">
-		    <div class="modal-content">
-		      <div class="modal-body" align="center">
-		        	<br><br>
-		        	<span style="font-size:large;">배송완료 후 신청 가능합니다.</span> <br><br><br>
-		        	<button type="button" class="btn" id="y-btn" data-dismiss="modal">확인</button>
-		        	
-		      </div>
-		    </div>
-		  </div>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body" align="center">
+				  	<br><br>
+				  	<span style="font-size:large;">배송완료 후 신청 가능합니다.</span> <br><br><br>
+				  	<button type="button" class="btn" id="y-btn" data-dismiss="modal">확인</button>
+				  	
+				</div>
+			</div>
+		</div>
 	</div>
 	
 	<div class="modal" id="cancelModal">
-		  <div class="modal-dialog">
-		    <div class="modal-content">
-		      <div class="modal-body" align="center">
-		        	<br><br>
-		        	<span style="font-size:large;">정말 취소하시겠습니까?</span> <br><br><br>
-		        	<button type="button" class="btn" id="y-btn" name="can" value="4" onclick="goCancel(4);">확인</button> &nbsp;&nbsp;
-		        	<button type="button" class="btn" id="n-btn" data-dismiss="modal">취소</button>
-		        	
-		      </div>
-		    </div>
-		  </div>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body" align="center">
+				  	<br><br>
+				  	<span style="font-size:large;">정말 취소하시겠습니까?</span> <br><br><br>
+				  	<button type="button" class="btn" id="y-btn" name="can" value="4" onclick="goCancel(4);">확인</button> &nbsp;&nbsp;
+				  	<button type="button" class="btn" id="n-btn" data-dismiss="modal">취소</button>
+				  	
+				</div>
+			</div>
+		</div>
 	</div>
 	
 	<div class="modal" id="nopeModal">
-		  <div class="modal-dialog">
-		    <div class="modal-content">
-		      <div class="modal-body" align="center">
-		        	<br><br>
-		        	<span style="font-size:large;">취소/교환/반품 내역만 조회 가능합니다.</span> <br><br><br>
-		        	<button type="button" class="btn" id="y-btn" data-dismiss="modal">확인</button>
-		        	
-		      </div>
-		    </div>
-		  </div>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body" align="center">
+				  	<br><br>
+				  	<span style="font-size:large;">취소/교환/반품 내역만 조회 가능합니다.</span> <br><br><br>
+				  	<button type="button" class="btn" id="y-btn" data-dismiss="modal">확인</button>
+				  	
+				</div>
+			</div>
+		</div>
 	</div>
 	
 	<!-- 페이징바 영역 -->
@@ -276,21 +275,21 @@
 			location.href= '<%=contextPath%>/cancel.or?orderNo=' + $('#cancelOrNo').val() + '&can=' + num;
 		}
 		
-		  $(function(){
-			  $(".cancel").click(function(){
-				  //$("#cancelOrNo").val($(this).parents("tr").siblings().eq(0).children(".on").children("h5").text());
-				  $("#cancelOrNo").val($(this).parents(".tt").attr("myattr"));
-			  })
-		  })
-		  
-			$(".on").each(function() {
-			  var rows = $(".on:contains('" + $(this).text() + "')");
-			  if (rows.length > 1) {
-			    rows.eq(0).attr("rowspan", rows.length);
-			    rows.not(":eq(0)").remove();
-			  }
-			});
-		
+		$(function(){
+			$(".cancel").click(function(){
+				$("#cancelOrNo").val($(this).parents(".tt").attr("myattr"));
+			})
+		})
+		 
+		$(".on").each(function() {
+			var rows = $(".on:contains('" + $(this).text() + "')");
+			
+			if (rows.length > 1) {
+				rows.eq(0).attr("rowspan", rows.length);
+				rows.not(":eq(0)").remove();
+			}
+		});
+				
 
 	</script>
 	

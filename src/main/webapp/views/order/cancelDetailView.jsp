@@ -104,185 +104,186 @@
         <button type="button" id="mybtn" onclick="location.href='<%=contextPath%>/myPage.mp'">마이페이지&gt;</button>
     
         <hr>
-      </section>
+	</section>
     
-      <section class="o-info">
-      </section>
+	<section class="o-info">
+    </section>
     
-      <section class="cart_area">
-          <div class="cart_inner">
-            <div class="table-responsive">
-              <table class="table" style="width:70%" align="center">
-                <thead>
-                  <tr>
-                    <th scope="col">주문번호 / 주문일자</th>
-                    <th scope="col">상품정보</th>
-                    <th scope="col">주문금액(수량)</th>
-                    <th scope="col">주문처리상태</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <%for(Order or : list){ %>
-                  <tr>
-                    <td rowspan="3" class="on">
-                      <h5><%=or.getOrderNo() %></h5>
-                      <p style="font-size:small"><%=or.getOrderDate() %></p>
-                    </td>
-                    <td>
-                      <div class="media">
-                        <div class="d-flex">
-                          <img src="">
-                        </div>
-                        <div class="media-body">
-                          <h5><%=or.getProName() %></h5>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <h5><%=or.getPrice() %></h5>
-                      <h5><%=or.getQuantity() %>개</h5>
-                    </td>
-                    <td>
-                      <h5>주문취소</h5>
-                    </td>
-                  </tr>
-                  <%} %>
-                </tbody>
-              </table>
-              
-            </div>
-          </div>
-      </section>
+	<section class="cart_area">
+		<div class="cart_inner">
+			<div class="table-responsive">
+				<table class="table" style="width:70%" align="center">
+					<thead>
+						<tr>
+							<th scope="col">주문번호 / 주문일자</th>
+							<th scope="col">상품정보</th>
+							<th scope="col">주문금액(수량)</th>
+							<th scope="col">주문처리상태</th>
+						</tr>
+					</thead>
+					<tbody>
+						<%for(Order or : list){ %>
+							<tr>
+								<td rowspan="3" class="on">
+									<h5><%=or.getOrderNo() %></h5>
+									<p style="font-size:small"><%=or.getOrderDate() %></p>
+								</td>
+								<td>
+									<div class="media">
+										<div class="d-flex">
+											<img src="">
+										</div>
+										<div class="media-body">
+											<h5><%=or.getProName() %></h5>
+										</div>
+									</div>
+								</td>
+								<td>
+									<h5><%=or.getPrice() %></h5>
+									<h5><%=or.getQuantity() %>개</h5>
+								</td>
+								<td>
+									<h5>주문취소</h5>
+								</td>
+							</tr>
+						<%} %>
+					</tbody>
+				</table>
+			  
+			</div>
+		</div>
+	</section>
     
-      <div class="info">
-        <div id="or-info">
-          <h4>주문 정보</h4>
-          <hr>
-          <table border="1">
-            <tr>
-              <th>주문번호</th>
-              <td><%=list.get(0).getOrderNo() %></td>
-            </tr>
-            <tr>
-              <th>결제일</th>
-              <td><%=list.get(0).getOrderDate() %></td>
-            </tr>
-            <tr>
-              <th>주문처리상태</th>
-              <td>취소</td>
-            </tr>
-            <tr>
-              <th>주문자</th>
-              <td><%=list.get(0).getOrdrrName() %></td>
-            </tr>
-            <tr>
-              <th>주문자 휴대폰 번호</th>
-              <td><%=list.get(0).getOrdrrPhone() %></td>
-            </tr>
-            <tr>
-              <th>주문자 주소</th>
-              <%if(list.get(0).getZoneCode() != null){ %>
-              <td>(<%=list.get(0).getZoneCode() %>)<%=list.get(0).getAddress() %> <%=list.get(0).getAddrDetail() %></td>
-              <%}else{ %>
-              <td>(<%=list.get(0).getDelZoneCode() %>)<%=list.get(0).getDelAddress() %> <%=list.get(0).getDelAddrDetail() %></td>
-              <%} %>
-            </tr>
-          </table>
-        </div>
+	<div class="info">
+		<div id="or-info">
+			<h4>주문 정보</h4>
+			<hr>
+			<table border="1">
+				<tr>
+					<th>주문번호</th>
+					<td><%=list.get(0).getOrderNo() %></td>
+				</tr>
+				<tr>
+					<th>결제일</th>
+					<td><%=list.get(0).getOrderDate() %></td>
+				</tr>
+				<tr>
+					<th>주문처리상태</th>
+					<td>취소</td>
+				</tr>
+				<tr>
+					<th>주문자</th>
+					<td><%=list.get(0).getOrdrrName() %></td>
+				</tr>
+				<tr>
+					<th>주문자 휴대폰 번호</th>
+					<td><%=list.get(0).getOrdrrPhone() %></td>
+				</tr>
+				<tr>
+					<th>주문자 주소</th>
+					<%if(list.get(0).getZoneCode() != null){ %>
+						<td>(<%=list.get(0).getZoneCode() %>)<%=list.get(0).getAddress() %> <%=list.get(0).getAddrDetail() %></td>
+					<%}else{ %>
+						<td>(<%=list.get(0).getDelZoneCode() %>)<%=list.get(0).getDelAddress() %> <%=list.get(0).getDelAddrDetail() %></td>
+					<%} %>
+				</tr>
+			</table>
+		</div>
+			
+		<div id="del-info">
+			<h4>배송지 정보</h4>
+			<hr>
+			<table border="1">
+				<tr>
+					<th>수령인</th>
+					<td><%=list.get(0).getDelName() %></td>
+				</tr>
+				<tr>
+					<th>휴대폰 번호</th>
+					<td><%=list.get(0).getDelPhone() %></td>
+				</tr>
+				<tr>
+					<th>주소</th>
+					<td>(<%=list.get(0).getDelZoneCode() %>)<%=list.get(0).getDelAddress() %> <%=list.get(0).getDelAddrDetail() %></td>
+				</tr>
+				<tr>
+					<th>배송메모</th>
+				  	<%if(list.get(0).getShpMemo() != null) {%>
+						<%if(list.get(0).getShpMemo() == "0"){%>
+							<td>요청사항 없음</td>
+						<%}else if(list.get(0).getShpMemo() == "1"){%>
+							<td>경비실에 맡겨주세요.</td>
+						<%}else if(list.get(0).getShpMemo() == "2"){%>
+							<td>현관문 앞에 놓아주세요.</td>
+						<%}else if(list.get(0).getShpMemo() == "3"){%>
+							<td>배송 전에 미리 연락 바랍니다.</td>
+						<%} %>
+					<%}else{ %>
+						<td>요청사항 없음</td>
+					<%} %>
+				</tr>
+			</table>
+		</div>
+			
+		<div id="re-info">
+			<h4>환불 정보</h4>
+			<hr>
+			<table border="1">
+				<tr>
+					<th>결제수단</th>
+					<td><%=list.get(0).getPayment() %></td>
+				</tr>
+				<tr>
+					<th>환불금액</th>
+					<td><%=list.get(0).getPaymentAmount()+3000 %>(배송비포함)</td>
+				</tr>
+			</table>
+		</div>
+		
+		<div id="pay-info">
+			<h4>결제 정보</h4>
+			<hr>
+			<table border="1">
+				<tr>
+					<th>총 주문금액</th>
+					<td><%=list.get(0).getPaymentAmount()+3000 %></td>
+				</tr>
+				<tr>
+					<th>포인트 사용</th>
+					<td>- <%=list.get(0).getPointsUsed() %></td>
+				</tr>
+				<tr>
+					<th>배송비</th>
+					<td>+ 3,000</td>
+				</tr>
+				<tr>
+					<th>결제금액</th>
+					<td><%=list.get(0).getPaymentAmount()+3000-list.get(0).getPointsUsed() %></td>
+				</tr>
+				<tr>
+					<th>결제수단</th>
+					<td><%=list.get(0).getPayment() %></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+    
+	<div align="center">
+	  <button id="en-btn" onclick="history.back()">확인</button>
+	</div>
       
-        <div id="del-info">
-          <h4>배송지 정보</h4>
-          <hr>
-          <table border="1">
-            <tr>
-              <th>수령인</th>
-              <td><%=list.get(0).getDelName() %></td>
-            </tr>
-            <tr>
-              <th>휴대폰 번호</th>
-              <td><%=list.get(0).getDelPhone() %></td>
-            </tr>
-            <tr>
-              <th>주소</th>
-              <td>(<%=list.get(0).getDelZoneCode() %>)<%=list.get(0).getDelAddress() %> <%=list.get(0).getDelAddrDetail() %></td>
-            </tr>
-            <tr>
-              <th>배송메모</th>
-              	<%if(list.get(0).getShpMemo() != null) {%>
-			  	 <%if(list.get(0).getShpMemo() == "0"){%>
-				   <td>요청사항 없음</td>
-				  <%}else if(list.get(0).getShpMemo() == "1"){%>
-					   <td>경비실에 맡겨주세요.</td>
-				  <%}else if(list.get(0).getShpMemo() == "2"){%>
-					   <td>현관문 앞에 놓아주세요.</td>
-				  <%}else if(list.get(0).getShpMemo() == "3"){%>
-					   <td>배송 전에 미리 연락 바랍니다.</td>
-				  <%} %>
-			  <%}else{ %>
-			  	<td>요청사항 없음</td>
-			  <%} %>
-            </tr>
-          </table>
-        </div>
-      
-        <div id="re-info">
-          <h4>환불 정보</h4>
-          <hr>
-          <table border="1">
-            <tr>
-              <th>결제수단</th>
-              <td><%=list.get(0).getPayment() %></td>
-            </tr>
-            <tr>
-              <th>환불금액</th>
-              <td><%=list.get(0).getPaymentAmount()+3000 %>(배송비포함)</td>
-            </tr>
-          </table>
-        </div>
-        
-        <div id="pay-info">
-          <h4>결제 정보</h4>
-          <hr>
-          <table border="1">
-            <tr>
-              <th>총 주문금액</th>
-              <td><%=list.get(0).getPaymentAmount()+3000 %></td>
-            </tr>
-            <tr>
-              <th>포인트 사용</th>
-              <td>- <%=list.get(0).getPointsUsed() %></td>
-            </tr>
-            <tr>
-              <th>배송비</th>
-              <td>+ 3,000</td>
-            </tr>
-            <tr>
-              <th>결제금액</th>
-              <td><%=list.get(0).getPaymentAmount()+3000-list.get(0).getPointsUsed() %></td>
-            </tr>
-            <tr>
-              <th>결제수단</th>
-              <td><%=list.get(0).getPayment() %></td>
-            </tr>
-          </table>
-        </div>
-      </div>
-    
-      <div align="center">
-        <button id="en-btn" onclick="history.back()">확인</button>
-      </div>
-      
-      <script>
-      	$(function(){
-      		$(".on").each(function() {
-  			  var rows = $(".on:contains('" + $(this).text() + "')");
-  			  if (rows.length > 1) {
-  			    rows.eq(0).attr("rowspan", rows.length);
-  			    rows.not(":eq(0)").remove();
-  			  }
-  			});
-      	})
-      </script>
+	<script>
+	 	$(function(){
+			$(".on").each(function() {
+				var rows = $(".on:contains('" + $(this).text() + "')");
+				
+				if (rows.length > 1) {
+					rows.eq(0).attr("rowspan", rows.length);
+					rows.not(":eq(0)").remove();
+				}
+			});
+	 	})
+	</script>
 	
 	<br><br><br><br><br><br><br><br><br><br>
 	<%@ include file="../common/footerbar.jsp" %>

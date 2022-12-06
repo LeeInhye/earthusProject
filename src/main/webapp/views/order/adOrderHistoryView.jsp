@@ -22,7 +22,7 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <br>
+                	<br>
                     <h3 class="mt-4" style="font-weight:bold">구매 내역 조회</h3>
                     <hr>
                     <ol class="breadcrumb mb-4">
@@ -80,7 +80,7 @@
                     </div>
                     <br><br><br><br>
                     <!-- 페이징바 영역 -->
-			       <div class="paging-area" align="center">
+			       	<div class="paging-area" align="center">
 			        	<% if(currentPage != 1) { %>
 			            	<button onclick="location.href='<%=contextPath%>/adHistory.or?cpage=<%= pi.getCurrentPage()-1 %>';" class="btn btn_black">&lt;</button>
 						<% } %>
@@ -96,8 +96,8 @@
 						<% if(currentPage != maxPage) { %>
 			            <button onclick="location.href='<%=contextPath%>/adHistory.or?cpage=<%= pi.getCurrentPage()+1 %>';" class="btn btn_black">&gt;</button>
 			            <% } %>
-			       </div>
-			       <!-- 페이징바 영역 끝 -->
+			       	</div>
+			       	<!-- 페이징바 영역 끝 -->
                 </div>
             </main>
             
@@ -138,7 +138,6 @@
                 }
             })
 
-            
         })
     </script>
 	

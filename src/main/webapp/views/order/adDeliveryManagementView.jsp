@@ -121,10 +121,10 @@
 	                        </div>
 	                    </div>
                     	
-                    </div>
+					</div>
                     <br><br><br><br>
-                     <!-- 페이징바 영역 -->
-			       <div class="paging-area" align="center">
+                    <!-- 페이징바 영역 -->
+			       	<div class="paging-area" align="center">
 			        	<% if(currentPage != 1) { %>
 			            	<button onclick="location.href='<%=contextPath%>/adDel.or?cpage=<%= pi.getCurrentPage()-1 %>';" class="btn btn_black">&lt;</button>
 						<% } %>
@@ -140,8 +140,8 @@
 						<% if(currentPage != maxPage) { %>
 			            <button onclick="location.href='<%=contextPath%>/adDel.or?cpage=<%= pi.getCurrentPage()+1 %>';" class="btn btn_black">&gt;</button>
 			            <% } %>
-			       </div>
-			       <!-- 페이징바 영역 끝 -->
+			       	</div>
+			       	<!-- 페이징바 영역 끝 -->
                     
                 </div>
             </main>
@@ -183,7 +183,6 @@
                 }
             })
 
-            
         })
 
         $("#mo-btn1-ih").on("click", function(){
@@ -219,7 +218,6 @@
         		}
         	})
         })
-        
 
     </script>
 	
